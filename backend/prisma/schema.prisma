@@ -8,25 +8,25 @@ datasource db {
 }
 
 model Salon {
-  id            String   @id @default(uuid())
-  name          String
+  id   String @id @default(uuid())
+  name String
 
-  addressLine1  String?
-  addressLine2  String?
+  addressLine1 String?
+  addressLine2 String?
 
-  city          String?
-  state         String?
-  country       String?
-  postalCode    String?
+  city       String?
+  state      String?
+  country    String?
+  postalCode String?
 
-  phone         String?
-  email         String?
+  phone String?
+  email String?
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  users         User[]
-  staff         Staff[]
+  users User[]
+  staff Staff[]
 }
 
 model User {
@@ -44,7 +44,7 @@ model User {
 }
 
 model Staff {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   email       String
   phone       String?
@@ -52,16 +52,22 @@ model Staff {
   workingFrom String
   workingTo   String
   weekOff     String
-  status      Boolean  @default(true)
-  salonId     String
-  userId      String?  @unique
-  managerId   String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  manager     Staff?   @relation("StaffManager", fields: [managerId], references: [id])
-  teamMembers Staff[]  @relation("StaffManager")
-  salon       Salon    @relation(fields: [salonId], references: [id])
-  user        User?    @relation(fields: [userId], references: [id])
+  status      Boolean @default(true)
+
+  salonId String
+  userId  String? @unique
+
+  relationshipManagerId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  relationshipManager Staff? @relation("StaffRelationshipManager", fields: [relationshipManagerId], references: [id])
+
+  assignedStaff Staff[] @relation("StaffRelationshipManager")
+
+  salon Salon @relation(fields: [salonId], references: [id])
+  user  User? @relation(fields: [userId], references: [id])
 
   @@unique([salonId, email])
 }
