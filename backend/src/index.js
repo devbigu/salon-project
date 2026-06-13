@@ -3,11 +3,12 @@ import cors from "cors";
 import cookiesParser from "cookie-parser";
 import dotenv from "dotenv";
 import { env } from "./config/env.js";
-import authRoutes from "./routes/auth.routes.js";
-import userRoutes from './routes/user.routes.js';
-import salonRoutes from "./routes/salon.routes.js";
-import branchRoutes from "./routes/branch.routes.js";
-import staffRoutes from "./routes/staff.routes.js";
+import authRoutes from "./features/auth/auth.routes.js";
+import userRoutes from "./features/users/user.routes.js";
+import salonRoutes from "./features/salons/salon.routes.js";
+import branchRoutes from "./features/branches/branch.routes.js";
+import staffRoutes from "./features/staff/staff.routes.js";
+import customerRoutes from "./features/customers/customer.routes.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use("/api/branches", branchRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/salons", salonRoutes);
 app.use("/api/staff", staffRoutes);
+app.use("/api/customers", customerRoutes);
 app.get("/api/health", (req, res) => {
     res.status(200).json({
         success: true,

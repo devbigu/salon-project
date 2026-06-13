@@ -11,7 +11,7 @@ model Salon {
   id   String @id @default(uuid())
   name String
 
-branches Branch[]
+  branches Branch[]
 
   addressLine1 String?
   addressLine2 String?
@@ -27,8 +27,9 @@ branches Branch[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  users User[]
-  staff Staff[]
+  users     User[]
+  staff     Staff[]
+  customers Customer[]
 }
 
 model User {
@@ -45,12 +46,38 @@ model User {
   salon        Salon?   @relation(fields: [salonId], references: [id])
 }
 
-model Branch {
-  id        String   @id @default(uuid())
-  name      String
+model Customer {
+  id String @id @default(uuid())
 
-  salonId   String
-  salon     Salon    @relation(fields: [salonId], references: [id])
+  name        String
+  phone       String
+  email       String?
+  gender      String?
+  dateOfBirth DateTime?
+  notes       String?
+
+  totalVisits   Int       @default(0)
+  loyaltyPoints Int       @default(0)
+  lastVisitAt   DateTime?
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([salonId, phone])
+}
+
+model Branch {
+  id   String @id @default(uuid())
+  name String
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
 
   addressLine1 String?
   city         String?
@@ -58,7 +85,9 @@ model Branch {
   postalCode   String?
   phone        String?
 
-  staff     Staff[]
+  staff Staff[]
+
+  customers Customer[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,7 +96,7 @@ model Branch {
 }
 
 model Staff {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   email       String
   phone       String?
@@ -75,24 +104,24 @@ model Staff {
   workingFrom String
   workingTo   String
   weekOff     String
-  status      Boolean  @default(true)
+  status      Boolean @default(true)
 
-  salonId     String
-  userId      String?  @unique
+  salonId String
+  userId  String? @unique
 
   reportingManagerId String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   reportingManager Staff?  @relation("StaffReportingManager", fields: [reportingManagerId], references: [id])
-  reportees         Staff[] @relation("StaffReportingManager")
+  reportees        Staff[] @relation("StaffReportingManager")
 
   branchId String?
   branch   Branch? @relation(fields: [branchId], references: [id])
 
-  salon       Salon    @relation(fields: [salonId], references: [id])
-  user        User?    @relation(fields: [userId], references: [id])
+  salon Salon @relation(fields: [salonId], references: [id])
+  user  User? @relation(fields: [userId], references: [id])
 
   @@unique([salonId, email])
 }
