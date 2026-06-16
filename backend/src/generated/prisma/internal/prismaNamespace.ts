@@ -393,6 +393,7 @@ export const ModelName = {
   MainService: 'MainService',
   Service: 'Service',
   Appointment: 'Appointment',
+  AppointmentStatusHistory: 'AppointmentStatusHistory',
   AppointmentService: 'AppointmentService',
   Sale: 'Sale',
   SaleItem: 'SaleItem',
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "salon" | "user" | "customer" | "customerTransaction" | "branch" | "staff" | "mainService" | "service" | "appointment" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "payment"
+    modelProps: "salon" | "user" | "customer" | "customerTransaction" | "branch" | "staff" | "mainService" | "service" | "appointment" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "payment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1082,6 +1083,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AppointmentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AppointmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    AppointmentStatusHistory: {
+      payload: Prisma.$AppointmentStatusHistoryPayload<ExtArgs>
+      fields: Prisma.AppointmentStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AppointmentStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AppointmentStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.AppointmentStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AppointmentStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.AppointmentStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.AppointmentStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.AppointmentStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AppointmentStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.AppointmentStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.AppointmentStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.AppointmentStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AppointmentStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AppointmentStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.AppointmentStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.AppointmentStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAppointmentStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.AppointmentStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppointmentStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AppointmentStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppointmentStatusHistoryCountAggregateOutputType> | number
         }
       }
     }
@@ -1802,6 +1877,19 @@ export const AppointmentScalarFieldEnum = {
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
+export const AppointmentStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  appointmentId: 'appointmentId',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  note: 'note',
+  changedById: 'changedById',
+  createdAt: 'createdAt'
+} as const
+
+export type AppointmentStatusHistoryScalarFieldEnum = (typeof AppointmentStatusHistoryScalarFieldEnum)[keyof typeof AppointmentStatusHistoryScalarFieldEnum]
+
+
 export const AppointmentServiceScalarFieldEnum = {
   id: 'id',
   appointmentId: 'appointmentId',
@@ -2343,6 +2431,7 @@ export type GlobalOmitConfig = {
   mainService?: Prisma.MainServiceOmit
   service?: Prisma.ServiceOmit
   appointment?: Prisma.AppointmentOmit
+  appointmentStatusHistory?: Prisma.AppointmentStatusHistoryOmit
   appointmentService?: Prisma.AppointmentServiceOmit
   sale?: Prisma.SaleOmit
   saleItem?: Prisma.SaleItemOmit

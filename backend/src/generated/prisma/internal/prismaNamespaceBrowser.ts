@@ -60,6 +60,7 @@ export const ModelName = {
   MainService: 'MainService',
   Service: 'Service',
   Appointment: 'Appointment',
+  AppointmentStatusHistory: 'AppointmentStatusHistory',
   AppointmentService: 'AppointmentService',
   Sale: 'Sale',
   SaleItem: 'SaleItem',
@@ -243,6 +244,19 @@ export const AppointmentScalarFieldEnum = {
 } as const
 
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const AppointmentStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  appointmentId: 'appointmentId',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  note: 'note',
+  changedById: 'changedById',
+  createdAt: 'createdAt'
+} as const
+
+export type AppointmentStatusHistoryScalarFieldEnum = (typeof AppointmentStatusHistoryScalarFieldEnum)[keyof typeof AppointmentStatusHistoryScalarFieldEnum]
 
 
 export const AppointmentServiceScalarFieldEnum = {

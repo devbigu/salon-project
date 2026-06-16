@@ -7,7 +7,7 @@
     "moduleResolution": "NodeNext",
     "target": "ES2022",
 
-    "types": ["node"],
+    "types": ["node", "jest"],
 
     "sourceMap": false,
     "declaration": false,
@@ -30,6 +30,8 @@
     "dist",
     "generated",
     "prisma",
-    "prisma.config.ts"
+    "prisma.config.ts",
+    "src/__tests__",
+    "src/tests"
   ]
 }

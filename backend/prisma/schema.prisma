@@ -58,6 +58,8 @@ model User {
   branchId String?
   branch   Branch? @relation(fields: [branchId], references: [id])
 
+  appointmentStatusChanges AppointmentStatusHistory[] @relation("AppointmentStatusChangedBy")
+
   salesCreated Sale[] @relation("SaleCreatedBy")
   salesEdited  Sale[] @relation("SaleEditedBy")
   salesDeleted Sale[] @relation("SaleDeletedBy")
@@ -300,7 +302,8 @@ model Appointment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  invoice Invoice?
+  invoice       Invoice?
+  statusHistory AppointmentStatusHistory[]
 
   @@unique([salonId, appointmentCode])
   @@index([salonId])
@@ -311,6 +314,28 @@ model Appointment {
   @@index([startTime])
   @@index([salonId, startTime])
   @@index([staffId, startTime, endTime])
+}
+
+model AppointmentStatusHistory {
+  id String @id @default(uuid())
+
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+
+  oldStatus AppointmentStatus?
+  newStatus AppointmentStatus
+
+  note String?
+
+  changedById String?
+  changedBy   User?   @relation("AppointmentStatusChangedBy", fields: [changedById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([appointmentId])
+  @@index([changedById])
+  @@index([newStatus])
+  @@index([createdAt])
 }
 
 model AppointmentService {
@@ -379,31 +404,24 @@ enum SaleItemType {
 model Sale {
   id String @id @default(uuid())
 
-  // Example: SUM13210, ABM16578
   saleCode String @unique
 
-  // Multi-tenancy
   salonId  String
   branchId String?
 
-  // Customer
   customerId    String?
   customerName  String
   customerPhone String?
   customerEmail String?
 
-  // Staff who performed the sale/service
   staffId   String?
   staffName String?
 
-  // Invoice
   invoiceNumber String?  @unique
   invoiceDate   DateTime @default(now())
 
-  // Sale date shown in table
   saleDate DateTime @default(now())
 
-  // Amounts
   subtotalAmount Decimal @db.Decimal(10, 2)
   discountAmount Decimal @default(0) @db.Decimal(10, 2)
   taxPercent     Decimal @default(0) @db.Decimal(5, 2)
@@ -413,15 +431,12 @@ model Sale {
   paidAmount Decimal @default(0) @db.Decimal(10, 2)
   dueAmount  Decimal @default(0) @db.Decimal(10, 2)
 
-  // Payment summary
   paymentStatus PaymentStatus  @default(UNPAID)
   paymentMethod PaymentMethod?
   paymentNote   String?
 
-  // Status
   status SaleStatus @default(ACTIVE)
 
-  // Audit fields
   createdById String?
   editedById  String?
 
@@ -434,7 +449,6 @@ model Sale {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
   salon  Salon   @relation(fields: [salonId], references: [id], onDelete: Cascade)
   branch Branch? @relation(fields: [branchId], references: [id])
 
@@ -462,12 +476,10 @@ model SaleItem {
 
   saleId String
 
-  // Optional connection to service
   serviceId String?
 
   itemType SaleItemType @default(SERVICE)
 
-  // Snapshot name, useful even if service name changes later
   itemName String
 
   quantity Int @default(1)
@@ -541,14 +553,12 @@ model Invoice {
 
   invoiceDate DateTime @default(now())
 
-  // Salon snapshot for PDF
   salonName    String
   salonPhone   String?
   salonEmail   String?
   salonAddress String?
   salonGst     String?
 
-  // Customer snapshot for PDF
   customerName    String
   customerPhone   String?
   customerEmail   String?

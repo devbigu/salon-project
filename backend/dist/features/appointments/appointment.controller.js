@@ -1,4 +1,5 @@
 import {} from "express";
+import { randomUUID } from "node:crypto";
 import { AppointmentModel } from "./appointment.model.js";
 import { CustomerModel } from "../customers/customer.model.js";
 import { StaffModel } from "../staff/staff.model.js";
@@ -26,7 +27,7 @@ const getAppointmentIdParam = (req) => {
     return typeof id === "string" ? id : null;
 };
 const generateAppointmentCode = () => {
-    return `APT${Date.now()}`;
+    return `APT${Date.now()}${randomUUID().slice(0, 8)}`;
 };
 const durationToMinutes = (durationValue, durationUnit) => {
     if (!durationValue) {
@@ -249,7 +250,7 @@ export const getAppointmentById = async (req, res) => {
 export const updateAppointmentStatus = async (req, res) => {
     try {
         const id = getAppointmentIdParam(req);
-        const { status } = req.body;
+        const { status, note } = req.body;
         if (!id) {
             return res.status(400).json({
                 success: false,
@@ -269,7 +270,18 @@ export const updateAppointmentStatus = async (req, res) => {
                 message: "Appointment not found",
             });
         }
-        const appointment = await AppointmentModel.updateStatus(id, status);
+        if (existingAppointment.status === status) {
+            return res.status(400).json({
+                success: false,
+                message: "Appointment already has this status",
+            });
+        }
+        const appointment = await AppointmentModel.updateStatusWithHistory(id, {
+            oldStatus: existingAppointment.status,
+            newStatus: status,
+            ...(note ? { note } : {}),
+            ...(req.user?.userId ? { changedById: req.user.userId } : {}),
+        });
         return res.status(200).json({
             success: true,
             message: "Appointment status updated successfully",
@@ -429,6 +441,36 @@ export const deleteAppointment = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Internal server error. Appointment may already be linked with invoice.",
+        });
+    }
+};
+export const getAppointmentTracking = async (req, res) => {
+    try {
+        const id = getAppointmentIdParam(req);
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "Appointment ID is required",
+            });
+        }
+        const existingAppointment = await getExistingAppointmentByAccess(req, id);
+        if (!existingAppointment) {
+            return res.status(404).json({
+                success: false,
+                message: "Appointment not found",
+            });
+        }
+        const tracking = await AppointmentModel.findStatusHistory(id);
+        return res.status(200).json({
+            success: true,
+            message: "Appointment tracking fetched successfully",
+            data: tracking,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
         });
     }
 };

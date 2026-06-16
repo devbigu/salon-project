@@ -48,6 +48,7 @@ export const ModelName = {
     MainService: 'MainService',
     Service: 'Service',
     Appointment: 'Appointment',
+    AppointmentStatusHistory: 'AppointmentStatusHistory',
     AppointmentService: 'AppointmentService',
     Sale: 'Sale',
     SaleItem: 'SaleItem',
@@ -188,6 +189,15 @@ export const AppointmentScalarFieldEnum = {
     internalNote: 'internalNote',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const AppointmentStatusHistoryScalarFieldEnum = {
+    id: 'id',
+    appointmentId: 'appointmentId',
+    oldStatus: 'oldStatus',
+    newStatus: 'newStatus',
+    note: 'note',
+    changedById: 'changedById',
+    createdAt: 'createdAt'
 };
 export const AppointmentServiceScalarFieldEnum = {
     id: 'id',

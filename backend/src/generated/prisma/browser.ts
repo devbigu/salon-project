@@ -63,6 +63,11 @@ export type Service = Prisma.ServiceModel
  */
 export type Appointment = Prisma.AppointmentModel
 /**
+ * Model AppointmentStatusHistory
+ * 
+ */
+export type AppointmentStatusHistory = Prisma.AppointmentStatusHistoryModel
+/**
  * Model AppointmentService
  * 
  */

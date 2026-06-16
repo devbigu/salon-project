@@ -30,6 +30,13 @@ export const BranchModel = {
             },
         });
     },
+    findById: async (id) => {
+        return prisma.branch.findUnique({
+            where: {
+                id,
+            },
+        });
+    },
     findByIdAndSalon: async (id, salonId) => {
         return prisma.branch.findFirst({
             where: {
@@ -40,5 +47,20 @@ export const BranchModel = {
     },
     findByIdandSalon: async (id, salonId) => {
         return BranchModel.findByIdAndSalon(id, salonId);
+    },
+    update: async (id, data) => {
+        return prisma.branch.update({
+            where: {
+                id,
+            },
+            data,
+        });
+    },
+    delete: async (id) => {
+        return prisma.branch.delete({
+            where: {
+                id,
+            },
+        });
     },
 };

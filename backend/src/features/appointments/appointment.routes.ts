@@ -7,7 +7,8 @@ import {
   updateAppointmentBasicDetails,
   updateAppointmentStatus,
   deleteAppointment,
-  rescheduleAppointment
+  rescheduleAppointment,
+  getAppointmentTracking,
 } from "./appointment.controller.js";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
@@ -30,4 +31,6 @@ router.put("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"), updateApp
 
 router.delete("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), deleteAppointment);
 
+router.get("/:id/tracking",requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"),getAppointmentTracking
+);
 export default router;

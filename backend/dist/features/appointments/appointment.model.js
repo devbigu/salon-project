@@ -436,4 +436,86 @@ export const AppointmentModel = {
             },
         });
     },
+    createStatusHistory: async (data) => {
+        return prisma.appointmentStatusHistory.create({
+            data: {
+                appointmentId: data.appointmentId,
+                ...(data.oldStatus ? { oldStatus: data.oldStatus } : {}),
+                newStatus: data.newStatus,
+                ...(data.note ? { note: data.note } : {}),
+                ...(data.changedById ? { changedById: data.changedById } : {}),
+            },
+        });
+    },
+    updateStatusWithHistory: async (id, data) => {
+        return prisma.$transaction(async (tx) => {
+            const appointment = await tx.appointment.update({
+                where: {
+                    id,
+                },
+                data: {
+                    status: data.newStatus,
+                },
+                include: {
+                    customer: {
+                        select: {
+                            id: true,
+                            name: true,
+                            phone: true,
+                            customerCode: true,
+                        },
+                    },
+                    staff: {
+                        select: {
+                            id: true,
+                            name: true,
+                            jobRole: true,
+                        },
+                    },
+                    branch: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                    services: true,
+                    statusHistory: {
+                        orderBy: {
+                            createdAt: "desc",
+                        },
+                    },
+                },
+            });
+            await tx.appointmentStatusHistory.create({
+                data: {
+                    appointmentId: id,
+                    oldStatus: data.oldStatus,
+                    newStatus: data.newStatus,
+                    ...(data.note ? { note: data.note } : {}),
+                    ...(data.changedById ? { changedById: data.changedById } : {}),
+                },
+            });
+            return appointment;
+        });
+    },
+    findStatusHistory: async (appointmentId) => {
+        return prisma.appointmentStatusHistory.findMany({
+            where: {
+                appointmentId,
+            },
+            include: {
+                changedBy: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        role: true,
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: "asc",
+            },
+        });
+    },
 };
