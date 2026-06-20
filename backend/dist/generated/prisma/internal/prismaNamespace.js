@@ -84,7 +84,10 @@ export const ModelName = {
     SalePayment: 'SalePayment',
     Invoice: 'Invoice',
     InvoiceItem: 'InvoiceItem',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    SupportTicket: 'SupportTicket',
+    SupportTicketMessage: 'SupportTicketMessage',
+    SupportTicketStatusHistory: 'SupportTicketStatusHistory'
 };
 /**
  * Enums
@@ -368,6 +371,47 @@ export const PaymentScalarFieldEnum = {
     paidAt: 'paidAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const SupportTicketScalarFieldEnum = {
+    id: 'id',
+    ticketCode: 'ticketCode',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    reporterId: 'reporterId',
+    reporterName: 'reporterName',
+    reporterEmail: 'reporterEmail',
+    reporterPhone: 'reporterPhone',
+    title: 'title',
+    description: 'description',
+    category: 'category',
+    priority: 'priority',
+    status: 'status',
+    source: 'source',
+    pageUrl: 'pageUrl',
+    browserInfo: 'browserInfo',
+    errorMessage: 'errorMessage',
+    assignedToId: 'assignedToId',
+    resolutionNotes: 'resolutionNotes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const SupportTicketMessageScalarFieldEnum = {
+    id: 'id',
+    ticketId: 'ticketId',
+    senderId: 'senderId',
+    senderEmail: 'senderEmail',
+    message: 'message',
+    isInternalNote: 'isInternalNote',
+    createdAt: 'createdAt'
+};
+export const SupportTicketStatusHistoryScalarFieldEnum = {
+    id: 'id',
+    ticketId: 'ticketId',
+    oldStatus: 'oldStatus',
+    newStatus: 'newStatus',
+    changedById: 'changedById',
+    note: 'note',
+    createdAt: 'createdAt'
 };
 export const SortOrder = {
     asc: 'asc',

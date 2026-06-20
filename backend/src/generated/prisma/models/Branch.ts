@@ -231,6 +231,7 @@ export type BranchWhereInput = {
   invoices?: Prisma.InvoiceListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }
 
 export type BranchOrderByWithRelationInput = {
@@ -253,6 +254,7 @@ export type BranchOrderByWithRelationInput = {
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
+  supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
 }
 
 export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -279,6 +281,7 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   invoices?: Prisma.InvoiceListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }, "id" | "salonId_name">
 
 export type BranchOrderByWithAggregationInput = {
@@ -332,6 +335,7 @@ export type BranchCreateInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateInput = {
@@ -353,6 +357,7 @@ export type BranchUncheckedCreateInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUpdateInput = {
@@ -374,6 +379,7 @@ export type BranchUpdateInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateInput = {
@@ -395,6 +401,7 @@ export type BranchUncheckedUpdateInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManyInput = {
@@ -664,6 +671,22 @@ export type BranchUpdateOneWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutPaymentsInput, Prisma.BranchUpdateWithoutPaymentsInput>, Prisma.BranchUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type BranchCreateNestedOneWithoutSupportTicketsInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutSupportTicketsInput, Prisma.BranchUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutSupportTicketsInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutSupportTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutSupportTicketsInput, Prisma.BranchUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutSupportTicketsInput
+  upsert?: Prisma.BranchUpsertWithoutSupportTicketsInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutSupportTicketsInput, Prisma.BranchUpdateWithoutSupportTicketsInput>, Prisma.BranchUncheckedUpdateWithoutSupportTicketsInput>
+}
+
 export type BranchCreateWithoutSalonInput = {
   id?: string
   name: string
@@ -682,6 +705,7 @@ export type BranchCreateWithoutSalonInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalonInput = {
@@ -702,6 +726,7 @@ export type BranchUncheckedCreateWithoutSalonInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalonInput = {
@@ -764,6 +789,7 @@ export type BranchCreateWithoutUsersInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutUsersInput = {
@@ -784,6 +810,7 @@ export type BranchUncheckedCreateWithoutUsersInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutUsersInput = {
@@ -820,6 +847,7 @@ export type BranchUpdateWithoutUsersInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -840,6 +868,7 @@ export type BranchUncheckedUpdateWithoutUsersInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutCustomersInput = {
@@ -860,6 +889,7 @@ export type BranchCreateWithoutCustomersInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutCustomersInput = {
@@ -880,6 +910,7 @@ export type BranchUncheckedCreateWithoutCustomersInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutCustomersInput = {
@@ -916,6 +947,7 @@ export type BranchUpdateWithoutCustomersInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutCustomersInput = {
@@ -936,6 +968,7 @@ export type BranchUncheckedUpdateWithoutCustomersInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffInput = {
@@ -956,6 +989,7 @@ export type BranchCreateWithoutStaffInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffInput = {
@@ -976,6 +1010,7 @@ export type BranchUncheckedCreateWithoutStaffInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffInput = {
@@ -1012,6 +1047,7 @@ export type BranchUpdateWithoutStaffInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffInput = {
@@ -1032,6 +1068,7 @@ export type BranchUncheckedUpdateWithoutStaffInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutServicesInput = {
@@ -1052,6 +1089,7 @@ export type BranchCreateWithoutServicesInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutServicesInput = {
@@ -1072,6 +1110,7 @@ export type BranchUncheckedCreateWithoutServicesInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutServicesInput = {
@@ -1108,6 +1147,7 @@ export type BranchUpdateWithoutServicesInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutServicesInput = {
@@ -1128,6 +1168,7 @@ export type BranchUncheckedUpdateWithoutServicesInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutAppointmentsInput = {
@@ -1148,6 +1189,7 @@ export type BranchCreateWithoutAppointmentsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutAppointmentsInput = {
@@ -1168,6 +1210,7 @@ export type BranchUncheckedCreateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutAppointmentsInput = {
@@ -1204,6 +1247,7 @@ export type BranchUpdateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutAppointmentsInput = {
@@ -1224,6 +1268,7 @@ export type BranchUncheckedUpdateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSalesInput = {
@@ -1244,6 +1289,7 @@ export type BranchCreateWithoutSalesInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalesInput = {
@@ -1264,6 +1310,7 @@ export type BranchUncheckedCreateWithoutSalesInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalesInput = {
@@ -1300,6 +1347,7 @@ export type BranchUpdateWithoutSalesInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalesInput = {
@@ -1320,6 +1368,7 @@ export type BranchUncheckedUpdateWithoutSalesInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutInvoicesInput = {
@@ -1340,6 +1389,7 @@ export type BranchCreateWithoutInvoicesInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutInvoicesInput = {
@@ -1360,6 +1410,7 @@ export type BranchUncheckedCreateWithoutInvoicesInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutInvoicesInput = {
@@ -1396,6 +1447,7 @@ export type BranchUpdateWithoutInvoicesInput = {
   sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutInvoicesInput = {
@@ -1416,6 +1468,7 @@ export type BranchUncheckedUpdateWithoutInvoicesInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutPaymentsInput = {
@@ -1436,6 +1489,7 @@ export type BranchCreateWithoutPaymentsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutPaymentsInput = {
@@ -1456,6 +1510,7 @@ export type BranchUncheckedCreateWithoutPaymentsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutPaymentsInput = {
@@ -1492,6 +1547,7 @@ export type BranchUpdateWithoutPaymentsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutPaymentsInput = {
@@ -1511,6 +1567,107 @@ export type BranchUncheckedUpdateWithoutPaymentsInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutSupportTicketsInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutSupportTicketsInput, Prisma.BranchUncheckedCreateWithoutSupportTicketsInput>
+}
+
+export type BranchUpsertWithoutSupportTicketsInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutSupportTicketsInput, Prisma.BranchUncheckedUpdateWithoutSupportTicketsInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutSupportTicketsInput, Prisma.BranchUncheckedCreateWithoutSupportTicketsInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutSupportTicketsInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutSupportTicketsInput, Prisma.BranchUncheckedUpdateWithoutSupportTicketsInput>
+}
+
+export type BranchUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
 }
 
@@ -1544,6 +1701,7 @@ export type BranchUpdateWithoutSalonInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalonInput = {
@@ -1564,6 +1722,7 @@ export type BranchUncheckedUpdateWithoutSalonInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateManyWithoutSalonInput = {
@@ -1592,6 +1751,7 @@ export type BranchCountOutputType = {
   invoices: number
   payments: number
   appointments: number
+  supportTickets: number
 }
 
 export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1603,6 +1763,7 @@ export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   invoices?: boolean | BranchCountOutputTypeCountInvoicesArgs
   payments?: boolean | BranchCountOutputTypeCountPaymentsArgs
   appointments?: boolean | BranchCountOutputTypeCountAppointmentsArgs
+  supportTickets?: boolean | BranchCountOutputTypeCountSupportTicketsArgs
 }
 
 /**
@@ -1671,6 +1832,13 @@ export type BranchCountOutputTypeCountAppointmentsArgs<ExtArgs extends runtime.T
   where?: Prisma.AppointmentWhereInput
 }
 
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketWhereInput
+}
+
 
 export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1692,6 +1860,7 @@ export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   invoices?: boolean | Prisma.Branch$invoicesArgs<ExtArgs>
   payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
   appointments?: boolean | Prisma.Branch$appointmentsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.Branch$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
@@ -1747,6 +1916,7 @@ export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   invoices?: boolean | Prisma.Branch$invoicesArgs<ExtArgs>
   payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
   appointments?: boolean | Prisma.Branch$appointmentsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.Branch$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1768,6 +1938,7 @@ export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+    supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2183,6 +2354,7 @@ export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.T
   invoices<T extends Prisma.Branch$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Branch$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   appointments<T extends Prisma.Branch$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supportTickets<T extends Prisma.Branch$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2812,6 +2984,30 @@ export type Branch$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
+}
+
+/**
+ * Branch.supportTickets
+ */
+export type Branch$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicket
+   */
+  select?: Prisma.SupportTicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicket
+   */
+  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketWhereInput
+  orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
 }
 
 /**

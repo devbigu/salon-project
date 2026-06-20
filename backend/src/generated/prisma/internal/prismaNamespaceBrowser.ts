@@ -67,7 +67,10 @@ export const ModelName = {
   SalePayment: 'SalePayment',
   Invoice: 'Invoice',
   InvoiceItem: 'InvoiceItem',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  SupportTicket: 'SupportTicket',
+  SupportTicketMessage: 'SupportTicketMessage',
+  SupportTicketStatusHistory: 'SupportTicketStatusHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,6 +429,59 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const SupportTicketScalarFieldEnum = {
+  id: 'id',
+  ticketCode: 'ticketCode',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  reporterId: 'reporterId',
+  reporterName: 'reporterName',
+  reporterEmail: 'reporterEmail',
+  reporterPhone: 'reporterPhone',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  priority: 'priority',
+  status: 'status',
+  source: 'source',
+  pageUrl: 'pageUrl',
+  browserInfo: 'browserInfo',
+  errorMessage: 'errorMessage',
+  assignedToId: 'assignedToId',
+  resolutionNotes: 'resolutionNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
+
+
+export const SupportTicketMessageScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  senderId: 'senderId',
+  senderEmail: 'senderEmail',
+  message: 'message',
+  isInternalNote: 'isInternalNote',
+  createdAt: 'createdAt'
+} as const
+
+export type SupportTicketMessageScalarFieldEnum = (typeof SupportTicketMessageScalarFieldEnum)[keyof typeof SupportTicketMessageScalarFieldEnum]
+
+
+export const SupportTicketStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  oldStatus: 'oldStatus',
+  newStatus: 'newStatus',
+  changedById: 'changedById',
+  note: 'note',
+  createdAt: 'createdAt'
+} as const
+
+export type SupportTicketStatusHistoryScalarFieldEnum = (typeof SupportTicketStatusHistoryScalarFieldEnum)[keyof typeof SupportTicketStatusHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
