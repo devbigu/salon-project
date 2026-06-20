@@ -41,6 +41,7 @@ model Salon {
   staff                Staff[]
   customers            Customer[]
   customerTransactions CustomerTransaction[]
+  supportTickets       SupportTicket[]
 }
 
 model User {
@@ -68,6 +69,11 @@ model User {
   salePaymentsReceived SalePayment[] @relation("SalePaymentReceivedBy")
   staffProfile         Staff?
   salon                Salon?        @relation(fields: [salonId], references: [id])
+
+  reportedSupportTickets     SupportTicket[]              @relation("SupportTicketReporter")
+  assignedSupportTickets     SupportTicket[]              @relation("SupportTicketAssignedTo")
+  supportTicketMessages      SupportTicketMessage[]       @relation("SupportTicketMessageSender")
+  supportTicketStatusChanges SupportTicketStatusHistory[] @relation("SupportTicketStatusChangedBy")
 }
 
 model Customer {
@@ -187,8 +193,9 @@ model Branch {
 
   appointments Appointment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  supportTickets SupportTicket[]
 
   @@unique([salonId, name])
 }
@@ -709,4 +716,134 @@ enum CustomerTransactionType {
   WALLET_USED
   REFUND
   ADJUSTMENT
+}
+
+model SupportTicket {
+  id         String @id @default(uuid())
+  ticketCode String
+
+  salonId String?
+  salon   Salon?  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  reporterId String?
+  reporter   User?   @relation("SupportTicketReporter", fields: [reporterId], references: [id])
+
+  reporterName  String?
+  reporterEmail String
+  reporterPhone String?
+
+  title       String
+  description String
+
+  category SupportTicketCategory @default(OTHER)
+  priority SupportTicketPriority @default(MEDIUM)
+  status   SupportTicketStatus   @default(OPEN)
+
+  source SupportTicketSource @default(DASHBOARD)
+
+  pageUrl      String?
+  browserInfo  String?
+  errorMessage String?
+
+  assignedToId String?
+  assignedTo   User?   @relation("SupportTicketAssignedTo", fields: [assignedToId], references: [id])
+
+  resolutionNotes String?
+
+  messages      SupportTicketMessage[]
+  statusHistory SupportTicketStatusHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([ticketCode])
+  @@index([salonId])
+  @@index([branchId])
+  @@index([reporterId])
+  @@index([reporterEmail])
+  @@index([assignedToId])
+  @@index([status])
+  @@index([priority])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model SupportTicketMessage {
+  id String @id @default(uuid())
+
+  ticketId String
+  ticket   SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  senderId String?
+  sender   User?   @relation("SupportTicketMessageSender", fields: [senderId], references: [id])
+
+  senderEmail String?
+  message     String
+
+  isInternalNote Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([ticketId])
+  @@index([senderId])
+}
+
+model SupportTicketStatusHistory {
+  id String @id @default(uuid())
+
+  ticketId String
+  ticket   SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  oldStatus SupportTicketStatus?
+  newStatus SupportTicketStatus
+
+  changedById String?
+  changedBy   User?   @relation("SupportTicketStatusChangedBy", fields: [changedById], references: [id])
+
+  note String?
+
+  createdAt DateTime @default(now())
+
+  @@index([ticketId])
+  @@index([changedById])
+  @@index([newStatus])
+  @@index([createdAt])
+}
+
+enum SupportTicketCategory {
+  LOGIN_ISSUE
+  CUSTOMER_MODULE
+  APPOINTMENT_MODULE
+  STAFF_MODULE
+  SERVICE_MODULE
+  BILLING_INVOICE
+  PAYMENT_MODULE
+  REPORTS
+  PERFORMANCE
+  BUG
+  OTHER
+}
+
+enum SupportTicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_FOR_USER
+  RESOLVED
+  CLOSED
+  REJECTED
+}
+
+enum SupportTicketSource {
+  LOGIN_PAGE
+  DASHBOARD
 }

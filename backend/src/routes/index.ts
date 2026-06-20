@@ -11,6 +11,7 @@ import serviceRoutes from "../features/services/service.routes.js";
 import appointmentRoutes from "../features/appointments/appointment.routes.js";
 import invoiceRoutes from "../features/Invoices/invoice.routes.js";
 import paymentRoutes from "../features/Payments/payment.routes.js";
+import supportTicketRoutes from "../features/support-tickets/supportTicket.routes.js";
 
 
 
@@ -27,6 +28,7 @@ router.use("/services", serviceRoutes);
 router.use("/appointments", appointmentRoutes);
 router.use("/invoices", invoiceRoutes)
 router.use("/payments", paymentRoutes)
+router.use("/support-tickets", supportTicketRoutes);
 
 
 export default router;

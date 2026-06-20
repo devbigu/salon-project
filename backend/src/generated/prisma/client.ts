@@ -126,3 +126,18 @@ export type InvoiceItem = Prisma.InvoiceItemModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model SupportTicket
+ * 
+ */
+export type SupportTicket = Prisma.SupportTicketModel
+/**
+ * Model SupportTicketMessage
+ * 
+ */
+export type SupportTicketMessage = Prisma.SupportTicketMessageModel
+/**
+ * Model SupportTicketStatusHistory
+ * 
+ */
+export type SupportTicketStatusHistory = Prisma.SupportTicketStatusHistoryModel

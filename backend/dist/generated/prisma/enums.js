@@ -82,3 +82,34 @@ export const CustomerTransactionType = {
     REFUND: 'REFUND',
     ADJUSTMENT: 'ADJUSTMENT'
 };
+export const SupportTicketCategory = {
+    LOGIN_ISSUE: 'LOGIN_ISSUE',
+    CUSTOMER_MODULE: 'CUSTOMER_MODULE',
+    APPOINTMENT_MODULE: 'APPOINTMENT_MODULE',
+    STAFF_MODULE: 'STAFF_MODULE',
+    SERVICE_MODULE: 'SERVICE_MODULE',
+    BILLING_INVOICE: 'BILLING_INVOICE',
+    PAYMENT_MODULE: 'PAYMENT_MODULE',
+    REPORTS: 'REPORTS',
+    PERFORMANCE: 'PERFORMANCE',
+    BUG: 'BUG',
+    OTHER: 'OTHER'
+};
+export const SupportTicketPriority = {
+    LOW: 'LOW',
+    MEDIUM: 'MEDIUM',
+    HIGH: 'HIGH',
+    URGENT: 'URGENT'
+};
+export const SupportTicketStatus = {
+    OPEN: 'OPEN',
+    IN_PROGRESS: 'IN_PROGRESS',
+    WAITING_FOR_USER: 'WAITING_FOR_USER',
+    RESOLVED: 'RESOLVED',
+    CLOSED: 'CLOSED',
+    REJECTED: 'REJECTED'
+};
+export const SupportTicketSource = {
+    LOGIN_PAGE: 'LOGIN_PAGE',
+    DASHBOARD: 'DASHBOARD'
+};

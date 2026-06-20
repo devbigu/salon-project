@@ -2,5 +2,5 @@
 > backend@1.0.0 start
 > tsx dist/index.js
 
-◇ injected env (5) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (5) from .env // tip: ⌘ enable debugging { debug: true }
 Server running on port 5000

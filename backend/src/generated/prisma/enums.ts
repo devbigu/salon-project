@@ -130,3 +130,50 @@ export const CustomerTransactionType = {
 } as const
 
 export type CustomerTransactionType = (typeof CustomerTransactionType)[keyof typeof CustomerTransactionType]
+
+
+export const SupportTicketCategory = {
+  LOGIN_ISSUE: 'LOGIN_ISSUE',
+  CUSTOMER_MODULE: 'CUSTOMER_MODULE',
+  APPOINTMENT_MODULE: 'APPOINTMENT_MODULE',
+  STAFF_MODULE: 'STAFF_MODULE',
+  SERVICE_MODULE: 'SERVICE_MODULE',
+  BILLING_INVOICE: 'BILLING_INVOICE',
+  PAYMENT_MODULE: 'PAYMENT_MODULE',
+  REPORTS: 'REPORTS',
+  PERFORMANCE: 'PERFORMANCE',
+  BUG: 'BUG',
+  OTHER: 'OTHER'
+} as const
+
+export type SupportTicketCategory = (typeof SupportTicketCategory)[keyof typeof SupportTicketCategory]
+
+
+export const SupportTicketPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type SupportTicketPriority = (typeof SupportTicketPriority)[keyof typeof SupportTicketPriority]
+
+
+export const SupportTicketStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  WAITING_FOR_USER: 'WAITING_FOR_USER',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type SupportTicketStatus = (typeof SupportTicketStatus)[keyof typeof SupportTicketStatus]
+
+
+export const SupportTicketSource = {
+  LOGIN_PAGE: 'LOGIN_PAGE',
+  DASHBOARD: 'DASHBOARD'
+} as const
+
+export type SupportTicketSource = (typeof SupportTicketSource)[keyof typeof SupportTicketSource]

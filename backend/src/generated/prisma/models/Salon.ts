@@ -249,6 +249,7 @@ export type SalonWhereInput = {
   staff?: Prisma.StaffListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }
 
 export type SalonOrderByWithRelationInput = {
@@ -275,6 +276,7 @@ export type SalonOrderByWithRelationInput = {
   staff?: Prisma.StaffOrderByRelationAggregateInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
   customerTransactions?: Prisma.CustomerTransactionOrderByRelationAggregateInput
+  supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
 }
 
 export type SalonWhereUniqueInput = Prisma.AtLeast<{
@@ -304,6 +306,7 @@ export type SalonWhereUniqueInput = Prisma.AtLeast<{
   staff?: Prisma.StaffListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }, "id">
 
 export type SalonOrderByWithAggregationInput = {
@@ -366,6 +369,7 @@ export type SalonCreateInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateInput = {
@@ -392,6 +396,7 @@ export type SalonUncheckedCreateInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUpdateInput = {
@@ -418,6 +423,7 @@ export type SalonUpdateInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateInput = {
@@ -444,6 +450,7 @@ export type SalonUncheckedUpdateInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateManyInput = {
@@ -714,6 +721,22 @@ export type SalonUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SalonUpdateWithoutPaymentsInput>, Prisma.SalonUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type SalonCreateNestedOneWithoutSupportTicketsInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutSupportTicketsInput, Prisma.SalonUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutSupportTicketsInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneWithoutSupportTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutSupportTicketsInput, Prisma.SalonUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutSupportTicketsInput
+  upsert?: Prisma.SalonUpsertWithoutSupportTicketsInput
+  disconnect?: Prisma.SalonWhereInput | boolean
+  delete?: Prisma.SalonWhereInput | boolean
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutSupportTicketsInput, Prisma.SalonUpdateWithoutSupportTicketsInput>, Prisma.SalonUncheckedUpdateWithoutSupportTicketsInput>
+}
+
 export type SalonCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -737,6 +760,7 @@ export type SalonCreateWithoutUsersInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutUsersInput = {
@@ -762,6 +786,7 @@ export type SalonUncheckedCreateWithoutUsersInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutUsersInput = {
@@ -803,6 +828,7 @@ export type SalonUpdateWithoutUsersInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutUsersInput = {
@@ -828,6 +854,7 @@ export type SalonUncheckedUpdateWithoutUsersInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomersInput = {
@@ -853,6 +880,7 @@ export type SalonCreateWithoutCustomersInput = {
   users?: Prisma.UserCreateNestedManyWithoutSalonInput
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomersInput = {
@@ -878,6 +906,7 @@ export type SalonUncheckedCreateWithoutCustomersInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomersInput = {
@@ -919,6 +948,7 @@ export type SalonUpdateWithoutCustomersInput = {
   users?: Prisma.UserUpdateManyWithoutSalonNestedInput
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomersInput = {
@@ -944,6 +974,7 @@ export type SalonUncheckedUpdateWithoutCustomersInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomerTransactionsInput = {
@@ -969,6 +1000,7 @@ export type SalonCreateWithoutCustomerTransactionsInput = {
   users?: Prisma.UserCreateNestedManyWithoutSalonInput
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
@@ -994,6 +1026,7 @@ export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomerTransactionsInput = {
@@ -1035,6 +1068,7 @@ export type SalonUpdateWithoutCustomerTransactionsInput = {
   users?: Prisma.UserUpdateManyWithoutSalonNestedInput
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
@@ -1060,6 +1094,7 @@ export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutBranchesInput = {
@@ -1085,6 +1120,7 @@ export type SalonCreateWithoutBranchesInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutBranchesInput = {
@@ -1110,6 +1146,7 @@ export type SalonUncheckedCreateWithoutBranchesInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutBranchesInput = {
@@ -1151,6 +1188,7 @@ export type SalonUpdateWithoutBranchesInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutBranchesInput = {
@@ -1176,6 +1214,7 @@ export type SalonUncheckedUpdateWithoutBranchesInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffInput = {
@@ -1201,6 +1240,7 @@ export type SalonCreateWithoutStaffInput = {
   users?: Prisma.UserCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffInput = {
@@ -1226,6 +1266,7 @@ export type SalonUncheckedCreateWithoutStaffInput = {
   users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffInput = {
@@ -1267,6 +1308,7 @@ export type SalonUpdateWithoutStaffInput = {
   users?: Prisma.UserUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffInput = {
@@ -1292,6 +1334,7 @@ export type SalonUncheckedUpdateWithoutStaffInput = {
   users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutMainServicesInput = {
@@ -1317,6 +1360,7 @@ export type SalonCreateWithoutMainServicesInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutMainServicesInput = {
@@ -1342,6 +1386,7 @@ export type SalonUncheckedCreateWithoutMainServicesInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutMainServicesInput = {
@@ -1383,6 +1428,7 @@ export type SalonUpdateWithoutMainServicesInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutMainServicesInput = {
@@ -1408,6 +1454,7 @@ export type SalonUncheckedUpdateWithoutMainServicesInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutServicesInput = {
@@ -1433,6 +1480,7 @@ export type SalonCreateWithoutServicesInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutServicesInput = {
@@ -1458,6 +1506,7 @@ export type SalonUncheckedCreateWithoutServicesInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutServicesInput = {
@@ -1499,6 +1548,7 @@ export type SalonUpdateWithoutServicesInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutServicesInput = {
@@ -1524,6 +1574,7 @@ export type SalonUncheckedUpdateWithoutServicesInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutAppointmentsInput = {
@@ -1549,6 +1600,7 @@ export type SalonCreateWithoutAppointmentsInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutAppointmentsInput = {
@@ -1574,6 +1626,7 @@ export type SalonUncheckedCreateWithoutAppointmentsInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutAppointmentsInput = {
@@ -1615,6 +1668,7 @@ export type SalonUpdateWithoutAppointmentsInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutAppointmentsInput = {
@@ -1640,6 +1694,7 @@ export type SalonUncheckedUpdateWithoutAppointmentsInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSalesInput = {
@@ -1665,6 +1720,7 @@ export type SalonCreateWithoutSalesInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSalesInput = {
@@ -1690,6 +1746,7 @@ export type SalonUncheckedCreateWithoutSalesInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSalesInput = {
@@ -1731,6 +1788,7 @@ export type SalonUpdateWithoutSalesInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSalesInput = {
@@ -1756,6 +1814,7 @@ export type SalonUncheckedUpdateWithoutSalesInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutInvoicesInput = {
@@ -1781,6 +1840,7 @@ export type SalonCreateWithoutInvoicesInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutInvoicesInput = {
@@ -1806,6 +1866,7 @@ export type SalonUncheckedCreateWithoutInvoicesInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutInvoicesInput = {
@@ -1847,6 +1908,7 @@ export type SalonUpdateWithoutInvoicesInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutInvoicesInput = {
@@ -1872,6 +1934,7 @@ export type SalonUncheckedUpdateWithoutInvoicesInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutPaymentsInput = {
@@ -1897,6 +1960,7 @@ export type SalonCreateWithoutPaymentsInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutPaymentsInput = {
@@ -1922,6 +1986,7 @@ export type SalonUncheckedCreateWithoutPaymentsInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutPaymentsInput = {
@@ -1963,6 +2028,7 @@ export type SalonUpdateWithoutPaymentsInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutPaymentsInput = {
@@ -1988,6 +2054,127 @@ export type SalonUncheckedUpdateWithoutPaymentsInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutSupportTicketsInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutSupportTicketsInput, Prisma.SalonUncheckedCreateWithoutSupportTicketsInput>
+}
+
+export type SalonUpsertWithoutSupportTicketsInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutSupportTicketsInput, Prisma.SalonUncheckedUpdateWithoutSupportTicketsInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutSupportTicketsInput, Prisma.SalonUncheckedCreateWithoutSupportTicketsInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutSupportTicketsInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutSupportTicketsInput, Prisma.SalonUncheckedUpdateWithoutSupportTicketsInput>
+}
+
+export type SalonUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 
@@ -2007,6 +2194,7 @@ export type SalonCountOutputType = {
   staff: number
   customers: number
   customerTransactions: number
+  supportTickets: number
 }
 
 export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2021,6 +2209,7 @@ export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   staff?: boolean | SalonCountOutputTypeCountStaffArgs
   customers?: boolean | SalonCountOutputTypeCountCustomersArgs
   customerTransactions?: boolean | SalonCountOutputTypeCountCustomerTransactionsArgs
+  supportTickets?: boolean | SalonCountOutputTypeCountSupportTicketsArgs
 }
 
 /**
@@ -2110,6 +2299,13 @@ export type SalonCountOutputTypeCountCustomerTransactionsArgs<ExtArgs extends ru
   where?: Prisma.CustomerTransactionWhereInput
 }
 
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketWhereInput
+}
+
 
 export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2135,6 +2331,7 @@ export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   staff?: boolean | Prisma.Salon$staffArgs<ExtArgs>
   customers?: boolean | Prisma.Salon$customersArgs<ExtArgs>
   customerTransactions?: boolean | Prisma.Salon$customerTransactionsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.Salon$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["salon"]>
 
@@ -2196,6 +2393,7 @@ export type SalonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   staff?: boolean | Prisma.Salon$staffArgs<ExtArgs>
   customers?: boolean | Prisma.Salon$customersArgs<ExtArgs>
   customerTransactions?: boolean | Prisma.Salon$customerTransactionsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.Salon$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SalonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2215,6 +2413,7 @@ export type $SalonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     staff: Prisma.$StaffPayload<ExtArgs>[]
     customers: Prisma.$CustomerPayload<ExtArgs>[]
     customerTransactions: Prisma.$CustomerTransactionPayload<ExtArgs>[]
+    supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2634,6 +2833,7 @@ export interface Prisma__SalonClient<T, Null = never, ExtArgs extends runtime.Ty
   staff<T extends Prisma.Salon$staffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customers<T extends Prisma.Salon$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerTransactions<T extends Prisma.Salon$customerTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$customerTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supportTickets<T extends Prisma.Salon$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3329,6 +3529,30 @@ export type Salon$customerTransactionsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.CustomerTransactionScalarFieldEnum | Prisma.CustomerTransactionScalarFieldEnum[]
+}
+
+/**
+ * Salon.supportTickets
+ */
+export type Salon$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicket
+   */
+  select?: Prisma.SupportTicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicket
+   */
+  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketWhereInput
+  orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
 }
 
 /**

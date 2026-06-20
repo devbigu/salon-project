@@ -231,6 +231,10 @@ export type UserWhereInput = {
   salePaymentsReceived?: Prisma.SalePaymentListRelationFilter
   staffProfile?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   salon?: Prisma.XOR<Prisma.SalonNullableScalarRelationFilter, Prisma.SalonWhereInput> | null
+  reportedSupportTickets?: Prisma.SupportTicketListRelationFilter
+  assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
+  supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -253,6 +257,10 @@ export type UserOrderByWithRelationInput = {
   salePaymentsReceived?: Prisma.SalePaymentOrderByRelationAggregateInput
   staffProfile?: Prisma.StaffOrderByWithRelationInput
   salon?: Prisma.SalonOrderByWithRelationInput
+  reportedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
+  assignedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
+  supportTicketMessages?: Prisma.SupportTicketMessageOrderByRelationAggregateInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -278,6 +286,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   salePaymentsReceived?: Prisma.SalePaymentListRelationFilter
   staffProfile?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   salon?: Prisma.XOR<Prisma.SalonNullableScalarRelationFilter, Prisma.SalonWhereInput> | null
+  reportedSupportTickets?: Prisma.SupportTicketListRelationFilter
+  assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
+  supportTicketMessages?: Prisma.SupportTicketMessageListRelationFilter
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryListRelationFilter
 }, "id" | "email" | "phone_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -330,6 +342,10 @@ export type UserCreateInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -350,6 +366,10 @@ export type UserUncheckedCreateInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUpdateInput = {
@@ -370,6 +390,10 @@ export type UserUpdateInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -390,6 +414,10 @@ export type UserUncheckedUpdateInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -683,6 +711,70 @@ export type UserUpdateOneWithoutSalePaymentsReceivedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSalePaymentsReceivedInput, Prisma.UserUpdateWithoutSalePaymentsReceivedInput>, Prisma.UserUncheckedUpdateWithoutSalePaymentsReceivedInput>
 }
 
+export type UserCreateNestedOneWithoutReportedSupportTicketsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutReportedSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReportedSupportTicketsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAssignedSupportTicketsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutAssignedSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedSupportTicketsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutReportedSupportTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutReportedSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReportedSupportTicketsInput
+  upsert?: Prisma.UserUpsertWithoutReportedSupportTicketsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReportedSupportTicketsInput, Prisma.UserUpdateWithoutReportedSupportTicketsInput>, Prisma.UserUncheckedUpdateWithoutReportedSupportTicketsInput>
+}
+
+export type UserUpdateOneWithoutAssignedSupportTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutAssignedSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedSupportTicketsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedSupportTicketsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedSupportTicketsInput, Prisma.UserUpdateWithoutAssignedSupportTicketsInput>, Prisma.UserUncheckedUpdateWithoutAssignedSupportTicketsInput>
+}
+
+export type UserCreateNestedOneWithoutSupportTicketMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedCreateWithoutSupportTicketMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSupportTicketMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedCreateWithoutSupportTicketMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSupportTicketMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupportTicketMessagesInput, Prisma.UserUpdateWithoutSupportTicketMessagesInput>, Prisma.UserUncheckedUpdateWithoutSupportTicketMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutSupportTicketStatusChangesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedCreateWithoutSupportTicketStatusChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketStatusChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSupportTicketStatusChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedCreateWithoutSupportTicketStatusChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketStatusChangesInput
+  upsert?: Prisma.UserUpsertWithoutSupportTicketStatusChangesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupportTicketStatusChangesInput, Prisma.UserUpdateWithoutSupportTicketStatusChangesInput>, Prisma.UserUncheckedUpdateWithoutSupportTicketStatusChangesInput>
+}
+
 export type UserCreateWithoutSalonInput = {
   id?: string
   name: string
@@ -700,6 +792,10 @@ export type UserCreateWithoutSalonInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSalonInput = {
@@ -719,6 +815,10 @@ export type UserUncheckedCreateWithoutSalonInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSalonInput = {
@@ -780,6 +880,10 @@ export type UserCreateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutBranchInput = {
@@ -799,6 +903,10 @@ export type UserUncheckedCreateWithoutBranchInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutBranchInput = {
@@ -844,6 +952,10 @@ export type UserCreateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutStaffProfileInput = {
@@ -863,6 +975,10 @@ export type UserUncheckedCreateWithoutStaffProfileInput = {
   salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutStaffProfileInput = {
@@ -898,6 +1014,10 @@ export type UserUpdateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStaffProfileInput = {
@@ -917,6 +1037,10 @@ export type UserUncheckedUpdateWithoutStaffProfileInput = {
   salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAppointmentsInput = {
@@ -936,6 +1060,10 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
@@ -955,6 +1083,10 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAppointmentsInput = {
@@ -990,6 +1122,10 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
@@ -1009,6 +1145,10 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutAppointmentStatusChangesInput = {
@@ -1028,6 +1168,10 @@ export type UserCreateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
@@ -1047,6 +1191,10 @@ export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutAppointmentStatusChangesInput = {
@@ -1082,6 +1230,10 @@ export type UserUpdateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
@@ -1101,6 +1253,10 @@ export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutSalesCreatedInput = {
@@ -1120,6 +1276,10 @@ export type UserCreateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesCreatedInput = {
@@ -1139,6 +1299,10 @@ export type UserUncheckedCreateWithoutSalesCreatedInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesCreatedInput = {
@@ -1163,6 +1327,10 @@ export type UserCreateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesEditedInput = {
@@ -1182,6 +1350,10 @@ export type UserUncheckedCreateWithoutSalesEditedInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesEditedInput = {
@@ -1206,6 +1378,10 @@ export type UserCreateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesDeletedInput = {
@@ -1225,6 +1401,10 @@ export type UserUncheckedCreateWithoutSalesDeletedInput = {
   salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesDeletedInput = {
@@ -1260,6 +1440,10 @@ export type UserUpdateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesCreatedInput = {
@@ -1279,6 +1463,10 @@ export type UserUncheckedUpdateWithoutSalesCreatedInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutSalesEditedInput = {
@@ -1309,6 +1497,10 @@ export type UserUpdateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesEditedInput = {
@@ -1328,6 +1520,10 @@ export type UserUncheckedUpdateWithoutSalesEditedInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUpsertWithoutSalesDeletedInput = {
@@ -1358,6 +1554,10 @@ export type UserUpdateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesDeletedInput = {
@@ -1377,6 +1577,10 @@ export type UserUncheckedUpdateWithoutSalesDeletedInput = {
   salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserCreateWithoutSalePaymentsReceivedInput = {
@@ -1396,6 +1600,10 @@ export type UserCreateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
 }
 
 export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
@@ -1415,6 +1623,10 @@ export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
   salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
 }
 
 export type UserCreateOrConnectWithoutSalePaymentsReceivedInput = {
@@ -1450,6 +1662,10 @@ export type UserUpdateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
@@ -1469,6 +1685,442 @@ export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
   salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutReportedSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutReportedSupportTicketsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutReportedSupportTicketsInput>
+}
+
+export type UserCreateWithoutAssignedSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedSupportTicketsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutAssignedSupportTicketsInput>
+}
+
+export type UserUpsertWithoutReportedSupportTicketsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutReportedSupportTicketsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutReportedSupportTicketsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReportedSupportTicketsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReportedSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutReportedSupportTicketsInput>
+}
+
+export type UserUpdateWithoutReportedSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUpsertWithoutAssignedSupportTicketsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutAssignedSupportTicketsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedCreateWithoutAssignedSupportTicketsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedSupportTicketsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutAssignedSupportTicketsInput>
+}
+
+export type UserUpdateWithoutAssignedSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutSupportTicketMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+}
+
+export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+}
+
+export type UserCreateOrConnectWithoutSupportTicketMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedCreateWithoutSupportTicketMessagesInput>
+}
+
+export type UserUpsertWithoutSupportTicketMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedUpdateWithoutSupportTicketMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedCreateWithoutSupportTicketMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupportTicketMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketMessagesInput, Prisma.UserUncheckedUpdateWithoutSupportTicketMessagesInput>
+}
+
+export type UserUpdateWithoutSupportTicketMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+}
+
+export type UserCreateWithoutSupportTicketStatusChangesInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutSupportTicketStatusChangesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedCreateWithoutSupportTicketStatusChangesInput>
+}
+
+export type UserUpsertWithoutSupportTicketStatusChangesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedUpdateWithoutSupportTicketStatusChangesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedCreateWithoutSupportTicketStatusChangesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupportTicketStatusChangesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketStatusChangesInput, Prisma.UserUncheckedUpdateWithoutSupportTicketStatusChangesInput>
+}
+
+export type UserUpdateWithoutSupportTicketStatusChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 export type UserCreateManySalonInput = {
@@ -1500,6 +2152,10 @@ export type UserUpdateWithoutSalonInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalonInput = {
@@ -1519,6 +2175,10 @@ export type UserUncheckedUpdateWithoutSalonInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSalonInput = {
@@ -1562,6 +2222,10 @@ export type UserUpdateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBranchInput = {
@@ -1581,6 +2245,10 @@ export type UserUncheckedUpdateWithoutBranchInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -1607,6 +2275,10 @@ export type UserCountOutputType = {
   salesEdited: number
   salesDeleted: number
   salePaymentsReceived: number
+  reportedSupportTickets: number
+  assignedSupportTickets: number
+  supportTicketMessages: number
+  supportTicketStatusChanges: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1616,6 +2288,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   salesEdited?: boolean | UserCountOutputTypeCountSalesEditedArgs
   salesDeleted?: boolean | UserCountOutputTypeCountSalesDeletedArgs
   salePaymentsReceived?: boolean | UserCountOutputTypeCountSalePaymentsReceivedArgs
+  reportedSupportTickets?: boolean | UserCountOutputTypeCountReportedSupportTicketsArgs
+  assignedSupportTickets?: boolean | UserCountOutputTypeCountAssignedSupportTicketsArgs
+  supportTicketMessages?: boolean | UserCountOutputTypeCountSupportTicketMessagesArgs
+  supportTicketStatusChanges?: boolean | UserCountOutputTypeCountSupportTicketStatusChangesArgs
 }
 
 /**
@@ -1670,6 +2346,34 @@ export type UserCountOutputTypeCountSalePaymentsReceivedArgs<ExtArgs extends run
   where?: Prisma.SalePaymentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReportedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupportTicketMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupportTicketStatusChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketStatusHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1691,6 +2395,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   salePaymentsReceived?: boolean | Prisma.User$salePaymentsReceivedArgs<ExtArgs>
   staffProfile?: boolean | Prisma.User$staffProfileArgs<ExtArgs>
   salon?: boolean | Prisma.User$salonArgs<ExtArgs>
+  reportedSupportTickets?: boolean | Prisma.User$reportedSupportTicketsArgs<ExtArgs>
+  assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
+  supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
+  supportTicketStatusChanges?: boolean | Prisma.User$supportTicketStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1748,6 +2456,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   salePaymentsReceived?: boolean | Prisma.User$salePaymentsReceivedArgs<ExtArgs>
   staffProfile?: boolean | Prisma.User$staffProfileArgs<ExtArgs>
   salon?: boolean | Prisma.User$salonArgs<ExtArgs>
+  reportedSupportTickets?: boolean | Prisma.User$reportedSupportTicketsArgs<ExtArgs>
+  assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
+  supportTicketMessages?: boolean | Prisma.User$supportTicketMessagesArgs<ExtArgs>
+  supportTicketStatusChanges?: boolean | Prisma.User$supportTicketStatusChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1771,6 +2483,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     salePaymentsReceived: Prisma.$SalePaymentPayload<ExtArgs>[]
     staffProfile: Prisma.$StaffPayload<ExtArgs> | null
     salon: Prisma.$SalonPayload<ExtArgs> | null
+    reportedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+    assignedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+    supportTicketMessages: Prisma.$SupportTicketMessagePayload<ExtArgs>[]
+    supportTicketStatusChanges: Prisma.$SupportTicketStatusHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2186,6 +2902,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   salePaymentsReceived<T extends Prisma.User$salePaymentsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salePaymentsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffProfile<T extends Prisma.User$staffProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$staffProfileArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   salon<T extends Prisma.User$salonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salonArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reportedSupportTickets<T extends Prisma.User$reportedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedSupportTickets<T extends Prisma.User$assignedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supportTicketMessages<T extends Prisma.User$supportTicketMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supportTicketStatusChanges<T extends Prisma.User$supportTicketStatusChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketStatusChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2824,6 +3544,102 @@ export type User$salonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   include?: Prisma.SalonInclude<ExtArgs> | null
   where?: Prisma.SalonWhereInput
+}
+
+/**
+ * User.reportedSupportTickets
+ */
+export type User$reportedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicket
+   */
+  select?: Prisma.SupportTicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicket
+   */
+  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketWhereInput
+  orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
+}
+
+/**
+ * User.assignedSupportTickets
+ */
+export type User$assignedSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicket
+   */
+  select?: Prisma.SupportTicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicket
+   */
+  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketWhereInput
+  orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
+}
+
+/**
+ * User.supportTicketMessages
+ */
+export type User$supportTicketMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicketMessage
+   */
+  select?: Prisma.SupportTicketMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicketMessage
+   */
+  omit?: Prisma.SupportTicketMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketMessageInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketMessageWhereInput
+  orderBy?: Prisma.SupportTicketMessageOrderByWithRelationInput | Prisma.SupportTicketMessageOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketMessageScalarFieldEnum | Prisma.SupportTicketMessageScalarFieldEnum[]
+}
+
+/**
+ * User.supportTicketStatusChanges
+ */
+export type User$supportTicketStatusChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicketStatusHistory
+   */
+  select?: Prisma.SupportTicketStatusHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicketStatusHistory
+   */
+  omit?: Prisma.SupportTicketStatusHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketStatusHistoryInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketStatusHistoryWhereInput
+  orderBy?: Prisma.SupportTicketStatusHistoryOrderByWithRelationInput | Prisma.SupportTicketStatusHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketStatusHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketStatusHistoryScalarFieldEnum | Prisma.SupportTicketStatusHistoryScalarFieldEnum[]
 }
 
 /**
