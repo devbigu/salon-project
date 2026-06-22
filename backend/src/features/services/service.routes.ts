@@ -7,6 +7,7 @@ import {
   updateService,
   updateServiceStatus,
   deleteService,
+  seedDefaultServices,
 } from "./service.controller.js";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
@@ -28,6 +29,12 @@ router.get(
   getServices
 );
 
+router.post(
+  "/seed-defaults",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN"),
+  seedDefaultServices
+);
+
 router.patch(
   "/:id/status",
   requireRole("SUPER_ADMIN", "SALON_ADMIN"),
@@ -36,7 +43,7 @@ router.patch(
 
 router.get(
   "/:id",
-  requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"),
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"),
   getServiceById
 );
 

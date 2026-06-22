@@ -34,8 +34,9 @@ const getExistingMainServiceByAccess = async (
 export const createMainService = async (req: Request, res: Response) => {
   try {
     const { name, salonId, status } = req.body;
+    const normalizedName = typeof name === "string" ? name.trim() : "";
 
-    if (!name) {
+    if (!normalizedName) {
       return res.status(400).json({
         success: false,
         message: "Main service name is required",
@@ -52,7 +53,7 @@ export const createMainService = async (req: Request, res: Response) => {
     }
 
     const existingMainService =
-      await MainServiceModel.findByNameAndSalon(name, finalSalonId);
+      await MainServiceModel.findByNameAndSalon(normalizedName, finalSalonId);
 
     if (existingMainService) {
       return res.status(400).json({
@@ -62,7 +63,7 @@ export const createMainService = async (req: Request, res: Response) => {
     }
 
     const mainService = await MainServiceModel.create({
-      name,
+      name: normalizedName,
       salonId: finalSalonId,
       ...(typeof status === "boolean" ? { status } : {}),
     });
@@ -168,11 +169,20 @@ export const updateMainService = async (req: Request, res: Response) => {
     }
 
     const { name, status } = req.body;
+    const normalizedName =
+      typeof name === "string" ? name.trim() : undefined;
 
-    if (name) {
+    if (name !== undefined && !normalizedName) {
+      return res.status(400).json({
+        success: false,
+        message: "Main service name is required",
+      });
+    }
+
+    if (normalizedName) {
       const duplicateMainService =
         await MainServiceModel.findByNameAndSalon(
-          name,
+          normalizedName,
           existingMainService.salonId
         );
 
@@ -185,7 +195,7 @@ export const updateMainService = async (req: Request, res: Response) => {
     }
 
     const updatedMainService = await MainServiceModel.update(id, {
-      ...(name ? { name } : {}),
+      ...(normalizedName ? { name: normalizedName } : {}),
       ...(typeof status === "boolean" ? { status } : {}),
     });
 

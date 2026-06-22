@@ -2,6 +2,8 @@ import { type Request, type Response } from "express";
 import { ServiceModel } from "./service.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { MainServiceModel } from "../main-services/mainService.model.js";
+import { prisma } from "../../config/prisma.js";
+import { defaultSalonServices } from "./defaultServices.js";
 
 const DURATION_UNITS = ["MINUTES", "HOURS"] as const;
 
@@ -51,17 +53,34 @@ export const createService = async (req: Request, res: Response) => {
       mainServiceId,
     } = req.body;
 
-    if (!name || price === undefined || !mainServiceId) {
+    const normalizedName = typeof name === "string" ? name.trim() : "";
+    const normalizedPrice = Number(price);
+    const normalizedDuration =
+      durationValue === undefined || durationValue === null || durationValue === ""
+        ? undefined
+        : Number(durationValue);
+
+    if (!normalizedName || price === undefined || !mainServiceId) {
       return res.status(400).json({
         success: false,
         message: "Name, price and mainServiceId are required",
       });
     }
 
-    if (Number(price) < 0) {
+    if (!Number.isFinite(normalizedPrice) || normalizedPrice < 0) {
       return res.status(400).json({
         success: false,
-        message: "Price cannot be negative",
+        message: "Price must be a valid non-negative number",
+      });
+    }
+
+    if (
+      normalizedDuration !== undefined &&
+      (!Number.isInteger(normalizedDuration) || normalizedDuration <= 0)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Duration value must be a positive whole number",
       });
     }
 
@@ -105,7 +124,7 @@ export const createService = async (req: Request, res: Response) => {
     }
 
     const existingService = await ServiceModel.findByNameMainServiceAndSalon(
-      name,
+      normalizedName,
       mainServiceId,
       finalSalonId
     );
@@ -118,12 +137,14 @@ export const createService = async (req: Request, res: Response) => {
     }
 
     const service = await ServiceModel.create({
-      name,
+      name: normalizedName,
       salonId: finalSalonId,
       mainServiceId,
-      price: Number(price),
+      price: normalizedPrice,
       ...(description ? { description } : {}),
-      ...(durationValue ? { durationValue: Number(durationValue) } : {}),
+      ...(normalizedDuration !== undefined
+        ? { durationValue: normalizedDuration }
+        : {}),
       ...(durationUnit ? { durationUnit } : {}),
       ...(branchId ? { branchId } : {}),
     });
@@ -218,6 +239,108 @@ export const getServiceById = async (req: Request, res: Response) => {
   }
 };
 
+export const seedDefaultServices = async (req: Request, res: Response) => {
+  try {
+    const salonId =
+      req.user?.role === "SUPER_ADMIN"
+        ? typeof req.body.salonId === "string"
+          ? req.body.salonId
+          : undefined
+        : req.user?.salonId;
+
+    if (!salonId) {
+      return res.status(400).json({
+        success: false,
+        message: "Salon ID is required",
+      });
+    }
+
+    const salon = await prisma.salon.findUnique({
+      where: { id: salonId },
+      select: { id: true },
+    });
+
+    if (!salon) {
+      return res.status(404).json({
+        success: false,
+        message: "Salon not found",
+      });
+    }
+
+    const result = await prisma.$transaction(async (transaction) => {
+      let mainServicesCreated = 0;
+      let servicesCreated = 0;
+      let skippedExisting = 0;
+
+      for (const group of defaultSalonServices) {
+        let mainService = await transaction.mainService.findFirst({
+          where: {
+            salonId,
+            name: group.mainService,
+          },
+          select: { id: true },
+        });
+
+        if (!mainService) {
+          mainService = await transaction.mainService.create({
+            data: {
+              salonId,
+              name: group.mainService,
+            },
+            select: { id: true },
+          });
+          mainServicesCreated += 1;
+        }
+
+        for (const service of group.services) {
+          const existingService = await transaction.service.findFirst({
+            where: {
+              salonId,
+              mainServiceId: mainService.id,
+              name: service.name,
+            },
+            select: { id: true },
+          });
+
+          if (existingService) {
+            skippedExisting += 1;
+            continue;
+          }
+
+          await transaction.service.create({
+            data: {
+              salonId,
+              mainServiceId: mainService.id,
+              name: service.name,
+              price: service.price,
+              durationValue: service.durationValue,
+              durationUnit: service.durationUnit,
+            },
+          });
+          servicesCreated += 1;
+        }
+      }
+
+      return {
+        mainServicesCreated,
+        servicesCreated,
+        skippedExisting,
+      };
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Default salon services seeded successfully",
+      data: result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Unable to seed default salon services",
+    });
+  }
+};
+
 export const updateService = async (req: Request, res: Response) => {
   try {
     const id = getServiceIdParam(req);
@@ -250,11 +373,41 @@ export const updateService = async (req: Request, res: Response) => {
     } = req.body;
 
     const finalSalonId = existingService.salonId;
+    const normalizedName =
+      typeof name === "string" ? name.trim() : undefined;
+    const normalizedPrice = price === undefined ? undefined : Number(price);
+    const normalizedDuration =
+      durationValue === undefined
+        ? undefined
+        : durationValue === null || durationValue === ""
+          ? null
+          : Number(durationValue);
 
-    if (price !== undefined && Number(price) < 0) {
+    if (name !== undefined && !normalizedName) {
       return res.status(400).json({
         success: false,
-        message: "Price cannot be negative",
+        message: "Service name is required",
+      });
+    }
+
+    if (
+      normalizedPrice !== undefined &&
+      (!Number.isFinite(normalizedPrice) || normalizedPrice < 0)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Price must be a valid non-negative number",
+      });
+    }
+
+    if (
+      normalizedDuration !== undefined &&
+      normalizedDuration !== null &&
+      (!Number.isInteger(normalizedDuration) || normalizedDuration <= 0)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Duration value must be a positive whole number",
       });
     }
 
@@ -291,9 +444,9 @@ export const updateService = async (req: Request, res: Response) => {
     }
 
     const finalMainServiceId = mainServiceId || existingService.mainServiceId;
-    const finalName = name || existingService.name;
+    const finalName = normalizedName || existingService.name;
 
-    if (name || mainServiceId) {
+    if (normalizedName || mainServiceId) {
       const duplicate = await ServiceModel.findByNameMainServiceAndSalon(
         finalName,
         finalMainServiceId,
@@ -309,15 +462,14 @@ export const updateService = async (req: Request, res: Response) => {
     }
 
     const updatedService = await ServiceModel.update(id, {
-      ...(name ? { name } : {}),
+      ...(normalizedName ? { name: normalizedName } : {}),
       ...("description" in req.body
         ? { description: description ?? null }
         : {}),
-      ...(price !== undefined ? { price: Number(price) } : {}),
+      ...(normalizedPrice !== undefined ? { price: normalizedPrice } : {}),
       ...("durationValue" in req.body
         ? {
-            durationValue:
-              durationValue === null ? null : Number(durationValue),
+            durationValue: normalizedDuration ?? null,
           }
         : {}),
       ...(durationUnit ? { durationUnit } : {}),

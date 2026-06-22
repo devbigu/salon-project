@@ -36,6 +36,28 @@ const STATUSES = [
   "NO_SHOW",
 ];
 
+const nextAvailableTime = (dateInfo) => {
+  const selected = new Date(dateInfo.date);
+  const now = new Date();
+
+  if (dateInfo.allDay) {
+    const isToday =
+      selected.getFullYear() === now.getFullYear() &&
+      selected.getMonth() === now.getMonth() &&
+      selected.getDate() === now.getDate();
+
+    if (isToday) {
+      selected.setTime(now.getTime());
+      selected.setSeconds(0, 0);
+      selected.setMinutes(Math.ceil(selected.getMinutes() / 30) * 30);
+    } else {
+      selected.setHours(9, 0, 0, 0);
+    }
+  }
+
+  return selected;
+};
+
 const Appointments = () => {
   const { user } = useAuth();
   const [appointments, setAppointments] = useState([]);
@@ -103,10 +125,21 @@ const Appointments = () => {
     loadRefs();
   }, [loadRefs]);
 
-  const openAction = (type, row = null) => {
-    if (type === "create") setAppointmentDefaults({});
+  const openAction = (type, row = null, defaults = {}) => {
+    if (type === "create") setAppointmentDefaults(defaults);
     setSelected(row);
     setAction(type);
+  };
+
+  const openCalendarBooking = (dateInfo) => {
+    const startTime = nextAvailableTime(dateInfo);
+    if (startTime < new Date()) {
+      setError("Appointments cannot be booked in the past.");
+      return;
+    }
+
+    setError("");
+    openAction("create", null, { startTime: toLocalInput(startTime) });
   };
 
   const viewDetails = async (row) => {
@@ -149,6 +182,51 @@ const Appointments = () => {
     });
     return Array.from(byId.values());
   }, [appointments, refs.staff]);
+
+  const serviceOptions = useMemo(() => {
+    const groups = new Map();
+
+    refs.services
+      .filter((service) => service.status)
+      .forEach((service) => {
+        const mainServiceName =
+          service.mainService?.name || "Other services";
+        const groupKey =
+          service.mainService?.id || `other-${mainServiceName}`;
+        const duration = service.durationValue
+          ? `${service.durationValue} ${service.durationUnit.toLowerCase()}`
+          : "Duration not set";
+        const branch = service.branch?.name || "All branches";
+
+        if (!groups.has(groupKey)) {
+          groups.set(groupKey, {
+            label: mainServiceName,
+            options: [],
+          });
+        }
+
+        groups.get(groupKey).options.push({
+          value: service.id,
+          label: `${service.name} · ${mainServiceName} · ${formatMoney(
+            service.price
+          )}`,
+          serviceName: service.name,
+          mainServiceName,
+          price: formatMoney(service.price),
+          duration,
+          branch,
+        });
+      });
+
+    return Array.from(groups.values())
+      .map((group) => ({
+        ...group,
+        options: group.options.sort((left, right) =>
+          left.serviceName.localeCompare(right.serviceName)
+        ),
+      }))
+      .sort((left, right) => left.label.localeCompare(right.label));
+  }, [refs.services]);
 
   const formConfig = useMemo(() => {
     if (action === "status") {
@@ -261,20 +339,35 @@ const Appointments = () => {
           type: "multiselect",
           required: true,
           fullWidth: true,
-          options: refs.services
-            .filter((item) => item.status)
-            .map((item) => ({
-              value: item.id,
-              label: `${item.name} · ${formatMoney(item.price)}`,
-            })),
-          placeholder: "Search and select services",
-          help: "Select one or more services from the dropdown.",
+          options: serviceOptions,
+          placeholder: "Search services or main services",
+          help: "Services are grouped by Main Service. Select one or more active services.",
+          formatGroupLabel: (group) => (
+            <div className="appointment-service-group">
+              <span>{group.label}</span>
+              <span>{group.options.length}</span>
+            </div>
+          ),
+          formatOptionLabel: (option, { context }) =>
+            context === "menu" ? (
+              <div className="appointment-service-option">
+                <strong>{option.serviceName}</strong>
+                <small>
+                  {option.mainServiceName} · {option.price} · {option.duration} ·{" "}
+                  {option.branch}
+                </small>
+              </div>
+            ) : (
+              option.serviceName
+            ),
         },
         {
           name: "startTime",
           label: "Start time",
           type: "datetime-local",
           required: true,
+          min: toLocalInput(new Date()),
+          help: "Appointments can only be booked for today or a future date.",
         },
         {
           name: "status",
@@ -287,11 +380,19 @@ const Appointments = () => {
         { name: "internalNote", label: "Internal note", type: "textarea", fullWidth: true },
       ],
       initialValues: appointmentDefaults,
-      submit: (values) =>
-        salonApi.appointments.create({
+      submit: (values) => {
+        const startTime = new Date(values.startTime);
+        if (Number.isNaN(startTime.getTime()) || startTime < new Date()) {
+          throw new Error(
+            "Choose a start time from now onward. Past appointments are not allowed."
+          );
+        }
+
+        return salonApi.appointments.create({
           ...values,
-          startTime: new Date(values.startTime).toISOString(),
-        }),
+          startTime: startTime.toISOString(),
+        });
+      },
     };
   }, [
     action,
@@ -300,6 +401,7 @@ const Appointments = () => {
     isSuper,
     refs,
     selected,
+    serviceOptions,
   ]);
 
   const newCustomerFields = useMemo(
@@ -446,6 +548,7 @@ const Appointments = () => {
         <AppointmentCalendar
           appointments={appointments}
           onAppointmentClick={viewDetails}
+          onDateSelect={openCalendarBooking}
         />
       ) : (
         <DataGrid

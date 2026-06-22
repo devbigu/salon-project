@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import FullCalendar from "@fullcalendar/react";
 import bootstrapPlugin from "@fullcalendar/bootstrap5";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import timeGridPlugin from "@fullcalendar/timegrid";
 
@@ -15,7 +16,17 @@ const statusClasses = {
   NO_SHOW: "fc-event-danger",
 };
 
-const AppointmentCalendar = ({ appointments, onAppointmentClick }) => {
+const startOfToday = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+};
+
+const AppointmentCalendar = ({
+  appointments,
+  onAppointmentClick,
+  onDateSelect,
+}) => {
   const events = useMemo(
     () =>
       appointments.map((appointment) => ({
@@ -46,6 +57,7 @@ const AppointmentCalendar = ({ appointments, onAppointmentClick }) => {
             timeGridPlugin,
             listPlugin,
             bootstrapPlugin,
+            interactionPlugin,
           ]}
           events={events}
           initialView="dayGridMonth"
@@ -70,6 +82,21 @@ const AppointmentCalendar = ({ appointments, onAppointmentClick }) => {
           slotMinTime="07:00:00"
           slotMaxTime="23:00:00"
           slotDuration="00:30:00"
+          dateClick={(info) => {
+            const selectedDate = new Date(info.date);
+            const selectedDay = new Date(selectedDate);
+            selectedDay.setHours(0, 0, 0, 0);
+
+            if (selectedDay < startOfToday()) return;
+            onDateSelect?.(info);
+          }}
+          dayCellClassNames={(info) => {
+            const cellDate = new Date(info.date);
+            cellDate.setHours(0, 0, 0, 0);
+            return cellDate < startOfToday()
+              ? ["appointment-calendar-past-day"]
+              : ["appointment-calendar-bookable-day"];
+          }}
           eventTimeFormat={{
             hour: "numeric",
             minute: "2-digit",

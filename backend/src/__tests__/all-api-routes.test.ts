@@ -41,6 +41,7 @@ const ALL_ROUTES = [
   "DELETE /api/main-services/:id",
   "POST /api/services",
   "GET /api/services",
+  "POST /api/services/seed-defaults",
   "PATCH /api/services/:id/status",
   "GET /api/services/:id",
   "PUT /api/services/:id",
@@ -225,6 +226,7 @@ describe("All API routes", () => {
       branches.body.data.map((item: { id: string }) => item.id)
     ).toContain(branchId);
 
+    const salonAdminEmail = `all-routes-admin-${stamp}@example.com`;
     check(
       "POST /api/users/salon-admin",
       await agent
@@ -232,13 +234,20 @@ describe("All API routes", () => {
         .set(auth(superAdminToken))
         .send({
           name: "All Routes Salon Admin",
-          email: `all-routes-admin-${stamp}@example.com`,
+          email: salonAdminEmail,
           phone_number: "9000000002",
           password,
           salonId,
         }),
       201
     );
+
+    const salonAdminLogin = await agent.post("/api/auth/login").send({
+      email: salonAdminEmail,
+      password,
+    });
+    expect(salonAdminLogin.status).toBe(200);
+    const salonAdminToken = salonAdminLogin.body.data.accessToken as string;
 
     check(
       "POST /api/users/receptionist",
@@ -438,6 +447,31 @@ describe("All API routes", () => {
       200
     );
 
+    const seededDefaults = check(
+      "POST /api/services/seed-defaults",
+      await agent
+        .post("/api/services/seed-defaults")
+        .set(auth(salonAdminToken))
+        .send({}),
+      200
+    );
+    expect(seededDefaults.body.data).toEqual({
+      mainServicesCreated: 8,
+      servicesCreated: 32,
+      skippedExisting: 0,
+    });
+
+    const seededDefaultsAgain = await agent
+      .post("/api/services/seed-defaults")
+      .set(auth(salonAdminToken))
+      .send({});
+    expect(seededDefaultsAgain.status).toBe(200);
+    expect(seededDefaultsAgain.body.data).toEqual({
+      mainServicesCreated: 0,
+      servicesCreated: 0,
+      skippedExisting: 32,
+    });
+
     const mainService = check(
       "POST /api/main-services",
       await agent
@@ -511,6 +545,35 @@ describe("All API routes", () => {
       200
     );
 
+    const otherSalon = await agent
+      .post("/api/salons")
+      .set(auth(superAdminToken))
+      .send({ name: `Other Tenant Salon ${stamp}` });
+    expect(otherSalon.status).toBe(201);
+
+    const otherMainService = await agent
+      .post("/api/main-services")
+      .set(auth(superAdminToken))
+      .send({
+        name: `Other Tenant Hair ${stamp}`,
+        salonId: otherSalon.body.data.id,
+      });
+    expect(otherMainService.status).toBe(201);
+
+    const crossTenantService = await agent
+      .post("/api/services")
+      .set(auth(salonAdminToken))
+      .send({
+        name: `Cross Tenant Service ${stamp}`,
+        price: 100,
+        mainServiceId: otherMainService.body.data.id,
+        salonId: otherSalon.body.data.id,
+      });
+    expect(crossTenantService.status).toBe(400);
+    expect(crossTenantService.body.message).toBe(
+      "Invalid main service for this salon"
+    );
+
     const service = check(
       "POST /api/services",
       await agent
@@ -574,6 +637,19 @@ describe("All API routes", () => {
       200
     );
     expect(serviceStatus.body.data.status).toBe(false);
+
+    const inactiveServiceAppointment = await agent
+      .post("/api/appointments")
+      .set(auth(superAdminToken))
+      .send({
+        salonId,
+        branchId,
+        customerId,
+        staffId,
+        serviceIds: [serviceId],
+        startTime: "2034-01-01T10:00:00.000Z",
+      });
+    expect(inactiveServiceAppointment.status).toBe(400);
 
     await agent
       .patch(`/api/services/${serviceId}/status`)

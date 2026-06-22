@@ -7,7 +7,7 @@ router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createMainService);
 router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getMainServices);
 router.patch("/:id/status", requireRole("SUPER_ADMIN", "SALON_ADMIN"), updateMainServiceStatus);
-router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"), getMainServiceById);
+router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getMainServiceById);
 router.put("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), updateMainService);
 router.delete("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), deleteMainService);
 export default router;

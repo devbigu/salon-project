@@ -31,6 +31,11 @@ const normalizeInitial = (fields, initialValues) =>
     })
   );
 
+const flattenOptions = (options = []) =>
+  options.flatMap((option) =>
+    Array.isArray(option.options) ? option.options : [option]
+  );
+
 const SchemaModal = ({
   isOpen,
   toggle,
@@ -203,10 +208,12 @@ const SchemaModal = ({
                         hideSelectedOptions={false}
                         isDisabled={field.disabled || saving}
                         options={field.options || []}
+                        formatOptionLabel={field.formatOptionLabel}
+                        formatGroupLabel={field.formatGroupLabel}
                         placeholder={
                           field.placeholder || `Select ${field.label}`
                         }
-                        value={(field.options || []).filter((option) =>
+                        value={flattenOptions(field.options).filter((option) =>
                           (values[field.name] || []).includes(option.value)
                         )}
                         noOptionsMessage={() => "No services found"}

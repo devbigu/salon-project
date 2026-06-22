@@ -62,6 +62,8 @@ export const salonApi = {
   },
   services: {
     list: () => request("/api/services"),
+    seedDefaults: (body = {}) =>
+      request("/api/services/seed-defaults", { method: "POST", body }),
     get: (id) => request(`/api/services/${id}`),
     create: (body) => request("/api/services", { method: "POST", body }),
     update: (id, body) =>
@@ -134,4 +136,3 @@ export const salonApi = {
       }),
   },
 };
-

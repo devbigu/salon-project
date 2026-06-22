@@ -20,6 +20,8 @@ const ResourcePanel = ({
   transformUpdate,
   renderActions,
   refreshKey,
+  filterRows,
+  onChanged,
 }) => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -77,6 +79,7 @@ const ResourcePanel = ({
     try {
       await api.remove(row.id);
       await load();
+      await onChanged?.();
     } catch (deleteError) {
       setError(deleteError instanceof Error ? deleteError.message : "Unable to delete.");
     }
@@ -92,7 +95,10 @@ const ResourcePanel = ({
       await api.create(transformCreate ? transformCreate(values) : values);
     }
     await load();
+    await onChanged?.();
   };
+
+  const visibleRows = filterRows ? filterRows(rows) : rows;
 
   return (
     <div>
@@ -110,7 +116,7 @@ const ResourcePanel = ({
       </div>
       {error && <Alert color="danger">{error}</Alert>}
       <DataGrid
-        rows={rows}
+        rows={visibleRows}
         columns={columns}
         loading={loading}
         onView={openDetails}

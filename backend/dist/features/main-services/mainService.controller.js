@@ -23,7 +23,8 @@ const getExistingMainServiceByAccess = async (req, mainServiceId) => {
 export const createMainService = async (req, res) => {
     try {
         const { name, salonId, status } = req.body;
-        if (!name) {
+        const normalizedName = typeof name === "string" ? name.trim() : "";
+        if (!normalizedName) {
             return res.status(400).json({
                 success: false,
                 message: "Main service name is required",
@@ -36,7 +37,7 @@ export const createMainService = async (req, res) => {
                 message: "Salon ID is required",
             });
         }
-        const existingMainService = await MainServiceModel.findByNameAndSalon(name, finalSalonId);
+        const existingMainService = await MainServiceModel.findByNameAndSalon(normalizedName, finalSalonId);
         if (existingMainService) {
             return res.status(400).json({
                 success: false,
@@ -44,7 +45,7 @@ export const createMainService = async (req, res) => {
             });
         }
         const mainService = await MainServiceModel.create({
-            name,
+            name: normalizedName,
             salonId: finalSalonId,
             ...(typeof status === "boolean" ? { status } : {}),
         });
@@ -137,8 +138,15 @@ export const updateMainService = async (req, res) => {
             });
         }
         const { name, status } = req.body;
-        if (name) {
-            const duplicateMainService = await MainServiceModel.findByNameAndSalon(name, existingMainService.salonId);
+        const normalizedName = typeof name === "string" ? name.trim() : undefined;
+        if (name !== undefined && !normalizedName) {
+            return res.status(400).json({
+                success: false,
+                message: "Main service name is required",
+            });
+        }
+        if (normalizedName) {
+            const duplicateMainService = await MainServiceModel.findByNameAndSalon(normalizedName, existingMainService.salonId);
             if (duplicateMainService && duplicateMainService.id !== id) {
                 return res.status(400).json({
                     success: false,
@@ -147,7 +155,7 @@ export const updateMainService = async (req, res) => {
             }
         }
         const updatedMainService = await MainServiceModel.update(id, {
-            ...(name ? { name } : {}),
+            ...(normalizedName ? { name: normalizedName } : {}),
             ...(typeof status === "boolean" ? { status } : {}),
         });
         return res.status(200).json({

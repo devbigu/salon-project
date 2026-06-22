@@ -33,6 +33,23 @@
   cursor: pointer;
 }
 
+.appointment-calendar .appointment-calendar-bookable-day {
+  cursor: pointer;
+}
+
+.appointment-calendar .appointment-calendar-bookable-day:hover {
+  background: rgba(101, 118, 255, 0.06);
+}
+
+.appointment-calendar .appointment-calendar-past-day {
+  cursor: not-allowed;
+  background: rgba(82, 100, 132, 0.07);
+}
+
+.appointment-calendar .appointment-calendar-past-day .fc-daygrid-day-number {
+  opacity: 0.45;
+}
+
 .appointment-calendar .fc-toolbar {
   gap: 0.75rem;
   flex-wrap: wrap;
@@ -44,6 +61,52 @@
 
 .appointment-calendar .fc-timegrid-event .fc-event-main {
   padding: 0.2rem 0.3rem;
+}
+
+.service-category-panel {
+  position: sticky;
+  top: 1rem;
+}
+
+.service-category-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.service-category-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.service-category-item:hover {
+  border-color: rgba(101, 118, 255, 0.25);
+  background: rgba(101, 118, 255, 0.06);
+}
+
+.service-category-item.active {
+  border-color: rgba(101, 118, 255, 0.35);
+  background: rgba(101, 118, 255, 0.12);
+  color: #6576ff;
+}
+
+.service-category-item small {
+  display: block;
+  margin-top: 0.125rem;
+  color: #8094ae;
+  font-size: 0.7rem;
 }
 
 .appointment-detail-modal .modal-dialog {
@@ -127,6 +190,43 @@
   margin: 0.125rem !important;
 }
 
+.appointment-service-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #6576ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.appointment-service-group > span:last-child {
+  min-width: 1.5rem;
+  padding: 0.125rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(101, 118, 255, 0.12);
+  text-align: center;
+}
+
+.appointment-service-option {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.15rem 0;
+}
+
+.appointment-service-option strong {
+  color: inherit;
+  font-size: 0.875rem;
+}
+
+.appointment-service-option small {
+  color: #8094ae;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
 .bg-purple-dim {
   background: rgba(129, 93, 246, 0.12) !important;
 }
@@ -152,6 +252,10 @@
 }
 
 @media (max-width: 767.98px) {
+  .service-category-panel {
+    position: static;
+  }
+
   .table-tranx {
     min-width: 760px;
   }

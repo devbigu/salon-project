@@ -260,6 +260,8 @@ model MainService {
   updatedAt DateTime @updatedAt
 
   @@unique([salonId, name])
+  @@index([salonId])
+  @@index([status])
 }
 
 model Service {
@@ -292,6 +294,10 @@ model Service {
   updatedAt DateTime @updatedAt
 
   @@unique([salonId, mainServiceId, name])
+  @@index([salonId])
+  @@index([branchId])
+  @@index([mainServiceId])
+  @@index([status])
 }
 
 enum DurationUnit {
