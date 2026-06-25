@@ -4,6 +4,17 @@ import { UserModel } from "../users/user.model.js";
 import { comparePass, hashPass } from "../../utils/password.js";
 import { generateAccessToken, generateRefreshToken } from "../../utils/jwt.js";
 import { verifyRefreshToken } from "../../utils/jwt.js";
+import { env } from "../../config/env.js";
+const refreshCookieBase = {
+    httpOnly: true,
+    secure: env.IS_PRODUCTION,
+    sameSite: env.IS_PRODUCTION ? "none" : "lax",
+    path: "/",
+};
+const refreshCookieOptions = {
+    ...refreshCookieBase,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+};
 export const register = async (req, res) => {
     try {
         const data = registerSchema.safeParse(req.body);
@@ -45,12 +56,7 @@ export const register = async (req, res) => {
         };
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        res.cookie("refreshToken", refreshToken, refreshCookieOptions);
         return res.status(201).json({
             success: true,
             message: "User registered successfully",
@@ -101,12 +107,7 @@ export const login = async (req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
         const { passwordHash, ...safeUser } = user;
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        res.cookie("refreshToken", refreshToken, refreshCookieOptions);
         return res.status(200).json({
             success: true,
             message: "Login successful",
@@ -162,11 +163,7 @@ export const refresh = async (req, res) => {
     }
 };
 export const logout = async (req, res) => {
-    res.clearCookie("refreshToken", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax"
-    });
+    res.clearCookie("refreshToken", refreshCookieBase);
     return res.status(200).json({
         success: true,
         message: "Logged Out successfully"

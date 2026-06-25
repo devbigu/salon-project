@@ -82,6 +82,26 @@ export const CustomerTransactionType = {
     REFUND: 'REFUND',
     ADJUSTMENT: 'ADJUSTMENT'
 };
+export const ProductUnit = {
+    PCS: 'PCS',
+    ML: 'ML',
+    LITER: 'LITER',
+    GRAM: 'GRAM',
+    KG: 'KG',
+    PACK: 'PACK',
+    BOX: 'BOX',
+    BOTTLE: 'BOTTLE',
+    TUBE: 'TUBE'
+};
+export const ProductStockMovementType = {
+    STOCK_IN: 'STOCK_IN',
+    STOCK_OUT: 'STOCK_OUT',
+    RETAIL_SALE: 'RETAIL_SALE',
+    USED_IN_SERVICE: 'USED_IN_SERVICE',
+    DAMAGED: 'DAMAGED',
+    ADJUSTMENT: 'ADJUSTMENT',
+    RETURNED: 'RETURNED'
+};
 export const SupportTicketCategory = {
     LOGIN_ISSUE: 'LOGIN_ISSUE',
     CUSTOMER_MODULE: 'CUSTOMER_MODULE',

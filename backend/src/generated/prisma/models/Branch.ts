@@ -232,6 +232,10 @@ export type BranchWhereInput = {
   payments?: Prisma.PaymentListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  products?: Prisma.ProductListRelationFilter
+  productStockMovements?: Prisma.ProductStockMovementListRelationFilter
+  productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  retailSales?: Prisma.RetailSaleListRelationFilter
 }
 
 export type BranchOrderByWithRelationInput = {
@@ -255,6 +259,10 @@ export type BranchOrderByWithRelationInput = {
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
+  productStockMovements?: Prisma.ProductStockMovementOrderByRelationAggregateInput
+  productPurchases?: Prisma.ProductPurchaseOrderByRelationAggregateInput
+  retailSales?: Prisma.RetailSaleOrderByRelationAggregateInput
 }
 
 export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -282,6 +290,10 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   payments?: Prisma.PaymentListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  products?: Prisma.ProductListRelationFilter
+  productStockMovements?: Prisma.ProductStockMovementListRelationFilter
+  productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  retailSales?: Prisma.RetailSaleListRelationFilter
 }, "id" | "salonId_name">
 
 export type BranchOrderByWithAggregationInput = {
@@ -336,6 +348,10 @@ export type BranchCreateInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateInput = {
@@ -358,6 +374,10 @@ export type BranchUncheckedCreateInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUpdateInput = {
@@ -380,6 +400,10 @@ export type BranchUpdateInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateInput = {
@@ -402,6 +426,10 @@ export type BranchUncheckedUpdateInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManyInput = {
@@ -671,6 +699,70 @@ export type BranchUpdateOneWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutPaymentsInput, Prisma.BranchUpdateWithoutPaymentsInput>, Prisma.BranchUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type BranchCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductsInput, Prisma.BranchUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductsInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductsInput, Prisma.BranchUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.BranchUpsertWithoutProductsInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutProductsInput, Prisma.BranchUpdateWithoutProductsInput>, Prisma.BranchUncheckedUpdateWithoutProductsInput>
+}
+
+export type BranchCreateNestedOneWithoutProductStockMovementsInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductStockMovementsInput, Prisma.BranchUncheckedCreateWithoutProductStockMovementsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductStockMovementsInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutProductStockMovementsNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductStockMovementsInput, Prisma.BranchUncheckedCreateWithoutProductStockMovementsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductStockMovementsInput
+  upsert?: Prisma.BranchUpsertWithoutProductStockMovementsInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutProductStockMovementsInput, Prisma.BranchUpdateWithoutProductStockMovementsInput>, Prisma.BranchUncheckedUpdateWithoutProductStockMovementsInput>
+}
+
+export type BranchCreateNestedOneWithoutProductPurchasesInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductPurchasesInput, Prisma.BranchUncheckedCreateWithoutProductPurchasesInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductPurchasesInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutProductPurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutProductPurchasesInput, Prisma.BranchUncheckedCreateWithoutProductPurchasesInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutProductPurchasesInput
+  upsert?: Prisma.BranchUpsertWithoutProductPurchasesInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutProductPurchasesInput, Prisma.BranchUpdateWithoutProductPurchasesInput>, Prisma.BranchUncheckedUpdateWithoutProductPurchasesInput>
+}
+
+export type BranchCreateNestedOneWithoutRetailSalesInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutRetailSalesInput, Prisma.BranchUncheckedCreateWithoutRetailSalesInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutRetailSalesInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutRetailSalesNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutRetailSalesInput, Prisma.BranchUncheckedCreateWithoutRetailSalesInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutRetailSalesInput
+  upsert?: Prisma.BranchUpsertWithoutRetailSalesInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutRetailSalesInput, Prisma.BranchUpdateWithoutRetailSalesInput>, Prisma.BranchUncheckedUpdateWithoutRetailSalesInput>
+}
+
 export type BranchCreateNestedOneWithoutSupportTicketsInput = {
   create?: Prisma.XOR<Prisma.BranchCreateWithoutSupportTicketsInput, Prisma.BranchUncheckedCreateWithoutSupportTicketsInput>
   connectOrCreate?: Prisma.BranchCreateOrConnectWithoutSupportTicketsInput
@@ -706,6 +798,10 @@ export type BranchCreateWithoutSalonInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalonInput = {
@@ -727,6 +823,10 @@ export type BranchUncheckedCreateWithoutSalonInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalonInput = {
@@ -790,6 +890,10 @@ export type BranchCreateWithoutUsersInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutUsersInput = {
@@ -811,6 +915,10 @@ export type BranchUncheckedCreateWithoutUsersInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutUsersInput = {
@@ -848,6 +956,10 @@ export type BranchUpdateWithoutUsersInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -869,6 +981,10 @@ export type BranchUncheckedUpdateWithoutUsersInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutCustomersInput = {
@@ -890,6 +1006,10 @@ export type BranchCreateWithoutCustomersInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutCustomersInput = {
@@ -911,6 +1031,10 @@ export type BranchUncheckedCreateWithoutCustomersInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutCustomersInput = {
@@ -948,6 +1072,10 @@ export type BranchUpdateWithoutCustomersInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutCustomersInput = {
@@ -969,6 +1097,10 @@ export type BranchUncheckedUpdateWithoutCustomersInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffInput = {
@@ -990,6 +1122,10 @@ export type BranchCreateWithoutStaffInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffInput = {
@@ -1011,6 +1147,10 @@ export type BranchUncheckedCreateWithoutStaffInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffInput = {
@@ -1048,6 +1188,10 @@ export type BranchUpdateWithoutStaffInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffInput = {
@@ -1069,6 +1213,10 @@ export type BranchUncheckedUpdateWithoutStaffInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutServicesInput = {
@@ -1090,6 +1238,10 @@ export type BranchCreateWithoutServicesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutServicesInput = {
@@ -1111,6 +1263,10 @@ export type BranchUncheckedCreateWithoutServicesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutServicesInput = {
@@ -1148,6 +1304,10 @@ export type BranchUpdateWithoutServicesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutServicesInput = {
@@ -1169,6 +1329,10 @@ export type BranchUncheckedUpdateWithoutServicesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutAppointmentsInput = {
@@ -1190,6 +1354,10 @@ export type BranchCreateWithoutAppointmentsInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutAppointmentsInput = {
@@ -1211,6 +1379,10 @@ export type BranchUncheckedCreateWithoutAppointmentsInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutAppointmentsInput = {
@@ -1248,6 +1420,10 @@ export type BranchUpdateWithoutAppointmentsInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutAppointmentsInput = {
@@ -1269,6 +1445,10 @@ export type BranchUncheckedUpdateWithoutAppointmentsInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSalesInput = {
@@ -1290,6 +1470,10 @@ export type BranchCreateWithoutSalesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalesInput = {
@@ -1311,6 +1495,10 @@ export type BranchUncheckedCreateWithoutSalesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalesInput = {
@@ -1348,6 +1536,10 @@ export type BranchUpdateWithoutSalesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalesInput = {
@@ -1369,6 +1561,10 @@ export type BranchUncheckedUpdateWithoutSalesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutInvoicesInput = {
@@ -1390,6 +1586,10 @@ export type BranchCreateWithoutInvoicesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutInvoicesInput = {
@@ -1411,6 +1611,10 @@ export type BranchUncheckedCreateWithoutInvoicesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutInvoicesInput = {
@@ -1448,6 +1652,10 @@ export type BranchUpdateWithoutInvoicesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutInvoicesInput = {
@@ -1469,6 +1677,10 @@ export type BranchUncheckedUpdateWithoutInvoicesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutPaymentsInput = {
@@ -1490,6 +1702,10 @@ export type BranchCreateWithoutPaymentsInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutPaymentsInput = {
@@ -1511,6 +1727,10 @@ export type BranchUncheckedCreateWithoutPaymentsInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutPaymentsInput = {
@@ -1548,6 +1768,10 @@ export type BranchUpdateWithoutPaymentsInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutPaymentsInput = {
@@ -1569,6 +1793,474 @@ export type BranchUncheckedUpdateWithoutPaymentsInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutProductsInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductsInput, Prisma.BranchUncheckedCreateWithoutProductsInput>
+}
+
+export type BranchUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutProductsInput, Prisma.BranchUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductsInput, Prisma.BranchUncheckedCreateWithoutProductsInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutProductsInput, Prisma.BranchUncheckedUpdateWithoutProductsInput>
+}
+
+export type BranchUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutProductStockMovementsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutProductStockMovementsInput = {
+  id?: string
+  name: string
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutProductStockMovementsInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductStockMovementsInput, Prisma.BranchUncheckedCreateWithoutProductStockMovementsInput>
+}
+
+export type BranchUpsertWithoutProductStockMovementsInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutProductStockMovementsInput, Prisma.BranchUncheckedUpdateWithoutProductStockMovementsInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductStockMovementsInput, Prisma.BranchUncheckedCreateWithoutProductStockMovementsInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutProductStockMovementsInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutProductStockMovementsInput, Prisma.BranchUncheckedUpdateWithoutProductStockMovementsInput>
+}
+
+export type BranchUpdateWithoutProductStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutProductStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutProductPurchasesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutProductPurchasesInput = {
+  id?: string
+  name: string
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutProductPurchasesInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductPurchasesInput, Prisma.BranchUncheckedCreateWithoutProductPurchasesInput>
+}
+
+export type BranchUpsertWithoutProductPurchasesInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutProductPurchasesInput, Prisma.BranchUncheckedUpdateWithoutProductPurchasesInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutProductPurchasesInput, Prisma.BranchUncheckedCreateWithoutProductPurchasesInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutProductPurchasesInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutProductPurchasesInput, Prisma.BranchUncheckedUpdateWithoutProductPurchasesInput>
+}
+
+export type BranchUpdateWithoutProductPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutProductPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutRetailSalesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutRetailSalesInput = {
+  id?: string
+  name: string
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutRetailSalesInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutRetailSalesInput, Prisma.BranchUncheckedCreateWithoutRetailSalesInput>
+}
+
+export type BranchUpsertWithoutRetailSalesInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutRetailSalesInput, Prisma.BranchUncheckedUpdateWithoutRetailSalesInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutRetailSalesInput, Prisma.BranchUncheckedCreateWithoutRetailSalesInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutRetailSalesInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutRetailSalesInput, Prisma.BranchUncheckedUpdateWithoutRetailSalesInput>
+}
+
+export type BranchUpdateWithoutRetailSalesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutRetailSalesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSupportTicketsInput = {
@@ -1590,6 +2282,10 @@ export type BranchCreateWithoutSupportTicketsInput = {
   invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSupportTicketsInput = {
@@ -1611,6 +2307,10 @@ export type BranchUncheckedCreateWithoutSupportTicketsInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSupportTicketsInput = {
@@ -1648,6 +2348,10 @@ export type BranchUpdateWithoutSupportTicketsInput = {
   invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSupportTicketsInput = {
@@ -1669,6 +2373,10 @@ export type BranchUncheckedUpdateWithoutSupportTicketsInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManySalonInput = {
@@ -1702,6 +2410,10 @@ export type BranchUpdateWithoutSalonInput = {
   payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalonInput = {
@@ -1723,6 +2435,10 @@ export type BranchUncheckedUpdateWithoutSalonInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateManyWithoutSalonInput = {
@@ -1752,6 +2468,10 @@ export type BranchCountOutputType = {
   payments: number
   appointments: number
   supportTickets: number
+  products: number
+  productStockMovements: number
+  productPurchases: number
+  retailSales: number
 }
 
 export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1764,6 +2484,10 @@ export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   payments?: boolean | BranchCountOutputTypeCountPaymentsArgs
   appointments?: boolean | BranchCountOutputTypeCountAppointmentsArgs
   supportTickets?: boolean | BranchCountOutputTypeCountSupportTicketsArgs
+  products?: boolean | BranchCountOutputTypeCountProductsArgs
+  productStockMovements?: boolean | BranchCountOutputTypeCountProductStockMovementsArgs
+  productPurchases?: boolean | BranchCountOutputTypeCountProductPurchasesArgs
+  retailSales?: boolean | BranchCountOutputTypeCountRetailSalesArgs
 }
 
 /**
@@ -1839,6 +2563,34 @@ export type BranchCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime
   where?: Prisma.SupportTicketWhereInput
 }
 
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
+
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountProductStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductStockMovementWhereInput
+}
+
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountProductPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductPurchaseWhereInput
+}
+
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountRetailSalesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RetailSaleWhereInput
+}
+
 
 export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1861,6 +2613,10 @@ export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
   appointments?: boolean | Prisma.Branch$appointmentsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Branch$supportTicketsArgs<ExtArgs>
+  products?: boolean | Prisma.Branch$productsArgs<ExtArgs>
+  productStockMovements?: boolean | Prisma.Branch$productStockMovementsArgs<ExtArgs>
+  productPurchases?: boolean | Prisma.Branch$productPurchasesArgs<ExtArgs>
+  retailSales?: boolean | Prisma.Branch$retailSalesArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
@@ -1917,6 +2673,10 @@ export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
   appointments?: boolean | Prisma.Branch$appointmentsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Branch$supportTicketsArgs<ExtArgs>
+  products?: boolean | Prisma.Branch$productsArgs<ExtArgs>
+  productStockMovements?: boolean | Prisma.Branch$productStockMovementsArgs<ExtArgs>
+  productPurchases?: boolean | Prisma.Branch$productPurchasesArgs<ExtArgs>
+  retailSales?: boolean | Prisma.Branch$retailSalesArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1939,6 +2699,10 @@ export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+    products: Prisma.$ProductPayload<ExtArgs>[]
+    productStockMovements: Prisma.$ProductStockMovementPayload<ExtArgs>[]
+    productPurchases: Prisma.$ProductPurchasePayload<ExtArgs>[]
+    retailSales: Prisma.$RetailSalePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2355,6 +3119,10 @@ export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.T
   payments<T extends Prisma.Branch$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   appointments<T extends Prisma.Branch$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supportTickets<T extends Prisma.Branch$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  products<T extends Prisma.Branch$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productStockMovements<T extends Prisma.Branch$productStockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$productStockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productPurchases<T extends Prisma.Branch$productPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$productPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  retailSales<T extends Prisma.Branch$retailSalesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$retailSalesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3008,6 +3776,102 @@ export type Branch$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
+}
+
+/**
+ * Branch.products
+ */
+export type Branch$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * Branch.productStockMovements
+ */
+export type Branch$productStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductStockMovement
+   */
+  select?: Prisma.ProductStockMovementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductStockMovement
+   */
+  omit?: Prisma.ProductStockMovementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductStockMovementInclude<ExtArgs> | null
+  where?: Prisma.ProductStockMovementWhereInput
+  orderBy?: Prisma.ProductStockMovementOrderByWithRelationInput | Prisma.ProductStockMovementOrderByWithRelationInput[]
+  cursor?: Prisma.ProductStockMovementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductStockMovementScalarFieldEnum | Prisma.ProductStockMovementScalarFieldEnum[]
+}
+
+/**
+ * Branch.productPurchases
+ */
+export type Branch$productPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductPurchase
+   */
+  select?: Prisma.ProductPurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductPurchase
+   */
+  omit?: Prisma.ProductPurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductPurchaseInclude<ExtArgs> | null
+  where?: Prisma.ProductPurchaseWhereInput
+  orderBy?: Prisma.ProductPurchaseOrderByWithRelationInput | Prisma.ProductPurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.ProductPurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductPurchaseScalarFieldEnum | Prisma.ProductPurchaseScalarFieldEnum[]
+}
+
+/**
+ * Branch.retailSales
+ */
+export type Branch$retailSalesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RetailSale
+   */
+  select?: Prisma.RetailSaleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RetailSale
+   */
+  omit?: Prisma.RetailSaleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RetailSaleInclude<ExtArgs> | null
+  where?: Prisma.RetailSaleWhereInput
+  orderBy?: Prisma.RetailSaleOrderByWithRelationInput | Prisma.RetailSaleOrderByWithRelationInput[]
+  cursor?: Prisma.RetailSaleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RetailSaleScalarFieldEnum | Prisma.RetailSaleScalarFieldEnum[]
 }
 
 /**

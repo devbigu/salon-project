@@ -250,6 +250,11 @@ export type SalonWhereInput = {
   customers?: Prisma.CustomerListRelationFilter
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  productBrands?: Prisma.ProductBrandListRelationFilter
+  products?: Prisma.ProductListRelationFilter
+  productStockMovements?: Prisma.ProductStockMovementListRelationFilter
+  productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  retailSales?: Prisma.RetailSaleListRelationFilter
 }
 
 export type SalonOrderByWithRelationInput = {
@@ -277,6 +282,11 @@ export type SalonOrderByWithRelationInput = {
   customers?: Prisma.CustomerOrderByRelationAggregateInput
   customerTransactions?: Prisma.CustomerTransactionOrderByRelationAggregateInput
   supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
+  productBrands?: Prisma.ProductBrandOrderByRelationAggregateInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
+  productStockMovements?: Prisma.ProductStockMovementOrderByRelationAggregateInput
+  productPurchases?: Prisma.ProductPurchaseOrderByRelationAggregateInput
+  retailSales?: Prisma.RetailSaleOrderByRelationAggregateInput
 }
 
 export type SalonWhereUniqueInput = Prisma.AtLeast<{
@@ -307,6 +317,11 @@ export type SalonWhereUniqueInput = Prisma.AtLeast<{
   customers?: Prisma.CustomerListRelationFilter
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
+  productBrands?: Prisma.ProductBrandListRelationFilter
+  products?: Prisma.ProductListRelationFilter
+  productStockMovements?: Prisma.ProductStockMovementListRelationFilter
+  productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  retailSales?: Prisma.RetailSaleListRelationFilter
 }, "id">
 
 export type SalonOrderByWithAggregationInput = {
@@ -370,6 +385,11 @@ export type SalonCreateInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateInput = {
@@ -397,6 +417,11 @@ export type SalonUncheckedCreateInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUpdateInput = {
@@ -424,6 +449,11 @@ export type SalonUpdateInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateInput = {
@@ -451,6 +481,11 @@ export type SalonUncheckedUpdateInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateManyInput = {
@@ -721,6 +756,76 @@ export type SalonUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SalonUpdateWithoutPaymentsInput>, Prisma.SalonUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type SalonCreateNestedOneWithoutProductBrandsInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductBrandsInput, Prisma.SalonUncheckedCreateWithoutProductBrandsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductBrandsInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutProductBrandsNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductBrandsInput, Prisma.SalonUncheckedCreateWithoutProductBrandsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductBrandsInput
+  upsert?: Prisma.SalonUpsertWithoutProductBrandsInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutProductBrandsInput, Prisma.SalonUpdateWithoutProductBrandsInput>, Prisma.SalonUncheckedUpdateWithoutProductBrandsInput>
+}
+
+export type SalonCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductsInput, Prisma.SalonUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductsInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductsInput, Prisma.SalonUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.SalonUpsertWithoutProductsInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutProductsInput, Prisma.SalonUpdateWithoutProductsInput>, Prisma.SalonUncheckedUpdateWithoutProductsInput>
+}
+
+export type SalonCreateNestedOneWithoutProductStockMovementsInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductStockMovementsInput, Prisma.SalonUncheckedCreateWithoutProductStockMovementsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductStockMovementsInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutProductStockMovementsNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductStockMovementsInput, Prisma.SalonUncheckedCreateWithoutProductStockMovementsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductStockMovementsInput
+  upsert?: Prisma.SalonUpsertWithoutProductStockMovementsInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutProductStockMovementsInput, Prisma.SalonUpdateWithoutProductStockMovementsInput>, Prisma.SalonUncheckedUpdateWithoutProductStockMovementsInput>
+}
+
+export type SalonCreateNestedOneWithoutProductPurchasesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductPurchasesInput, Prisma.SalonUncheckedCreateWithoutProductPurchasesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductPurchasesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutProductPurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutProductPurchasesInput, Prisma.SalonUncheckedCreateWithoutProductPurchasesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutProductPurchasesInput
+  upsert?: Prisma.SalonUpsertWithoutProductPurchasesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutProductPurchasesInput, Prisma.SalonUpdateWithoutProductPurchasesInput>, Prisma.SalonUncheckedUpdateWithoutProductPurchasesInput>
+}
+
+export type SalonCreateNestedOneWithoutRetailSalesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutRetailSalesInput, Prisma.SalonUncheckedCreateWithoutRetailSalesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutRetailSalesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutRetailSalesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutRetailSalesInput, Prisma.SalonUncheckedCreateWithoutRetailSalesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutRetailSalesInput
+  upsert?: Prisma.SalonUpsertWithoutRetailSalesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutRetailSalesInput, Prisma.SalonUpdateWithoutRetailSalesInput>, Prisma.SalonUncheckedUpdateWithoutRetailSalesInput>
+}
+
 export type SalonCreateNestedOneWithoutSupportTicketsInput = {
   create?: Prisma.XOR<Prisma.SalonCreateWithoutSupportTicketsInput, Prisma.SalonUncheckedCreateWithoutSupportTicketsInput>
   connectOrCreate?: Prisma.SalonCreateOrConnectWithoutSupportTicketsInput
@@ -761,6 +866,11 @@ export type SalonCreateWithoutUsersInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutUsersInput = {
@@ -787,6 +897,11 @@ export type SalonUncheckedCreateWithoutUsersInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutUsersInput = {
@@ -829,6 +944,11 @@ export type SalonUpdateWithoutUsersInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutUsersInput = {
@@ -855,6 +975,11 @@ export type SalonUncheckedUpdateWithoutUsersInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomersInput = {
@@ -881,6 +1006,11 @@ export type SalonCreateWithoutCustomersInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomersInput = {
@@ -907,6 +1037,11 @@ export type SalonUncheckedCreateWithoutCustomersInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomersInput = {
@@ -949,6 +1084,11 @@ export type SalonUpdateWithoutCustomersInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomersInput = {
@@ -975,6 +1115,11 @@ export type SalonUncheckedUpdateWithoutCustomersInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomerTransactionsInput = {
@@ -1001,6 +1146,11 @@ export type SalonCreateWithoutCustomerTransactionsInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
@@ -1027,6 +1177,11 @@ export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomerTransactionsInput = {
@@ -1069,6 +1224,11 @@ export type SalonUpdateWithoutCustomerTransactionsInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
@@ -1095,6 +1255,11 @@ export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutBranchesInput = {
@@ -1121,6 +1286,11 @@ export type SalonCreateWithoutBranchesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutBranchesInput = {
@@ -1147,6 +1317,11 @@ export type SalonUncheckedCreateWithoutBranchesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutBranchesInput = {
@@ -1189,6 +1364,11 @@ export type SalonUpdateWithoutBranchesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutBranchesInput = {
@@ -1215,6 +1395,11 @@ export type SalonUncheckedUpdateWithoutBranchesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffInput = {
@@ -1241,6 +1426,11 @@ export type SalonCreateWithoutStaffInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffInput = {
@@ -1267,6 +1457,11 @@ export type SalonUncheckedCreateWithoutStaffInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffInput = {
@@ -1309,6 +1504,11 @@ export type SalonUpdateWithoutStaffInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffInput = {
@@ -1335,6 +1535,11 @@ export type SalonUncheckedUpdateWithoutStaffInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutMainServicesInput = {
@@ -1361,6 +1566,11 @@ export type SalonCreateWithoutMainServicesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutMainServicesInput = {
@@ -1387,6 +1597,11 @@ export type SalonUncheckedCreateWithoutMainServicesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutMainServicesInput = {
@@ -1429,6 +1644,11 @@ export type SalonUpdateWithoutMainServicesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutMainServicesInput = {
@@ -1455,6 +1675,11 @@ export type SalonUncheckedUpdateWithoutMainServicesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutServicesInput = {
@@ -1481,6 +1706,11 @@ export type SalonCreateWithoutServicesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutServicesInput = {
@@ -1507,6 +1737,11 @@ export type SalonUncheckedCreateWithoutServicesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutServicesInput = {
@@ -1549,6 +1784,11 @@ export type SalonUpdateWithoutServicesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutServicesInput = {
@@ -1575,6 +1815,11 @@ export type SalonUncheckedUpdateWithoutServicesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutAppointmentsInput = {
@@ -1601,6 +1846,11 @@ export type SalonCreateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutAppointmentsInput = {
@@ -1627,6 +1877,11 @@ export type SalonUncheckedCreateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutAppointmentsInput = {
@@ -1669,6 +1924,11 @@ export type SalonUpdateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutAppointmentsInput = {
@@ -1695,6 +1955,11 @@ export type SalonUncheckedUpdateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSalesInput = {
@@ -1721,6 +1986,11 @@ export type SalonCreateWithoutSalesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSalesInput = {
@@ -1747,6 +2017,11 @@ export type SalonUncheckedCreateWithoutSalesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSalesInput = {
@@ -1789,6 +2064,11 @@ export type SalonUpdateWithoutSalesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSalesInput = {
@@ -1815,6 +2095,11 @@ export type SalonUncheckedUpdateWithoutSalesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutInvoicesInput = {
@@ -1841,6 +2126,11 @@ export type SalonCreateWithoutInvoicesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutInvoicesInput = {
@@ -1867,6 +2157,11 @@ export type SalonUncheckedCreateWithoutInvoicesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutInvoicesInput = {
@@ -1909,6 +2204,11 @@ export type SalonUpdateWithoutInvoicesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutInvoicesInput = {
@@ -1935,6 +2235,11 @@ export type SalonUncheckedUpdateWithoutInvoicesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutPaymentsInput = {
@@ -1961,6 +2266,11 @@ export type SalonCreateWithoutPaymentsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutPaymentsInput = {
@@ -1987,6 +2297,11 @@ export type SalonUncheckedCreateWithoutPaymentsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutPaymentsInput = {
@@ -2029,6 +2344,11 @@ export type SalonUpdateWithoutPaymentsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutPaymentsInput = {
@@ -2055,6 +2375,711 @@ export type SalonUncheckedUpdateWithoutPaymentsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutProductBrandsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutProductBrandsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutProductBrandsInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductBrandsInput, Prisma.SalonUncheckedCreateWithoutProductBrandsInput>
+}
+
+export type SalonUpsertWithoutProductBrandsInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutProductBrandsInput, Prisma.SalonUncheckedUpdateWithoutProductBrandsInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductBrandsInput, Prisma.SalonUncheckedCreateWithoutProductBrandsInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutProductBrandsInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutProductBrandsInput, Prisma.SalonUncheckedUpdateWithoutProductBrandsInput>
+}
+
+export type SalonUpdateWithoutProductBrandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutProductBrandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutProductsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutProductsInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductsInput, Prisma.SalonUncheckedCreateWithoutProductsInput>
+}
+
+export type SalonUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutProductsInput, Prisma.SalonUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductsInput, Prisma.SalonUncheckedCreateWithoutProductsInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutProductsInput, Prisma.SalonUncheckedUpdateWithoutProductsInput>
+}
+
+export type SalonUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutProductStockMovementsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutProductStockMovementsInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutProductStockMovementsInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductStockMovementsInput, Prisma.SalonUncheckedCreateWithoutProductStockMovementsInput>
+}
+
+export type SalonUpsertWithoutProductStockMovementsInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutProductStockMovementsInput, Prisma.SalonUncheckedUpdateWithoutProductStockMovementsInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductStockMovementsInput, Prisma.SalonUncheckedCreateWithoutProductStockMovementsInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutProductStockMovementsInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutProductStockMovementsInput, Prisma.SalonUncheckedUpdateWithoutProductStockMovementsInput>
+}
+
+export type SalonUpdateWithoutProductStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutProductPurchasesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutProductPurchasesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutProductPurchasesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductPurchasesInput, Prisma.SalonUncheckedCreateWithoutProductPurchasesInput>
+}
+
+export type SalonUpsertWithoutProductPurchasesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutProductPurchasesInput, Prisma.SalonUncheckedUpdateWithoutProductPurchasesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutProductPurchasesInput, Prisma.SalonUncheckedCreateWithoutProductPurchasesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutProductPurchasesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutProductPurchasesInput, Prisma.SalonUncheckedUpdateWithoutProductPurchasesInput>
+}
+
+export type SalonUpdateWithoutProductPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutRetailSalesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutRetailSalesInput = {
+  id?: string
+  name: string
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutRetailSalesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutRetailSalesInput, Prisma.SalonUncheckedCreateWithoutRetailSalesInput>
+}
+
+export type SalonUpsertWithoutRetailSalesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutRetailSalesInput, Prisma.SalonUncheckedUpdateWithoutRetailSalesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutRetailSalesInput, Prisma.SalonUncheckedCreateWithoutRetailSalesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutRetailSalesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutRetailSalesInput, Prisma.SalonUncheckedUpdateWithoutRetailSalesInput>
+}
+
+export type SalonUpdateWithoutRetailSalesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutRetailSalesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSupportTicketsInput = {
@@ -2081,6 +3106,11 @@ export type SalonCreateWithoutSupportTicketsInput = {
   staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSupportTicketsInput = {
@@ -2107,6 +3137,11 @@ export type SalonUncheckedCreateWithoutSupportTicketsInput = {
   staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSupportTicketsInput = {
@@ -2149,6 +3184,11 @@ export type SalonUpdateWithoutSupportTicketsInput = {
   staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
@@ -2175,6 +3215,11 @@ export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
   staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 
@@ -2195,6 +3240,11 @@ export type SalonCountOutputType = {
   customers: number
   customerTransactions: number
   supportTickets: number
+  productBrands: number
+  products: number
+  productStockMovements: number
+  productPurchases: number
+  retailSales: number
 }
 
 export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2210,6 +3260,11 @@ export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   customers?: boolean | SalonCountOutputTypeCountCustomersArgs
   customerTransactions?: boolean | SalonCountOutputTypeCountCustomerTransactionsArgs
   supportTickets?: boolean | SalonCountOutputTypeCountSupportTicketsArgs
+  productBrands?: boolean | SalonCountOutputTypeCountProductBrandsArgs
+  products?: boolean | SalonCountOutputTypeCountProductsArgs
+  productStockMovements?: boolean | SalonCountOutputTypeCountProductStockMovementsArgs
+  productPurchases?: boolean | SalonCountOutputTypeCountProductPurchasesArgs
+  retailSales?: boolean | SalonCountOutputTypeCountRetailSalesArgs
 }
 
 /**
@@ -2306,6 +3361,41 @@ export type SalonCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.
   where?: Prisma.SupportTicketWhereInput
 }
 
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountProductBrandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductBrandWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountProductStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductStockMovementWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountProductPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductPurchaseWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountRetailSalesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RetailSaleWhereInput
+}
+
 
 export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2332,6 +3422,11 @@ export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   customers?: boolean | Prisma.Salon$customersArgs<ExtArgs>
   customerTransactions?: boolean | Prisma.Salon$customerTransactionsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Salon$supportTicketsArgs<ExtArgs>
+  productBrands?: boolean | Prisma.Salon$productBrandsArgs<ExtArgs>
+  products?: boolean | Prisma.Salon$productsArgs<ExtArgs>
+  productStockMovements?: boolean | Prisma.Salon$productStockMovementsArgs<ExtArgs>
+  productPurchases?: boolean | Prisma.Salon$productPurchasesArgs<ExtArgs>
+  retailSales?: boolean | Prisma.Salon$retailSalesArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["salon"]>
 
@@ -2394,6 +3489,11 @@ export type SalonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   customers?: boolean | Prisma.Salon$customersArgs<ExtArgs>
   customerTransactions?: boolean | Prisma.Salon$customerTransactionsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.Salon$supportTicketsArgs<ExtArgs>
+  productBrands?: boolean | Prisma.Salon$productBrandsArgs<ExtArgs>
+  products?: boolean | Prisma.Salon$productsArgs<ExtArgs>
+  productStockMovements?: boolean | Prisma.Salon$productStockMovementsArgs<ExtArgs>
+  productPurchases?: boolean | Prisma.Salon$productPurchasesArgs<ExtArgs>
+  retailSales?: boolean | Prisma.Salon$retailSalesArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SalonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2414,6 +3514,11 @@ export type $SalonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     customers: Prisma.$CustomerPayload<ExtArgs>[]
     customerTransactions: Prisma.$CustomerTransactionPayload<ExtArgs>[]
     supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
+    productBrands: Prisma.$ProductBrandPayload<ExtArgs>[]
+    products: Prisma.$ProductPayload<ExtArgs>[]
+    productStockMovements: Prisma.$ProductStockMovementPayload<ExtArgs>[]
+    productPurchases: Prisma.$ProductPurchasePayload<ExtArgs>[]
+    retailSales: Prisma.$RetailSalePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2834,6 +3939,11 @@ export interface Prisma__SalonClient<T, Null = never, ExtArgs extends runtime.Ty
   customers<T extends Prisma.Salon$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerTransactions<T extends Prisma.Salon$customerTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$customerTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supportTickets<T extends Prisma.Salon$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productBrands<T extends Prisma.Salon$productBrandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$productBrandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductBrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  products<T extends Prisma.Salon$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productStockMovements<T extends Prisma.Salon$productStockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$productStockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  productPurchases<T extends Prisma.Salon$productPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$productPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  retailSales<T extends Prisma.Salon$retailSalesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$retailSalesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3553,6 +4663,126 @@ export type Salon$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
+}
+
+/**
+ * Salon.productBrands
+ */
+export type Salon$productBrandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductBrand
+   */
+  select?: Prisma.ProductBrandSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductBrand
+   */
+  omit?: Prisma.ProductBrandOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductBrandInclude<ExtArgs> | null
+  where?: Prisma.ProductBrandWhereInput
+  orderBy?: Prisma.ProductBrandOrderByWithRelationInput | Prisma.ProductBrandOrderByWithRelationInput[]
+  cursor?: Prisma.ProductBrandWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductBrandScalarFieldEnum | Prisma.ProductBrandScalarFieldEnum[]
+}
+
+/**
+ * Salon.products
+ */
+export type Salon$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * Salon.productStockMovements
+ */
+export type Salon$productStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductStockMovement
+   */
+  select?: Prisma.ProductStockMovementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductStockMovement
+   */
+  omit?: Prisma.ProductStockMovementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductStockMovementInclude<ExtArgs> | null
+  where?: Prisma.ProductStockMovementWhereInput
+  orderBy?: Prisma.ProductStockMovementOrderByWithRelationInput | Prisma.ProductStockMovementOrderByWithRelationInput[]
+  cursor?: Prisma.ProductStockMovementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductStockMovementScalarFieldEnum | Prisma.ProductStockMovementScalarFieldEnum[]
+}
+
+/**
+ * Salon.productPurchases
+ */
+export type Salon$productPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductPurchase
+   */
+  select?: Prisma.ProductPurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProductPurchase
+   */
+  omit?: Prisma.ProductPurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductPurchaseInclude<ExtArgs> | null
+  where?: Prisma.ProductPurchaseWhereInput
+  orderBy?: Prisma.ProductPurchaseOrderByWithRelationInput | Prisma.ProductPurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.ProductPurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductPurchaseScalarFieldEnum | Prisma.ProductPurchaseScalarFieldEnum[]
+}
+
+/**
+ * Salon.retailSales
+ */
+export type Salon$retailSalesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RetailSale
+   */
+  select?: Prisma.RetailSaleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RetailSale
+   */
+  omit?: Prisma.RetailSaleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RetailSaleInclude<ExtArgs> | null
+  where?: Prisma.RetailSaleWhereInput
+  orderBy?: Prisma.RetailSaleOrderByWithRelationInput | Prisma.RetailSaleOrderByWithRelationInput[]
+  cursor?: Prisma.RetailSaleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RetailSaleScalarFieldEnum | Prisma.RetailSaleScalarFieldEnum[]
 }
 
 /**

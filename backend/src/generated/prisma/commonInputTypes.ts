@@ -484,6 +484,40 @@ export type EnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
 }
 
+export type EnumProductUnitFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductUnit | Prisma.EnumProductUnitFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductUnitFilter<$PrismaModel> | $Enums.ProductUnit
+}
+
+export type EnumProductUnitWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductUnit | Prisma.EnumProductUnitFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductUnitWithAggregatesFilter<$PrismaModel> | $Enums.ProductUnit
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductUnitFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductUnitFilter<$PrismaModel>
+}
+
+export type EnumProductStockMovementTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStockMovementType | Prisma.EnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel> | $Enums.ProductStockMovementType
+}
+
+export type EnumProductStockMovementTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStockMovementType | Prisma.EnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductStockMovementTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductStockMovementType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel>
+}
+
 export type EnumSupportTicketCategoryFilter<$PrismaModel = never> = {
   equals?: $Enums.SupportTicketCategory | Prisma.EnumSupportTicketCategoryFieldRefInput<$PrismaModel>
   in?: $Enums.SupportTicketCategory[] | Prisma.ListEnumSupportTicketCategoryFieldRefInput<$PrismaModel>
@@ -1050,6 +1084,40 @@ export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumProductUnitFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductUnit | Prisma.EnumProductUnitFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductUnitFilter<$PrismaModel> | $Enums.ProductUnit
+}
+
+export type NestedEnumProductUnitWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductUnit | Prisma.EnumProductUnitFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductUnitWithAggregatesFilter<$PrismaModel> | $Enums.ProductUnit
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductUnitFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductUnitFilter<$PrismaModel>
+}
+
+export type NestedEnumProductStockMovementTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStockMovementType | Prisma.EnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel> | $Enums.ProductStockMovementType
+}
+
+export type NestedEnumProductStockMovementTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStockMovementType | Prisma.EnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ProductStockMovementType[] | Prisma.ListEnumProductStockMovementTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumProductStockMovementTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductStockMovementType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductStockMovementTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumSupportTicketCategoryFilter<$PrismaModel = never> = {

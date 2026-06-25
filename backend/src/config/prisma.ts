@@ -1,5 +1,7 @@
 import "dotenv/config";
+import { attachDatabasePool } from "@vercel/functions";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 import { PrismaClient } from "../generated/prisma/client.js";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -8,6 +10,31 @@ if (!databaseUrl) {
   throw new Error("DATABASE_URL is not defined");
 }
 
-const adapter = new PrismaPg({ connectionString: databaseUrl });
+const globalDatabase = globalThis as unknown as {
+  pgPool?: Pool;
+  prisma?: PrismaClient;
+  vercelPoolAttached?: boolean;
+};
 
-export const prisma = new PrismaClient({ adapter });
+const pool =
+  globalDatabase.pgPool ||
+  new Pool({
+    connectionString: databaseUrl,
+    max: process.env.VERCEL ? 5 : 10,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 10_000,
+    allowExitOnIdle: process.env.NODE_ENV === "test",
+  });
+
+if (process.env.VERCEL && !globalDatabase.vercelPoolAttached) {
+  attachDatabasePool(pool);
+  globalDatabase.vercelPoolAttached = true;
+}
+
+const adapter = new PrismaPg(pool);
+
+export const prisma =
+  globalDatabase.prisma || new PrismaClient({ adapter });
+
+globalDatabase.pgPool = pool;
+globalDatabase.prisma = prisma;

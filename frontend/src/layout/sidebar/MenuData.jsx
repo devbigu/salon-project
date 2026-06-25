@@ -43,6 +43,26 @@ const getMenu = (role) => {
         },
       ]
     : []),
+  ...(hasRole(role, operationalRoles)
+    ? [
+        { heading: "Products" },
+        {
+          icon: "package-fill",
+          text: "Inventory",
+          subMenu: [
+            { text: "Product Brands", link: "/admin/product-brands" },
+            { text: "Products", link: "/admin/products" },
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
+              ? [{ text: "Purchase Products", link: "/admin/product-purchases" }]
+              : []),
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"])
+              ? [{ text: "Retail Products", link: "/admin/retail-products" }]
+              : []),
+            { text: "Low Stock / Movements", link: "/admin/stock-movements" },
+          ],
+        },
+      ]
+    : []),
   ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"])
     ? [
         {

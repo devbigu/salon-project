@@ -107,6 +107,38 @@ export const salonApi = {
     get: (id) => request(`/api/payments/${id}`),
     create: (body) => request("/api/payments", { method: "POST", body }),
   },
+  productBrands: {
+    list: () => request("/api/product-brands"),
+    get: (id) => request(`/api/product-brands/${id}`),
+    create: (body) => request("/api/product-brands", { method: "POST", body }),
+    update: (id, body) => request(`/api/product-brands/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/product-brands/${id}/status`, { method: "PATCH", body: { status } }),
+    remove: (id) => request(`/api/product-brands/${id}`, { method: "DELETE" }),
+  },
+  products: {
+    list: (query) => request("/api/products", { query }),
+    lowStock: () => request("/api/products/low-stock"),
+    get: (id) => request(`/api/products/${id}`),
+    create: (body) => request("/api/products", { method: "POST", body }),
+    update: (id, body) => request(`/api/products/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/products/${id}/status`, { method: "PATCH", body: { status } }),
+    remove: (id) => request(`/api/products/${id}`, { method: "DELETE" }),
+  },
+  productPurchases: {
+    list: () => request("/api/product-purchases"),
+    get: (id) => request(`/api/product-purchases/${id}`),
+    create: (body) => request("/api/product-purchases", { method: "POST", body }),
+  },
+  retailSales: {
+    list: () => request("/api/retail-sales"),
+    get: (id) => request(`/api/retail-sales/${id}`),
+    create: (body) => request("/api/retail-sales", { method: "POST", body }),
+  },
+  stockMovements: {
+    list: (query) => request("/api/stock-movements", { query }),
+    byProduct: (productId) => request(`/api/stock-movements/product/${productId}`),
+    createManual: (body) => request("/api/stock-movements/manual", { method: "POST", body }),
+  },
   support: {
     createPublic: (body) =>
       request("/api/support-tickets/public", { method: "POST", body }),

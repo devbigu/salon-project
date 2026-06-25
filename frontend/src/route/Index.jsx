@@ -10,6 +10,11 @@ import Customers from "@/pages/salon/Customers";
 import Management from "@/pages/salon/Management";
 import ServiceCatalog from "@/pages/salon/ServiceCatalog";
 import Support from "@/pages/salon/Support";
+import ProductBrands from "@/pages/salon/ProductBrands";
+import Products from "@/pages/salon/Products";
+import ProductPurchases from "@/pages/salon/ProductPurchases";
+import RetailProducts from "@/pages/salon/RetailProducts";
+import StockMovements from "@/pages/salon/StockMovements";
 
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
@@ -68,6 +73,9 @@ const Router = () => (
                 <Route path="customers" element={<Customers />} />
                 <Route path="services" element={<ServiceCatalog />} />
                 <Route path="support" element={<Support />} />
+                <Route path="admin/product-brands" element={<ProductBrands />} />
+                <Route path="admin/products" element={<Products />} />
+                <Route path="admin/stock-movements" element={<StockMovements />} />
               </Route>
 
               <Route
@@ -90,6 +98,10 @@ const Router = () => (
                 }
               >
                 <Route path="management" element={<Management />} />
+                <Route path="admin/retail-products" element={<RetailProducts />} />
+              </Route>
+              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN"]} />}>
+                <Route path="admin/product-purchases" element={<ProductPurchases />} />
               </Route>
             </Route>
 

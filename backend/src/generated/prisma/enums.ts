@@ -132,6 +132,34 @@ export const CustomerTransactionType = {
 export type CustomerTransactionType = (typeof CustomerTransactionType)[keyof typeof CustomerTransactionType]
 
 
+export const ProductUnit = {
+  PCS: 'PCS',
+  ML: 'ML',
+  LITER: 'LITER',
+  GRAM: 'GRAM',
+  KG: 'KG',
+  PACK: 'PACK',
+  BOX: 'BOX',
+  BOTTLE: 'BOTTLE',
+  TUBE: 'TUBE'
+} as const
+
+export type ProductUnit = (typeof ProductUnit)[keyof typeof ProductUnit]
+
+
+export const ProductStockMovementType = {
+  STOCK_IN: 'STOCK_IN',
+  STOCK_OUT: 'STOCK_OUT',
+  RETAIL_SALE: 'RETAIL_SALE',
+  USED_IN_SERVICE: 'USED_IN_SERVICE',
+  DAMAGED: 'DAMAGED',
+  ADJUSTMENT: 'ADJUSTMENT',
+  RETURNED: 'RETURNED'
+} as const
+
+export type ProductStockMovementType = (typeof ProductStockMovementType)[keyof typeof ProductStockMovementType]
+
+
 export const SupportTicketCategory = {
   LOGIN_ISSUE: 'LOGIN_ISSUE',
   CUSTOMER_MODULE: 'CUSTOMER_MODULE',

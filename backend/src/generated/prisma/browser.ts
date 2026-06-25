@@ -103,6 +103,41 @@ export type InvoiceItem = Prisma.InvoiceItemModel
  */
 export type Payment = Prisma.PaymentModel
 /**
+ * Model ProductBrand
+ * 
+ */
+export type ProductBrand = Prisma.ProductBrandModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductStockMovement
+ * 
+ */
+export type ProductStockMovement = Prisma.ProductStockMovementModel
+/**
+ * Model ProductPurchase
+ * 
+ */
+export type ProductPurchase = Prisma.ProductPurchaseModel
+/**
+ * Model ProductPurchaseItem
+ * 
+ */
+export type ProductPurchaseItem = Prisma.ProductPurchaseItemModel
+/**
+ * Model RetailSale
+ * 
+ */
+export type RetailSale = Prisma.RetailSaleModel
+/**
+ * Model RetailSaleItem
+ * 
+ */
+export type RetailSaleItem = Prisma.RetailSaleItemModel
+/**
  * Model SupportTicket
  * 
  */
