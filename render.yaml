@@ -4,8 +4,9 @@ services:
     runtime: node
     rootDir: backend
     plan: free
-    buildCommand: npm ci && npm run render-build
-    preDeployCommand: npm run deploy:migrate
+    # Free Render services do not support pre-deploy commands. Run the
+    # idempotent Prisma deployment migration as the final build step instead.
+    buildCommand: npm ci && npm run render-build && npm run deploy:migrate
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeployTrigger: commit
@@ -16,7 +17,7 @@ services:
         fromDatabase:
           name: salon-postgres
           property: connectionString
-      - key: CLIENT_URL
+      - key: CLIENT_URLS
         sync: false
       - key: JWT_ACCESS_SECRET
         generateValue: true

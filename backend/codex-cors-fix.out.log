@@ -1,0 +1,10 @@
+
+> backend@1.0.0 dev
+> tsx watch src/index.ts
+
+◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Server running on port 5001
+4:55:50 PM [tsx] change in ./src\generated\prisma\enums.ts Restarting...
+c4:55:50 PM [tsx] unlink in ./src\generated\prisma\internal\class.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ override existing { override: true }
+Server running on port 5001

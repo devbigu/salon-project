@@ -36,7 +36,7 @@ router.patch(
 
 router.get(
   "/:id",
-  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"),
+  requireRole("SUPER_ADMIN", "SALON_ADMIN"),
   getMainServiceById
 );
 

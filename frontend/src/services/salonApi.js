@@ -125,7 +125,7 @@ export const salonApi = {
     remove: (id) => request(`/api/products/${id}`, { method: "DELETE" }),
   },
   productPurchases: {
-    list: () => request("/api/product-purchases"),
+    list: (query) => request("/api/product-purchases", { query }),
     get: (id) => request(`/api/product-purchases/${id}`),
     create: (body) => request("/api/product-purchases", { method: "POST", body }),
   },
@@ -138,6 +138,39 @@ export const salonApi = {
     list: (query) => request("/api/stock-movements", { query }),
     byProduct: (productId) => request(`/api/stock-movements/product/${productId}`),
     createManual: (body) => request("/api/stock-movements/manual", { method: "POST", body }),
+  },
+  vendors: {
+    list: (query) => request("/api/vendors", { query }),
+    get: (id) => request(`/api/vendors/${id}`),
+    create: (body) => request("/api/vendors", { method: "POST", body }),
+    update: (id, body) => request(`/api/vendors/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/vendors/${id}/status`, { method: "PATCH", body: { status } }),
+    remove: (id) => request(`/api/vendors/${id}`, { method: "DELETE" }),
+  },
+  vendorPayments: {
+    list: (query) => request("/api/vendor-payments", { query }),
+    get: (id) => request(`/api/vendor-payments/${id}`),
+    create: (body) => request("/api/vendor-payments", { method: "POST", body }),
+  },
+  expenses: {
+    list: (query) => request("/api/expenses", { query }),
+    get: (id) => request(`/api/expenses/${id}`),
+    create: (body) => request("/api/expenses", { method: "POST", body }),
+    update: (id, body) => request(`/api/expenses/${id}`, { method: "PUT", body }),
+    remove: (id) => request(`/api/expenses/${id}`, { method: "DELETE" }),
+  },
+  expenseCategories: {
+    list: (query) => request("/api/expense-categories", { query }),
+    get: (id) => request(`/api/expense-categories/${id}`),
+    create: (body) => request("/api/expense-categories", { method: "POST", body }),
+    update: (id, body) => request(`/api/expense-categories/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/expense-categories/${id}/status`, { method: "PATCH", body: { status } }),
+    remove: (id) => request(`/api/expense-categories/${id}`, { method: "DELETE" }),
+  },
+  reports: {
+    inventory: (query) => request("/api/reports/inventory", { query }),
+    expenses: (query) => request("/api/reports/expenses", { query }),
+    profitSummary: (query) => request("/api/reports/profit-summary", { query }),
   },
   support: {
     createPublic: (body) =>

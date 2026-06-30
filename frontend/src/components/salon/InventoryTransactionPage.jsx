@@ -13,11 +13,13 @@ const emptyLine = () => ({ productId: "", quantity: 1, price: 0 });
 const InventoryTransactionPage = ({ mode }) => {
   const purchase = mode === "purchase";
   const { user } = useAuth();
-  const [refs, setRefs] = useState({ products: [], branches: [], customers: [], salons: [] });
+  const [refs, setRefs] = useState({ products: [], vendors: [], branches: [], customers: [], salons: [] });
   const [history, setHistory] = useState([]);
   const [form, setForm] = useState({
     salonId: "",
     branchId: "",
+    vendorId: "",
+    purchaseDate: new Date().toISOString().slice(0, 10),
     supplierName: "",
     supplierPhone: "",
     invoiceNo: "",
@@ -36,8 +38,9 @@ const InventoryTransactionPage = ({ mode }) => {
   const load = async () => {
     setLoading(true);
     try {
-      const [products, branches, customers, salons, records] = await Promise.allSettled([
+      const [products, vendors, branches, customers, salons, records] = await Promise.allSettled([
         salonApi.products.list(purchase ? {} : { retail: true, status: true }),
+        purchase ? salonApi.vendors.list({ status: true }) : Promise.resolve({ data: [] }),
         user?.role === "STAFF" ? Promise.resolve({ data: [] }) : salonApi.branches.list(),
         purchase ? Promise.resolve({ data: [] }) : salonApi.customers.list(),
         user?.role === "SUPER_ADMIN" ? salonApi.salons.list() : Promise.resolve({ data: [] }),
@@ -45,6 +48,7 @@ const InventoryTransactionPage = ({ mode }) => {
       ]);
       setRefs({
         products: products.status === "fulfilled" ? products.value.data || [] : [],
+        vendors: vendors.status === "fulfilled" ? vendors.value.data || [] : [],
         branches: branches.status === "fulfilled" ? branches.value.data || [] : [],
         customers: customers.status === "fulfilled" ? customers.value.data || [] : [],
         salons: salons.status === "fulfilled" ? salons.value.data || [] : [],
@@ -92,11 +96,13 @@ const InventoryTransactionPage = ({ mode }) => {
       const body = {
         ...(form.salonId ? { salonId: form.salonId } : {}),
         ...(form.branchId ? { branchId: form.branchId } : {}),
+        ...(purchase && form.purchaseDate ? { purchaseDate: form.purchaseDate } : {}),
         ...(form.note ? { note: form.note } : {}),
         ...(purchase
           ? {
               supplierName: form.supplierName,
               supplierPhone: form.supplierPhone,
+              ...(form.vendorId ? { vendorId: form.vendorId } : {}),
               invoiceNo: form.invoiceNo,
               items: items.map((item) => ({
                 productId: item.productId,
@@ -143,6 +149,8 @@ const InventoryTransactionPage = ({ mode }) => {
               <Col md="4"><FormGroup><Label>Branch</Label><Input type="select" value={form.branchId} disabled={user?.role === "RECEPTIONIST"} onChange={(e) => setForm((x) => ({ ...x, branchId: e.target.value }))}><option value="">All branches</option>{refs.branches.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</Input></FormGroup></Col>
               {purchase ? (
                 <>
+                  <Col md="4"><FormGroup><Label>Vendor</Label><Input type="select" value={form.vendorId} onChange={(e) => setForm((x) => ({ ...x, vendorId: e.target.value }))}><option value="">Select vendor (optional)</option>{refs.vendors.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</Input></FormGroup></Col>
+                  <Col md="4"><FormGroup><Label>Purchase date</Label><Input type="date" value={form.purchaseDate} onChange={(e) => setForm((x) => ({ ...x, purchaseDate: e.target.value }))} /></FormGroup></Col>
                   <Col md="4"><FormGroup><Label>Supplier name</Label><Input value={form.supplierName} onChange={(e) => setForm((x) => ({ ...x, supplierName: e.target.value }))} /></FormGroup></Col>
                   <Col md="4"><FormGroup><Label>Supplier phone</Label><Input value={form.supplierPhone} onChange={(e) => setForm((x) => ({ ...x, supplierPhone: e.target.value }))} /></FormGroup></Col>
                   <Col md="4"><FormGroup><Label>Invoice no.</Label><Input value={form.invoiceNo} onChange={(e) => setForm((x) => ({ ...x, invoiceNo: e.target.value }))} /></FormGroup></Col>
@@ -189,6 +197,8 @@ const InventoryTransactionPage = ({ mode }) => {
           { key: purchase ? "supplierName" : "customer", label: purchase ? "Supplier" : "Customer", render: (v) => purchase ? (v || "—") : (v?.name || "Walk-in") },
           { key: "items", label: "Items", render: (v) => v?.length || 0 },
           { key: "totalAmount", label: "Total", render: formatMoney },
+          ...(purchase ? [{ key: "paymentStatus", label: "Payment" }] : []),
+          ...(purchase ? [{ key: "balanceAmount", label: "Balance", render: formatMoney }] : []),
         ]}
       />
     </PageShell>

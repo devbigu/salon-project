@@ -147,6 +147,16 @@ export type ProductStockMovement = Prisma.ProductStockMovementModel
  */
 export type ProductPurchase = Prisma.ProductPurchaseModel
 /**
+ * Model Vendor
+ * 
+ */
+export type Vendor = Prisma.VendorModel
+/**
+ * Model VendorPayment
+ * 
+ */
+export type VendorPayment = Prisma.VendorPaymentModel
+/**
  * Model ProductPurchaseItem
  * 
  */
@@ -161,6 +171,16 @@ export type RetailSale = Prisma.RetailSaleModel
  * 
  */
 export type RetailSaleItem = Prisma.RetailSaleItemModel
+/**
+ * Model Expense
+ * 
+ */
+export type Expense = Prisma.ExpenseModel
+/**
+ * Model ExpenseCategoryDefinition
+ * 
+ */
+export type ExpenseCategoryDefinition = Prisma.ExpenseCategoryDefinitionModel
 /**
  * Model SupportTicket
  * 

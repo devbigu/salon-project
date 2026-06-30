@@ -6,6 +6,6 @@ import { createRetailSale, getRetailSale, getRetailSales } from "./retail-sale.c
 const router = Router();
 router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"), createRetailSale);
-router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getRetailSales);
-router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getRetailSale);
+router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"), getRetailSales);
+router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"), getRetailSale);
 export default router;

@@ -1,6 +1,20 @@
 
-> backend@1.0.0 start
-> tsx dist/index.js
+> backend@1.0.0 dev
+> tsx watch src/index.ts
 
-◇ injected env (5) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (8) from .env // tip: ⌘ override existing { override: true }
+Server running on port 5000
+4:30:27 PM [tsx] change in ./src\generated\prisma\enums.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ enable debugging { debug: true }
+Server running on port 5000
+4:44:03 PM [tsx] change in ./src\features\main-services\mainService.routes.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+4:44:04 PM [tsx] change in ./src\features\services\service.routes.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ suppress logs { quiet: true }
+Server running on port 5000
+4:44:19 PM [tsx] unlink in ./src\generated\prisma\enums.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Server running on port 5000
+4:46:11 PM [tsx] change in ./src\generated\prisma\enums.ts Restarting...
+c◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
 Server running on port 5000

@@ -6,8 +6,8 @@ provided `PORT`.
 ## Required environment variables
 
 - `DATABASE_URL`: PostgreSQL connection string. Prefer a pooled URL on Vercel.
-- `CLIENT_URL` or `CLIENT_URLS`: exact frontend origin(s), without a trailing
-  slash. Separate multiple origins with commas.
+- `CLIENT_URLS`: exact frontend origin(s), without a trailing slash. Separate
+  multiple origins with commas.
 - `JWT_ACCESS_SECRET`: long random secret.
 - `JWT_REFRESH_SECRET`: a different long random secret.
 - `NODE_ENV=production`
@@ -26,19 +26,27 @@ The repository-root `render.yaml` defines:
 
 - A Node web service rooted at `backend`
 - PostgreSQL
-- Prisma generation and TypeScript build
-- `prisma migrate deploy` as the pre-deploy command
+- Prisma generation, TypeScript build, and `prisma migrate deploy` in the build
+  command (Render pre-deploy commands require a paid service)
 - `/api/health` as the health check
 - Automatic secure JWT secret generation
 
 Create a Render Blueprint from the repository. Before the first deployment,
-set `CLIENT_URL` to the deployed frontend origin, for example:
+set `CLIENT_URLS` to the deployed frontend origin, for example:
 
 ```text
 https://your-salon-frontend.vercel.app
 ```
 
 Render supplies `PORT` and `DATABASE_URL`.
+
+Keep backend env files simple:
+
+- `.env` for local development and deployment values you copy into the host.
+- `.env.test` for automated tests only.
+
+Do not create extra backend env files such as `.env.local`, `.env.production`,
+or `.env.example`; they make deployment harder to audit.
 
 ## Vercel
 

@@ -17,6 +17,11 @@ import productRoutes from "../features/products/product.routes.js";
 import productPurchaseRoutes from "../features/product-purchases/product-purchase.routes.js";
 import retailSaleRoutes from "../features/retail-sales/retail-sale.routes.js";
 import stockMovementRoutes from "../features/stock-movements/stock-movement.routes.js";
+import vendorRoutes from "../features/vendors/vendor.routes.js";
+import vendorPaymentRoutes from "../features/vendor-payments/vendor-payment.routes.js";
+import expenseRoutes from "../features/expenses/expense.routes.js";
+import reportRoutes from "../features/reports/report.routes.js";
+import expenseCategoryRoutes from "../features/expense-categories/expense-category.routes.js";
 
 
 
@@ -39,6 +44,11 @@ router.use("/products", productRoutes);
 router.use("/product-purchases", productPurchaseRoutes);
 router.use("/retail-sales", retailSaleRoutes);
 router.use("/stock-movements", stockMovementRoutes);
+router.use("/vendors", vendorRoutes);
+router.use("/vendor-payments", vendorPaymentRoutes);
+router.use("/expenses", expenseRoutes);
+router.use("/reports", reportRoutes);
+router.use("/expense-categories", expenseCategoryRoutes);
 
 
 export default router;

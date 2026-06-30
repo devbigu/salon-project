@@ -13,8 +13,14 @@ type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 type SaleItem = { productId: string; quantity: number; unitPrice: number };
 const idParam = (req: Request) => typeof req.params.id === "string" ? req.params.id : "";
 const listWhere = (req: Request) => ({
-  ...(req.user?.role === "SUPER_ADMIN" ? {} : { salonId: req.user?.salonId || "__missing__" }),
-  ...(req.user?.role === "RECEPTIONIST" && req.user.branchId ? { branchId: req.user.branchId } : {}),
+  ...(req.user?.role === "SUPER_ADMIN"
+    ? typeof req.query.salonId === "string"
+      ? { salonId: req.query.salonId }
+      : {}
+    : { salonId: req.user?.salonId || "__missing__" }),
+  ...((req.user?.role === "RECEPTIONIST" || req.user?.role === "BRANCH_MANAGER") && req.user.branchId
+    ? { branchId: req.user.branchId }
+    : {}),
 });
 
 export const createRetailSale = async (req: Request, res: Response) => {
@@ -47,6 +53,10 @@ export const createRetailSale = async (req: Request, res: Response) => {
     }
     const discount = Number(req.body.discountAmount ?? 0);
     if (!Number.isFinite(discount) || discount < 0) return res.status(400).json({ success: false, message: "Discount must be non-negative" });
+    const saleDate = req.body.saleDate ? new Date(req.body.saleDate) : undefined;
+    if (saleDate && Number.isNaN(saleDate.getTime())) {
+      return res.status(400).json({ success: false, message: "Invalid sale date" });
+    }
 
     const saleId = await prisma.$transaction(async (tx) => {
       const products = await tx.product.findMany({
@@ -70,6 +80,7 @@ export const createRetailSale = async (req: Request, res: Response) => {
           salonId,
           ...(branchId ? { branchId } : {}),
           ...(req.body.customerId ? { customerId: req.body.customerId } : {}),
+          ...(saleDate ? { saleDate } : {}),
           subtotalAmount: subtotal,
           discountAmount: discount,
           totalAmount: subtotal - discount,

@@ -10,6 +10,6 @@ import {
 const router = Router();
 router.use(authenticate);
 router.post("/manual", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createManualStockMovement);
-router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getStockMovements);
-router.get("/product/:productId", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getProductStockMovements);
+router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"), getStockMovements);
+router.get("/product/:productId", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"), getProductStockMovements);
 export default router;

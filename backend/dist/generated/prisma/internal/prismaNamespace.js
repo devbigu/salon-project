@@ -89,9 +89,13 @@ export const ModelName = {
     Product: 'Product',
     ProductStockMovement: 'ProductStockMovement',
     ProductPurchase: 'ProductPurchase',
+    Vendor: 'Vendor',
+    VendorPayment: 'VendorPayment',
     ProductPurchaseItem: 'ProductPurchaseItem',
     RetailSale: 'RetailSale',
     RetailSaleItem: 'RetailSaleItem',
+    Expense: 'Expense',
+    ExpenseCategoryDefinition: 'ExpenseCategoryDefinition',
     SupportTicket: 'SupportTicket',
     SupportTicketMessage: 'SupportTicketMessage',
     SupportTicketStatusHistory: 'SupportTicketStatusHistory'
@@ -393,6 +397,7 @@ export const ProductScalarFieldEnum = {
     salonId: 'salonId',
     branchId: 'branchId',
     brandId: 'brandId',
+    vendorId: 'vendorId',
     name: 'name',
     description: 'description',
     sku: 'sku',
@@ -404,6 +409,7 @@ export const ProductScalarFieldEnum = {
     currentStock: 'currentStock',
     lowStockAlert: 'lowStockAlert',
     isRetailProduct: 'isRetailProduct',
+    isServiceConsumable: 'isServiceConsumable',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -429,12 +435,45 @@ export const ProductPurchaseScalarFieldEnum = {
     purchaseCode: 'purchaseCode',
     salonId: 'salonId',
     branchId: 'branchId',
+    vendorId: 'vendorId',
     supplierName: 'supplierName',
     supplierPhone: 'supplierPhone',
     invoiceNo: 'invoiceNo',
     purchaseDate: 'purchaseDate',
     subtotalAmount: 'subtotalAmount',
     totalAmount: 'totalAmount',
+    paidAmount: 'paidAmount',
+    balanceAmount: 'balanceAmount',
+    paymentStatus: 'paymentStatus',
+    note: 'note',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const VendorScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    name: 'name',
+    contactPerson: 'contactPerson',
+    email: 'email',
+    phone: 'phone',
+    address: 'address',
+    gst: 'gst',
+    paymentTerms: 'paymentTerms',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const VendorPaymentScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    vendorId: 'vendorId',
+    purchaseId: 'purchaseId',
+    amount: 'amount',
+    paymentDate: 'paymentDate',
+    paymentMethod: 'paymentMethod',
+    referenceNo: 'referenceNo',
     note: 'note',
     createdById: 'createdById',
     createdAt: 'createdAt',
@@ -473,6 +512,31 @@ export const RetailSaleItemScalarFieldEnum = {
     unitPrice: 'unitPrice',
     totalPrice: 'totalPrice',
     createdAt: 'createdAt'
+};
+export const ExpenseScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    vendorId: 'vendorId',
+    categoryDefinitionId: 'categoryDefinitionId',
+    title: 'title',
+    description: 'description',
+    category: 'category',
+    amount: 'amount',
+    paymentMethod: 'paymentMethod',
+    expenseDate: 'expenseDate',
+    note: 'note',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ExpenseCategoryDefinitionScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    name: 'name',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const SupportTicketScalarFieldEnum = {
     id: 'id',

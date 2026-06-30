@@ -15,7 +15,7 @@ const DECREASE = new Set<MovementType>(["STOCK_OUT", "USED_IN_SERVICE", "DAMAGED
 
 const baseWhere = (req: Request) => ({
   ...(req.user?.role === "SUPER_ADMIN" ? {} : { salonId: req.user?.salonId || "__missing__" }),
-  ...(req.user?.role === "RECEPTIONIST" && req.user.branchId
+  ...((req.user?.role === "RECEPTIONIST" || req.user?.role === "BRANCH_MANAGER") && req.user.branchId
     ? { OR: [{ branchId: req.user.branchId }, { branchId: null }] }
     : {}),
 });

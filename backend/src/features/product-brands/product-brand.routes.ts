@@ -13,9 +13,9 @@ import {
 const router = Router();
 router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createProductBrand);
-router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getProductBrands);
+router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"), getProductBrands);
 router.patch("/:id/status", requireRole("SUPER_ADMIN", "SALON_ADMIN"), setProductBrandStatus);
-router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getProductBrand);
+router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"), getProductBrand);
 router.put("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), updateProductBrand);
 router.delete("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), deleteProductBrand);
 export default router;

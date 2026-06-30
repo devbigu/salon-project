@@ -45,6 +45,7 @@ export type ProductMinAggregateOutputType = {
   salonId: string | null
   branchId: string | null
   brandId: string | null
+  vendorId: string | null
   name: string | null
   description: string | null
   sku: string | null
@@ -56,6 +57,7 @@ export type ProductMinAggregateOutputType = {
   currentStock: runtime.Decimal | null
   lowStockAlert: runtime.Decimal | null
   isRetailProduct: boolean | null
+  isServiceConsumable: boolean | null
   status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -66,6 +68,7 @@ export type ProductMaxAggregateOutputType = {
   salonId: string | null
   branchId: string | null
   brandId: string | null
+  vendorId: string | null
   name: string | null
   description: string | null
   sku: string | null
@@ -77,6 +80,7 @@ export type ProductMaxAggregateOutputType = {
   currentStock: runtime.Decimal | null
   lowStockAlert: runtime.Decimal | null
   isRetailProduct: boolean | null
+  isServiceConsumable: boolean | null
   status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -87,6 +91,7 @@ export type ProductCountAggregateOutputType = {
   salonId: number
   branchId: number
   brandId: number
+  vendorId: number
   name: number
   description: number
   sku: number
@@ -98,6 +103,7 @@ export type ProductCountAggregateOutputType = {
   currentStock: number
   lowStockAlert: number
   isRetailProduct: number
+  isServiceConsumable: number
   status: number
   createdAt: number
   updatedAt: number
@@ -124,6 +130,7 @@ export type ProductMinAggregateInputType = {
   salonId?: true
   branchId?: true
   brandId?: true
+  vendorId?: true
   name?: true
   description?: true
   sku?: true
@@ -135,6 +142,7 @@ export type ProductMinAggregateInputType = {
   currentStock?: true
   lowStockAlert?: true
   isRetailProduct?: true
+  isServiceConsumable?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -145,6 +153,7 @@ export type ProductMaxAggregateInputType = {
   salonId?: true
   branchId?: true
   brandId?: true
+  vendorId?: true
   name?: true
   description?: true
   sku?: true
@@ -156,6 +165,7 @@ export type ProductMaxAggregateInputType = {
   currentStock?: true
   lowStockAlert?: true
   isRetailProduct?: true
+  isServiceConsumable?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -166,6 +176,7 @@ export type ProductCountAggregateInputType = {
   salonId?: true
   branchId?: true
   brandId?: true
+  vendorId?: true
   name?: true
   description?: true
   sku?: true
@@ -177,6 +188,7 @@ export type ProductCountAggregateInputType = {
   currentStock?: true
   lowStockAlert?: true
   isRetailProduct?: true
+  isServiceConsumable?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -274,6 +286,7 @@ export type ProductGroupByOutputType = {
   salonId: string
   branchId: string | null
   brandId: string | null
+  vendorId: string | null
   name: string
   description: string | null
   sku: string | null
@@ -285,6 +298,7 @@ export type ProductGroupByOutputType = {
   currentStock: runtime.Decimal
   lowStockAlert: runtime.Decimal
   isRetailProduct: boolean
+  isServiceConsumable: boolean
   status: boolean
   createdAt: Date
   updatedAt: Date
@@ -318,6 +332,7 @@ export type ProductWhereInput = {
   salonId?: Prisma.StringFilter<"Product"> | string
   branchId?: Prisma.StringNullableFilter<"Product"> | string | null
   brandId?: Prisma.StringNullableFilter<"Product"> | string | null
+  vendorId?: Prisma.StringNullableFilter<"Product"> | string | null
   name?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringNullableFilter<"Product"> | string | null
   sku?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -329,12 +344,14 @@ export type ProductWhereInput = {
   currentStock?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFilter<"Product"> | boolean
+  isServiceConsumable?: Prisma.BoolFilter<"Product"> | boolean
   status?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   brand?: Prisma.XOR<Prisma.ProductBrandNullableScalarRelationFilter, Prisma.ProductBrandWhereInput> | null
+  vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
   stockMovements?: Prisma.ProductStockMovementListRelationFilter
   purchaseItems?: Prisma.ProductPurchaseItemListRelationFilter
   retailSaleItems?: Prisma.RetailSaleItemListRelationFilter
@@ -345,6 +362,7 @@ export type ProductOrderByWithRelationInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   brandId?: Prisma.SortOrderInput | Prisma.SortOrder
+  vendorId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -356,12 +374,14 @@ export type ProductOrderByWithRelationInput = {
   currentStock?: Prisma.SortOrder
   lowStockAlert?: Prisma.SortOrder
   isRetailProduct?: Prisma.SortOrder
+  isServiceConsumable?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   salon?: Prisma.SalonOrderByWithRelationInput
   branch?: Prisma.BranchOrderByWithRelationInput
   brand?: Prisma.ProductBrandOrderByWithRelationInput
+  vendor?: Prisma.VendorOrderByWithRelationInput
   stockMovements?: Prisma.ProductStockMovementOrderByRelationAggregateInput
   purchaseItems?: Prisma.ProductPurchaseItemOrderByRelationAggregateInput
   retailSaleItems?: Prisma.RetailSaleItemOrderByRelationAggregateInput
@@ -376,6 +396,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   salonId?: Prisma.StringFilter<"Product"> | string
   branchId?: Prisma.StringNullableFilter<"Product"> | string | null
   brandId?: Prisma.StringNullableFilter<"Product"> | string | null
+  vendorId?: Prisma.StringNullableFilter<"Product"> | string | null
   name?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringNullableFilter<"Product"> | string | null
   sku?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -387,12 +408,14 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   currentStock?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFilter<"Product"> | boolean
+  isServiceConsumable?: Prisma.BoolFilter<"Product"> | boolean
   status?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   brand?: Prisma.XOR<Prisma.ProductBrandNullableScalarRelationFilter, Prisma.ProductBrandWhereInput> | null
+  vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
   stockMovements?: Prisma.ProductStockMovementListRelationFilter
   purchaseItems?: Prisma.ProductPurchaseItemListRelationFilter
   retailSaleItems?: Prisma.RetailSaleItemListRelationFilter
@@ -403,6 +426,7 @@ export type ProductOrderByWithAggregationInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   brandId?: Prisma.SortOrderInput | Prisma.SortOrder
+  vendorId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   sku?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -414,6 +438,7 @@ export type ProductOrderByWithAggregationInput = {
   currentStock?: Prisma.SortOrder
   lowStockAlert?: Prisma.SortOrder
   isRetailProduct?: Prisma.SortOrder
+  isServiceConsumable?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -432,6 +457,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   salonId?: Prisma.StringWithAggregatesFilter<"Product"> | string
   branchId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   brandId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  vendorId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Product"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   sku?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -443,6 +469,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   currentStock?: Prisma.DecimalWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalWithAggregatesFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  isServiceConsumable?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   status?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -461,12 +488,14 @@ export type ProductCreateInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutProductsInput
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
@@ -477,6 +506,7 @@ export type ProductUncheckedCreateInput = {
   salonId: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -488,6 +518,7 @@ export type ProductUncheckedCreateInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -509,12 +540,14 @@ export type ProductUpdateInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
@@ -525,6 +558,7 @@ export type ProductUncheckedUpdateInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -536,6 +570,7 @@ export type ProductUncheckedUpdateInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -549,6 +584,7 @@ export type ProductCreateManyInput = {
   salonId: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -560,6 +596,7 @@ export type ProductCreateManyInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -578,6 +615,7 @@ export type ProductUpdateManyMutationInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,6 +626,7 @@ export type ProductUncheckedUpdateManyInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -599,6 +638,7 @@ export type ProductUncheckedUpdateManyInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,6 +664,7 @@ export type ProductCountOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
+  vendorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sku?: Prisma.SortOrder
@@ -635,6 +676,7 @@ export type ProductCountOrderByAggregateInput = {
   currentStock?: Prisma.SortOrder
   lowStockAlert?: Prisma.SortOrder
   isRetailProduct?: Prisma.SortOrder
+  isServiceConsumable?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -652,6 +694,7 @@ export type ProductMaxOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
+  vendorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sku?: Prisma.SortOrder
@@ -663,6 +706,7 @@ export type ProductMaxOrderByAggregateInput = {
   currentStock?: Prisma.SortOrder
   lowStockAlert?: Prisma.SortOrder
   isRetailProduct?: Prisma.SortOrder
+  isServiceConsumable?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -673,6 +717,7 @@ export type ProductMinOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   brandId?: Prisma.SortOrder
+  vendorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sku?: Prisma.SortOrder
@@ -684,6 +729,7 @@ export type ProductMinOrderByAggregateInput = {
   currentStock?: Prisma.SortOrder
   lowStockAlert?: Prisma.SortOrder
   isRetailProduct?: Prisma.SortOrder
+  isServiceConsumable?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -845,6 +891,48 @@ export type ProductUpdateOneRequiredWithoutStockMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.ProductUpdateWithoutStockMovementsInput>, Prisma.ProductUncheckedUpdateWithoutStockMovementsInput>
 }
 
+export type ProductCreateNestedManyWithoutVendorInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput> | Prisma.ProductCreateWithoutVendorInput[] | Prisma.ProductUncheckedCreateWithoutVendorInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutVendorInput | Prisma.ProductCreateOrConnectWithoutVendorInput[]
+  createMany?: Prisma.ProductCreateManyVendorInputEnvelope
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+}
+
+export type ProductUncheckedCreateNestedManyWithoutVendorInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput> | Prisma.ProductCreateWithoutVendorInput[] | Prisma.ProductUncheckedCreateWithoutVendorInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutVendorInput | Prisma.ProductCreateOrConnectWithoutVendorInput[]
+  createMany?: Prisma.ProductCreateManyVendorInputEnvelope
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+}
+
+export type ProductUpdateManyWithoutVendorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput> | Prisma.ProductCreateWithoutVendorInput[] | Prisma.ProductUncheckedCreateWithoutVendorInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutVendorInput | Prisma.ProductCreateOrConnectWithoutVendorInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutVendorInput | Prisma.ProductUpsertWithWhereUniqueWithoutVendorInput[]
+  createMany?: Prisma.ProductCreateManyVendorInputEnvelope
+  set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutVendorInput | Prisma.ProductUpdateWithWhereUniqueWithoutVendorInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutVendorInput | Prisma.ProductUpdateManyWithWhereWithoutVendorInput[]
+  deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
+}
+
+export type ProductUncheckedUpdateManyWithoutVendorNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput> | Prisma.ProductCreateWithoutVendorInput[] | Prisma.ProductUncheckedCreateWithoutVendorInput[]
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutVendorInput | Prisma.ProductCreateOrConnectWithoutVendorInput[]
+  upsert?: Prisma.ProductUpsertWithWhereUniqueWithoutVendorInput | Prisma.ProductUpsertWithWhereUniqueWithoutVendorInput[]
+  createMany?: Prisma.ProductCreateManyVendorInputEnvelope
+  set?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  disconnect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  delete?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  connect?: Prisma.ProductWhereUniqueInput | Prisma.ProductWhereUniqueInput[]
+  update?: Prisma.ProductUpdateWithWhereUniqueWithoutVendorInput | Prisma.ProductUpdateWithWhereUniqueWithoutVendorInput[]
+  updateMany?: Prisma.ProductUpdateManyWithWhereWithoutVendorInput | Prisma.ProductUpdateManyWithWhereWithoutVendorInput[]
+  deleteMany?: Prisma.ProductScalarWhereInput | Prisma.ProductScalarWhereInput[]
+}
+
 export type ProductCreateNestedOneWithoutPurchaseItemsInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutPurchaseItemsInput, Prisma.ProductUncheckedCreateWithoutPurchaseItemsInput>
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutPurchaseItemsInput
@@ -886,11 +974,13 @@ export type ProductCreateWithoutSalonInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
@@ -900,6 +990,7 @@ export type ProductUncheckedCreateWithoutSalonInput = {
   id?: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -911,6 +1002,7 @@ export type ProductUncheckedCreateWithoutSalonInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -953,6 +1045,7 @@ export type ProductScalarWhereInput = {
   salonId?: Prisma.StringFilter<"Product"> | string
   branchId?: Prisma.StringNullableFilter<"Product"> | string | null
   brandId?: Prisma.StringNullableFilter<"Product"> | string | null
+  vendorId?: Prisma.StringNullableFilter<"Product"> | string | null
   name?: Prisma.StringFilter<"Product"> | string
   description?: Prisma.StringNullableFilter<"Product"> | string | null
   sku?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -964,6 +1057,7 @@ export type ProductScalarWhereInput = {
   currentStock?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFilter<"Product"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFilter<"Product"> | boolean
+  isServiceConsumable?: Prisma.BoolFilter<"Product"> | boolean
   status?: Prisma.BoolFilter<"Product"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
@@ -982,11 +1076,13 @@ export type ProductCreateWithoutBranchInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
@@ -996,6 +1092,7 @@ export type ProductUncheckedCreateWithoutBranchInput = {
   id?: string
   salonId: string
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1007,6 +1104,7 @@ export type ProductUncheckedCreateWithoutBranchInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1054,11 +1152,13 @@ export type ProductCreateWithoutBrandInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutProductsInput
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
@@ -1068,6 +1168,7 @@ export type ProductUncheckedCreateWithoutBrandInput = {
   id?: string
   salonId: string
   branchId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1079,6 +1180,7 @@ export type ProductUncheckedCreateWithoutBrandInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1126,12 +1228,14 @@ export type ProductCreateWithoutStockMovementsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutProductsInput
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
 }
@@ -1141,6 +1245,7 @@ export type ProductUncheckedCreateWithoutStockMovementsInput = {
   salonId: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1152,6 +1257,7 @@ export type ProductUncheckedCreateWithoutStockMovementsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1188,12 +1294,14 @@ export type ProductUpdateWithoutStockMovementsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
 }
@@ -1203,6 +1311,7 @@ export type ProductUncheckedUpdateWithoutStockMovementsInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1214,6 +1323,7 @@ export type ProductUncheckedUpdateWithoutStockMovementsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1221,7 +1331,7 @@ export type ProductUncheckedUpdateWithoutStockMovementsInput = {
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
-export type ProductCreateWithoutPurchaseItemsInput = {
+export type ProductCreateWithoutVendorInput = {
   id?: string
   name: string
   description?: string | null
@@ -1234,6 +1344,7 @@ export type ProductCreateWithoutPurchaseItemsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1241,10 +1352,11 @@ export type ProductCreateWithoutPurchaseItemsInput = {
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
 }
 
-export type ProductUncheckedCreateWithoutPurchaseItemsInput = {
+export type ProductUncheckedCreateWithoutVendorInput = {
   id?: string
   salonId: string
   branchId?: string | null
@@ -1260,6 +1372,84 @@ export type ProductUncheckedCreateWithoutPurchaseItemsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutVendorInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput>
+}
+
+export type ProductCreateManyVendorInputEnvelope = {
+  data: Prisma.ProductCreateManyVendorInput | Prisma.ProductCreateManyVendorInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProductUpsertWithWhereUniqueWithoutVendorInput = {
+  where: Prisma.ProductWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutVendorInput, Prisma.ProductUncheckedUpdateWithoutVendorInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutVendorInput, Prisma.ProductUncheckedCreateWithoutVendorInput>
+}
+
+export type ProductUpdateWithWhereUniqueWithoutVendorInput = {
+  where: Prisma.ProductWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutVendorInput, Prisma.ProductUncheckedUpdateWithoutVendorInput>
+}
+
+export type ProductUpdateManyWithWhereWithoutVendorInput = {
+  where: Prisma.ProductScalarWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateManyMutationInput, Prisma.ProductUncheckedUpdateManyWithoutVendorInput>
+}
+
+export type ProductCreateWithoutPurchaseItemsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutProductsInput
+  branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
+  brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
+  stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutPurchaseItemsInput = {
+  id?: string
+  salonId: string
+  branchId?: string | null
+  brandId?: string | null
+  vendorId?: string | null
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1296,12 +1486,14 @@ export type ProductUpdateWithoutPurchaseItemsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
 }
@@ -1311,6 +1503,7 @@ export type ProductUncheckedUpdateWithoutPurchaseItemsInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1322,6 +1515,7 @@ export type ProductUncheckedUpdateWithoutPurchaseItemsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1342,12 +1536,14 @@ export type ProductCreateWithoutRetailSaleItemsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutProductsInput
   branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
 }
@@ -1357,6 +1553,7 @@ export type ProductUncheckedCreateWithoutRetailSaleItemsInput = {
   salonId: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1368,6 +1565,7 @@ export type ProductUncheckedCreateWithoutRetailSaleItemsInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1404,12 +1602,14 @@ export type ProductUpdateWithoutRetailSaleItemsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
 }
@@ -1419,6 +1619,7 @@ export type ProductUncheckedUpdateWithoutRetailSaleItemsInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1430,6 +1631,7 @@ export type ProductUncheckedUpdateWithoutRetailSaleItemsInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1441,6 +1643,7 @@ export type ProductCreateManySalonInput = {
   id?: string
   branchId?: string | null
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1452,6 +1655,7 @@ export type ProductCreateManySalonInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1470,11 +1674,13 @@ export type ProductUpdateWithoutSalonInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
@@ -1484,6 +1690,7 @@ export type ProductUncheckedUpdateWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1495,6 +1702,7 @@ export type ProductUncheckedUpdateWithoutSalonInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1507,6 +1715,7 @@ export type ProductUncheckedUpdateManyWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1518,6 +1727,7 @@ export type ProductUncheckedUpdateManyWithoutSalonInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1527,6 +1737,7 @@ export type ProductCreateManyBranchInput = {
   id?: string
   salonId: string
   brandId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1538,6 +1749,7 @@ export type ProductCreateManyBranchInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1556,11 +1768,13 @@ export type ProductUpdateWithoutBranchInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
@@ -1570,6 +1784,7 @@ export type ProductUncheckedUpdateWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1581,6 +1796,7 @@ export type ProductUncheckedUpdateWithoutBranchInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1593,6 +1809,7 @@ export type ProductUncheckedUpdateManyWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1604,6 +1821,7 @@ export type ProductUncheckedUpdateManyWithoutBranchInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1613,6 +1831,7 @@ export type ProductCreateManyBrandInput = {
   id?: string
   salonId: string
   branchId?: string | null
+  vendorId?: string | null
   name: string
   description?: string | null
   sku?: string | null
@@ -1624,6 +1843,7 @@ export type ProductCreateManyBrandInput = {
   currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1642,11 +1862,13 @@ export type ProductUpdateWithoutBrandInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
   branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
@@ -1656,6 +1878,7 @@ export type ProductUncheckedUpdateWithoutBrandInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1667,6 +1890,7 @@ export type ProductUncheckedUpdateWithoutBrandInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1679,6 +1903,7 @@ export type ProductUncheckedUpdateManyWithoutBrandInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1690,6 +1915,101 @@ export type ProductUncheckedUpdateManyWithoutBrandInput = {
   currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProductCreateManyVendorInput = {
+  id?: string
+  salonId: string
+  branchId?: string | null
+  brandId?: string | null
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProductUpdateWithoutVendorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
+  brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutVendorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateManyWithoutVendorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1749,6 +2069,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   salonId?: boolean
   branchId?: boolean
   brandId?: boolean
+  vendorId?: boolean
   name?: boolean
   description?: boolean
   sku?: boolean
@@ -1760,12 +2081,14 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   currentStock?: boolean
   lowStockAlert?: boolean
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Product$stockMovementsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Product$purchaseItemsArgs<ExtArgs>
   retailSaleItems?: boolean | Prisma.Product$retailSaleItemsArgs<ExtArgs>
@@ -1777,6 +2100,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   salonId?: boolean
   branchId?: boolean
   brandId?: boolean
+  vendorId?: boolean
   name?: boolean
   description?: boolean
   sku?: boolean
@@ -1788,12 +2112,14 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currentStock?: boolean
   lowStockAlert?: boolean
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1801,6 +2127,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   salonId?: boolean
   branchId?: boolean
   brandId?: boolean
+  vendorId?: boolean
   name?: boolean
   description?: boolean
   sku?: boolean
@@ -1812,12 +2139,14 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   currentStock?: boolean
   lowStockAlert?: boolean
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectScalar = {
@@ -1825,6 +2154,7 @@ export type ProductSelectScalar = {
   salonId?: boolean
   branchId?: boolean
   brandId?: boolean
+  vendorId?: boolean
   name?: boolean
   description?: boolean
   sku?: boolean
@@ -1836,16 +2166,18 @@ export type ProductSelectScalar = {
   currentStock?: boolean
   lowStockAlert?: boolean
   isRetailProduct?: boolean
+  isServiceConsumable?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "salonId" | "branchId" | "brandId" | "name" | "description" | "sku" | "barcode" | "category" | "unit" | "costPrice" | "sellingPrice" | "currentStock" | "lowStockAlert" | "isRetailProduct" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "salonId" | "branchId" | "brandId" | "vendorId" | "name" | "description" | "sku" | "barcode" | "category" | "unit" | "costPrice" | "sellingPrice" | "currentStock" | "lowStockAlert" | "isRetailProduct" | "isServiceConsumable" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Product$stockMovementsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Product$purchaseItemsArgs<ExtArgs>
   retailSaleItems?: boolean | Prisma.Product$retailSaleItemsArgs<ExtArgs>
@@ -1855,11 +2187,13 @@ export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
 }
 export type ProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Product$branchArgs<ExtArgs>
   brand?: boolean | Prisma.Product$brandArgs<ExtArgs>
+  vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
 }
 
 export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1868,6 +2202,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     salon: Prisma.$SalonPayload<ExtArgs>
     branch: Prisma.$BranchPayload<ExtArgs> | null
     brand: Prisma.$ProductBrandPayload<ExtArgs> | null
+    vendor: Prisma.$VendorPayload<ExtArgs> | null
     stockMovements: Prisma.$ProductStockMovementPayload<ExtArgs>[]
     purchaseItems: Prisma.$ProductPurchaseItemPayload<ExtArgs>[]
     retailSaleItems: Prisma.$RetailSaleItemPayload<ExtArgs>[]
@@ -1877,6 +2212,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     salonId: string
     branchId: string | null
     brandId: string | null
+    vendorId: string | null
     name: string
     description: string | null
     sku: string | null
@@ -1888,6 +2224,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     currentStock: runtime.Decimal
     lowStockAlert: runtime.Decimal
     isRetailProduct: boolean
+    isServiceConsumable: boolean
     status: boolean
     createdAt: Date
     updatedAt: Date
@@ -2288,6 +2625,7 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
   salon<T extends Prisma.SalonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalonDefaultArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   branch<T extends Prisma.Product$branchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$branchArgs<ExtArgs>>): Prisma.Prisma__BranchClient<runtime.Types.Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   brand<T extends Prisma.Product$brandArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$brandArgs<ExtArgs>>): Prisma.Prisma__ProductBrandClient<runtime.Types.Result.GetResult<Prisma.$ProductBrandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  vendor<T extends Prisma.Product$vendorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$vendorArgs<ExtArgs>>): Prisma.Prisma__VendorClient<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   stockMovements<T extends Prisma.Product$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseItems<T extends Prisma.Product$purchaseItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$purchaseItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   retailSaleItems<T extends Prisma.Product$retailSaleItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$retailSaleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2324,6 +2662,7 @@ export interface ProductFieldRefs {
   readonly salonId: Prisma.FieldRef<"Product", 'String'>
   readonly branchId: Prisma.FieldRef<"Product", 'String'>
   readonly brandId: Prisma.FieldRef<"Product", 'String'>
+  readonly vendorId: Prisma.FieldRef<"Product", 'String'>
   readonly name: Prisma.FieldRef<"Product", 'String'>
   readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly sku: Prisma.FieldRef<"Product", 'String'>
@@ -2335,6 +2674,7 @@ export interface ProductFieldRefs {
   readonly currentStock: Prisma.FieldRef<"Product", 'Decimal'>
   readonly lowStockAlert: Prisma.FieldRef<"Product", 'Decimal'>
   readonly isRetailProduct: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly isServiceConsumable: Prisma.FieldRef<"Product", 'Boolean'>
   readonly status: Prisma.FieldRef<"Product", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
@@ -2774,6 +3114,25 @@ export type Product$brandArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.ProductBrandInclude<ExtArgs> | null
   where?: Prisma.ProductBrandWhereInput
+}
+
+/**
+ * Product.vendor
+ */
+export type Product$vendorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Vendor
+   */
+  select?: Prisma.VendorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Vendor
+   */
+  omit?: Prisma.VendorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VendorInclude<ExtArgs> | null
+  where?: Prisma.VendorWhereInput
 }
 
 /**

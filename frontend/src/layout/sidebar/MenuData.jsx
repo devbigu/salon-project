@@ -1,5 +1,6 @@
 const hasRole = (role, roles) => roles.includes(role);
 
+
 const getMenu = (role) => {
   const operationalRoles = [
     "SUPER_ADMIN",
@@ -7,6 +8,7 @@ const getMenu = (role) => {
     "RECEPTIONIST",
     "STAFF",
   ];
+  const inventoryRoles = [...operationalRoles, "BRANCH_MANAGER"];
 
   return [
   {
@@ -43,22 +45,74 @@ const getMenu = (role) => {
         },
       ]
     : []),
-  ...(hasRole(role, operationalRoles)
+  ...(hasRole(role, inventoryRoles)
     ? [
         { heading: "Products" },
         {
           icon: "package-fill",
-          text: "Inventory",
+          text: "Product",
           subMenu: [
-            { text: "Product Brands", link: "/admin/product-brands" },
-            { text: "Products", link: "/admin/products" },
+            { text: "Product Brand", link: "/admin/product-brands" },
             ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
               ? [{ text: "Purchase Products", link: "/admin/product-purchases" }]
               : []),
             ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"])
               ? [{ text: "Retail Products", link: "/admin/retail-products" }]
               : []),
-            { text: "Low Stock / Movements", link: "/admin/stock-movements" },
+          ],
+        },
+      ]
+    : []),
+  ...(hasRole(role, inventoryRoles)
+    ? [
+        { heading: "Vendors & Stock" },
+        {
+          icon: "package-fill",
+          text: "Vendors & Stock",
+          subMenu: [
+            { text: "Products", link: "/admin/products" },
+            { text: "Vendors", link: "/admin/vendors" },
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
+              ? [
+                  {
+                    text: "Vendor Payments",
+                    link: "/admin/vendor-payments",
+                  },
+                ]
+              : []),
+            {
+              text: "Stock Movements",
+              link: "/admin/stock-movements",
+            },
+            { text: "Low Stock", link: "/admin/low-stock" },
+          ],
+        },
+      ]
+    : []),
+  ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
+    ? [
+        { heading: "Expenses" },
+        {
+          icon: "money",
+          text: "Expenses",
+          subMenu: [
+            { text: "Expense Categories", link: "/admin/expense-categories" },
+            { text: "Expenses", link: "/admin/expenses" },
+          ],
+        },
+      ]
+    : []),
+  ...(hasRole(role, inventoryRoles)
+    ? [
+        { heading: "Reports" },
+        {
+          icon: "reports",
+          text: "Reports",
+          subMenu: [
+            { text: "Inventory Report", link: "/reports/inventory" },
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
+              ? [{ text: "Profit Summary", link: "/reports/profit-summary" }]
+              : []),
           ],
         },
       ]

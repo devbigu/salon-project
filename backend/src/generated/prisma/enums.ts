@@ -160,6 +160,21 @@ export const ProductStockMovementType = {
 export type ProductStockMovementType = (typeof ProductStockMovementType)[keyof typeof ProductStockMovementType]
 
 
+export const ExpenseCategory = {
+  RENT: 'RENT',
+  UTILITIES: 'UTILITIES',
+  INTERNET: 'INTERNET',
+  MAINTENANCE: 'MAINTENANCE',
+  PRODUCT_PURCHASE: 'PRODUCT_PURCHASE',
+  VENDOR_PAYMENT: 'VENDOR_PAYMENT',
+  STAFF_ADVANCE: 'STAFF_ADVANCE',
+  PETTY_CASH: 'PETTY_CASH',
+  MISC: 'MISC'
+} as const
+
+export type ExpenseCategory = (typeof ExpenseCategory)[keyof typeof ExpenseCategory]
+
+
 export const SupportTicketCategory = {
   LOGIN_ISSUE: 'LOGIN_ISSUE',
   CUSTOMER_MODULE: 'CUSTOMER_MODULE',

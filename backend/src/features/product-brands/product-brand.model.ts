@@ -25,7 +25,11 @@ export const ProductBrandModel = {
     }),
   duplicate: (salonId: string, name: string, excludeId?: string) =>
     prisma.productBrand.findFirst({
-      where: { salonId, name, ...(excludeId ? { id: { not: excludeId } } : {}) },
+      where: {
+        salonId,
+        name: { equals: name, mode: "insensitive" },
+        ...(excludeId ? { id: { not: excludeId } } : {}),
+      },
       select: { id: true },
     }),
   update: (

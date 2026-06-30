@@ -12,7 +12,11 @@ export const ProductModel = {
     prisma.product.findFirst({ where, include: productInclude }),
   duplicate: (salonId: string, name: string, excludeId?: string) =>
     prisma.product.findFirst({
-      where: { salonId, name, ...(excludeId ? { id: { not: excludeId } } : {}) },
+      where: {
+        salonId,
+        name: { equals: name, mode: "insensitive" },
+        ...(excludeId ? { id: { not: excludeId } } : {}),
+      },
       select: { id: true },
     }),
   create: (data: Parameters<typeof prisma.product.create>[0]["data"]) =>

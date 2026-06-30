@@ -4,6 +4,7 @@ import { prisma } from "../../config/prisma.js";
 export const INVENTORY_VIEW_ROLES = [
   "SUPER_ADMIN",
   "SALON_ADMIN",
+  "BRANCH_MANAGER",
   "RECEPTIONIST",
   "STAFF",
 ] as const;
@@ -16,8 +17,15 @@ export const getSalonId = (req: Request, requestedSalonId?: unknown) =>
     : req.user?.salonId;
 
 export const branchScope = (req: Request) =>
-  req.user?.role === "RECEPTIONIST" && req.user.branchId
+  (req.user?.role === "RECEPTIONIST" || req.user?.role === "BRANCH_MANAGER") &&
+  req.user.branchId
     ? { OR: [{ branchId: req.user.branchId }, { branchId: null }] }
+    : {};
+
+export const exactBranchScope = (req: Request) =>
+  (req.user?.role === "RECEPTIONIST" || req.user?.role === "BRANCH_MANAGER") &&
+  req.user.branchId
+    ? { branchId: req.user.branchId }
     : {};
 
 export const validateBranch = async (
@@ -40,6 +48,7 @@ export const numberValue = (value: unknown) => Number(value);
 
 export const productInclude = {
   brand: { select: { id: true, name: true } },
+  vendor: { select: { id: true, name: true } },
   branch: { select: { id: true, name: true } },
   salon: { select: { id: true, name: true } },
 } as const;

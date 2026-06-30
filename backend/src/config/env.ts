@@ -28,7 +28,7 @@ const jwtRefreshSecret =
 if (isProduction) {
   const missing = [
     !process.env.DATABASE_URL && "DATABASE_URL",
-    !process.env.CLIENT_URLS && !process.env.CLIENT_URL && "CLIENT_URL",
+    !process.env.CLIENT_URLS && !process.env.CLIENT_URL && "CLIENT_URLS",
     !process.env.JWT_ACCESS_SECRET && "JWT_ACCESS_SECRET",
     !process.env.JWT_REFRESH_SECRET && "JWT_REFRESH_SECRET",
   ].filter(Boolean);
