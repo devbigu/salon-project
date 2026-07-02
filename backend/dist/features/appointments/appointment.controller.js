@@ -13,6 +13,33 @@ const APPOINTMENT_STATUSES = [
     "CANCELLED",
     "NO_SHOW",
 ];
+const STATUS_TRANSITIONS = {
+    SCHEDULED: ["CONFIRMED", "CANCELLED", "NO_SHOW"],
+    CONFIRMED: ["CHECKED_IN", "CANCELLED", "NO_SHOW"],
+    CHECKED_IN: ["COMPLETED", "CANCELLED"],
+    COMPLETED: [],
+    CANCELLED: [],
+    NO_SHOW: [],
+};
+const WEEKDAYS = [
+    "SUNDAY",
+    "MONDAY",
+    "TUESDAY",
+    "WEDNESDAY",
+    "THURSDAY",
+    "FRIDAY",
+    "SATURDAY",
+];
+const timeToMinutes = (value) => {
+    const match = /^(\d{1,2}):(\d{2})$/.exec(value);
+    if (!match)
+        return null;
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    if (hours > 23 || minutes > 59)
+        return null;
+    return hours * 60 + minutes;
+};
 const isValidAppointmentStatus = (status) => {
     return APPOINTMENT_STATUSES.includes(status);
 };
@@ -130,6 +157,12 @@ export const createAppointment = async (req, res) => {
                 message: "You do not have access to this branch",
             });
         }
+        if (!staff.status) {
+            return res.status(400).json({
+                success: false,
+                message: "Inactive staff cannot be booked",
+            });
+        }
         const totalDurationMinutes = services.reduce((total, service) => {
             return (total +
                 durationToMinutes(service.durationValue, service.durationUnit));
@@ -145,6 +178,26 @@ export const createAppointment = async (req, res) => {
             });
         }
         const finalEndTime = new Date(finalStartTime.getTime() + totalDurationMinutes * 60 * 1000);
+        if (WEEKDAYS[finalStartTime.getUTCDay()] === staff.weekOff.toUpperCase()) {
+            return res.status(400).json({
+                success: false,
+                message: "Staff cannot be booked on their week off",
+            });
+        }
+        const workingFrom = timeToMinutes(staff.workingFrom);
+        const workingTo = timeToMinutes(staff.workingTo);
+        const appointmentStart = finalStartTime.getUTCHours() * 60 + finalStartTime.getUTCMinutes();
+        const appointmentEnd = finalEndTime.getUTCHours() * 60 + finalEndTime.getUTCMinutes();
+        if (workingFrom === null ||
+            workingTo === null ||
+            appointmentStart < workingFrom ||
+            appointmentEnd > workingTo ||
+            finalStartTime.getUTCDate() !== finalEndTime.getUTCDate()) {
+            return res.status(400).json({
+                success: false,
+                message: "Appointment is outside staff working hours",
+            });
+        }
         const conflict = await AppointmentModel.findConflict({
             staffId,
             startTime: finalStartTime,
@@ -309,6 +362,12 @@ export const updateAppointmentStatus = async (req, res) => {
                 message: "Appointment already has this status",
             });
         }
+        if (!STATUS_TRANSITIONS[existingAppointment.status].includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: `Invalid appointment status transition from ${existingAppointment.status} to ${status}`,
+            });
+        }
         const appointment = await AppointmentModel.updateStatusWithHistory(id, {
             oldStatus: existingAppointment.status,
             newStatus: status,
@@ -349,6 +408,12 @@ export const updateAppointmentBasicDetails = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: "Appointment not found",
+            });
+        }
+        if (["COMPLETED", "CANCELLED", "NO_SHOW"].includes(existingAppointment.status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Completed, cancelled or no-show appointments cannot be edited",
             });
         }
         const updatedAppointment = await AppointmentModel.updateBasicDetails(id, {

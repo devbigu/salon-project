@@ -26,8 +26,9 @@ The repository-root `render.yaml` defines:
 
 - A Node web service rooted at `backend`
 - PostgreSQL
-- Prisma generation, TypeScript build, and `prisma migrate deploy` in the build
-  command (Render pre-deploy commands require a paid service)
+- Prisma generation and TypeScript build
+- `prisma migrate deploy` in the start command so free services can run it on
+  Render's internal network (pre-deploy commands require a paid service)
 - `/api/health` as the health check
 - Automatic secure JWT secret generation
 

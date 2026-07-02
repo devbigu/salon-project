@@ -5,6 +5,25 @@ import { prisma } from "../config/prisma.js";
 import { generateAccessToken } from "../utils/jwt.js";
 
 describe("Support ticket API", () => {
+  it("rate limits public ticket creation after three requests per IP", async () => {
+    const responses = [];
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      responses.push(
+        await request(app)
+          .post("/api/support-tickets/public")
+          .set("x-test-rate-limit", "enforce")
+          .send({
+            reporterEmail: `rate-${attempt}@test.com`,
+            title: "Rate limit test",
+            description: "Testing public support throttling",
+            category: "LOGIN_ISSUE",
+          })
+      );
+    }
+    expect(responses.slice(0, 3).every((response) => response.status === 201)).toBe(true);
+    expect(responses[3]?.status).toBe(429);
+    expect(responses[3]?.body.message).toBe("Too many requests. Please try again later.");
+  });
   it("supports public and authenticated ticket workflows with RBAC and tenant isolation", async () => {
     const [salonA, salonB] = await Promise.all([
       prisma.salon.create({ data: { name: "Salon A" } }),
@@ -87,6 +106,17 @@ describe("Support ticket API", () => {
     });
     expect(publicCreate.body.data.ticketCode).toMatch(/^TKT/);
 
+    const missingReporterEmail = await request(app)
+      .post("/api/support-tickets/public")
+      .send({
+        reporterName: "No Email User",
+        title: "Unable to login",
+        description: "The login page rejects valid credentials",
+        category: "LOGIN_ISSUE",
+      });
+
+    expect(missingReporterEmail.statusCode).toBe(400);
+
     const publicTicketCode = publicCreate.body.data.ticketCode as string;
 
     const publicLookup = await request(app)
@@ -110,7 +140,7 @@ describe("Support ticket API", () => {
         reporterId: salonAdminB.id,
         title: "Cannot add customer",
         description: "Save customer shows internal server error",
-        category: "CUSTOMER_MODULE",
+        category: "APPOINTMENT_MODULE",
         priority: "HIGH",
         pageUrl: "/customers/create",
         errorMessage: "500 Internal Server Error",
@@ -142,13 +172,23 @@ describe("Support ticket API", () => {
       .query({
         status: "OPEN",
         priority: "HIGH",
-        category: "CUSTOMER_MODULE",
+        category: "APPOINTMENT_MODULE",
       })
       .set("Authorization", `Bearer ${superAdminToken}`);
 
     expect(filteredTickets.statusCode).toBe(200);
     expect(filteredTickets.body.data).toHaveLength(1);
     expect(filteredTickets.body.data[0].id).toBe(dashboardTicketId);
+    expect(filteredTickets.body.pagination).toMatchObject({ page: 1, limit: 25, total: 1, totalPages: 1 });
+
+    const cappedTickets = await request(app)
+      .get("/api/support-tickets?limit=500")
+      .set("Authorization", `Bearer ${superAdminToken}`);
+    expect(cappedTickets.statusCode).toBe(200);
+    expect(cappedTickets.body.pagination.limit).toBe(100);
+    expect(
+      (await request(app).get("/api/support-tickets?page=-1").set("Authorization", `Bearer ${superAdminToken}`)).statusCode
+    ).toBe(400);
 
     const assignTicket = await request(app)
       .patch(`/api/support-tickets/${dashboardTicketId}/assign`)
@@ -190,6 +230,25 @@ describe("Support ticket API", () => {
       status: "RESOLVED",
       resolutionNotes: "Fixed customer create validation issue",
     });
+
+    const closed = await request(app)
+      .patch(`/api/support-tickets/${dashboardTicketId}/status`)
+      .set("Authorization", `Bearer ${superAdminToken}`)
+      .send({
+        status: "CLOSED",
+        note: "Reporter confirmed the fix",
+      });
+
+    expect(closed.statusCode).toBe(200);
+    expect(closed.body.data.status).toBe("CLOSED");
+    expect(
+      closed.body.data.statusHistory.some(
+        (entry: { oldStatus: string; newStatus: string; note?: string }) =>
+          entry.oldStatus === "RESOLVED" &&
+          entry.newStatus === "CLOSED" &&
+          entry.note === "Reporter confirmed the fix"
+      )
+    ).toBe(true);
 
     const forbiddenStatusUpdate = await request(app)
       .patch(`/api/support-tickets/${dashboardTicketId}/status`)

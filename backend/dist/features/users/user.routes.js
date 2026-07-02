@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, createSalonAdmin, createReceptionist, } from "./user.controller.js";
+import { getUsers, createSalonAdmin, createReceptionist, createStaffAccount, } from "./user.controller.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { requireRole } from "../../middlewares/rbac.middleware.js";
 const router = Router();
@@ -7,4 +7,5 @@ router.use(authenticate);
 router.get("/", requireRole("SUPER_ADMIN"), getUsers);
 router.post("/salon-admin", requireRole("SUPER_ADMIN"), createSalonAdmin);
 router.post("/receptionist", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createReceptionist);
+router.post("/staff", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createStaffAccount);
 export default router;

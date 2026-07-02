@@ -89,6 +89,11 @@ describe("CRM logged-out and role access matrix", () => {
       request(app)
         .get(path)
         .set("Authorization", `Bearer ${roleUsers[role].token}`);
+    const post = (role: Role, path: string, body: object = {}) =>
+      request(app)
+        .post(path)
+        .set("Authorization", `Bearer ${roleUsers[role].token}`)
+        .send(body);
 
     expect((await call("SUPER_ADMIN", "/api/salons")).status).toBe(200);
     expect((await call("SUPER_ADMIN", "/api/users")).status).toBe(200);
@@ -112,18 +117,24 @@ describe("CRM logged-out and role access matrix", () => {
     expect((await call("RECEPTIONIST", "/api/customers")).status).toBe(200);
     expect((await call("RECEPTIONIST", "/api/branches")).status).toBe(200);
     expect((await call("RECEPTIONIST", "/api/staff")).status).toBe(200);
-    expect((await call("RECEPTIONIST", "/api/payments")).status).toBe(403);
+    expect((await call("RECEPTIONIST", "/api/payments")).status).toBe(200);
     expect(
       (await call("RECEPTIONIST", "/api/support-tickets/my")).status
     ).toBe(200);
+    expect((await post("RECEPTIONIST", "/api/staff/unknown/salary-config")).status).toBe(403);
+    expect((await post("RECEPTIONIST", "/api/salary-slips/generate")).status).toBe(403);
 
     expect((await call("STAFF", "/api/customers")).status).toBe(200);
     expect((await call("STAFF", "/api/services")).status).toBe(200);
-    expect((await call("STAFF", "/api/payments")).status).toBe(200);
+    expect((await call("STAFF", "/api/payments")).status).toBe(403);
     expect((await call("STAFF", "/api/staff")).status).toBe(403);
     expect((await call("STAFF", "/api/branches")).status).toBe(403);
     expect(
       (await call("STAFF", "/api/support-tickets/my")).status
     ).toBe(200);
+    expect((await post("STAFF", "/api/products")).status).toBe(403);
+    expect((await post("STAFF", "/api/expenses")).status).toBe(403);
+    expect((await post("STAFF", "/api/staff/unknown/salary-config")).status).toBe(403);
+    expect((await post("STAFF", "/api/salary-slips/generate")).status).toBe(403);
   });
 });

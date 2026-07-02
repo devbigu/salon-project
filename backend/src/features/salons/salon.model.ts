@@ -9,6 +9,7 @@ export const SalonModel = {
     city?: string;
     state?: string;
     postalCode?: string;
+    timezone?: string;
   }) => {
     return prisma.salon.create({
       data,

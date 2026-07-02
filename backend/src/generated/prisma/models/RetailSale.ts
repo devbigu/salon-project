@@ -44,6 +44,7 @@ export type RetailSaleMinAggregateOutputType = {
   salonId: string | null
   branchId: string | null
   customerId: string | null
+  staffId: string | null
   saleDate: Date | null
   subtotalAmount: runtime.Decimal | null
   discountAmount: runtime.Decimal | null
@@ -61,6 +62,7 @@ export type RetailSaleMaxAggregateOutputType = {
   salonId: string | null
   branchId: string | null
   customerId: string | null
+  staffId: string | null
   saleDate: Date | null
   subtotalAmount: runtime.Decimal | null
   discountAmount: runtime.Decimal | null
@@ -78,6 +80,7 @@ export type RetailSaleCountAggregateOutputType = {
   salonId: number
   branchId: number
   customerId: number
+  staffId: number
   saleDate: number
   subtotalAmount: number
   discountAmount: number
@@ -109,6 +112,7 @@ export type RetailSaleMinAggregateInputType = {
   salonId?: true
   branchId?: true
   customerId?: true
+  staffId?: true
   saleDate?: true
   subtotalAmount?: true
   discountAmount?: true
@@ -126,6 +130,7 @@ export type RetailSaleMaxAggregateInputType = {
   salonId?: true
   branchId?: true
   customerId?: true
+  staffId?: true
   saleDate?: true
   subtotalAmount?: true
   discountAmount?: true
@@ -143,6 +148,7 @@ export type RetailSaleCountAggregateInputType = {
   salonId?: true
   branchId?: true
   customerId?: true
+  staffId?: true
   saleDate?: true
   subtotalAmount?: true
   discountAmount?: true
@@ -247,6 +253,7 @@ export type RetailSaleGroupByOutputType = {
   salonId: string
   branchId: string | null
   customerId: string | null
+  staffId: string | null
   saleDate: Date
   subtotalAmount: runtime.Decimal
   discountAmount: runtime.Decimal
@@ -287,6 +294,7 @@ export type RetailSaleWhereInput = {
   salonId?: Prisma.StringFilter<"RetailSale"> | string
   branchId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   customerId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
+  staffId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   saleDate?: Prisma.DateTimeFilter<"RetailSale"> | Date | string
   subtotalAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -299,6 +307,7 @@ export type RetailSaleWhereInput = {
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.RetailSaleItemListRelationFilter
 }
@@ -309,6 +318,7 @@ export type RetailSaleOrderByWithRelationInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
@@ -321,6 +331,7 @@ export type RetailSaleOrderByWithRelationInput = {
   salon?: Prisma.SalonOrderByWithRelationInput
   branch?: Prisma.BranchOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
+  staff?: Prisma.StaffOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.RetailSaleItemOrderByRelationAggregateInput
 }
@@ -335,6 +346,7 @@ export type RetailSaleWhereUniqueInput = Prisma.AtLeast<{
   salonId?: Prisma.StringFilter<"RetailSale"> | string
   branchId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   customerId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
+  staffId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   saleDate?: Prisma.DateTimeFilter<"RetailSale"> | Date | string
   subtotalAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -347,6 +359,7 @@ export type RetailSaleWhereUniqueInput = Prisma.AtLeast<{
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.RetailSaleItemListRelationFilter
 }, "id" | "salonId_saleCode">
@@ -357,6 +370,7 @@ export type RetailSaleOrderByWithAggregationInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
@@ -382,6 +396,7 @@ export type RetailSaleScalarWhereWithAggregatesInput = {
   salonId?: Prisma.StringWithAggregatesFilter<"RetailSale"> | string
   branchId?: Prisma.StringNullableWithAggregatesFilter<"RetailSale"> | string | null
   customerId?: Prisma.StringNullableWithAggregatesFilter<"RetailSale"> | string | null
+  staffId?: Prisma.StringNullableWithAggregatesFilter<"RetailSale"> | string | null
   saleDate?: Prisma.DateTimeWithAggregatesFilter<"RetailSale"> | Date | string
   subtotalAmount?: Prisma.DecimalWithAggregatesFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalWithAggregatesFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -407,6 +422,7 @@ export type RetailSaleCreateInput = {
   salon: Prisma.SalonCreateNestedOneWithoutRetailSalesInput
   branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
   items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
 }
@@ -417,6 +433,7 @@ export type RetailSaleUncheckedCreateInput = {
   salonId: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -443,6 +460,7 @@ export type RetailSaleUpdateInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
   branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
   items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
 }
@@ -453,6 +471,7 @@ export type RetailSaleUncheckedUpdateInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -471,6 +490,7 @@ export type RetailSaleCreateManyInput = {
   salonId: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -501,6 +521,7 @@ export type RetailSaleUncheckedUpdateManyInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -533,6 +554,7 @@ export type RetailSaleCountOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
@@ -556,6 +578,7 @@ export type RetailSaleMaxOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
@@ -573,6 +596,7 @@ export type RetailSaleMinOrderByAggregateInput = {
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   saleDate?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
@@ -763,6 +787,48 @@ export type RetailSaleUncheckedUpdateManyWithoutBranchNestedInput = {
   deleteMany?: Prisma.RetailSaleScalarWhereInput | Prisma.RetailSaleScalarWhereInput[]
 }
 
+export type RetailSaleCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput> | Prisma.RetailSaleCreateWithoutStaffInput[] | Prisma.RetailSaleUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.RetailSaleCreateOrConnectWithoutStaffInput | Prisma.RetailSaleCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.RetailSaleCreateManyStaffInputEnvelope
+  connect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+}
+
+export type RetailSaleUncheckedCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput> | Prisma.RetailSaleCreateWithoutStaffInput[] | Prisma.RetailSaleUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.RetailSaleCreateOrConnectWithoutStaffInput | Prisma.RetailSaleCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.RetailSaleCreateManyStaffInputEnvelope
+  connect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+}
+
+export type RetailSaleUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput> | Prisma.RetailSaleCreateWithoutStaffInput[] | Prisma.RetailSaleUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.RetailSaleCreateOrConnectWithoutStaffInput | Prisma.RetailSaleCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.RetailSaleUpsertWithWhereUniqueWithoutStaffInput | Prisma.RetailSaleUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.RetailSaleCreateManyStaffInputEnvelope
+  set?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  disconnect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  delete?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  connect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  update?: Prisma.RetailSaleUpdateWithWhereUniqueWithoutStaffInput | Prisma.RetailSaleUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.RetailSaleUpdateManyWithWhereWithoutStaffInput | Prisma.RetailSaleUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.RetailSaleScalarWhereInput | Prisma.RetailSaleScalarWhereInput[]
+}
+
+export type RetailSaleUncheckedUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput> | Prisma.RetailSaleCreateWithoutStaffInput[] | Prisma.RetailSaleUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.RetailSaleCreateOrConnectWithoutStaffInput | Prisma.RetailSaleCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.RetailSaleUpsertWithWhereUniqueWithoutStaffInput | Prisma.RetailSaleUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.RetailSaleCreateManyStaffInputEnvelope
+  set?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  disconnect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  delete?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  connect?: Prisma.RetailSaleWhereUniqueInput | Prisma.RetailSaleWhereUniqueInput[]
+  update?: Prisma.RetailSaleUpdateWithWhereUniqueWithoutStaffInput | Prisma.RetailSaleUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.RetailSaleUpdateManyWithWhereWithoutStaffInput | Prisma.RetailSaleUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.RetailSaleScalarWhereInput | Prisma.RetailSaleScalarWhereInput[]
+}
+
 export type RetailSaleCreateNestedOneWithoutItemsInput = {
   create?: Prisma.XOR<Prisma.RetailSaleCreateWithoutItemsInput, Prisma.RetailSaleUncheckedCreateWithoutItemsInput>
   connectOrCreate?: Prisma.RetailSaleCreateOrConnectWithoutItemsInput
@@ -790,6 +856,7 @@ export type RetailSaleCreateWithoutSalonInput = {
   updatedAt?: Date | string
   branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
   items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
 }
@@ -799,6 +866,7 @@ export type RetailSaleUncheckedCreateWithoutSalonInput = {
   saleCode: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -846,6 +914,7 @@ export type RetailSaleScalarWhereInput = {
   salonId?: Prisma.StringFilter<"RetailSale"> | string
   branchId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   customerId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
+  staffId?: Prisma.StringNullableFilter<"RetailSale"> | string | null
   saleDate?: Prisma.DateTimeFilter<"RetailSale"> | Date | string
   subtotalAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFilter<"RetailSale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -871,6 +940,7 @@ export type RetailSaleCreateWithoutCreatedByInput = {
   salon: Prisma.SalonCreateNestedOneWithoutRetailSalesInput
   branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
   items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
 }
 
@@ -880,6 +950,7 @@ export type RetailSaleUncheckedCreateWithoutCreatedByInput = {
   salonId: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -930,6 +1001,7 @@ export type RetailSaleCreateWithoutCustomerInput = {
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutRetailSalesInput
   branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
   items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
 }
@@ -939,6 +1011,7 @@ export type RetailSaleUncheckedCreateWithoutCustomerInput = {
   saleCode: string
   salonId: string
   branchId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -990,6 +1063,7 @@ export type RetailSaleCreateWithoutBranchInput = {
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutRetailSalesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
   items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
 }
@@ -999,6 +1073,7 @@ export type RetailSaleUncheckedCreateWithoutBranchInput = {
   saleCode: string
   salonId: string
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1037,7 +1112,7 @@ export type RetailSaleUpdateManyWithWhereWithoutBranchInput = {
   data: Prisma.XOR<Prisma.RetailSaleUpdateManyMutationInput, Prisma.RetailSaleUncheckedUpdateManyWithoutBranchInput>
 }
 
-export type RetailSaleCreateWithoutItemsInput = {
+export type RetailSaleCreateWithoutStaffInput = {
   id?: string
   saleCode: string
   saleDate?: Date | string
@@ -1052,6 +1127,69 @@ export type RetailSaleCreateWithoutItemsInput = {
   branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
+  items?: Prisma.RetailSaleItemCreateNestedManyWithoutSaleInput
+}
+
+export type RetailSaleUncheckedCreateWithoutStaffInput = {
+  id?: string
+  saleCode: string
+  salonId: string
+  branchId?: string | null
+  customerId?: string | null
+  saleDate?: Date | string
+  subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: $Enums.PaymentMethod | null
+  note?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutSaleInput
+}
+
+export type RetailSaleCreateOrConnectWithoutStaffInput = {
+  where: Prisma.RetailSaleWhereUniqueInput
+  create: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput>
+}
+
+export type RetailSaleCreateManyStaffInputEnvelope = {
+  data: Prisma.RetailSaleCreateManyStaffInput | Prisma.RetailSaleCreateManyStaffInput[]
+  skipDuplicates?: boolean
+}
+
+export type RetailSaleUpsertWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.RetailSaleWhereUniqueInput
+  update: Prisma.XOR<Prisma.RetailSaleUpdateWithoutStaffInput, Prisma.RetailSaleUncheckedUpdateWithoutStaffInput>
+  create: Prisma.XOR<Prisma.RetailSaleCreateWithoutStaffInput, Prisma.RetailSaleUncheckedCreateWithoutStaffInput>
+}
+
+export type RetailSaleUpdateWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.RetailSaleWhereUniqueInput
+  data: Prisma.XOR<Prisma.RetailSaleUpdateWithoutStaffInput, Prisma.RetailSaleUncheckedUpdateWithoutStaffInput>
+}
+
+export type RetailSaleUpdateManyWithWhereWithoutStaffInput = {
+  where: Prisma.RetailSaleScalarWhereInput
+  data: Prisma.XOR<Prisma.RetailSaleUpdateManyMutationInput, Prisma.RetailSaleUncheckedUpdateManyWithoutStaffInput>
+}
+
+export type RetailSaleCreateWithoutItemsInput = {
+  id?: string
+  saleCode: string
+  saleDate?: Date | string
+  subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: $Enums.PaymentMethod | null
+  note?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutRetailSalesInput
+  branch?: Prisma.BranchCreateNestedOneWithoutRetailSalesInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutRetailSalesInput
+  staff?: Prisma.StaffCreateNestedOneWithoutRetailSalesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedRetailSalesInput
 }
 
 export type RetailSaleUncheckedCreateWithoutItemsInput = {
@@ -1060,6 +1198,7 @@ export type RetailSaleUncheckedCreateWithoutItemsInput = {
   salonId: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1101,6 +1240,7 @@ export type RetailSaleUpdateWithoutItemsInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
   branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
 }
 
@@ -1110,6 +1250,7 @@ export type RetailSaleUncheckedUpdateWithoutItemsInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1126,6 +1267,7 @@ export type RetailSaleCreateManySalonInput = {
   saleCode: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1150,6 +1292,7 @@ export type RetailSaleUpdateWithoutSalonInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
   items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
 }
@@ -1159,6 +1302,7 @@ export type RetailSaleUncheckedUpdateWithoutSalonInput = {
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1176,6 +1320,7 @@ export type RetailSaleUncheckedUpdateManyWithoutSalonInput = {
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1193,6 +1338,7 @@ export type RetailSaleCreateManyCreatedByInput = {
   salonId: string
   branchId?: string | null
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1217,6 +1363,7 @@ export type RetailSaleUpdateWithoutCreatedByInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
   branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
 }
 
@@ -1226,6 +1373,7 @@ export type RetailSaleUncheckedUpdateWithoutCreatedByInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1243,6 +1391,7 @@ export type RetailSaleUncheckedUpdateManyWithoutCreatedByInput = {
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1258,6 +1407,7 @@ export type RetailSaleCreateManyCustomerInput = {
   saleCode: string
   salonId: string
   branchId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1282,6 +1432,7 @@ export type RetailSaleUpdateWithoutCustomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
   branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
   items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
 }
@@ -1291,6 +1442,7 @@ export type RetailSaleUncheckedUpdateWithoutCustomerInput = {
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1308,6 +1460,7 @@ export type RetailSaleUncheckedUpdateManyWithoutCustomerInput = {
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1324,6 +1477,7 @@ export type RetailSaleCreateManyBranchInput = {
   saleCode: string
   salonId: string
   customerId?: string | null
+  staffId?: string | null
   saleDate?: Date | string
   subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1348,6 +1502,7 @@ export type RetailSaleUpdateWithoutBranchInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutRetailSalesNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
   items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
 }
@@ -1357,6 +1512,7 @@ export type RetailSaleUncheckedUpdateWithoutBranchInput = {
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1373,6 +1529,77 @@ export type RetailSaleUncheckedUpdateManyWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleCode?: Prisma.StringFieldUpdateOperationsInput | string
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RetailSaleCreateManyStaffInput = {
+  id?: string
+  saleCode: string
+  salonId: string
+  branchId?: string | null
+  customerId?: string | null
+  saleDate?: Date | string
+  subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: $Enums.PaymentMethod | null
+  note?: string | null
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RetailSaleUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleCode?: Prisma.StringFieldUpdateOperationsInput | string
+  saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutRetailSalesNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutRetailSalesNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutRetailSalesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedRetailSalesNestedInput
+  items?: Prisma.RetailSaleItemUpdateManyWithoutSaleNestedInput
+}
+
+export type RetailSaleUncheckedUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleCode?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutSaleNestedInput
+}
+
+export type RetailSaleUncheckedUpdateManyWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleCode?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   saleDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1422,6 +1649,7 @@ export type RetailSaleSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   salonId?: boolean
   branchId?: boolean
   customerId?: boolean
+  staffId?: boolean
   saleDate?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
@@ -1434,6 +1662,7 @@ export type RetailSaleSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
   items?: boolean | Prisma.RetailSale$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.RetailSaleCountOutputTypeDefaultArgs<ExtArgs>
@@ -1445,6 +1674,7 @@ export type RetailSaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   salonId?: boolean
   branchId?: boolean
   customerId?: boolean
+  staffId?: boolean
   saleDate?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
@@ -1457,6 +1687,7 @@ export type RetailSaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["retailSale"]>
 
@@ -1466,6 +1697,7 @@ export type RetailSaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   salonId?: boolean
   branchId?: boolean
   customerId?: boolean
+  staffId?: boolean
   saleDate?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
@@ -1478,6 +1710,7 @@ export type RetailSaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
 }, ExtArgs["result"]["retailSale"]>
 
@@ -1487,6 +1720,7 @@ export type RetailSaleSelectScalar = {
   salonId?: boolean
   branchId?: boolean
   customerId?: boolean
+  staffId?: boolean
   saleDate?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
@@ -1498,11 +1732,12 @@ export type RetailSaleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RetailSaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleCode" | "salonId" | "branchId" | "customerId" | "saleDate" | "subtotalAmount" | "discountAmount" | "totalAmount" | "paymentMethod" | "note" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["retailSale"]>
+export type RetailSaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleCode" | "salonId" | "branchId" | "customerId" | "staffId" | "saleDate" | "subtotalAmount" | "discountAmount" | "totalAmount" | "paymentMethod" | "note" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["retailSale"]>
 export type RetailSaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
   items?: boolean | Prisma.RetailSale$itemsArgs<ExtArgs>
   _count?: boolean | Prisma.RetailSaleCountOutputTypeDefaultArgs<ExtArgs>
@@ -1511,12 +1746,14 @@ export type RetailSaleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.E
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
 }
 export type RetailSaleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.RetailSale$branchArgs<ExtArgs>
   customer?: boolean | Prisma.RetailSale$customerArgs<ExtArgs>
+  staff?: boolean | Prisma.RetailSale$staffArgs<ExtArgs>
   createdBy?: boolean | Prisma.RetailSale$createdByArgs<ExtArgs>
 }
 
@@ -1526,6 +1763,7 @@ export type $RetailSalePayload<ExtArgs extends runtime.Types.Extensions.Internal
     salon: Prisma.$SalonPayload<ExtArgs>
     branch: Prisma.$BranchPayload<ExtArgs> | null
     customer: Prisma.$CustomerPayload<ExtArgs> | null
+    staff: Prisma.$StaffPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     items: Prisma.$RetailSaleItemPayload<ExtArgs>[]
   }
@@ -1535,6 +1773,7 @@ export type $RetailSalePayload<ExtArgs extends runtime.Types.Extensions.Internal
     salonId: string
     branchId: string | null
     customerId: string | null
+    staffId: string | null
     saleDate: Date
     subtotalAmount: runtime.Decimal
     discountAmount: runtime.Decimal
@@ -1941,6 +2180,7 @@ export interface Prisma__RetailSaleClient<T, Null = never, ExtArgs extends runti
   salon<T extends Prisma.SalonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalonDefaultArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   branch<T extends Prisma.RetailSale$branchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RetailSale$branchArgs<ExtArgs>>): Prisma.Prisma__BranchClient<runtime.Types.Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.RetailSale$customerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RetailSale$customerArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  staff<T extends Prisma.RetailSale$staffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RetailSale$staffArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.RetailSale$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RetailSale$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.RetailSale$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RetailSale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1977,6 +2217,7 @@ export interface RetailSaleFieldRefs {
   readonly salonId: Prisma.FieldRef<"RetailSale", 'String'>
   readonly branchId: Prisma.FieldRef<"RetailSale", 'String'>
   readonly customerId: Prisma.FieldRef<"RetailSale", 'String'>
+  readonly staffId: Prisma.FieldRef<"RetailSale", 'String'>
   readonly saleDate: Prisma.FieldRef<"RetailSale", 'DateTime'>
   readonly subtotalAmount: Prisma.FieldRef<"RetailSale", 'Decimal'>
   readonly discountAmount: Prisma.FieldRef<"RetailSale", 'Decimal'>
@@ -2422,6 +2663,25 @@ export type RetailSale$customerArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.CustomerInclude<ExtArgs> | null
   where?: Prisma.CustomerWhereInput
+}
+
+/**
+ * RetailSale.staff
+ */
+export type RetailSale$staffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffInclude<ExtArgs> | null
+  where?: Prisma.StaffWhereInput
 }
 
 /**

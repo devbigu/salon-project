@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { requireRole } from "../../middlewares/rbac.middleware.js";
+import { publicSupportRateLimiter } from "../../middlewares/rate-limit.middleware.js";
 import {
   addTicketMessage,
   assignTicket,
@@ -14,7 +15,10 @@ import {
   updateTicketStatus,
 } from "./supportTicket.controller.js";
 
+import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
+
 const router = Router();
+router.param("id", validateUuidParam("id"));
 const ticketUserRoles = [
   "SUPER_ADMIN",
   "SALON_ADMIN",
@@ -22,7 +26,7 @@ const ticketUserRoles = [
   "STAFF",
 ] as const;
 
-router.post("/public", createPublicTicket);
+router.post("/public", publicSupportRateLimiter, createPublicTicket);
 router.get("/public/:ticketCode", getPublicTicketByCode);
 
 router.post(

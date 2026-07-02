@@ -8,8 +8,9 @@ datasource db {
 }
 
 model Salon {
-  id   String @id @default(uuid())
-  name String
+  id       String @id @default(uuid())
+  name     String
+  timezone String @default("Asia/Kolkata")
 
   branches Branch[]
 
@@ -51,15 +52,20 @@ model Salon {
   vendorPayments        VendorPayment[]
   expenses              Expense[]
   expenseCategories     ExpenseCategoryDefinition[]
+  staffAttendances      StaffAttendance[]
+  staffLeaves           StaffLeave[]
+  staffSalaryConfigs    StaffSalaryConfig[]
+  salarySlips           SalarySlip[]
 }
 
 model User {
-  id           String  @id @default(uuid())
+  id           String     @id @default(uuid())
   name         String
-  email        String  @unique
-  phone_number String? @unique
+  email        String     @unique
+  phone_number String?    @unique
   passwordHash String
-  role         Role    @default(STAFF)
+  role         Role       @default(STAFF)
+  status       UserStatus @default(ACTIVE)
   salonId      String?
 
   createdAt DateTime @default(now())
@@ -77,6 +83,7 @@ model User {
 
   salePaymentsReceived SalePayment[] @relation("SalePaymentReceivedBy")
   staffProfile         Staff?
+  sessions             UserSession[]
   salon                Salon?        @relation(fields: [salonId], references: [id])
 
   reportedSupportTickets       SupportTicket[]              @relation("SupportTicketReporter")
@@ -88,6 +95,9 @@ model User {
   createdRetailSales           RetailSale[]                 @relation("RetailSaleCreatedBy")
   createdVendorPayments        VendorPayment[]              @relation("VendorPaymentCreatedBy")
   createdExpenses              Expense[]                    @relation("ExpenseCreatedBy")
+  markedAttendances            StaffAttendance[]            @relation("AttendanceMarkedBy")
+  approvedLeaves               StaffLeave[]                 @relation("LeaveApprovedBy")
+  paidSalarySlips              SalarySlip[]                 @relation("SalarySlipPaidBy")
 }
 
 model Customer {
@@ -217,6 +227,10 @@ model Branch {
   retailSales           RetailSale[]
   vendorPayments        VendorPayment[]
   expenses              Expense[]
+  staffAttendances      StaffAttendance[]
+  staffLeaves           StaffLeave[]
+  staffSalaryConfigs    StaffSalaryConfig[]
+  salarySlips           SalarySlip[]
 
   @@unique([salonId, name])
 }
@@ -253,7 +267,12 @@ model Staff {
   salon Salon @relation(fields: [salonId], references: [id])
   user  User? @relation(fields: [userId], references: [id])
 
-  appointments Appointment[]
+  appointments  Appointment[]
+  attendances   StaffAttendance[]
+  leaves        StaffLeave[]
+  salaryConfigs StaffSalaryConfig[]
+  salarySlips   SalarySlip[]
+  retailSales   RetailSale[]
 
   @@unique([salonId, email])
   @@unique([salonId, staffCode])
@@ -265,6 +284,237 @@ enum Role {
   BRANCH_MANAGER
   RECEPTIONIST
   STAFF
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+  SUSPENDED
+}
+
+model UserSession {
+  id               String    @id @default(uuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokenHash String
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([refreshTokenHash])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model StaffAttendance {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  date         DateTime         @db.Date
+  checkInTime  DateTime?
+  checkOutTime DateTime?
+  status       AttendanceStatus
+  lateMinutes  Int              @default(0)
+  note         String?
+
+  markedById String?
+  markedBy   User?   @relation("AttendanceMarkedBy", fields: [markedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([salonId, staffId, date])
+  @@index([salonId, date])
+  @@index([branchId, date])
+  @@index([staffId, date])
+  @@index([markedById])
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  LATE
+  WEEK_OFF
+  PAID_LEAVE
+  UNPAID_LEAVE
+}
+
+model StaffLeave {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  leaveType LeaveType
+  startDate DateTime    @db.Date
+  endDate   DateTime    @db.Date
+  totalDays Int
+  reason    String?
+  status    LeaveStatus @default(PENDING)
+
+  approvedById String?
+  approvedBy   User?     @relation("LeaveApprovedBy", fields: [approvedById], references: [id])
+  approvedAt   DateTime?
+
+  rejectionReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([salonId, startDate, endDate])
+  @@index([branchId, startDate, endDate])
+  @@index([staffId, startDate, endDate])
+  @@index([status])
+  @@index([approvedById])
+}
+
+enum LeaveType {
+  PAID_LEAVE
+  UNPAID_LEAVE
+  SICK_LEAVE
+  CASUAL_LEAVE
+  OTHER
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+model StaffSalaryConfig {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  baseSalary          Decimal         @db.Decimal(10, 2)
+  salaryType          SalaryType      @default(MONTHLY)
+  workingDaysPerMonth Int
+  paidLeavesAllowed   Int             @default(0)
+  lateGraceMinutes    Int             @default(10)
+  latePenaltyType     LatePenaltyType @default(NONE)
+  latePenaltyAmount   Decimal         @default(0) @db.Decimal(10, 2)
+
+  serviceCommissionPercentage Decimal @default(0) @db.Decimal(5, 2)
+  serviceMinimumWorkThreshold Decimal @default(0) @db.Decimal(10, 2)
+  retailCommissionPercentage  Decimal @default(0) @db.Decimal(5, 2)
+  retailMinimumSalesThreshold Decimal @default(0) @db.Decimal(10, 2)
+
+  status        Boolean   @default(true)
+  effectiveFrom DateTime
+  effectiveTo   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  salarySlips SalarySlip[]
+
+  @@index([salonId, staffId, status])
+  @@index([branchId])
+  @@index([staffId, effectiveFrom, effectiveTo])
+}
+
+enum SalaryType {
+  MONTHLY
+  DAILY
+}
+
+enum LatePenaltyType {
+  NONE
+  FIXED_PER_LATE_DAY
+  PER_LATE_MINUTE
+}
+
+model SalarySlip {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id])
+
+  salaryConfigId String?
+  salaryConfig   StaffSalaryConfig? @relation(fields: [salaryConfigId], references: [id])
+
+  month Int
+  year  Int
+
+  baseSalary       Decimal @db.Decimal(10, 2)
+  workingDays      Int
+  presentDays      Int     @default(0)
+  halfDays         Int     @default(0)
+  paidLeaveDays    Int     @default(0)
+  unpaidLeaveDays  Int     @default(0)
+  absentDays       Int     @default(0)
+  lateDays         Int     @default(0)
+  totalLateMinutes Int     @default(0)
+
+  perDaySalary         Decimal @db.Decimal(10, 2)
+  unpaidLeaveDeduction Decimal @default(0) @db.Decimal(10, 2)
+  latePenalty          Decimal @default(0) @db.Decimal(10, 2)
+  manualDeduction      Decimal @default(0) @db.Decimal(10, 2)
+  bonusAmount          Decimal @default(0) @db.Decimal(10, 2)
+
+  serviceRevenue              Decimal @default(0) @db.Decimal(10, 2)
+  serviceMinimumWorkThreshold Decimal @default(0) @db.Decimal(10, 2)
+  serviceCommissionPercentage Decimal @default(0) @db.Decimal(5, 2)
+  serviceCommissionAmount     Decimal @default(0) @db.Decimal(10, 2)
+  retailSalesRevenue          Decimal @default(0) @db.Decimal(10, 2)
+  retailMinimumSalesThreshold Decimal @default(0) @db.Decimal(10, 2)
+  retailCommissionPercentage  Decimal @default(0) @db.Decimal(5, 2)
+  retailCommissionAmount      Decimal @default(0) @db.Decimal(10, 2)
+
+  grossSalary Decimal          @db.Decimal(10, 2)
+  netSalary   Decimal          @db.Decimal(10, 2)
+  status      SalarySlipStatus @default(GENERATED)
+  generatedAt DateTime         @default(now())
+  paidAt      DateTime?
+  paidById    String?
+  paidBy      User?            @relation("SalarySlipPaidBy", fields: [paidById], references: [id])
+  note        String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([salonId, staffId, month, year])
+  @@index([salonId, month, year])
+  @@index([staffId, month, year])
+  @@index([branchId, month, year])
+  @@index([paidById])
+}
+
+enum SalarySlipStatus {
+  DRAFT
+  GENERATED
+  PAID
+  CANCELLED
 }
 
 model MainService {
@@ -961,6 +1211,8 @@ model RetailSale {
   branch         Branch?          @relation(fields: [branchId], references: [id])
   customerId     String?
   customer       Customer?        @relation(fields: [customerId], references: [id])
+  staffId        String?
+  staff          Staff?           @relation(fields: [staffId], references: [id])
   saleDate       DateTime         @default(now())
   subtotalAmount Decimal          @default(0) @db.Decimal(10, 2)
   discountAmount Decimal          @default(0) @db.Decimal(10, 2)
@@ -977,6 +1229,7 @@ model RetailSale {
   @@index([salonId])
   @@index([branchId])
   @@index([customerId])
+  @@index([staffId])
   @@index([createdById])
   @@index([saleDate])
 }

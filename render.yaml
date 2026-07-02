@@ -4,10 +4,10 @@ services:
     runtime: node
     rootDir: backend
     plan: free
-    # Free Render services do not support pre-deploy commands. Run the
-    # idempotent Prisma deployment migration as the final build step instead.
-    buildCommand: npm ci && npm run render-build && npm run deploy:migrate
-    startCommand: npm start
+    buildCommand: npm ci && npm run render-build
+    # Free Render services do not support pre-deploy commands. Running the
+    # idempotent migration here lets it use Render's internal database network.
+    startCommand: npm run deploy:migrate && npm start
     healthCheckPath: /api/health
     autoDeployTrigger: commit
     envVars:

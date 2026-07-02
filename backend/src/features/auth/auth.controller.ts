@@ -9,6 +9,11 @@ import { comparePass, hashPass } from "../../utils/password.js";
 import { generateAccessToken, generateRefreshToken } from "../../utils/jwt.js";
 import { verifyRefreshToken } from "../../utils/jwt.js";
 import { env } from "../../config/env.js";
+import {
+  createRefreshSession,
+  findActiveRefreshSession,
+  revokeRefreshSession,
+} from "./session.service.js";
 
 const refreshCookieBase: CookieOptions = {
   httpOnly: true,
@@ -73,6 +78,8 @@ export const register = async (req: Request, res: Response) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
+        await createRefreshSession(newUser.id, refreshToken);
+
         res.cookie("refreshToken", refreshToken, refreshCookieOptions);
 
         return res.status(201).json({
@@ -123,6 +130,13 @@ export const login = async (req: Request, res: Response) => {
             });
         }
 
+        if (user.status !== "ACTIVE") {
+            return res.status(403).json({
+                success: false,
+                message: "Account is disabled",
+            });
+        }
+
         const tokenPayload = {
             userId: user.id,
             role: user.role,
@@ -132,6 +146,7 @@ export const login = async (req: Request, res: Response) => {
 
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
+        await createRefreshSession(user.id, refreshToken);
         const { passwordHash, ...safeUser } = user;
 
         res.cookie("refreshToken", refreshToken, refreshCookieOptions);
@@ -179,11 +194,25 @@ export const refresh = async (req: Request, res: Response) => {
       role: string;
     };
 
+    const session = await findActiveRefreshSession(refreshToken);
+    if (!session || session.userId !== decoded.userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Refresh session is invalid or revoked",
+      });
+    }
+    if (session.user.status !== "ACTIVE") {
+      return res.status(403).json({
+        success: false,
+        message: "Account is disabled",
+      });
+    }
+
     const accessToken = generateAccessToken({
-      userId: decoded.userId,
-      role: decoded.role,
-      ...(decoded.salonId ? { salonId: decoded.salonId } : {}),
-      ...(decoded.branchId ? { branchId: decoded.branchId } : {}),
+      userId: session.user.id,
+      role: session.user.role,
+      ...(session.user.salonId ? { salonId: session.user.salonId } : {}),
+      ...(session.user.branchId ? { branchId: session.user.branchId } : {}),
     });
 
     return res.status(200).json({
@@ -203,6 +232,9 @@ export const refresh = async (req: Request, res: Response) => {
 
 
 export const logout = async (req: Request, res: Response)=>{
+    if (typeof req.cookies.refreshToken === "string" && req.cookies.refreshToken) {
+      await revokeRefreshSession(req.cookies.refreshToken);
+    }
     res.clearCookie("refreshToken", refreshCookieBase)
 
     return res.status(200).json({

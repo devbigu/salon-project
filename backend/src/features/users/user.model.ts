@@ -25,6 +25,7 @@ export const UserModel = {
         email: true,
         phone_number: true,
         role: true,
+        status: true,
         salonId: true,
         branchId: true,
         createdAt: true,
@@ -51,10 +52,50 @@ export const UserModel = {
         email: true,
         phone_number: true,
         role: true,
+        status: true,
         salonId: true,
         branchId: true,
         createdAt: true,
       },
+    });
+  },
+
+  createStaffAccount: async (data: {
+    staffId: string;
+    name: string;
+    email: string;
+    phone_number: string;
+    passwordHash: string;
+    salonId: string;
+    branchId?: string;
+  }) => {
+    const { staffId, ...userData } = data;
+
+    return prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          ...userData,
+          role: "STAFF",
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone_number: true,
+          role: true,
+          status: true,
+          salonId: true,
+          branchId: true,
+          createdAt: true,
+        },
+      });
+
+      await tx.staff.update({
+        where: { id: staffId },
+        data: { userId: user.id },
+      });
+
+      return user;
     });
   },
 
@@ -82,9 +123,34 @@ export const UserModel = {
         email: true,
         phone_number: true,
         role: true,
+        status: true,
         salonId: true,
         branchId: true,
         createdAt: true,
+      },
+    });
+  },
+
+  findById: async (id: string) => {
+    return prisma.user.findUnique({ where: { id } });
+  },
+
+  updateStatus: async (
+    id: string,
+    status: "ACTIVE" | "DISABLED" | "SUSPENDED"
+  ) => {
+    return prisma.user.update({
+      where: { id },
+      data: { status },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        status: true,
+        salonId: true,
+        branchId: true,
+        updatedAt: true,
       },
     });
   },

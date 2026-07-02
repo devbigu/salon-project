@@ -13,6 +13,8 @@ const ALL_ROUTES = [
   "GET /api/users",
   "POST /api/users/salon-admin",
   "POST /api/users/receptionist",
+  "POST /api/users/staff",
+  "PATCH /api/users/:id/status",
   "POST /api/salons",
   "GET /api/salons",
   "POST /api/branches",
@@ -285,6 +287,24 @@ describe("All API routes", () => {
       201
     );
     const staffId = staff.body.data.id as string;
+
+    const staffAccount = check(
+      "POST /api/users/staff",
+      await agent
+        .post("/api/users/staff")
+        .set(auth(superAdminToken))
+        .send({ staffId, password }),
+      201
+    );
+
+    check(
+      "PATCH /api/users/:id/status",
+      await agent
+        .patch(`/api/users/${staffAccount.body.data.id}/status`)
+        .set(auth(superAdminToken))
+        .send({ status: "ACTIVE" }),
+      200
+    );
 
     const staffList = check(
       "GET /api/staff",
@@ -690,7 +710,7 @@ describe("All API routes", () => {
           customerId,
           staffId,
           serviceIds: [serviceId],
-          startTime: "2035-01-01T10:00:00.000Z",
+          startTime: "2035-01-03T10:00:00.000Z",
           bookingNote: "Initial booking note",
         }),
       201
@@ -734,11 +754,11 @@ describe("All API routes", () => {
       await agent
         .patch(`/api/appointments/${appointmentId}/reschedule`)
         .set(auth(superAdminToken))
-        .send({ startTime: "2035-01-01T12:00:00.000Z" }),
+        .send({ startTime: "2035-01-03T12:00:00.000Z" }),
       200
     );
     expect(new Date(reschedule.body.data.startTime).toISOString()).toBe(
-      "2035-01-01T12:00:00.000Z"
+      "2035-01-03T12:00:00.000Z"
     );
 
     for (const status of ["CONFIRMED", "CHECKED_IN", "COMPLETED"]) {
@@ -776,7 +796,7 @@ describe("All API routes", () => {
         customerId,
         staffId,
         serviceIds: [serviceId],
-        startTime: "2035-01-02T10:00:00.000Z",
+        startTime: "2035-01-04T10:00:00.000Z",
       });
     expect(disposableAppointment.status).toBe(201);
 
@@ -861,7 +881,7 @@ describe("All API routes", () => {
         customerId,
         staffId,
         serviceIds: [serviceId],
-        startTime: "2035-01-03T10:00:00.000Z",
+        startTime: "2035-01-05T10:00:00.000Z",
       });
     expect(cancelAppointment.status).toBe(201);
 

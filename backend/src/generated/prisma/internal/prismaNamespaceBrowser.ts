@@ -57,6 +57,11 @@ export const ModelName = {
   CustomerTransaction: 'CustomerTransaction',
   Branch: 'Branch',
   Staff: 'Staff',
+  UserSession: 'UserSession',
+  StaffAttendance: 'StaffAttendance',
+  StaffLeave: 'StaffLeave',
+  StaffSalaryConfig: 'StaffSalaryConfig',
+  SalarySlip: 'SalarySlip',
   MainService: 'MainService',
   Service: 'Service',
   Appointment: 'Appointment',
@@ -103,6 +108,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SalonScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  timezone: 'timezone',
   addressLine1: 'addressLine1',
   addressLine2: 'addressLine2',
   city: 'city',
@@ -125,6 +131,7 @@ export const UserScalarFieldEnum = {
   phone_number: 'phone_number',
   passwordHash: 'passwordHash',
   role: 'role',
+  status: 'status',
   salonId: 'salonId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -213,6 +220,129 @@ export const StaffScalarFieldEnum = {
 } as const
 
 export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const UserSessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  refreshTokenHash: 'refreshTokenHash',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserSessionScalarFieldEnum = (typeof UserSessionScalarFieldEnum)[keyof typeof UserSessionScalarFieldEnum]
+
+
+export const StaffAttendanceScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  date: 'date',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  status: 'status',
+  lateMinutes: 'lateMinutes',
+  note: 'note',
+  markedById: 'markedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffAttendanceScalarFieldEnum = (typeof StaffAttendanceScalarFieldEnum)[keyof typeof StaffAttendanceScalarFieldEnum]
+
+
+export const StaffLeaveScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  leaveType: 'leaveType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  totalDays: 'totalDays',
+  reason: 'reason',
+  status: 'status',
+  approvedById: 'approvedById',
+  approvedAt: 'approvedAt',
+  rejectionReason: 'rejectionReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffLeaveScalarFieldEnum = (typeof StaffLeaveScalarFieldEnum)[keyof typeof StaffLeaveScalarFieldEnum]
+
+
+export const StaffSalaryConfigScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  baseSalary: 'baseSalary',
+  salaryType: 'salaryType',
+  workingDaysPerMonth: 'workingDaysPerMonth',
+  paidLeavesAllowed: 'paidLeavesAllowed',
+  lateGraceMinutes: 'lateGraceMinutes',
+  latePenaltyType: 'latePenaltyType',
+  latePenaltyAmount: 'latePenaltyAmount',
+  serviceCommissionPercentage: 'serviceCommissionPercentage',
+  serviceMinimumWorkThreshold: 'serviceMinimumWorkThreshold',
+  retailCommissionPercentage: 'retailCommissionPercentage',
+  retailMinimumSalesThreshold: 'retailMinimumSalesThreshold',
+  status: 'status',
+  effectiveFrom: 'effectiveFrom',
+  effectiveTo: 'effectiveTo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffSalaryConfigScalarFieldEnum = (typeof StaffSalaryConfigScalarFieldEnum)[keyof typeof StaffSalaryConfigScalarFieldEnum]
+
+
+export const SalarySlipScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  salaryConfigId: 'salaryConfigId',
+  month: 'month',
+  year: 'year',
+  baseSalary: 'baseSalary',
+  workingDays: 'workingDays',
+  presentDays: 'presentDays',
+  halfDays: 'halfDays',
+  paidLeaveDays: 'paidLeaveDays',
+  unpaidLeaveDays: 'unpaidLeaveDays',
+  absentDays: 'absentDays',
+  lateDays: 'lateDays',
+  totalLateMinutes: 'totalLateMinutes',
+  perDaySalary: 'perDaySalary',
+  unpaidLeaveDeduction: 'unpaidLeaveDeduction',
+  latePenalty: 'latePenalty',
+  manualDeduction: 'manualDeduction',
+  bonusAmount: 'bonusAmount',
+  serviceRevenue: 'serviceRevenue',
+  serviceMinimumWorkThreshold: 'serviceMinimumWorkThreshold',
+  serviceCommissionPercentage: 'serviceCommissionPercentage',
+  serviceCommissionAmount: 'serviceCommissionAmount',
+  retailSalesRevenue: 'retailSalesRevenue',
+  retailMinimumSalesThreshold: 'retailMinimumSalesThreshold',
+  retailCommissionPercentage: 'retailCommissionPercentage',
+  retailCommissionAmount: 'retailCommissionAmount',
+  grossSalary: 'grossSalary',
+  netSalary: 'netSalary',
+  status: 'status',
+  generatedAt: 'generatedAt',
+  paidAt: 'paidAt',
+  paidById: 'paidById',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SalarySlipScalarFieldEnum = (typeof SalarySlipScalarFieldEnum)[keyof typeof SalarySlipScalarFieldEnum]
 
 
 export const MainServiceScalarFieldEnum = {
@@ -581,6 +711,7 @@ export const RetailSaleScalarFieldEnum = {
   salonId: 'salonId',
   branchId: 'branchId',
   customerId: 'customerId',
+  staffId: 'staffId',
   saleDate: 'saleDate',
   subtotalAmount: 'subtotalAmount',
   discountAmount: 'discountAmount',

@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import { UserModel } from "./user.model.js";
 import { hashPass } from "../../utils/password.js";
 import { BranchModel } from "../branches/branch.model.js";
+import { StaffModel } from "../staff/staff.model.js";
 
 export const getUsers = async (req: Request, res: Response) => {
   return res.status(200).json({
@@ -128,5 +129,113 @@ export const createReceptionist = async (req: Request, res: Response) => {
       success: false,
       message: "Internal server error",
     });
+  }
+};
+
+export const createStaffAccount = async (req: Request, res: Response) => {
+  try {
+    const { staffId, password } = req.body;
+
+    if (!staffId || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "staffId and password are required",
+      });
+    }
+
+    const staff =
+      req.user?.role === "SUPER_ADMIN"
+        ? await StaffModel.findById(staffId)
+        : req.user?.salonId
+          ? await StaffModel.findByIdAndSalon(staffId, req.user.salonId)
+          : null;
+
+    if (!staff) {
+      return res.status(404).json({
+        success: false,
+        message: "Staff not found",
+      });
+    }
+
+    if (staff.userId) {
+      return res.status(409).json({
+        success: false,
+        message: "Staff login already exists",
+      });
+    }
+
+    if (!staff.phone) {
+      return res.status(400).json({
+        success: false,
+        message: "Staff phone number is required to create a login",
+      });
+    }
+
+    if (await UserModel.findByEmail(staff.email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
+
+    if (await UserModel.findByPhoneNumber(staff.phone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Phone number already exists",
+      });
+    }
+
+    const user = await UserModel.createStaffAccount({
+      staffId: staff.id,
+      name: staff.name,
+      email: staff.email,
+      phone_number: staff.phone,
+      passwordHash: await hashPass(password),
+      salonId: staff.salonId,
+      ...(staff.branchId ? { branchId: staff.branchId } : {}),
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Staff login created successfully",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const updateUserStatus = async (req: Request, res: Response) => {
+  try {
+    const id = typeof req.params.id === "string" ? req.params.id : "";
+    const status = req.body.status as string | undefined;
+    const validStatuses = ["ACTIVE", "DISABLED", "SUSPENDED"] as const;
+
+    if (!id || !status || !validStatuses.includes(status as (typeof validStatuses)[number])) {
+      return res.status(400).json({ success: false, message: "Valid user status is required" });
+    }
+
+    const target = await UserModel.findById(id);
+    if (!target) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if (
+      req.user?.role !== "SUPER_ADMIN" &&
+      (!req.user?.salonId || target.salonId !== req.user.salonId)
+    ) {
+      return res.status(403).json({ success: false, message: "Forbidden" });
+    }
+
+    const user = await UserModel.updateStatus(
+      id,
+      status as (typeof validStatuses)[number]
+    );
+    return res.status(200).json({ success: true, message: "User status updated", data: user });
+  } catch {
+    return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };

@@ -1,7 +1,8 @@
 import {} from "express";
 import jwt, {} from "jsonwebtoken";
 import { env } from "../config/env.js";
-export const authenticate = (req, res, next) => {
+import { prisma } from "../config/prisma.js";
+export const authenticate = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -25,13 +26,21 @@ export const authenticate = (req, res, next) => {
                 message: "Invalid token",
             });
         }
+        const currentUser = await prisma.user.findUnique({
+            where: { id: decoded.userId },
+            select: { id: true, role: true, salonId: true, branchId: true },
+        });
+        if (!currentUser) {
+            return res.status(401).json({
+                success: false,
+                message: "User no longer exists",
+            });
+        }
         const user = {
-            userId: decoded.userId,
-            role: decoded.role,
-            ...(typeof decoded.salonId === "string" ? { salonId: decoded.salonId } : {}),
-            ...(typeof decoded.branchId === "string"
-                ? { branchId: decoded.branchId }
-                : {}),
+            userId: currentUser.id,
+            role: currentUser.role,
+            ...(currentUser.salonId ? { salonId: currentUser.salonId } : {}),
+            ...(currentUser.branchId ? { branchId: currentUser.branchId } : {}),
         };
         req.user = user;
         next();

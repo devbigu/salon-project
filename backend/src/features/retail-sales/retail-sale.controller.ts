@@ -27,7 +27,7 @@ export const createRetailSale = async (req: Request, res: Response) => {
   try {
     const salonId = getSalonId(req, req.body.salonId);
     const branchId =
-      req.user?.role === "RECEPTIONIST"
+      req.user?.role === "RECEPTIONIST" || req.user?.role === "BRANCH_MANAGER"
         ? req.user.branchId
         : typeof req.body.branchId === "string" && req.body.branchId
           ? req.body.branchId
@@ -54,6 +54,7 @@ export const createRetailSale = async (req: Request, res: Response) => {
     const discount = Number(req.body.discountAmount ?? 0);
     if (!Number.isFinite(discount) || discount < 0) return res.status(400).json({ success: false, message: "Discount must be non-negative" });
     const saleDate = req.body.saleDate ? new Date(req.body.saleDate) : undefined;
+    const staffId = typeof req.body.staffId === "string" && req.body.staffId ? req.body.staffId : undefined;
     if (saleDate && Number.isNaN(saleDate.getTime())) {
       return res.status(400).json({ success: false, message: "Invalid sale date" });
     }
@@ -72,6 +73,16 @@ export const createRetailSale = async (req: Request, res: Response) => {
         const customer = await tx.customer.findFirst({ where: { id: req.body.customerId, salonId }, select: { id: true } });
         if (!customer) throw transactionError("Customer not found", 404);
       }
+      if (staffId) {
+        const staff = await tx.staff.findFirst({
+          where: { id: staffId, salonId },
+          select: { id: true, branchId: true },
+        });
+        if (!staff) throw transactionError("Credited staff not found in this salon", 404);
+        if (branchId && staff.branchId !== branchId) {
+          throw transactionError("Credited staff does not belong to the selected branch");
+        }
+      }
       const subtotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
       if (discount > subtotal) throw transactionError("Discount cannot exceed subtotal");
       const sale = await tx.retailSale.create({
@@ -80,6 +91,7 @@ export const createRetailSale = async (req: Request, res: Response) => {
           salonId,
           ...(branchId ? { branchId } : {}),
           ...(req.body.customerId ? { customerId: req.body.customerId } : {}),
+          ...(staffId ? { staffId } : {}),
           ...(saleDate ? { saleDate } : {}),
           subtotalAmount: subtotal,
           discountAmount: discount,

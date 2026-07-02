@@ -108,6 +108,13 @@ export const createCustomer = async (req: Request, res: Response) => {
       });
     }
 
+    if (email && (await CustomerModel.findByEmailAndSalon(email, finalSalonId))) {
+      return res.status(400).json({
+        success: false,
+        message: "Customer with this email already exists in this salon",
+      });
+    }
+
     if (status && !isValidCustomerStatus(status)) {
       return res.status(400).json({
         success: false,

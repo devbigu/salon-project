@@ -2,6 +2,7 @@ import {} from "express";
 import { UserModel } from "./user.model.js";
 import { hashPass } from "../../utils/password.js";
 import { BranchModel } from "../branches/branch.model.js";
+import { StaffModel } from "../staff/staff.model.js";
 export const getUsers = async (req, res) => {
     return res.status(200).json({
         success: true,
@@ -102,6 +103,72 @@ export const createReceptionist = async (req, res) => {
             success: true,
             message: "Receptionist created successfully",
             data: receptionist,
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+};
+export const createStaffAccount = async (req, res) => {
+    try {
+        const { staffId, password } = req.body;
+        if (!staffId || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "staffId and password are required",
+            });
+        }
+        const staff = req.user?.role === "SUPER_ADMIN"
+            ? await StaffModel.findById(staffId)
+            : req.user?.salonId
+                ? await StaffModel.findByIdAndSalon(staffId, req.user.salonId)
+                : null;
+        if (!staff) {
+            return res.status(404).json({
+                success: false,
+                message: "Staff not found",
+            });
+        }
+        if (staff.userId) {
+            return res.status(409).json({
+                success: false,
+                message: "Staff login already exists",
+            });
+        }
+        if (!staff.phone) {
+            return res.status(400).json({
+                success: false,
+                message: "Staff phone number is required to create a login",
+            });
+        }
+        if (await UserModel.findByEmail(staff.email)) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists",
+            });
+        }
+        if (await UserModel.findByPhoneNumber(staff.phone)) {
+            return res.status(400).json({
+                success: false,
+                message: "Phone number already exists",
+            });
+        }
+        const user = await UserModel.createStaffAccount({
+            staffId: staff.id,
+            name: staff.name,
+            email: staff.email,
+            phone_number: staff.phone,
+            passwordHash: await hashPass(password),
+            salonId: staff.salonId,
+            ...(staff.branchId ? { branchId: staff.branchId } : {}),
+        });
+        return res.status(201).json({
+            success: true,
+            message: "Staff login created successfully",
+            data: user,
         });
     }
     catch (error) {

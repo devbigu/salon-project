@@ -95,3 +95,24 @@ export const request = async (path, options = {}, retrying = false) => {
 };
 
 export const apiConfig = { apiUrl: API_URL, sessionKey: SESSION_KEY };
+
+export const requestBlob = async (path) => {
+  const session = readSession();
+  const response = await fetch(`${API_URL}${path}`, {
+    credentials: "include",
+    headers: {
+      ...(session?.accessToken ? { Authorization: `Bearer ${session.accessToken}` } : {}),
+    },
+  });
+  if (!response.ok) {
+    let message = `Request failed with status ${response.status}`;
+    try {
+      const payload = await response.json();
+      message = payload?.message || message;
+    } catch {
+      // Keep the HTTP status message for non-JSON errors.
+    }
+    throw new ApiError(message, response.status);
+  }
+  return response.blob();
+};

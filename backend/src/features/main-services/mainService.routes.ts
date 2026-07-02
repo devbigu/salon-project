@@ -12,7 +12,10 @@ import {
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { requireRole } from "../../middlewares/rbac.middleware.js";
 
+import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
+
 const router = Router();
+router.param("id", validateUuidParam("id"));
 
 router.use(authenticate);
 

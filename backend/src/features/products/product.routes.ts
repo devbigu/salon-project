@@ -11,7 +11,10 @@ import {
   updateProduct,
 } from "./product.controller.js";
 
+import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
+
 const router = Router();
+router.param("id", validateUuidParam("id"));
 router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createProduct);
 router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"), getProducts);

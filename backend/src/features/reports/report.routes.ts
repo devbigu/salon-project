@@ -5,6 +5,7 @@ import {
   getExpenseReport,
   getInventoryReport,
   getProfitSummary,
+  getStaffPerformance,
 } from "./report.controller.js";
 
 const router = Router();
@@ -19,6 +20,11 @@ router.get(
     "STAFF"
   ),
   getInventoryReport
+);
+router.get(
+  "/staff-performance",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"),
+  getStaffPerformance
 );
 router.get(
   "/expenses",

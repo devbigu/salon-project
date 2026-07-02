@@ -10,7 +10,10 @@ import {
   updateVendor,
 } from "./vendor.controller.js";
 
+import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
+
 const router = Router();
+router.param("id", validateUuidParam("id"));
 router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createVendor);
 router.get(

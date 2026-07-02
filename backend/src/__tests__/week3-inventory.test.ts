@@ -85,8 +85,8 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
         brandId: brandResponse.body.data.id,
         vendorId,
         branchId: branchA.id,
-        costPrice: 100,
-        sellingPrice: 150,
+        costPrice: 250,
+        sellingPrice: 399,
         lowStockAlert: 5,
         isRetailProduct: true,
         isServiceConsumable: true,
@@ -102,16 +102,16 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
         branchId: branchA.id,
         vendorId,
         invoiceNo: "SUP-1001",
-        items: [{ productId, quantity: 10, unitCost: 100 }],
+        items: [{ productId, quantity: 10, unitCost: 250 }],
       });
     expect(purchaseResponse.statusCode).toBe(201);
     expect(purchaseResponse.body.data).toMatchObject({
       vendorId,
       paymentStatus: "UNPAID",
     });
-    expect(Number(purchaseResponse.body.data.totalAmount)).toBe(1000);
+    expect(Number(purchaseResponse.body.data.totalAmount)).toBe(2500);
     expect(Number(purchaseResponse.body.data.paidAmount)).toBe(0);
-    expect(Number(purchaseResponse.body.data.balanceAmount)).toBe(1000);
+    expect(Number(purchaseResponse.body.data.balanceAmount)).toBe(2500);
     const purchaseId = purchaseResponse.body.data.id as string;
 
     let product = await prisma.product.findUniqueOrThrow({
@@ -134,16 +134,33 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
       .send({
         vendorId,
         purchaseId,
-        amount: 400,
+        amount: 1000,
         paymentMethod: "UPI",
       });
     expect(vendorPaymentResponse.statusCode).toBe(201);
     const paidPurchase = await prisma.productPurchase.findUniqueOrThrow({
       where: { id: purchaseId },
     });
-    expect(Number(paidPurchase.paidAmount)).toBe(400);
-    expect(Number(paidPurchase.balanceAmount)).toBe(600);
+    expect(Number(paidPurchase.paidAmount)).toBe(1000);
+    expect(Number(paidPurchase.balanceAmount)).toBe(1500);
     expect(paidPurchase.paymentStatus).toBe("PARTIALLY_PAID");
+
+    const finalVendorPaymentResponse = await request(app)
+      .post("/api/vendor-payments")
+      .set(auth(adminAToken))
+      .send({
+        vendorId,
+        purchaseId,
+        amount: 1500,
+        paymentMethod: "BANK_TRANSFER",
+      });
+    expect(finalVendorPaymentResponse.statusCode).toBe(201);
+    const fullyPaidPurchase = await prisma.productPurchase.findUniqueOrThrow({
+      where: { id: purchaseId },
+    });
+    expect(Number(fullyPaidPurchase.paidAmount)).toBe(2500);
+    expect(Number(fullyPaidPurchase.balanceAmount)).toBe(0);
+    expect(fullyPaidPurchase.paymentStatus).toBe("PAID");
 
     const retailResponse = await request(app)
       .post("/api/retail-sales")
@@ -151,7 +168,7 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
       .send({
         branchId: branchA.id,
         paymentMethod: "CASH",
-        items: [{ productId, quantity: 2, unitPrice: 150 }],
+        items: [{ productId, quantity: 2, unitPrice: 399 }],
       });
     expect(retailResponse.statusCode).toBe(201);
     product = await prisma.product.findUniqueOrThrow({
@@ -187,7 +204,7 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
       .send({
         branchId: branchA.id,
         paymentMethod: "CASH",
-        items: [{ productId, quantity: 999, unitPrice: 150 }],
+        items: [{ productId, quantity: 999, unitPrice: 399 }],
       });
     expect(insufficientResponse.statusCode).toBe(400);
 
@@ -203,7 +220,7 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
       .send({
         title: "June rent",
         categoryDefinitionId: categoryResponse.body.data.id,
-        amount: 500,
+        amount: 10000,
         branchId: branchA.id,
         paymentMethod: "BANK_TRANSFER",
       });
@@ -218,23 +235,23 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
     expect(inventoryReport.body.data).toMatchObject({
       totalProducts: 1,
       totalStockQuantity: 4,
-      totalStockCostValue: 400,
-      totalRetailValue: 600,
+      totalStockCostValue: 1000,
+      totalRetailValue: 1596,
       lowStockCount: 1,
     });
     expect(expenseReport.statusCode).toBe(200);
-    expect(expenseReport.body.data.totalExpenses).toBe(500);
+    expect(expenseReport.body.data.totalExpenses).toBe(10000);
     expect(expenseReport.body.data.expensesByCategory).toEqual(
-      expect.arrayContaining([{ category: "Rent", total: 500 }])
+      expect.arrayContaining([{ category: "Rent", total: 10000 }])
     );
     expect(profitReport.statusCode).toBe(200);
     expect(profitReport.body.data).toMatchObject({
       serviceRevenue: 0,
       saleRevenue: 0,
-      retailSalesTotal: 300,
-      productPurchaseCost: 1000,
-      expensesTotal: 500,
-      estimatedProfit: -1200,
+      retailSalesTotal: 798,
+      productPurchaseCost: 2500,
+      expensesTotal: 10000,
+      estimatedProfit: -11702,
     });
 
     const crossTenant = await request(app)
@@ -252,5 +269,41 @@ describe("Week 3 inventory, vendor, expense, and reports flow", () => {
       .set(auth(staffAToken))
       .send({ title: "Forbidden expense", category: "MISC", amount: 1 });
     expect(staffExpenseWrite.statusCode).toBe(403);
+
+    const raceProductResponse = await request(app)
+      .post("/api/products")
+      .set(auth(adminAToken))
+      .send({
+        name: "Concurrency Serum",
+        branchId: branchA.id,
+        costPrice: 10,
+        sellingPrice: 20,
+        lowStockAlert: 1,
+        isRetailProduct: true,
+      });
+    expect(raceProductResponse.statusCode).toBe(201);
+    const raceProductId = raceProductResponse.body.data.id as string;
+    const racePurchase = await request(app)
+      .post("/api/product-purchases")
+      .set(auth(adminAToken))
+      .send({
+        branchId: branchA.id,
+        vendorId,
+        items: [{ productId: raceProductId, quantity: 5, unitCost: 10 }],
+      });
+    expect(racePurchase.statusCode).toBe(201);
+
+    const concurrentSales = await Promise.all([
+      request(app)
+        .post("/api/retail-sales")
+        .set(auth(adminAToken))
+        .send({ branchId: branchA.id, items: [{ productId: raceProductId, quantity: 4, unitPrice: 20 }] }),
+      request(app)
+        .post("/api/retail-sales")
+        .set(auth(adminAToken))
+        .send({ branchId: branchA.id, items: [{ productId: raceProductId, quantity: 4, unitPrice: 20 }] }),
+    ]);
+    expect(concurrentSales.map((response) => response.statusCode).sort()).toEqual([201, 400]);
+    expect(Number((await prisma.product.findUniqueOrThrow({ where: { id: raceProductId } })).currentStock)).toBe(1);
   });
 });

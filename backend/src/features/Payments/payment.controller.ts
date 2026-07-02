@@ -1,8 +1,7 @@
 import { type Request, type Response } from "express";
 
-import { PaymentModel } from "./payment.model.js";
+import { PaymentConflictError, PaymentModel } from "./payment.model.js";
 import { InvoiceModel } from "../Invoices/invoice.model.js";
-import { CustomerModel } from "../customers/customer.model.js";
 const PAYMENT_METHODS = ["CASH", "CARD", "UPI", "OTHER"] as const;
 
 type PaymentMethod = (typeof PAYMENT_METHODS)[number];
@@ -93,9 +92,7 @@ export const createPayment = async (req: Request, res: Response) => {
       });
     }
 
-    const currentPaidAmount = Number(invoice.paidAmount);
     const currentBalanceAmount = Number(invoice.balanceAmount);
-    const totalAmount = Number(invoice.totalAmount);
 
     if (finalAmount > currentBalanceAmount) {
       return res.status(400).json({
@@ -103,12 +100,6 @@ export const createPayment = async (req: Request, res: Response) => {
         message: "Payment amount cannot be greater than invoice balance",
       });
     }
-
-    const newPaidAmount = Number((currentPaidAmount + finalAmount).toFixed(2));
-    const newBalanceAmount = Number((totalAmount - newPaidAmount).toFixed(2));
-
-    const newPaymentStatus =
-      newBalanceAmount <= 0 ? "PAID" : "PARTIALLY_PAID";
 
     let finalPaidAt: Date | undefined;
 
@@ -133,19 +124,6 @@ export const createPayment = async (req: Request, res: Response) => {
       ...(referenceNo ? { referenceNo } : {}),
       ...(note ? { note } : {}),
       ...(finalPaidAt ? { paidAt: finalPaidAt } : {}),
-      newPaidAmount,
-      newBalanceAmount,
-      newPaymentStatus,
-    });
-
-    await CustomerModel.decreaseOutstandingWithTransaction({
-      customerId: invoice.customerId,
-      salonId: invoice.salonId,
-      invoiceId: invoice.id,
-      paymentId: result.payment.id,
-      billNo: invoice.invoiceCode,
-      amount: finalAmount,
-      narration: `Payment received via ${method}`,
     });
 
     return res.status(201).json({
@@ -154,6 +132,12 @@ export const createPayment = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
+    if (error instanceof PaymentConflictError) {
+      return res.status(error.message === "Invoice not found" ? 404 : 400).json({
+        success: false,
+        message: error.message,
+      });
+    }
     return res.status(500).json({
       success: false,
       message: "Internal server error",

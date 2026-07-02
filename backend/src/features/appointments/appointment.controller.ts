@@ -6,6 +6,8 @@ import { CustomerModel } from "../customers/customer.model.js";
 import { StaffModel } from "../staff/staff.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { ServiceModel } from "../services/service.model.js";
+import { SalonModel } from "../salons/salon.model.js";
+import { parseSalonDateRange } from "../../utils/timezone.js";
 
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
@@ -17,6 +19,34 @@ const APPOINTMENT_STATUSES = [
 ] as const;
 
 type AppointmentStatus = (typeof APPOINTMENT_STATUSES)[number];
+
+const STATUS_TRANSITIONS: Record<AppointmentStatus, AppointmentStatus[]> = {
+    SCHEDULED: ["CONFIRMED", "CANCELLED", "NO_SHOW"],
+    CONFIRMED: ["CHECKED_IN", "CANCELLED", "NO_SHOW"],
+    CHECKED_IN: ["COMPLETED", "CANCELLED"],
+    COMPLETED: [],
+    CANCELLED: [],
+    NO_SHOW: [],
+};
+
+const WEEKDAYS = [
+    "SUNDAY",
+    "MONDAY",
+    "TUESDAY",
+    "WEDNESDAY",
+    "THURSDAY",
+    "FRIDAY",
+    "SATURDAY",
+] as const;
+
+const timeToMinutes = (value: string) => {
+    const match = /^(\d{1,2}):(\d{2})$/.exec(value);
+    if (!match) return null;
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    if (hours > 23 || minutes > 59) return null;
+    return hours * 60 + minutes;
+};
 
 const isValidAppointmentStatus = (
     status: string
@@ -56,17 +86,16 @@ const durationToMinutes = (
     return durationValue;
 };
 
-const getDateRange = (date?: string) => {
+const getDateRange = (date: string | undefined, timezone: string) => {
     if (!date) {
         return {};
     }
 
-    const dateFrom = new Date(`${date}T00:00:00.000Z`);
-    const dateTo = new Date(`${date}T23:59:59.999Z`);
+    const range = parseSalonDateRange(date, date, timezone);
 
     return {
-        dateFrom,
-        dateTo,
+        ...(range.start ? { dateFrom: range.start } : {}),
+        ...(range.end ? { dateTo: range.end } : {}),
     };
 };
 
@@ -208,6 +237,13 @@ export const createAppointment = async (req: Request, res: Response) => {
             });
         }
 
+        if (!staff.status) {
+            return res.status(400).json({
+                success: false,
+                message: "Inactive staff cannot be booked",
+            });
+        }
+
         const totalDurationMinutes = services.reduce((total, service) => {
             return (
                 total +
@@ -231,6 +267,30 @@ export const createAppointment = async (req: Request, res: Response) => {
         const finalEndTime = new Date(
             finalStartTime.getTime() + totalDurationMinutes * 60 * 1000
         );
+
+        if (WEEKDAYS[finalStartTime.getUTCDay()] === staff.weekOff.toUpperCase()) {
+            return res.status(400).json({
+                success: false,
+                message: "Staff cannot be booked on their week off",
+            });
+        }
+
+        const workingFrom = timeToMinutes(staff.workingFrom);
+        const workingTo = timeToMinutes(staff.workingTo);
+        const appointmentStart = finalStartTime.getUTCHours() * 60 + finalStartTime.getUTCMinutes();
+        const appointmentEnd = finalEndTime.getUTCHours() * 60 + finalEndTime.getUTCMinutes();
+        if (
+            workingFrom === null ||
+            workingTo === null ||
+            appointmentStart < workingFrom ||
+            appointmentEnd > workingTo ||
+            finalStartTime.getUTCDate() !== finalEndTime.getUTCDate()
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Appointment is outside staff working hours",
+            });
+        }
 
         const conflict = await AppointmentModel.findConflict({
             staffId,
@@ -327,6 +387,7 @@ export const getAppointments = async (req: Request, res: Response) => {
             });
         }
 
+        const salon = await SalonModel.findById(req.user.salonId);
         const appointments = await AppointmentModel.findBySalon(req.user.salonId, {
             ...(req.user.role === "RECEPTIONIST" && req.user.branchId
                 ? { branchId: req.user.branchId }
@@ -336,7 +397,7 @@ export const getAppointments = async (req: Request, res: Response) => {
             ...(staffId ? { staffId: String(staffId) } : {}),
             ...(customerId ? { customerId: String(customerId) } : {}),
             ...(status ? { status: String(status) as AppointmentStatus } : {}),
-            ...getDateRange(date ? String(date) : undefined),
+            ...getDateRange(date ? String(date) : undefined, salon?.timezone ?? "Asia/Kolkata"),
         });
 
         return res.status(200).json({
@@ -427,6 +488,13 @@ export const updateAppointmentStatus = async (
             });
         }
 
+        if (!STATUS_TRANSITIONS[existingAppointment.status].includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: `Invalid appointment status transition from ${existingAppointment.status} to ${status}`,
+            });
+        }
+
         const appointment = await AppointmentModel.updateStatusWithHistory(id, {
             oldStatus: existingAppointment.status,
             newStatus: status,
@@ -475,6 +543,13 @@ export const updateAppointmentBasicDetails = async (
             return res.status(404).json({
                 success: false,
                 message: "Appointment not found",
+            });
+        }
+
+        if (["COMPLETED", "CANCELLED", "NO_SHOW"].includes(existingAppointment.status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Completed, cancelled or no-show appointments cannot be edited",
             });
         }
 

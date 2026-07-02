@@ -38,6 +38,76 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  DISABLED: 'DISABLED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  HALF_DAY: 'HALF_DAY',
+  LATE: 'LATE',
+  WEEK_OFF: 'WEEK_OFF',
+  PAID_LEAVE: 'PAID_LEAVE',
+  UNPAID_LEAVE: 'UNPAID_LEAVE'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
+
+export const LeaveType = {
+  PAID_LEAVE: 'PAID_LEAVE',
+  UNPAID_LEAVE: 'UNPAID_LEAVE',
+  SICK_LEAVE: 'SICK_LEAVE',
+  CASUAL_LEAVE: 'CASUAL_LEAVE',
+  OTHER: 'OTHER'
+} as const
+
+export type LeaveType = (typeof LeaveType)[keyof typeof LeaveType]
+
+
+export const LeaveStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type LeaveStatus = (typeof LeaveStatus)[keyof typeof LeaveStatus]
+
+
+export const SalaryType = {
+  MONTHLY: 'MONTHLY',
+  DAILY: 'DAILY'
+} as const
+
+export type SalaryType = (typeof SalaryType)[keyof typeof SalaryType]
+
+
+export const LatePenaltyType = {
+  NONE: 'NONE',
+  FIXED_PER_LATE_DAY: 'FIXED_PER_LATE_DAY',
+  PER_LATE_MINUTE: 'PER_LATE_MINUTE'
+} as const
+
+export type LatePenaltyType = (typeof LatePenaltyType)[keyof typeof LatePenaltyType]
+
+
+export const SalarySlipStatus = {
+  DRAFT: 'DRAFT',
+  GENERATED: 'GENERATED',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type SalarySlipStatus = (typeof SalarySlipStatus)[keyof typeof SalarySlipStatus]
+
+
 export const DurationUnit = {
   MINUTES: 'MINUTES',
   HOURS: 'HOURS'

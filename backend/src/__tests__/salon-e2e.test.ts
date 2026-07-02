@@ -30,6 +30,9 @@ describe("Salon SaaS backend E2E flow", () => {
     const health = await request(app).get("/api/health");
     expect(health.status).toBe(200);
 
+    const protectedWithoutToken = await request(app).get("/api/customers");
+    expectFailure(protectedWithoutToken, 401);
+
     const superAdminEmail = `super-${stamp}@example.com`;
     const superAdminPassword = "Password@123";
 
@@ -130,6 +133,36 @@ describe("Salon SaaS backend E2E flow", () => {
     expect(salonAdminLogin.body.data.user.salonId).toBe(salonAId);
     const salonAdminToken = salonAdminLogin.body.data.accessToken as string;
 
+    const receptionistEmail = `receptionist-${stamp}@example.com`;
+    const receptionistPassword = "Password@123";
+    const createReceptionist = await request(app)
+      .post("/api/users/receptionist")
+      .set(auth(salonAdminToken))
+      .send({
+        name: "E2E Receptionist A",
+        email: receptionistEmail,
+        phone_number: `9200${String(stamp).slice(-6)}`,
+        password: receptionistPassword,
+        branchId: branchAId,
+      });
+    expectSuccess(createReceptionist, 201);
+    expect(createReceptionist.body.data).toMatchObject({
+      role: "RECEPTIONIST",
+      salonId: salonAId,
+      branchId: branchAId,
+    });
+
+    const receptionistLogin = await request(app).post("/api/auth/login").send({
+      email: receptionistEmail,
+      password: receptionistPassword,
+    });
+    expectSuccess(receptionistLogin, 200);
+    expect(receptionistLogin.body.data.user).toMatchObject({
+      role: "RECEPTIONIST",
+      salonId: salonAId,
+      branchId: branchAId,
+    });
+
     const staffRes = await request(app)
       .post("/api/staff")
       .set(auth(salonAdminToken))
@@ -145,6 +178,29 @@ describe("Salon SaaS backend E2E flow", () => {
       });
     expectSuccess(staffRes, 201);
     const staffAId = staffRes.body.data.id as string;
+
+    const staffPassword = "Password@123";
+    const createStaffAccount = await request(app)
+      .post("/api/users/staff")
+      .set(auth(salonAdminToken))
+      .send({ staffId: staffAId, password: staffPassword });
+    expectSuccess(createStaffAccount, 201);
+    expect(createStaffAccount.body.data).toMatchObject({
+      role: "STAFF",
+      salonId: salonAId,
+      branchId: branchAId,
+    });
+
+    const staffLogin = await request(app).post("/api/auth/login").send({
+      email: `staff-a-${stamp}@example.com`,
+      password: staffPassword,
+    });
+    expectSuccess(staffLogin, 200);
+    expect(staffLogin.body.data.user).toMatchObject({
+      role: "STAFF",
+      salonId: salonAId,
+      branchId: branchAId,
+    });
 
     const staffList = await request(app)
       .get("/api/staff")
@@ -168,19 +224,39 @@ describe("Salon SaaS backend E2E flow", () => {
       .send({ status: true })
       .expect(200);
 
+    const customerAPhone = `98${String(stamp).slice(-8)}`;
+    const customerAEmail = `customer-a-${stamp}@example.com`;
     const customerRes = await request(app)
       .post("/api/customers")
       .set(auth(salonAdminToken))
       .send({
         name: "E2E Customer A",
-        phone: `98${String(stamp).slice(-8)}`,
-        email: `customer-a-${stamp}@example.com`,
+        phone: customerAPhone,
+        email: customerAEmail,
         gst: "27ABCDE1234F1Z5",
         customNotes: "Prefers morning appointments",
         branchId: branchAId,
       });
     expectSuccess(customerRes, 201);
     const customerAId = customerRes.body.data.id as string;
+
+    const duplicateCustomerPhone = await request(app)
+      .post("/api/customers")
+      .set(auth(salonAdminToken))
+      .send({ name: "Duplicate Phone", phone: customerAPhone, email: `other-${stamp}@example.com` });
+    expectFailure(duplicateCustomerPhone, 400);
+
+    const duplicateCustomerEmail = await request(app)
+      .post("/api/customers")
+      .set(auth(salonAdminToken))
+      .send({ name: "Duplicate Email", phone: `96${String(stamp).slice(-8)}`, email: customerAEmail });
+    expectFailure(duplicateCustomerEmail, 400);
+
+    const missingCustomerContact = await request(app)
+      .post("/api/customers")
+      .set(auth(salonAdminToken))
+      .send({ name: "Missing Contact" });
+    expectFailure(missingCustomerContact, 400);
 
     const customerList = await request(app)
       .get("/api/customers")
@@ -210,8 +286,8 @@ describe("Salon SaaS backend E2E flow", () => {
       .send({
         name: `E2E Haircut ${stamp}`,
         description: "E2E test service",
-        price: 500,
-        durationValue: 60,
+        price: 599,
+        durationValue: 45,
         durationUnit: "MINUTES",
         branchId: branchAId,
         mainServiceId: mainServiceAId,
@@ -223,6 +299,52 @@ describe("Salon SaaS backend E2E flow", () => {
       .get("/api/services")
       .set(auth(salonAdminToken));
     expectSuccess(services, 200);
+
+    await request(app)
+      .patch(`/api/staff/${staffAId}/status`)
+      .set(auth(salonAdminToken))
+      .send({ status: false })
+      .expect(200);
+    const inactiveStaffAppointment = await request(app)
+      .post("/api/appointments")
+      .set(auth(salonAdminToken))
+      .send({
+        branchId: branchAId,
+        customerId: customerAId,
+        staffId: staffAId,
+        serviceIds: [serviceAId],
+        startTime: "2030-01-01T10:00:00.000Z",
+      });
+    expectFailure(inactiveStaffAppointment, 400);
+    await request(app)
+      .patch(`/api/staff/${staffAId}/status`)
+      .set(auth(salonAdminToken))
+      .send({ status: true })
+      .expect(200);
+
+    const outsideWorkingHours = await request(app)
+      .post("/api/appointments")
+      .set(auth(salonAdminToken))
+      .send({
+        branchId: branchAId,
+        customerId: customerAId,
+        staffId: staffAId,
+        serviceIds: [serviceAId],
+        startTime: "2030-01-01T20:00:00.000Z",
+      });
+    expectFailure(outsideWorkingHours, 400);
+
+    const weekOffAppointment = await request(app)
+      .post("/api/appointments")
+      .set(auth(salonAdminToken))
+      .send({
+        branchId: branchAId,
+        customerId: customerAId,
+        staffId: staffAId,
+        serviceIds: [serviceAId],
+        startTime: "2030-01-07T10:00:00.000Z",
+      });
+    expectFailure(weekOffAppointment, 400);
 
     const startTime = "2030-01-01T10:00:00.000Z";
     const appointmentRes = await request(app)
@@ -239,11 +361,17 @@ describe("Salon SaaS backend E2E flow", () => {
     expectSuccess(appointmentRes, 201);
     const appointmentA = appointmentRes.body.data;
     const appointmentAId = appointmentA.id as string;
-    expect(appointmentA.totalDurationMinutes).toBe(60);
-    expect(Number(appointmentA.estimatedAmount)).toBe(500);
+    expect(appointmentA.totalDurationMinutes).toBe(45);
+    expect(Number(appointmentA.estimatedAmount)).toBe(599);
     expect(new Date(appointmentA.endTime).toISOString()).toBe(
-      "2030-01-01T11:00:00.000Z"
+      "2030-01-01T10:45:00.000Z"
     );
+
+    const invalidStatusJump = await request(app)
+      .patch(`/api/appointments/${appointmentAId}/status`)
+      .set(auth(salonAdminToken))
+      .send({ status: "COMPLETED" });
+    expectFailure(invalidStatusJump, 400);
 
     const notCompletedInvoice = await request(app)
       .post(`/api/invoices/from-appointment/${appointmentAId}`)
@@ -301,6 +429,12 @@ describe("Salon SaaS backend E2E flow", () => {
       expect(statusRes.body.data.status).toBe(status);
     }
 
+    const editCompletedAppointment = await request(app)
+      .put(`/api/appointments/${appointmentAId}`)
+      .set(auth(salonAdminToken))
+      .send({ bookingNote: "Should not be changed" });
+    expectFailure(editCompletedAppointment, 400);
+
     const tracking = await request(app)
       .get(`/api/appointments/${appointmentAId}/tracking`)
       .set(auth(salonAdminToken));
@@ -321,6 +455,8 @@ describe("Salon SaaS backend E2E flow", () => {
     const billInvoice = billInvoiceRes.body.data;
     const billInvoiceId = billInvoice.id as string;
     expect(Number(billInvoice.taxAmount)).toBe(0);
+    expect(Number(billInvoice.totalAmount)).toBe(599);
+    expect(billInvoice.paymentStatus).toBe("UNPAID");
 
     const duplicateInvoice = await request(app)
       .post(`/api/invoices/from-appointment/${appointmentAId}`)
@@ -349,7 +485,8 @@ describe("Salon SaaS backend E2E flow", () => {
       .set(auth(salonAdminToken))
       .send({ invoiceType: "GST_INVOICE", taxPercent: 18 });
     expectSuccess(gstInvoiceRes, 201);
-    expect(Number(gstInvoiceRes.body.data.taxAmount)).toBe(90);
+    expect(Number(gstInvoiceRes.body.data.taxAmount)).toBe(107.82);
+    const gstInvoiceId = gstInvoiceRes.body.data.id as string;
 
     const invoices = await request(app)
       .get("/api/invoices")
@@ -372,7 +509,7 @@ describe("Salon SaaS backend E2E flow", () => {
       });
     expectSuccess(partialPayment, 201);
     expect(Number(partialPayment.body.data.invoice.paidAmount)).toBe(200);
-    expect(Number(partialPayment.body.data.invoice.balanceAmount)).toBe(300);
+    expect(Number(partialPayment.body.data.invoice.balanceAmount)).toBe(399);
     expect(partialPayment.body.data.invoice.paymentStatus).toBe("PARTIALLY_PAID");
     const partialPaymentId = partialPayment.body.data.payment.id as string;
 
@@ -381,7 +518,7 @@ describe("Salon SaaS backend E2E flow", () => {
       .set(auth(salonAdminToken))
       .send({
         invoiceId: billInvoiceId,
-        amount: 301,
+        amount: 400,
         method: "CASH",
       });
     expectFailure(overPayment, 400);
@@ -391,7 +528,7 @@ describe("Salon SaaS backend E2E flow", () => {
       .set(auth(salonAdminToken))
       .send({
         invoiceId: billInvoiceId,
-        amount: 300,
+        amount: 399,
         method: "UPI",
         referenceNo: "E2E-FULL",
       });
@@ -408,6 +545,27 @@ describe("Salon SaaS backend E2E flow", () => {
       .get(`/api/payments/${partialPaymentId}`)
       .set(auth(salonAdminToken));
     expectSuccess(paymentById, 200);
+
+    const concurrentPayments = await Promise.all([
+      request(app)
+        .post("/api/payments")
+        .set(auth(salonAdminToken))
+        .send({ invoiceId: gstInvoiceId, amount: 400, method: "CASH" }),
+      request(app)
+        .post("/api/payments")
+        .set(auth(salonAdminToken))
+        .send({ invoiceId: gstInvoiceId, amount: 400, method: "UPI" }),
+    ]);
+    expect(concurrentPayments.map((response) => response.status).sort()).toEqual([
+      201,
+      400,
+    ]);
+    const gstInvoiceAfterConcurrentPayments = await request(app)
+      .get(`/api/invoices/${gstInvoiceId}`)
+      .set(auth(salonAdminToken));
+    expectSuccess(gstInvoiceAfterConcurrentPayments, 200);
+    expect(Number(gstInvoiceAfterConcurrentPayments.body.data.paidAmount)).toBe(400);
+    expect(Number(gstInvoiceAfterConcurrentPayments.body.data.balanceAmount)).toBe(306.82);
 
     const salonBRes = await request(app)
       .post("/api/salons")
@@ -444,7 +602,7 @@ describe("Salon SaaS backend E2E flow", () => {
       .set(auth(superAdminToken))
       .send({
         name: "E2E Customer B",
-        phone: `97${String(stamp).slice(-8)}`,
+        phone: customerAPhone,
         salonId: salonBId,
         branchId: branchBId,
       });

@@ -16,6 +16,28 @@ const getMenu = (role) => {
     text: "Dashboard",
     link: "/",
   },
+  ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"])
+    ? [
+        { heading: "Staff Operations" },
+        {
+          icon: "users-fill",
+          text: "Staff Operations",
+          subMenu: [
+            { text: "Attendance", link: "/staff-operations/attendance" },
+            ...(role !== "RECEPTIONIST" ? [{ text: "Leaves", link: "/staff-operations/leaves" }] : []),
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"])
+              ? [{ text: "Salary Config", link: "/staff-operations/salary-config" }]
+              : []),
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "STAFF"])
+              ? [{ text: "Salary Slips", link: "/staff-operations/salary-slips" }]
+              : []),
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"])
+              ? [{ text: "Staff Performance", link: "/reports/staff-performance" }]
+              : []),
+          ],
+        },
+      ]
+    : []),
   ...(hasRole(role, operationalRoles)
     ? [
         { heading: "Operations" },

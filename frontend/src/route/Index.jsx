@@ -23,6 +23,11 @@ import ExpenseReports from "@/pages/salon/ExpenseReports";
 import InventoryReport from "@/pages/salon/InventoryReport";
 import ProfitSummary from "@/pages/salon/ProfitSummary";
 import ExpenseCategories from "@/pages/salon/ExpenseCategories";
+import Attendance from "@/pages/salon/Attendance";
+import Leaves from "@/pages/salon/Leaves";
+import SalaryConfig from "@/pages/salon/SalaryConfig";
+import SalarySlips from "@/pages/salon/SalarySlips";
+import StaffPerformance from "@/pages/salon/StaffPerformance";
 
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
@@ -83,6 +88,11 @@ const Router = () => (
                 <Route path="support" element={<Support />} />
               </Route>
 
+              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"]} />}>
+                <Route path="staff-operations/attendance" element={<Attendance />} />
+                <Route path="staff-operations/leaves" element={<Leaves />} />
+              </Route>
+
               <Route
                 element={
                   <RoleRoute
@@ -128,6 +138,13 @@ const Router = () => (
                 <Route path="admin/expense-categories" element={<ExpenseCategories />} />
                 <Route path="reports/expenses" element={<ExpenseReports />} />
                 <Route path="reports/profit-summary" element={<ProfitSummary />} />
+              </Route>
+              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"]} />}>
+                <Route path="staff-operations/salary-config" element={<SalaryConfig />} />
+                <Route path="reports/staff-performance" element={<StaffPerformance />} />
+              </Route>
+              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "STAFF"]} />}>
+                <Route path="staff-operations/salary-slips" element={<SalarySlips />} />
               </Route>
             </Route>
 

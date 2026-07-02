@@ -10,6 +10,7 @@ import {
   type SupportTicketPriority,
   type SupportTicketStatus,
 } from "./supportTicket.model.js";
+import { paginationMeta, parsePagination } from "../../utils/pagination.js";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -316,6 +317,10 @@ export const getMyTickets = async (req: Request, res: Response) => {
 export const getTickets = async (req: Request, res: Response) => {
   try {
     const { status, priority, category } = req.query;
+    const pagination = parsePagination(req.query);
+    if ("error" in pagination) {
+      return res.status(400).json({ success: false, message: pagination.error });
+    }
 
     if (status !== undefined && !isStatus(status)) {
       return res.status(400).json({
@@ -342,12 +347,15 @@ export const getTickets = async (req: Request, res: Response) => {
       ...(isStatus(status) ? { status } : {}),
       ...(isPriority(priority) ? { priority } : {}),
       ...(isCategory(category) ? { category } : {}),
+      skip: pagination.skip,
+      take: pagination.limit,
     });
 
     return res.status(200).json({
       success: true,
       message: "Support tickets fetched successfully",
-      data: tickets,
+      data: tickets.data,
+      pagination: paginationMeta(pagination.page, pagination.limit, tickets.total),
     });
   } catch {
     return res.status(500).json({

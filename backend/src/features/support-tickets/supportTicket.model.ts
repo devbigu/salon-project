@@ -180,18 +180,25 @@ export const SupportTicketModel = {
     status?: SupportTicketStatus;
     priority?: SupportTicketPriority;
     category?: SupportTicketCategory;
+    skip?: number;
+    take?: number;
   }) => {
-    return prisma.supportTicket.findMany({
-      where: {
+    const where = {
         ...(filters?.status ? { status: filters.status } : {}),
         ...(filters?.priority ? { priority: filters.priority } : {}),
         ...(filters?.category ? { category: filters.category } : {}),
-      },
-      include: ticketInclude,
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    };
+    const [data, total] = await prisma.$transaction([
+      prisma.supportTicket.findMany({
+        where,
+        include: ticketInclude,
+        orderBy: { createdAt: "desc" },
+        ...(filters?.skip !== undefined ? { skip: filters.skip } : {}),
+        ...(filters?.take !== undefined ? { take: filters.take } : {}),
+      }),
+      prisma.supportTicket.count({ where }),
+    ]);
+    return { data, total };
   },
 
   findById: async (id: string) => {

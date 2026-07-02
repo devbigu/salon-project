@@ -41,6 +41,32 @@ export const UserModel = {
             },
         });
     },
+    createStaffAccount: async (data) => {
+        const { staffId, ...userData } = data;
+        return prisma.$transaction(async (tx) => {
+            const user = await tx.user.create({
+                data: {
+                    ...userData,
+                    role: "STAFF",
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    phone_number: true,
+                    role: true,
+                    salonId: true,
+                    branchId: true,
+                    createdAt: true,
+                },
+            });
+            await tx.staff.update({
+                where: { id: staffId },
+                data: { userId: user.id },
+            });
+            return user;
+        });
+    },
     findByPhoneNumber: async (phone_number) => {
         return prisma.user.findUnique({
             where: { phone_number },

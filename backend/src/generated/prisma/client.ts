@@ -72,6 +72,31 @@ export type Branch = Prisma.BranchModel
  */
 export type Staff = Prisma.StaffModel
 /**
+ * Model UserSession
+ * 
+ */
+export type UserSession = Prisma.UserSessionModel
+/**
+ * Model StaffAttendance
+ * 
+ */
+export type StaffAttendance = Prisma.StaffAttendanceModel
+/**
+ * Model StaffLeave
+ * 
+ */
+export type StaffLeave = Prisma.StaffLeaveModel
+/**
+ * Model StaffSalaryConfig
+ * 
+ */
+export type StaffSalaryConfig = Prisma.StaffSalaryConfigModel
+/**
+ * Model SalarySlip
+ * 
+ */
+export type SalarySlip = Prisma.SalarySlipModel
+/**
  * Model MainService
  * 
  */

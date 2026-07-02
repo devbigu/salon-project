@@ -157,6 +157,14 @@ export const CustomerModel = {
             },
         });
     },
+    findByEmailAndSalon: async (email, salonId) => {
+        return prisma.customer.findFirst({
+            where: {
+                email,
+                salonId,
+            },
+        });
+    },
     createTransaction: async (data) => {
         return prisma.customerTransaction.create({
             data,

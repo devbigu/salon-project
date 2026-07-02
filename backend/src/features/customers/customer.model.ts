@@ -203,6 +203,15 @@ export const CustomerModel = {
     });
   },
 
+  findByEmailAndSalon: async (email: string, salonId: string) => {
+    return prisma.customer.findFirst({
+      where: {
+        email,
+        salonId,
+      },
+    });
+  },
+
   createTransaction: async (data: {
     customerId: string;
     salonId: string;

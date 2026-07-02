@@ -1,7 +1,31 @@
 import { prisma } from "../../config/prisma.js";
+export class PaymentConflictError extends Error {
+}
 export const PaymentModel = {
     createAndUpdateInvoice: async (data) => {
         return prisma.$transaction(async (tx) => {
+            await tx.$queryRaw `SELECT "id" FROM "Invoice" WHERE "id" = ${data.invoiceId} FOR UPDATE`;
+            const lockedInvoice = await tx.invoice.findUnique({
+                where: { id: data.invoiceId },
+            });
+            if (!lockedInvoice || lockedInvoice.salonId !== data.salonId) {
+                throw new PaymentConflictError("Invoice not found");
+            }
+            if (lockedInvoice.status === "CANCELLED") {
+                throw new PaymentConflictError("Cannot add payment to cancelled invoice");
+            }
+            if (lockedInvoice.paymentStatus === "PAID") {
+                throw new PaymentConflictError("Invoice is already fully paid");
+            }
+            const currentPaidAmount = Number(lockedInvoice.paidAmount);
+            const currentBalanceAmount = Number(lockedInvoice.balanceAmount);
+            const totalAmount = Number(lockedInvoice.totalAmount);
+            if (data.amount > currentBalanceAmount) {
+                throw new PaymentConflictError("Payment amount cannot be greater than invoice balance");
+            }
+            const newPaidAmount = Number((currentPaidAmount + data.amount).toFixed(2));
+            const newBalanceAmount = Number((totalAmount - newPaidAmount).toFixed(2));
+            const newPaymentStatus = newBalanceAmount <= 0 ? "PAID" : "PARTIALLY_PAID";
             const payment = await tx.payment.create({
                 data: {
                     salonId: data.salonId,
@@ -52,13 +76,32 @@ export const PaymentModel = {
                     id: data.invoiceId,
                 },
                 data: {
-                    paidAmount: data.newPaidAmount,
-                    balanceAmount: data.newBalanceAmount,
-                    paymentStatus: data.newPaymentStatus,
+                    paidAmount: newPaidAmount,
+                    balanceAmount: newBalanceAmount,
+                    paymentStatus: newPaymentStatus,
                 },
                 include: {
                     items: true,
                     payments: true,
+                },
+            });
+            const customer = await tx.customer.update({
+                where: { id: data.customerId },
+                data: { outstandingAmount: { decrement: data.amount } },
+            });
+            await tx.customerTransaction.create({
+                data: {
+                    customerId: data.customerId,
+                    salonId: data.salonId,
+                    invoiceId: data.invoiceId,
+                    paymentId: payment.id,
+                    billNo: lockedInvoice.invoiceCode,
+                    narration: `Payment received via ${data.method}`,
+                    type: "PAYMENT",
+                    debit: 0,
+                    credit: data.amount,
+                    balanceAfter: customer.outstandingAmount,
+                    status: "COMPLETE",
                 },
             });
             return {

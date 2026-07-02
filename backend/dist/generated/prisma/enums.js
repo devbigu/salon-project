@@ -24,6 +24,43 @@ export const Role = {
     RECEPTIONIST: 'RECEPTIONIST',
     STAFF: 'STAFF'
 };
+export const AttendanceStatus = {
+    PRESENT: 'PRESENT',
+    ABSENT: 'ABSENT',
+    HALF_DAY: 'HALF_DAY',
+    LATE: 'LATE',
+    WEEK_OFF: 'WEEK_OFF',
+    PAID_LEAVE: 'PAID_LEAVE',
+    UNPAID_LEAVE: 'UNPAID_LEAVE'
+};
+export const LeaveType = {
+    PAID_LEAVE: 'PAID_LEAVE',
+    UNPAID_LEAVE: 'UNPAID_LEAVE',
+    SICK_LEAVE: 'SICK_LEAVE',
+    CASUAL_LEAVE: 'CASUAL_LEAVE',
+    OTHER: 'OTHER'
+};
+export const LeaveStatus = {
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED',
+    CANCELLED: 'CANCELLED'
+};
+export const SalaryType = {
+    MONTHLY: 'MONTHLY',
+    DAILY: 'DAILY'
+};
+export const LatePenaltyType = {
+    NONE: 'NONE',
+    FIXED_PER_LATE_DAY: 'FIXED_PER_LATE_DAY',
+    PER_LATE_MINUTE: 'PER_LATE_MINUTE'
+};
+export const SalarySlipStatus = {
+    DRAFT: 'DRAFT',
+    GENERATED: 'GENERATED',
+    PAID: 'PAID',
+    CANCELLED: 'CANCELLED'
+};
 export const DurationUnit = {
     MINUTES: 'MINUTES',
     HOURS: 'HOURS'

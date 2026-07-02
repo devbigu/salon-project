@@ -5,6 +5,7 @@ const include = {
   salon: { select: { id: true, name: true } },
   customer: { select: { id: true, name: true, phone: true } },
   createdBy: { select: { id: true, name: true } },
+  staff: { select: { id: true, staffCode: true, name: true, jobRole: true } },
   items: {
     include: {
       product: { include: { brand: { select: { id: true, name: true } } } },

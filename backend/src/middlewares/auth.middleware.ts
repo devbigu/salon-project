@@ -1,6 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { env } from "../config/env.js";
+import { prisma } from "../config/prisma.js";
 
 interface AccessTokenPayload {
   userId: string;
@@ -9,7 +10,7 @@ interface AccessTokenPayload {
   role: string;
 }
 
-export const authenticate = (
+export const authenticate = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -45,13 +46,30 @@ export const authenticate = (
       });
     }
 
+    const currentUser = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+      select: { id: true, role: true, status: true, salonId: true, branchId: true },
+    });
+
+    if (!currentUser) {
+      return res.status(401).json({
+        success: false,
+        message: "User no longer exists",
+      });
+    }
+
+    if (currentUser.status !== "ACTIVE") {
+      return res.status(403).json({
+        success: false,
+        message: "Account is disabled",
+      });
+    }
+
     const user: AccessTokenPayload = {
-      userId: decoded.userId,
-      role: decoded.role,
-      ...(typeof decoded.salonId === "string" ? { salonId: decoded.salonId } : {}),
-      ...(typeof decoded.branchId === "string"
-        ? { branchId: decoded.branchId }
-        : {}),
+      userId: currentUser.id,
+      role: currentUser.role,
+      ...(currentUser.salonId ? { salonId: currentUser.salonId } : {}),
+      ...(currentUser.branchId ? { branchId: currentUser.branchId } : {}),
     };
 
     req.user = user;

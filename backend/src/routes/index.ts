@@ -22,6 +22,10 @@ import vendorPaymentRoutes from "../features/vendor-payments/vendor-payment.rout
 import expenseRoutes from "../features/expenses/expense.routes.js";
 import reportRoutes from "../features/reports/report.routes.js";
 import expenseCategoryRoutes from "../features/expense-categories/expense-category.routes.js";
+import attendanceRoutes from "../features/attendance/attendance.routes.js";
+import leaveRoutes from "../features/leaves/leave.routes.js";
+import salaryConfigRoutes from "../features/salary-configs/salaryConfig.routes.js";
+import salarySlipRoutes from "../features/salary-slips/salarySlip.routes.js";
 
 
 
@@ -49,6 +53,10 @@ router.use("/vendor-payments", vendorPaymentRoutes);
 router.use("/expenses", expenseRoutes);
 router.use("/reports", reportRoutes);
 router.use("/expense-categories", expenseCategoryRoutes);
+router.use("/attendance", attendanceRoutes);
+router.use("/leaves", leaveRoutes);
+router.use("/", salaryConfigRoutes);
+router.use("/salary-slips", salarySlipRoutes);
 
 
 export default router;

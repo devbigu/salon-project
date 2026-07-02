@@ -1,4 +1,4 @@
-import { request } from "./api";
+import { request, requestBlob } from "./api";
 
 export const salonApi = {
   auth: {
@@ -134,6 +134,33 @@ export const salonApi = {
     get: (id) => request(`/api/retail-sales/${id}`),
     create: (body) => request("/api/retail-sales", { method: "POST", body }),
   },
+  attendance: {
+    list: (query) => request("/api/attendance", { query }),
+    checkIn: (body) => request("/api/attendance/check-in", { method: "POST", body }),
+    checkOut: (body) => request("/api/attendance/check-out", { method: "POST", body }),
+    mark: (body) => request("/api/attendance/mark", { method: "POST", body }),
+  },
+  leaves: {
+    list: (query) => request("/api/leaves", { query }),
+    create: (body) => request("/api/leaves", { method: "POST", body }),
+    approve: (id) => request(`/api/leaves/${id}/approve`, { method: "PATCH" }),
+    reject: (id, rejectionReason) => request(`/api/leaves/${id}/reject`, { method: "PATCH", body: { rejectionReason } }),
+    cancel: (id) => request(`/api/leaves/${id}/cancel`, { method: "PATCH" }),
+  },
+  salaryConfigs: {
+    active: (staffId) => request(`/api/staff/${staffId}/salary-config`),
+    create: (staffId, body) => request(`/api/staff/${staffId}/salary-config`, { method: "POST", body }),
+    update: (id, body) => request(`/api/salary-configs/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/salary-configs/${id}/status`, { method: "PATCH", body: { status } }),
+  },
+  salarySlips: {
+    list: (query) => request("/api/salary-slips", { query }),
+    get: (id) => request(`/api/salary-slips/${id}`),
+    generate: (body) => request("/api/salary-slips/generate", { method: "POST", body }),
+    markPaid: (id) => request(`/api/salary-slips/${id}/mark-paid`, { method: "PATCH" }),
+    cancel: (id) => request(`/api/salary-slips/${id}/cancel`, { method: "PATCH" }),
+    pdf: (id) => requestBlob(`/api/salary-slips/${id}/pdf`),
+  },
   stockMovements: {
     list: (query) => request("/api/stock-movements", { query }),
     byProduct: (productId) => request(`/api/stock-movements/product/${productId}`),
@@ -171,6 +198,7 @@ export const salonApi = {
     inventory: (query) => request("/api/reports/inventory", { query }),
     expenses: (query) => request("/api/reports/expenses", { query }),
     profitSummary: (query) => request("/api/reports/profit-summary", { query }),
+    staffPerformance: (query) => request("/api/reports/staff-performance", { query }),
   },
   support: {
     createPublic: (body) =>
