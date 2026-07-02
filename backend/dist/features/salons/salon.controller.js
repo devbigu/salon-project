@@ -1,13 +1,17 @@
 import {} from "express";
 import { SalonModel } from "./salon.model.js";
+import { isValidTimezone } from "../../utils/timezone.js";
 export const createSalon = async (req, res) => {
     try {
-        const { name, email, phone, addressLine1, city, state, postalCode, } = req.body;
+        const { name, email, phone, addressLine1, city, state, postalCode, timezone, } = req.body;
         if (!name) {
             return res.status(400).json({
                 success: false,
                 message: "Salon name is required",
             });
+        }
+        if (timezone && !isValidTimezone(timezone)) {
+            return res.status(400).json({ success: false, message: "Invalid salon timezone" });
         }
         const salon = await SalonModel.create({
             name,
@@ -17,6 +21,7 @@ export const createSalon = async (req, res) => {
             city,
             state,
             postalCode,
+            ...(timezone ? { timezone } : {}),
         });
         return res.status(201).json({
             success: true,

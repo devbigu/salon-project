@@ -754,11 +754,11 @@ describe("All API routes", () => {
       await agent
         .patch(`/api/appointments/${appointmentId}/reschedule`)
         .set(auth(superAdminToken))
-        .send({ startTime: "2035-01-03T12:00:00.000Z" }),
+        .send({ startTime: "2035-01-03T11:00:00.000Z" }),
       200
     );
     expect(new Date(reschedule.body.data.startTime).toISOString()).toBe(
-      "2035-01-03T12:00:00.000Z"
+      "2035-01-03T11:00:00.000Z"
     );
 
     for (const status of ["CONFIRMED", "CHECKED_IN", "COMPLETED"]) {

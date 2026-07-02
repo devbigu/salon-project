@@ -28,12 +28,18 @@ export const authenticate = async (req, res, next) => {
         }
         const currentUser = await prisma.user.findUnique({
             where: { id: decoded.userId },
-            select: { id: true, role: true, salonId: true, branchId: true },
+            select: { id: true, role: true, status: true, salonId: true, branchId: true },
         });
         if (!currentUser) {
             return res.status(401).json({
                 success: false,
                 message: "User no longer exists",
+            });
+        }
+        if (currentUser.status !== "ACTIVE") {
+            return res.status(403).json({
+                success: false,
+                message: "Account is disabled",
             });
         }
         const user = {

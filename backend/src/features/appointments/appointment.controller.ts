@@ -7,7 +7,7 @@ import { StaffModel } from "../staff/staff.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { ServiceModel } from "../services/service.model.js";
 import { SalonModel } from "../salons/salon.model.js";
-import { parseSalonDateRange } from "../../utils/timezone.js";
+import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js";
 
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
@@ -28,16 +28,6 @@ const STATUS_TRANSITIONS: Record<AppointmentStatus, AppointmentStatus[]> = {
     CANCELLED: [],
     NO_SHOW: [],
 };
-
-const WEEKDAYS = [
-    "SUNDAY",
-    "MONDAY",
-    "TUESDAY",
-    "WEDNESDAY",
-    "THURSDAY",
-    "FRIDAY",
-    "SATURDAY",
-] as const;
 
 const timeToMinutes = (value: string) => {
     const match = /^(\d{1,2}):(\d{2})$/.exec(value);
@@ -268,7 +258,14 @@ export const createAppointment = async (req: Request, res: Response) => {
             finalStartTime.getTime() + totalDurationMinutes * 60 * 1000
         );
 
-        if (WEEKDAYS[finalStartTime.getUTCDay()] === staff.weekOff.toUpperCase()) {
+        const salon = await SalonModel.findById(finalSalonId);
+        if (!salon) {
+            return res.status(400).json({ success: false, message: "Salon not found" });
+        }
+        const localStart = getSalonLocalParts(finalStartTime, salon.timezone);
+        const localEnd = getSalonLocalParts(finalEndTime, salon.timezone);
+
+        if (localStart.weekday === staff.weekOff.toUpperCase()) {
             return res.status(400).json({
                 success: false,
                 message: "Staff cannot be booked on their week off",
@@ -277,14 +274,16 @@ export const createAppointment = async (req: Request, res: Response) => {
 
         const workingFrom = timeToMinutes(staff.workingFrom);
         const workingTo = timeToMinutes(staff.workingTo);
-        const appointmentStart = finalStartTime.getUTCHours() * 60 + finalStartTime.getUTCMinutes();
-        const appointmentEnd = finalEndTime.getUTCHours() * 60 + finalEndTime.getUTCMinutes();
+        const appointmentStart = localStart.hour * 60 + localStart.minute;
+        const appointmentEnd = localEnd.hour * 60 + localEnd.minute;
         if (
             workingFrom === null ||
             workingTo === null ||
             appointmentStart < workingFrom ||
             appointmentEnd > workingTo ||
-            finalStartTime.getUTCDate() !== finalEndTime.getUTCDate()
+            localStart.year !== localEnd.year ||
+            localStart.month !== localEnd.month ||
+            localStart.day !== localEnd.day
         ) {
             return res.status(400).json({
                 success: false,

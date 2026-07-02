@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { getUsers, createSalonAdmin, createReceptionist, createStaffAccount, } from "./user.controller.js";
+import { getUsers, createSalonAdmin, createReceptionist, createStaffAccount, updateUserStatus, } from "./user.controller.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { requireRole } from "../../middlewares/rbac.middleware.js";
+import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
 const router = Router();
+router.param("id", validateUuidParam("id"));
 router.use(authenticate);
 router.get("/", requireRole("SUPER_ADMIN"), getUsers);
 router.post("/salon-admin", requireRole("SUPER_ADMIN"), createSalonAdmin);
+router.patch("/:id/status", requireRole("SUPER_ADMIN", "SALON_ADMIN"), updateUserStatus);
 router.post("/receptionist", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createReceptionist);
 router.post("/staff", requireRole("SUPER_ADMIN", "SALON_ADMIN"), createStaffAccount);
 export default router;

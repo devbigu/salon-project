@@ -6,6 +6,7 @@ beforeEach(async () => {
       "SupportTicketStatusHistory",
       "SupportTicketMessage",
       "SupportTicket",
+      "UserSession",
       "Payment",
       "InvoiceItem",
       "Invoice",

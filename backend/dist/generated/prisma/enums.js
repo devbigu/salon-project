@@ -24,6 +24,11 @@ export const Role = {
     RECEPTIONIST: 'RECEPTIONIST',
     STAFF: 'STAFF'
 };
+export const UserStatus = {
+    ACTIVE: 'ACTIVE',
+    DISABLED: 'DISABLED',
+    SUSPENDED: 'SUSPENDED'
+};
 export const AttendanceStatus = {
     PRESENT: 'PRESENT',
     ABSENT: 'ABSENT',

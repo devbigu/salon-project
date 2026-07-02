@@ -17,6 +17,7 @@ export const UserModel = {
                 email: true,
                 phone_number: true,
                 role: true,
+                status: true,
                 salonId: true,
                 branchId: true,
                 createdAt: true,
@@ -35,6 +36,7 @@ export const UserModel = {
                 email: true,
                 phone_number: true,
                 role: true,
+                status: true,
                 salonId: true,
                 branchId: true,
                 createdAt: true,
@@ -55,6 +57,7 @@ export const UserModel = {
                     email: true,
                     phone_number: true,
                     role: true,
+                    status: true,
                     salonId: true,
                     branchId: true,
                     createdAt: true,
@@ -81,9 +84,29 @@ export const UserModel = {
                 email: true,
                 phone_number: true,
                 role: true,
+                status: true,
                 salonId: true,
                 branchId: true,
                 createdAt: true,
+            },
+        });
+    },
+    findById: async (id) => {
+        return prisma.user.findUnique({ where: { id } });
+    },
+    updateStatus: async (id, status) => {
+        return prisma.user.update({
+            where: { id },
+            data: { status },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                status: true,
+                salonId: true,
+                branchId: true,
+                updatedAt: true,
             },
         });
     },

@@ -74,6 +74,7 @@ export const ModelName = {
     CustomerTransaction: 'CustomerTransaction',
     Branch: 'Branch',
     Staff: 'Staff',
+    UserSession: 'UserSession',
     StaffAttendance: 'StaffAttendance',
     StaffLeave: 'StaffLeave',
     StaffSalaryConfig: 'StaffSalaryConfig',
@@ -116,6 +117,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export const SalonScalarFieldEnum = {
     id: 'id',
     name: 'name',
+    timezone: 'timezone',
     addressLine1: 'addressLine1',
     addressLine2: 'addressLine2',
     city: 'city',
@@ -134,6 +136,7 @@ export const UserScalarFieldEnum = {
     phone_number: 'phone_number',
     passwordHash: 'passwordHash',
     role: 'role',
+    status: 'status',
     salonId: 'salonId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -203,6 +206,15 @@ export const StaffScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     branchId: 'branchId'
+};
+export const UserSessionScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    refreshTokenHash: 'refreshTokenHash',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const StaffAttendanceScalarFieldEnum = {
     id: 'id',

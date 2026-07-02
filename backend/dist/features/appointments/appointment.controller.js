@@ -5,6 +5,8 @@ import { CustomerModel } from "../customers/customer.model.js";
 import { StaffModel } from "../staff/staff.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { ServiceModel } from "../services/service.model.js";
+import { SalonModel } from "../salons/salon.model.js";
+import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js";
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
     "CONFIRMED",
@@ -21,15 +23,6 @@ const STATUS_TRANSITIONS = {
     CANCELLED: [],
     NO_SHOW: [],
 };
-const WEEKDAYS = [
-    "SUNDAY",
-    "MONDAY",
-    "TUESDAY",
-    "WEDNESDAY",
-    "THURSDAY",
-    "FRIDAY",
-    "SATURDAY",
-];
 const timeToMinutes = (value) => {
     const match = /^(\d{1,2}):(\d{2})$/.exec(value);
     if (!match)
@@ -65,15 +58,14 @@ const durationToMinutes = (durationValue, durationUnit) => {
     }
     return durationValue;
 };
-const getDateRange = (date) => {
+const getDateRange = (date, timezone) => {
     if (!date) {
         return {};
     }
-    const dateFrom = new Date(`${date}T00:00:00.000Z`);
-    const dateTo = new Date(`${date}T23:59:59.999Z`);
+    const range = parseSalonDateRange(date, date, timezone);
     return {
-        dateFrom,
-        dateTo,
+        ...(range.start ? { dateFrom: range.start } : {}),
+        ...(range.end ? { dateTo: range.end } : {}),
     };
 };
 const getExistingAppointmentByAccess = async (req, appointmentId) => {
@@ -178,7 +170,13 @@ export const createAppointment = async (req, res) => {
             });
         }
         const finalEndTime = new Date(finalStartTime.getTime() + totalDurationMinutes * 60 * 1000);
-        if (WEEKDAYS[finalStartTime.getUTCDay()] === staff.weekOff.toUpperCase()) {
+        const salon = await SalonModel.findById(finalSalonId);
+        if (!salon) {
+            return res.status(400).json({ success: false, message: "Salon not found" });
+        }
+        const localStart = getSalonLocalParts(finalStartTime, salon.timezone);
+        const localEnd = getSalonLocalParts(finalEndTime, salon.timezone);
+        if (localStart.weekday === staff.weekOff.toUpperCase()) {
             return res.status(400).json({
                 success: false,
                 message: "Staff cannot be booked on their week off",
@@ -186,13 +184,15 @@ export const createAppointment = async (req, res) => {
         }
         const workingFrom = timeToMinutes(staff.workingFrom);
         const workingTo = timeToMinutes(staff.workingTo);
-        const appointmentStart = finalStartTime.getUTCHours() * 60 + finalStartTime.getUTCMinutes();
-        const appointmentEnd = finalEndTime.getUTCHours() * 60 + finalEndTime.getUTCMinutes();
+        const appointmentStart = localStart.hour * 60 + localStart.minute;
+        const appointmentEnd = localEnd.hour * 60 + localEnd.minute;
         if (workingFrom === null ||
             workingTo === null ||
             appointmentStart < workingFrom ||
             appointmentEnd > workingTo ||
-            finalStartTime.getUTCDate() !== finalEndTime.getUTCDate()) {
+            localStart.year !== localEnd.year ||
+            localStart.month !== localEnd.month ||
+            localStart.day !== localEnd.day) {
             return res.status(400).json({
                 success: false,
                 message: "Appointment is outside staff working hours",
@@ -280,6 +280,7 @@ export const getAppointments = async (req, res) => {
                 message: "You do not have access to this branch",
             });
         }
+        const salon = await SalonModel.findById(req.user.salonId);
         const appointments = await AppointmentModel.findBySalon(req.user.salonId, {
             ...(req.user.role === "RECEPTIONIST" && req.user.branchId
                 ? { branchId: req.user.branchId }
@@ -289,7 +290,7 @@ export const getAppointments = async (req, res) => {
             ...(staffId ? { staffId: String(staffId) } : {}),
             ...(customerId ? { customerId: String(customerId) } : {}),
             ...(status ? { status: String(status) } : {}),
-            ...getDateRange(date ? String(date) : undefined),
+            ...getDateRange(date ? String(date) : undefined, salon?.timezone ?? "Asia/Kolkata"),
         });
         return res.status(200).json({
             success: true,

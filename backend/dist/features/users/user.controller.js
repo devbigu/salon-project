@@ -178,3 +178,26 @@ export const createStaffAccount = async (req, res) => {
         });
     }
 };
+export const updateUserStatus = async (req, res) => {
+    try {
+        const id = typeof req.params.id === "string" ? req.params.id : "";
+        const status = req.body.status;
+        const validStatuses = ["ACTIVE", "DISABLED", "SUSPENDED"];
+        if (!id || !status || !validStatuses.includes(status)) {
+            return res.status(400).json({ success: false, message: "Valid user status is required" });
+        }
+        const target = await UserModel.findById(id);
+        if (!target) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        if (req.user?.role !== "SUPER_ADMIN" &&
+            (!req.user?.salonId || target.salonId !== req.user.salonId)) {
+            return res.status(403).json({ success: false, message: "Forbidden" });
+        }
+        const user = await UserModel.updateStatus(id, status);
+        return res.status(200).json({ success: true, message: "User status updated", data: user });
+    }
+    catch {
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
