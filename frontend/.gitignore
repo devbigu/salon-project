@@ -1,19 +1,38 @@
 # Logs
-logs
+logs/
 *.log
+*.log.*
+*.out
+*.err
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Codex and local agent artifacts
+.codex/
+.agents/
+codex-*.log
+codex-*.out
+codex-*.err
+
+# Local and generated documentation
+*.md
+
+node_modules/
+dist/
+dist-ssr/
 *.local
 .env
 .env.*
 !.env.example
+
+# Test and tool caches
+coverage/
+.cache/
+tmp/
+temp/
 
 # Editor directories and files
 .vscode/*

@@ -1,6 +1,0 @@
-
-> backend@1.0.0 dev
-> tsx watch src/index.ts
-
-◇ injected env (8) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
-Server running on port 5001
