@@ -124,6 +124,7 @@ export const createPayment = async (req: Request, res: Response) => {
       ...(referenceNo ? { referenceNo } : {}),
       ...(note ? { note } : {}),
       ...(finalPaidAt ? { paidAt: finalPaidAt } : {}),
+      ...(req.user?.userId ? { createdById: req.user.userId } : {}),
     });
 
     return res.status(201).json({

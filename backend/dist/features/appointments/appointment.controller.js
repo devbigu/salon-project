@@ -7,6 +7,7 @@ import { BranchModel } from "../branches/branch.model.js";
 import { ServiceModel } from "../services/service.model.js";
 import { SalonModel } from "../salons/salon.model.js";
 import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js";
+import { sendInventoryError } from "../products/inventory-access.js";
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
     "CONFIRMED",
@@ -382,10 +383,7 @@ export const updateAppointmentStatus = async (req, res) => {
         });
     }
     catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+        return sendInventoryError(res, error);
     }
 };
 export const updateAppointmentBasicDetails = async (req, res) => {

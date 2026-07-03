@@ -93,6 +93,7 @@ const CustomCheckbox = React.forwardRef(({ onClick, ...rest }, ref) => (
     <label className="custom-control-label" htmlFor={rest.name} />
   </div>
 ));
+CustomCheckbox.displayName = "CustomCheckbox";
 
 const ReactDataTable = ({ data, columns, pagination, actions, className, selectableRows, expandableRows }) => {
   const [tableData, setTableData] = useState(data);
@@ -101,9 +102,8 @@ const ReactDataTable = ({ data, columns, pagination, actions, className, selecta
   const [mobileView, setMobileView] = useState();
 
   useEffect(() => {
-    let defaultData = tableData;
     if (searchText !== "") {
-      defaultData = data.filter((item) => {
+      const defaultData = data.filter((item) => {
         return item.name.toLowerCase().includes(searchText.toLowerCase());
       });
       setTableData(defaultData);

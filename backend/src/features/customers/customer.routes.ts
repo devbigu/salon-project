@@ -8,6 +8,7 @@ import {
   deleteCustomer,
   getCustomerTransactions,
   addCustomerWalletAmount,
+  assignCustomerMembership,
 } from "./customer.controller.js";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
@@ -42,6 +43,12 @@ router.post(
   "/:id/wallet/add",
   requireRole("SUPER_ADMIN", "SALON_ADMIN"),
   addCustomerWalletAmount
+);
+
+router.patch(
+  "/:id/membership",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"),
+  assignCustomerMembership
 );
 
 router.get(

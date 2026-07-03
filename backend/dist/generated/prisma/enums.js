@@ -12,6 +12,12 @@ export const CustomerStatus = {
     PREMIUM: 'PREMIUM',
     IRREGULAR: 'IRREGULAR'
 };
+export const LoyaltyTransactionType = {
+    EARNED: 'EARNED',
+    REDEEMED: 'REDEEMED',
+    ADJUSTED: 'ADJUSTED',
+    EXPIRED: 'EXPIRED'
+};
 export const TransactionStatus = {
     PENDING: 'PENDING',
     COMPLETE: 'COMPLETE',

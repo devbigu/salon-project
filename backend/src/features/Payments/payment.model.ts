@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import { awardInvoiceLoyaltyInTransaction } from "../Invoices/invoice-retention.service.js";
 
 type PaymentMethod = "CASH" | "CARD" | "UPI" | "OTHER";
 type PaymentStatus = "UNPAID" | "PARTIALLY_PAID" | "PAID";
@@ -16,6 +17,7 @@ export const PaymentModel = {
     referenceNo?: string;
     note?: string;
     paidAt?: Date;
+    createdById?: string;
   }) => {
     return prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${data.invoiceId} FOR UPDATE`;
@@ -128,9 +130,23 @@ export const PaymentModel = {
         },
       });
 
+      const loyalty =
+        newPaymentStatus === "PAID"
+          ? await awardInvoiceLoyaltyInTransaction(tx, {
+              invoiceId: lockedInvoice.id,
+              salonId: lockedInvoice.salonId,
+              customerId: lockedInvoice.customerId,
+              finalPaidAmount: newPaidAmount,
+              ...(data.createdById
+                ? { createdById: data.createdById }
+                : {}),
+            })
+          : null;
+
       return {
         payment,
         invoice,
+        loyalty,
       };
     });
   },

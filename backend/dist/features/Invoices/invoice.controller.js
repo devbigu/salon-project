@@ -2,6 +2,7 @@ import {} from "express";
 import { InvoiceModel } from "./invoice.model.js";
 import { AppointmentModel } from "../appointments/appointment.model.js";
 import { CustomerModel } from "../customers/customer.model.js";
+import { InvoiceRetentionError, redeemInvoiceLoyalty, } from "./invoice-retention.service.js";
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"];
 const INVOICE_STATUSES = ["DRAFT", "ISSUED", "CANCELLED"];
 const PAYMENT_STATUSES = ["UNPAID", "PARTIALLY_PAID", "PAID"];
@@ -90,7 +91,14 @@ export const createInvoiceFromAppointment = async (req, res) => {
         const subtotalAmount = appointment.services.reduce((total, item) => {
             return total + Number(item.price);
         }, 0);
-        const finalDiscountAmount = Math.max(Number(discountAmount || 0), 0);
+        const requestedManualDiscountAmount = Math.max(Number(discountAmount || 0), 0);
+        const manualDiscountAmount = Number(Math.min(requestedManualDiscountAmount, subtotalAmount).toFixed(2));
+        const membershipDiscountAmount = appointment.customer.membership?.status
+            ? Number(Math.min((subtotalAmount *
+                Number(appointment.customer.membership.discountPercentage)) /
+                100, subtotalAmount - manualDiscountAmount).toFixed(2))
+            : 0;
+        const finalDiscountAmount = Number(Math.min(manualDiscountAmount + membershipDiscountAmount, subtotalAmount).toFixed(2));
         const finalProcessingFeeAmount = Math.max(Number(processingFeeAmount || 0), 0);
         const taxableAmount = Math.max(subtotalAmount - finalDiscountAmount + finalProcessingFeeAmount, 0);
         const finalTaxPercent = finalInvoiceType === "GST_INVOICE" ? Math.max(Number(taxPercent || 0), 0) : 0;
@@ -164,7 +172,11 @@ export const createInvoiceFromAppointment = async (req, res) => {
         return res.status(201).json({
             success: true,
             message: "Invoice created successfully",
-            data: invoice,
+            data: {
+                ...invoice,
+                manualDiscountAmount,
+                membershipDiscountAmount,
+            },
         });
     }
     catch (error) {
@@ -283,6 +295,59 @@ export const cancelInvoice = async (req, res) => {
         });
     }
     catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+};
+export const redeemLoyaltyPoints = async (req, res) => {
+    try {
+        const id = getInvoiceIdParam(req);
+        const points = Number(req.body.points);
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "Invoice ID is required",
+            });
+        }
+        if (!Number.isInteger(points) ||
+            points <= 0 ||
+            typeof req.body.points === "boolean" ||
+            req.body.points === null ||
+            req.body.points === "") {
+            return res.status(400).json({
+                success: false,
+                message: "Points must be a positive integer",
+            });
+        }
+        if (!req.user?.userId) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+        const data = await redeemInvoiceLoyalty({
+            invoiceId: id,
+            ...(req.user.role === "SUPER_ADMIN"
+                ? {}
+                : { salonId: req.user.salonId || "__missing__" }),
+            points,
+            createdById: req.user.userId,
+        });
+        return res.status(200).json({
+            success: true,
+            message: "Loyalty points redeemed successfully",
+            data,
+        });
+    }
+    catch (error) {
+        if (error instanceof InvoiceRetentionError) {
+            return res.status(error.status).json({
+                success: false,
+                message: error.message,
+            });
+        }
         return res.status(500).json({
             success: false,
             message: "Internal server error",

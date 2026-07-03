@@ -1,4 +1,10 @@
 import { prisma } from "../../config/prisma.js";
+const membershipSelect = {
+    id: true,
+    name: true,
+    discountPercentage: true,
+    status: true,
+};
 export const CustomerModel = {
     create: async (data) => {
         return prisma.customer.create({
@@ -15,6 +21,9 @@ export const CustomerModel = {
                         id: true,
                         name: true,
                     },
+                },
+                membership: {
+                    select: membershipSelect,
                 },
             },
         });
@@ -34,6 +43,9 @@ export const CustomerModel = {
                         name: true,
                     },
                 },
+                membership: {
+                    select: membershipSelect,
+                },
             },
             orderBy: {
                 createdAt: "desc",
@@ -52,6 +64,9 @@ export const CustomerModel = {
                         id: true,
                         name: true,
                     },
+                },
+                membership: {
+                    select: membershipSelect,
                 },
             },
             orderBy: {
@@ -77,6 +92,9 @@ export const CustomerModel = {
                         name: true,
                     },
                 },
+                membership: {
+                    select: membershipSelect,
+                },
                 transactions: {
                     orderBy: {
                         createdAt: "desc",
@@ -98,6 +116,9 @@ export const CustomerModel = {
                         id: true,
                         name: true,
                     },
+                },
+                membership: {
+                    select: membershipSelect,
                 },
                 transactions: {
                     orderBy: {
@@ -134,6 +155,29 @@ export const CustomerModel = {
                     select: {
                         id: true,
                         name: true,
+                    },
+                },
+                membership: {
+                    select: membershipSelect,
+                },
+            },
+        });
+    },
+    assignMembership: async (id, membershipId) => {
+        return prisma.customer.update({
+            where: {
+                id,
+            },
+            data: {
+                membershipId,
+            },
+            include: {
+                membership: {
+                    select: {
+                        id: true,
+                        name: true,
+                        discountPercentage: true,
+                        status: true,
                     },
                 },
             },

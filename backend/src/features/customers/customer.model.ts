@@ -3,6 +3,13 @@ import { prisma } from "../../config/prisma.js";
 type CustomerStatus = "REGULAR" | "PREMIUM" | "IRREGULAR";
 type TransactionStatus = "PENDING" | "COMPLETE" | "FAILED";
 
+const membershipSelect = {
+  id: true,
+  name: true,
+  discountPercentage: true,
+  status: true,
+} as const;
+
 export const CustomerModel = {
   create: async (data: {
     customerCode: string;
@@ -32,6 +39,9 @@ export const CustomerModel = {
             name: true,
           },
         },
+        membership: {
+          select: membershipSelect,
+        },
       },
     });
   },
@@ -50,6 +60,9 @@ export const CustomerModel = {
             id: true,
             name: true,
           },
+        },
+        membership: {
+          select: membershipSelect,
         },
       },
       orderBy: {
@@ -70,6 +83,9 @@ export const CustomerModel = {
             id: true,
             name: true,
           },
+        },
+        membership: {
+          select: membershipSelect,
         },
       },
       orderBy: {
@@ -95,6 +111,9 @@ export const CustomerModel = {
             id: true,
             name: true,
           },
+        },
+        membership: {
+          select: membershipSelect,
         },
         transactions: {
           orderBy: {
@@ -122,6 +141,9 @@ export const CustomerModel = {
             id: true,
             name: true,
           },
+        },
+        membership: {
+          select: membershipSelect,
         },
         transactions: {
           orderBy: {
@@ -177,6 +199,33 @@ export const CustomerModel = {
           select: {
             id: true,
             name: true,
+          },
+        },
+        membership: {
+          select: membershipSelect,
+        },
+      },
+    });
+  },
+
+  assignMembership: async (
+    id: string,
+    membershipId: string | null
+  ) => {
+    return prisma.customer.update({
+      where: {
+        id,
+      },
+      data: {
+        membershipId,
+      },
+      include: {
+        membership: {
+          select: {
+            id: true,
+            name: true,
+            discountPercentage: true,
+            status: true,
           },
         },
       },

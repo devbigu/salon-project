@@ -54,7 +54,10 @@ export const ModelName = {
   Salon: 'Salon',
   User: 'User',
   Customer: 'Customer',
+  Membership: 'Membership',
   CustomerTransaction: 'CustomerTransaction',
+  LoyaltyRule: 'LoyaltyRule',
+  LoyaltyTransaction: 'LoyaltyTransaction',
   Branch: 'Branch',
   Staff: 'Staff',
   UserSession: 'UserSession',
@@ -64,6 +67,7 @@ export const ModelName = {
   SalarySlip: 'SalarySlip',
   MainService: 'MainService',
   Service: 'Service',
+  ServiceConsumable: 'ServiceConsumable',
   Appointment: 'Appointment',
   AppointmentStatusHistory: 'AppointmentStatusHistory',
   AppointmentService: 'AppointmentService',
@@ -154,13 +158,29 @@ export const CustomerScalarFieldEnum = {
   status: 'status',
   outstandingAmount: 'outstandingAmount',
   walletBalance: 'walletBalance',
+  loyaltyPoints: 'loyaltyPoints',
   salonId: 'salonId',
+  membershipId: 'membershipId',
   branchId: 'branchId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const MembershipScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  name: 'name',
+  description: 'description',
+  discountPercentage: 'discountPercentage',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
 export const CustomerTransactionScalarFieldEnum = {
@@ -181,6 +201,40 @@ export const CustomerTransactionScalarFieldEnum = {
 } as const
 
 export type CustomerTransactionScalarFieldEnum = (typeof CustomerTransactionScalarFieldEnum)[keyof typeof CustomerTransactionScalarFieldEnum]
+
+
+export const LoyaltyRuleScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  earnPointsPerAmount: 'earnPointsPerAmount',
+  earnAmountStep: 'earnAmountStep',
+  redeemValuePerPoint: 'redeemValuePerPoint',
+  minRedeemPoints: 'minRedeemPoints',
+  maxRedeemPoints: 'maxRedeemPoints',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoyaltyRuleScalarFieldEnum = (typeof LoyaltyRuleScalarFieldEnum)[keyof typeof LoyaltyRuleScalarFieldEnum]
+
+
+export const LoyaltyTransactionScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  customerId: 'customerId',
+  type: 'type',
+  points: 'points',
+  balanceBefore: 'balanceBefore',
+  balanceAfter: 'balanceAfter',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  note: 'note',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type LoyaltyTransactionScalarFieldEnum = (typeof LoyaltyTransactionScalarFieldEnum)[keyof typeof LoyaltyTransactionScalarFieldEnum]
 
 
 export const BranchScalarFieldEnum = {
@@ -373,6 +427,20 @@ export const ServiceScalarFieldEnum = {
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+
+
+export const ServiceConsumableScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  serviceId: 'serviceId',
+  productId: 'productId',
+  quantity: 'quantity',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServiceConsumableScalarFieldEnum = (typeof ServiceConsumableScalarFieldEnum)[keyof typeof ServiceConsumableScalarFieldEnum]
 
 
 export const AppointmentScalarFieldEnum = {

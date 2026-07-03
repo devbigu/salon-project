@@ -71,7 +71,10 @@ export const ModelName = {
     Salon: 'Salon',
     User: 'User',
     Customer: 'Customer',
+    Membership: 'Membership',
     CustomerTransaction: 'CustomerTransaction',
+    LoyaltyRule: 'LoyaltyRule',
+    LoyaltyTransaction: 'LoyaltyTransaction',
     Branch: 'Branch',
     Staff: 'Staff',
     UserSession: 'UserSession',
@@ -81,6 +84,7 @@ export const ModelName = {
     SalarySlip: 'SalarySlip',
     MainService: 'MainService',
     Service: 'Service',
+    ServiceConsumable: 'ServiceConsumable',
     Appointment: 'Appointment',
     AppointmentStatusHistory: 'AppointmentStatusHistory',
     AppointmentService: 'AppointmentService',
@@ -155,8 +159,20 @@ export const CustomerScalarFieldEnum = {
     status: 'status',
     outstandingAmount: 'outstandingAmount',
     walletBalance: 'walletBalance',
+    loyaltyPoints: 'loyaltyPoints',
     salonId: 'salonId',
+    membershipId: 'membershipId',
     branchId: 'branchId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const MembershipScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    name: 'name',
+    description: 'description',
+    discountPercentage: 'discountPercentage',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -175,6 +191,32 @@ export const CustomerTransactionScalarFieldEnum = {
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const LoyaltyRuleScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    earnPointsPerAmount: 'earnPointsPerAmount',
+    earnAmountStep: 'earnAmountStep',
+    redeemValuePerPoint: 'redeemValuePerPoint',
+    minRedeemPoints: 'minRedeemPoints',
+    maxRedeemPoints: 'maxRedeemPoints',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const LoyaltyTransactionScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    customerId: 'customerId',
+    type: 'type',
+    points: 'points',
+    balanceBefore: 'balanceBefore',
+    balanceAfter: 'balanceAfter',
+    referenceType: 'referenceType',
+    referenceId: 'referenceId',
+    note: 'note',
+    createdById: 'createdById',
+    createdAt: 'createdAt'
 };
 export const BranchScalarFieldEnum = {
     id: 'id',
@@ -329,6 +371,16 @@ export const ServiceScalarFieldEnum = {
     salonId: 'salonId',
     branchId: 'branchId',
     mainServiceId: 'mainServiceId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ServiceConsumableScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    serviceId: 'serviceId',
+    productId: 'productId',
+    quantity: 'quantity',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

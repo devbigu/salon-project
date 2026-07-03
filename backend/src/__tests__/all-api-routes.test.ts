@@ -34,7 +34,22 @@ const ALL_ROUTES = [
   "POST /api/customers/:id/wallet/add",
   "GET /api/customers/:id",
   "PUT /api/customers/:id",
+  "PATCH /api/customers/:id/membership",
   "DELETE /api/customers/:id",
+  "POST /api/memberships",
+  "GET /api/memberships",
+  "GET /api/memberships/:id",
+  "PUT /api/memberships/:id",
+  "PATCH /api/memberships/:id/status",
+  "DELETE /api/memberships/:id",
+  "POST /api/loyalty-rules",
+  "GET /api/loyalty-rules",
+  "GET /api/loyalty-rules/active",
+  "GET /api/loyalty-rules/:id",
+  "PUT /api/loyalty-rules/:id",
+  "PATCH /api/loyalty-rules/:id/status",
+  "GET /api/loyalty/customers/:customerId/transactions",
+  "POST /api/loyalty/customers/:customerId/adjust",
   "POST /api/main-services",
   "GET /api/main-services",
   "PATCH /api/main-services/:id/status",
@@ -59,6 +74,7 @@ const ALL_ROUTES = [
   "POST /api/invoices/from-appointment/:appointmentId",
   "GET /api/invoices",
   "PATCH /api/invoices/:id/cancel",
+  "POST /api/invoices/:id/redeem-loyalty",
   "GET /api/invoices/:id",
   "POST /api/payments",
   "GET /api/payments",
@@ -428,6 +444,199 @@ describe("All API routes", () => {
       200
     );
     expect(customerUpdate.body.data.status).toBe("PREMIUM");
+
+    const membership = check(
+      "POST /api/memberships",
+      await agent
+        .post("/api/memberships")
+        .set(auth(superAdminToken))
+        .send({
+          salonId,
+          name: `All Routes Gold ${stamp}`,
+          discountPercentage: 10,
+        }),
+      201
+    );
+    const membershipId = membership.body.data.id as string;
+
+    const memberships = check(
+      "GET /api/memberships",
+      await agent
+        .get(`/api/memberships?salonId=${salonId}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+    expect(
+      memberships.body.data.map((item: { id: string }) => item.id)
+    ).toContain(membershipId);
+
+    check(
+      "GET /api/memberships/:id",
+      await agent
+        .get(`/api/memberships/${membershipId}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+
+    const membershipUpdate = check(
+      "PUT /api/memberships/:id",
+      await agent
+        .put(`/api/memberships/${membershipId}`)
+        .set(auth(superAdminToken))
+        .send({
+          name: `All Routes Gold Plus ${stamp}`,
+          description: "Updated by all-routes test",
+          discountPercentage: 15,
+        }),
+      200
+    );
+    expect(Number(membershipUpdate.body.data.discountPercentage)).toBe(15);
+
+    const membershipStatus = check(
+      "PATCH /api/memberships/:id/status",
+      await agent
+        .patch(`/api/memberships/${membershipId}/status`)
+        .set(auth(superAdminToken))
+        .send({
+          status: false,
+        }),
+      200
+    );
+    expect(membershipStatus.body.data.status).toBe(false);
+
+    await agent
+      .patch(`/api/memberships/${membershipId}/status`)
+      .set(auth(superAdminToken))
+      .send({
+        status: true,
+      })
+      .expect(200);
+
+    const customerMembership = check(
+      "PATCH /api/customers/:id/membership",
+      await agent
+        .patch(`/api/customers/${customerId}/membership`)
+        .set(auth(superAdminToken))
+        .send({
+          membershipId,
+        }),
+      200
+    );
+    expect(customerMembership.body.data.membershipId).toBe(membershipId);
+
+    const disposableMembership = await agent
+      .post("/api/memberships")
+      .set(auth(superAdminToken))
+      .send({
+        salonId,
+        name: `Disposable Membership ${stamp}`,
+      });
+    expect(disposableMembership.status).toBe(201);
+
+    check(
+      "DELETE /api/memberships/:id",
+      await agent
+        .delete(`/api/memberships/${disposableMembership.body.data.id}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+
+    const loyaltyRule = check(
+      "POST /api/loyalty-rules",
+      await agent
+        .post("/api/loyalty-rules")
+        .set(auth(superAdminToken))
+        .send({
+          salonId,
+        }),
+      201
+    );
+    const loyaltyRuleId = loyaltyRule.body.data.id as string;
+
+    const loyaltyRules = check(
+      "GET /api/loyalty-rules",
+      await agent
+        .get(`/api/loyalty-rules?salonId=${salonId}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+    expect(
+      loyaltyRules.body.data.map((item: { id: string }) => item.id)
+    ).toContain(loyaltyRuleId);
+
+    check(
+      "GET /api/loyalty-rules/active",
+      await agent
+        .get(`/api/loyalty-rules/active?salonId=${salonId}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+
+    check(
+      "GET /api/loyalty-rules/:id",
+      await agent
+        .get(`/api/loyalty-rules/${loyaltyRuleId}`)
+        .set(auth(superAdminToken)),
+      200
+    );
+
+    const loyaltyRuleUpdate = check(
+      "PUT /api/loyalty-rules/:id",
+      await agent
+        .put(`/api/loyalty-rules/${loyaltyRuleId}`)
+        .set(auth(superAdminToken))
+        .send({
+          earnAmountStep: 200,
+          earnPointsPerAmount: 3,
+          redeemValuePerPoint: 2,
+          minRedeemPoints: 20,
+          maxRedeemPoints: 200,
+        }),
+      200
+    );
+    expect(Number(loyaltyRuleUpdate.body.data.earnAmountStep)).toBe(200);
+
+    const loyaltyRuleStatus = check(
+      "PATCH /api/loyalty-rules/:id/status",
+      await agent
+        .patch(`/api/loyalty-rules/${loyaltyRuleId}/status`)
+        .set(auth(superAdminToken))
+        .send({
+          status: false,
+        }),
+      200
+    );
+    expect(loyaltyRuleStatus.body.data.status).toBe(false);
+
+    await agent
+      .patch(`/api/loyalty-rules/${loyaltyRuleId}/status`)
+      .set(auth(superAdminToken))
+      .send({
+        status: true,
+      })
+      .expect(200);
+
+    const loyaltyAdjustment = check(
+      "POST /api/loyalty/customers/:customerId/adjust",
+      await agent
+        .post(`/api/loyalty/customers/${customerId}/adjust`)
+        .set(auth(superAdminToken))
+        .send({
+          points: 20,
+          note: "All-routes adjustment",
+        }),
+      200
+    );
+    expect(loyaltyAdjustment.body.data.customer.loyaltyPoints).toBe(20);
+
+    const loyaltyHistory = check(
+      "GET /api/loyalty/customers/:customerId/transactions",
+      await agent
+        .get(`/api/loyalty/customers/${customerId}/transactions`)
+        .set(auth(superAdminToken)),
+      200
+    );
+    expect(loyaltyHistory.body.data.transactions).toHaveLength(1);
 
     const wallet = check(
       "POST /api/customers/:id/wallet/add",
@@ -822,6 +1031,18 @@ describe("All API routes", () => {
       201
     );
     const invoiceId = invoice.body.data.id as string;
+
+    const redemption = check(
+      "POST /api/invoices/:id/redeem-loyalty",
+      await agent
+        .post(`/api/invoices/${invoiceId}/redeem-loyalty`)
+        .set(auth(superAdminToken))
+        .send({
+          points: 20,
+        }),
+      200
+    );
+    expect(redemption.body.data.customer.loyaltyPoints).toBe(0);
 
     const invoices = check(
       "GET /api/invoices",

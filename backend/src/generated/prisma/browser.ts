@@ -33,10 +33,25 @@ export type User = Prisma.UserModel
  */
 export type Customer = Prisma.CustomerModel
 /**
+ * Model Membership
+ * 
+ */
+export type Membership = Prisma.MembershipModel
+/**
  * Model CustomerTransaction
  * 
  */
 export type CustomerTransaction = Prisma.CustomerTransactionModel
+/**
+ * Model LoyaltyRule
+ * 
+ */
+export type LoyaltyRule = Prisma.LoyaltyRuleModel
+/**
+ * Model LoyaltyTransaction
+ * 
+ */
+export type LoyaltyTransaction = Prisma.LoyaltyTransactionModel
 /**
  * Model Branch
  * 
@@ -82,6 +97,11 @@ export type MainService = Prisma.MainServiceModel
  * 
  */
 export type Service = Prisma.ServiceModel
+/**
+ * Model ServiceConsumable
+ * 
+ */
+export type ServiceConsumable = Prisma.ServiceConsumableModel
 /**
  * Model Appointment
  * 

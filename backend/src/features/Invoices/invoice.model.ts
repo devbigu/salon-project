@@ -135,6 +135,15 @@ export const InvoiceModel = {
             name: true,
             phone: true,
             customerCode: true,
+            loyaltyPoints: true,
+            membership: {
+              select: {
+                id: true,
+                name: true,
+                discountPercentage: true,
+                status: true,
+              },
+            },
           },
         },
         appointment: {
@@ -171,6 +180,15 @@ export const InvoiceModel = {
             name: true,
             phone: true,
             customerCode: true,
+            loyaltyPoints: true,
+            membership: {
+              select: {
+                id: true,
+                name: true,
+                discountPercentage: true,
+                status: true,
+              },
+            },
           },
         },
         items: true,
@@ -214,6 +232,15 @@ export const InvoiceModel = {
             name: true,
             phone: true,
             customerCode: true,
+            loyaltyPoints: true,
+            membership: {
+              select: {
+                id: true,
+                name: true,
+                discountPercentage: true,
+                status: true,
+              },
+            },
           },
         },
         items: true,
@@ -266,6 +293,15 @@ export const InvoiceModel = {
             customerCode: true,
             outstandingAmount: true,
             walletBalance: true,
+            loyaltyPoints: true,
+            membership: {
+              select: {
+                id: true,
+                name: true,
+                discountPercentage: true,
+                status: true,
+              },
+            },
           },
         },
         appointment: {
@@ -306,6 +342,15 @@ export const InvoiceModel = {
             customerCode: true,
             outstandingAmount: true,
             walletBalance: true,
+            loyaltyPoints: true,
+            membership: {
+              select: {
+                id: true,
+                name: true,
+                discountPercentage: true,
+                status: true,
+              },
+            },
           },
         },
         appointment: {

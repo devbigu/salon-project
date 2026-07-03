@@ -1,4 +1,7 @@
 import { prisma } from "../../config/prisma.js";
+import { Prisma } from "../../generated/prisma/client.js";
+import { transactionError } from "../products/inventory-access.js";
+import { createStockMovement } from "../stock/stockMovement.service.js";
 export const AppointmentModel = {
     create: async (data) => {
         return prisma.appointment.create({
@@ -443,6 +446,15 @@ export const AppointmentModel = {
                         phone: true,
                         email: true,
                         gst: true,
+                        loyaltyPoints: true,
+                        membership: {
+                            select: {
+                                id: true,
+                                name: true,
+                                discountPercentage: true,
+                                status: true,
+                            },
+                        },
                     },
                 },
                 services: true,
@@ -488,6 +500,15 @@ export const AppointmentModel = {
                         phone: true,
                         email: true,
                         gst: true,
+                        loyaltyPoints: true,
+                        membership: {
+                            select: {
+                                id: true,
+                                name: true,
+                                discountPercentage: true,
+                                status: true,
+                            },
+                        },
                     },
                 },
                 services: true,
@@ -507,6 +528,79 @@ export const AppointmentModel = {
     },
     updateStatusWithHistory: async (id, data) => {
         return prisma.$transaction(async (tx) => {
+            await tx.$queryRaw `
+      SELECT "id"
+      FROM "Appointment"
+      WHERE "id" = ${id}
+      FOR UPDATE
+    `;
+            const currentAppointment = await tx.appointment.findUnique({
+                where: { id },
+                select: {
+                    id: true,
+                    salonId: true,
+                    branchId: true,
+                    status: true,
+                    services: {
+                        select: { serviceId: true },
+                    },
+                },
+            });
+            if (!currentAppointment) {
+                throw transactionError("Appointment not found", 404);
+            }
+            if (currentAppointment.status !== data.oldStatus) {
+                throw transactionError(currentAppointment.status === data.newStatus
+                    ? "Appointment already has this status"
+                    : "Appointment status changed; refresh and try again");
+            }
+            if (data.newStatus === "COMPLETED") {
+                const serviceCounts = new Map();
+                for (const appointmentService of currentAppointment.services) {
+                    serviceCounts.set(appointmentService.serviceId, (serviceCounts.get(appointmentService.serviceId) ?? 0) + 1);
+                }
+                const consumables = serviceCounts.size
+                    ? await tx.serviceConsumable.findMany({
+                        where: {
+                            salonId: currentAppointment.salonId,
+                            serviceId: { in: [...serviceCounts.keys()] },
+                            status: true,
+                        },
+                    })
+                    : [];
+                const quantitiesByProduct = new Map();
+                for (const consumable of consumables) {
+                    const serviceQuantity = serviceCounts.get(consumable.serviceId) ?? 1;
+                    const quantity = consumable.quantity.mul(serviceQuantity);
+                    quantitiesByProduct.set(consumable.productId, (quantitiesByProduct.get(consumable.productId) ??
+                        new Prisma.Decimal(0)).add(quantity));
+                }
+                for (const [productId, quantity] of [...quantitiesByProduct.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+                    try {
+                        await createStockMovement({
+                            tx,
+                            salonId: currentAppointment.salonId,
+                            ...(currentAppointment.branchId
+                                ? { branchId: currentAppointment.branchId }
+                                : {}),
+                            productId,
+                            type: "USED_IN_SERVICE",
+                            quantity,
+                            referenceType: "APPOINTMENT",
+                            referenceId: currentAppointment.id,
+                            reason: "Used in completed appointment",
+                            ...(data.changedById ? { createdById: data.changedById } : {}),
+                        });
+                    }
+                    catch (error) {
+                        if (error instanceof Error &&
+                            error.message.toLowerCase().includes("insufficient stock")) {
+                            throw transactionError("Insufficient stock for service consumables");
+                        }
+                        throw error;
+                    }
+                }
+            }
             const appointment = await tx.appointment.update({
                 where: {
                     id,

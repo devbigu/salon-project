@@ -17,6 +17,7 @@ beforeEach(async () => {
       "AppointmentStatusHistory",
       "AppointmentService",
       "Appointment",
+      "ServiceConsumable",
       "StaffAttendance",
       "StaffLeave",
       "SalarySlip",

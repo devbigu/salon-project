@@ -698,17 +698,17 @@ const WizardForm = () => {
   const prevVr = () => setStepVr((s) => s - 1);
 
   const steps = [
-    <PersonalForm next={next} />,
-    <UserSettings next={next} prev={prev} />,
-    <PaymentInfo next={next} prev={prev} />,
-    <Success />,
+    <PersonalForm key="personal" next={next} />,
+    <UserSettings key="settings" next={next} prev={prev} />,
+    <PaymentInfo key="payment" next={next} prev={prev} />,
+    <Success key="success" />,
   ];
 
   const stepsVr = [
-    <PersonalFormVr next={nextVr} />,
-    <UserSettingsVr next={nextVr} prev={prevVr} />,
-    <PaymentInfoVr next={nextVr} prev={prevVr} />,
-    <SuccessVr />,
+    <PersonalFormVr key="personal" next={nextVr} />,
+    <UserSettingsVr key="settings" next={nextVr} prev={prevVr} />,
+    <PaymentInfoVr key="payment" next={nextVr} prev={prevVr} />,
+    <SuccessVr key="success" />,
   ];
 
   return (

@@ -801,10 +801,6 @@ export type StaffUncheckedCreateNestedManyWithoutReportingManagerInput = {
   connect?: Prisma.StaffWhereUniqueInput | Prisma.StaffWhereUniqueInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type StaffUpdateOneWithoutReporteesNestedInput = {
   create?: Prisma.XOR<Prisma.StaffCreateWithoutReporteesInput, Prisma.StaffUncheckedCreateWithoutReporteesInput>
   connectOrCreate?: Prisma.StaffCreateOrConnectWithoutReporteesInput

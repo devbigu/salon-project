@@ -4,14 +4,12 @@ import {
   branchScope,
   getSalonId,
   sendInventoryError,
-  transactionError,
 } from "../products/inventory-access.js";
 import { StockMovementModel } from "./stock-movement.model.js";
+import { createStockMovement } from "../stock/stockMovement.service.js";
 
 const TYPES = ["STOCK_IN", "STOCK_OUT", "RETAIL_SALE", "USED_IN_SERVICE", "DAMAGED", "ADJUSTMENT", "RETURNED"] as const;
 type MovementType = (typeof TYPES)[number];
-const INCREASE = new Set<MovementType>(["STOCK_IN", "RETURNED"]);
-const DECREASE = new Set<MovementType>(["STOCK_OUT", "USED_IN_SERVICE", "DAMAGED"]);
 
 const baseWhere = (req: Request) => ({
   ...(req.user?.role === "SUPER_ADMIN" ? {} : { salonId: req.user?.salonId || "__missing__" }),
@@ -36,34 +34,25 @@ export const createManualStockMovement = async (req: Request, res: Response) => 
       return res.status(400).json({ success: false, message: "Quantity must be positive; adjustments may be positive or negative" });
     }
     const data = await prisma.$transaction(async (tx) => {
-      const product = await tx.product.findFirst({ where: { id: productId, salonId } });
-      if (!product) throw transactionError("Product not found", 404);
-      const delta = type === "ADJUSTMENT"
-        ? quantity
-        : INCREASE.has(type)
-          ? quantity
-          : DECREASE.has(type)
-            ? -quantity
-            : 0;
-      const stockBefore = Number(product.currentStock);
-      const stockAfter = stockBefore + delta;
-      if (stockAfter < 0) throw transactionError("Stock cannot go below zero");
-      await tx.product.update({ where: { id: product.id }, data: { currentStock: stockAfter } });
-      return tx.productStockMovement.create({
-        data: {
-          salonId,
-          branchId: product.branchId,
-          productId,
-          type,
-          quantity,
-          stockBefore,
-          stockAfter,
-          ...(typeof req.body.reason === "string" && req.body.reason.trim() ? { reason: req.body.reason.trim() } : {}),
-          ...(typeof req.body.note === "string" && req.body.note.trim() ? { note: req.body.note.trim() } : {}),
-          referenceType: "MANUAL",
-          ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-        },
+      const result = await createStockMovement({
+        tx,
+        salonId,
+        productId,
+        type,
+        quantity,
+        referenceType: "MANUAL",
+        ...(typeof req.body.referenceId === "string" && req.body.referenceId.trim()
+          ? { referenceId: req.body.referenceId.trim() }
+          : {}),
+        ...(typeof req.body.reason === "string" && req.body.reason.trim()
+          ? { reason: req.body.reason.trim() }
+          : {}),
+        ...(typeof req.body.note === "string" && req.body.note.trim()
+          ? { note: req.body.note.trim() }
+          : {}),
+        ...(req.user?.userId ? { createdById: req.user.userId } : {}),
       });
+      return result.movement;
     });
     return res.status(201).json({ success: true, data });
   } catch (error) {

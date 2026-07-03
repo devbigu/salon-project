@@ -424,7 +424,6 @@ const ProductList = () => {
                                 className="custom-control-input"
                                 defaultChecked={item.check}
                                 id={item.id + "uid1"}
-                                key={Math.random()}
                                 onChange={(e) => onSelectChange(e, item.id)}
                               />
                               <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>

@@ -47,8 +47,7 @@ const CalenderApp = ({ events, onDelete, onEdit }) => {
   const { reset, register, handleSubmit, formState: { errors } } = useForm();
 
   const handleFormSubmit = (formData) => {
-    let newEvent = {};
-    newEvent = {
+    const newEvent = {
       id: event.id,
       className: theme.value,
       type: theme,

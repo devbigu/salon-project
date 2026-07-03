@@ -18,6 +18,16 @@ export const CustomerStatus = {
 export type CustomerStatus = (typeof CustomerStatus)[keyof typeof CustomerStatus]
 
 
+export const LoyaltyTransactionType = {
+  EARNED: 'EARNED',
+  REDEEMED: 'REDEEMED',
+  ADJUSTED: 'ADJUSTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type LoyaltyTransactionType = (typeof LoyaltyTransactionType)[keyof typeof LoyaltyTransactionType]
+
+
 export const TransactionStatus = {
   PENDING: 'PENDING',
   COMPLETE: 'COMPLETE',

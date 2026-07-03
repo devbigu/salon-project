@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { type Request, type Response } from "express";
 import { prisma } from "../../config/prisma.js";
 import {
@@ -7,6 +8,7 @@ import {
   validateBranch,
 } from "../products/inventory-access.js";
 import { RetailSaleModel } from "./retail-sale.model.js";
+import { createStockMovement } from "../stock/stockMovement.service.js";
 
 const PAYMENT_METHODS = ["CASH", "UPI", "GPAY", "PAYTM", "PHONEPE", "CARD", "BANK_TRANSFER", "CHEQUE", "OTHER"] as const;
 type PaymentMethod = (typeof PAYMENT_METHODS)[number];
@@ -85,9 +87,24 @@ export const createRetailSale = async (req: Request, res: Response) => {
       }
       const subtotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
       if (discount > subtotal) throw transactionError("Discount cannot exceed subtotal");
+      const saleId = randomUUID();
+      for (const item of [...items].sort((left, right) => left.productId.localeCompare(right.productId))) {
+        await createStockMovement({
+          tx,
+          salonId,
+          ...(branchId ? { branchId } : {}),
+          productId: item.productId,
+          type: "RETAIL_SALE",
+          quantity: item.quantity,
+          referenceType: "RETAIL_SALE",
+          referenceId: saleId,
+          ...(req.user?.userId ? { createdById: req.user.userId } : {}),
+        });
+      }
       const sale = await tx.retailSale.create({
         data: {
-          saleCode: `RET-${Date.now()}`,
+          id: saleId,
+          saleCode: `RET-${Date.now()}-${randomUUID().slice(0, 8)}`,
           salonId,
           ...(branchId ? { branchId } : {}),
           ...(req.body.customerId ? { customerId: req.body.customerId } : {}),
@@ -109,29 +126,6 @@ export const createRetailSale = async (req: Request, res: Response) => {
           },
         },
       });
-      for (const item of items) {
-        const changed = await tx.product.updateMany({
-          where: { id: item.productId, salonId, status: true, currentStock: { gte: item.quantity } },
-          data: { currentStock: { decrement: item.quantity } },
-        });
-        if (changed.count !== 1) throw transactionError("Insufficient stock for one or more products");
-        const updated = await tx.product.findUniqueOrThrow({ where: { id: item.productId } });
-        const stockAfter = Number(updated.currentStock);
-        await tx.productStockMovement.create({
-          data: {
-            salonId,
-            branchId: branchId ?? updated.branchId,
-            productId: item.productId,
-            type: "RETAIL_SALE",
-            quantity: item.quantity,
-            stockBefore: stockAfter + item.quantity,
-            stockAfter,
-            referenceType: "RETAIL_SALE",
-            referenceId: sale.id,
-            ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-          },
-        });
-      }
       return sale.id;
     });
     const data = await RetailSaleModel.find({ id: saleId, salonId });

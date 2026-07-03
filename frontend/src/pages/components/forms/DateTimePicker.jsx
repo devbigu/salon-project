@@ -23,6 +23,7 @@ const ExampleCustomInput = forwardRef(({ value, onClick, onChange }, ref) => (
     <input className="form-control date-picker" type="text" value={value} onChange={onChange} />
   </div>
 ));
+ExampleCustomInput.displayName = "ExampleCustomInput";
 
 const DateTimePicker = () => {
   const [startDate, setStartDate] = useState(new Date());

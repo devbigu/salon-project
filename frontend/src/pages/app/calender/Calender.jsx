@@ -61,8 +61,8 @@ const Calender = () => {
     resetForm();
   };
   const handleFormSubmit = (form) => {
-    let newEvent = {
-      id: "default-event-id-" + Math.floor(Math.random() * 9999999),
+    const newEvent = {
+      id: `default-event-id-${crypto.randomUUID()}`,
       title: formData.title,
       start: setDateForPicker(formData.startDate),
       end: setDateForPicker(formData.endDate),

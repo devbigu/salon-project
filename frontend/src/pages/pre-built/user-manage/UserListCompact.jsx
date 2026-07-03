@@ -653,7 +653,6 @@ const UserListCompact = () => {
                             className="custom-control-input"
                             defaultChecked={item.checked}
                             id={item.id + "uid1"}
-                            key={Math.random()}
                             onChange={(e) => onSelectChange(e, item.id)}
                           />
                           <label className="custom-control-label" htmlFor={item.id + "uid1"}></label>

@@ -282,6 +282,7 @@ export type ServiceWhereInput = {
   appointmentServices?: Prisma.AppointmentServiceListRelationFilter
   saleItems?: Prisma.SaleItemListRelationFilter
   invoiceItems?: Prisma.InvoiceItemListRelationFilter
+  consumables?: Prisma.ServiceConsumableListRelationFilter
 }
 
 export type ServiceOrderByWithRelationInput = {
@@ -303,6 +304,7 @@ export type ServiceOrderByWithRelationInput = {
   appointmentServices?: Prisma.AppointmentServiceOrderByRelationAggregateInput
   saleItems?: Prisma.SaleItemOrderByRelationAggregateInput
   invoiceItems?: Prisma.InvoiceItemOrderByRelationAggregateInput
+  consumables?: Prisma.ServiceConsumableOrderByRelationAggregateInput
 }
 
 export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -328,6 +330,7 @@ export type ServiceWhereUniqueInput = Prisma.AtLeast<{
   appointmentServices?: Prisma.AppointmentServiceListRelationFilter
   saleItems?: Prisma.SaleItemListRelationFilter
   invoiceItems?: Prisma.InvoiceItemListRelationFilter
+  consumables?: Prisma.ServiceConsumableListRelationFilter
 }, "id" | "salonId_mainServiceId_name">
 
 export type ServiceOrderByWithAggregationInput = {
@@ -384,6 +387,7 @@ export type ServiceCreateInput = {
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateInput = {
@@ -402,6 +406,7 @@ export type ServiceUncheckedCreateInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUpdateInput = {
@@ -420,6 +425,7 @@ export type ServiceUpdateInput = {
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateInput = {
@@ -438,6 +444,7 @@ export type ServiceUncheckedUpdateInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceCreateManyInput = {
@@ -689,16 +696,22 @@ export type ServiceUncheckedUpdateManyWithoutMainServiceNestedInput = {
   deleteMany?: Prisma.ServiceScalarWhereInput | Prisma.ServiceScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type EnumDurationUnitFieldUpdateOperationsInput = {
   set?: $Enums.DurationUnit
+}
+
+export type ServiceCreateNestedOneWithoutConsumablesInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutConsumablesInput, Prisma.ServiceUncheckedCreateWithoutConsumablesInput>
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutConsumablesInput
+  connect?: Prisma.ServiceWhereUniqueInput
+}
+
+export type ServiceUpdateOneRequiredWithoutConsumablesNestedInput = {
+  create?: Prisma.XOR<Prisma.ServiceCreateWithoutConsumablesInput, Prisma.ServiceUncheckedCreateWithoutConsumablesInput>
+  connectOrCreate?: Prisma.ServiceCreateOrConnectWithoutConsumablesInput
+  upsert?: Prisma.ServiceUpsertWithoutConsumablesInput
+  connect?: Prisma.ServiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ServiceUpdateToOneWithWhereWithoutConsumablesInput, Prisma.ServiceUpdateWithoutConsumablesInput>, Prisma.ServiceUncheckedUpdateWithoutConsumablesInput>
 }
 
 export type ServiceCreateNestedOneWithoutAppointmentServicesInput = {
@@ -762,6 +775,7 @@ export type ServiceCreateWithoutSalonInput = {
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutSalonInput = {
@@ -779,6 +793,7 @@ export type ServiceUncheckedCreateWithoutSalonInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutSalonInput = {
@@ -840,6 +855,7 @@ export type ServiceCreateWithoutBranchInput = {
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutBranchInput = {
@@ -857,6 +873,7 @@ export type ServiceUncheckedCreateWithoutBranchInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutBranchInput = {
@@ -900,6 +917,7 @@ export type ServiceCreateWithoutMainServiceInput = {
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutMainServiceInput = {
@@ -917,6 +935,7 @@ export type ServiceUncheckedCreateWithoutMainServiceInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutMainServiceInput = {
@@ -945,6 +964,94 @@ export type ServiceUpdateManyWithWhereWithoutMainServiceInput = {
   data: Prisma.XOR<Prisma.ServiceUpdateManyMutationInput, Prisma.ServiceUncheckedUpdateManyWithoutMainServiceInput>
 }
 
+export type ServiceCreateWithoutConsumablesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationValue?: number | null
+  durationUnit?: $Enums.DurationUnit
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutServicesInput
+  branch?: Prisma.BranchCreateNestedOneWithoutServicesInput
+  mainService: Prisma.MainServiceCreateNestedOneWithoutServicesInput
+  appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
+  saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
+  invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+}
+
+export type ServiceUncheckedCreateWithoutConsumablesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationValue?: number | null
+  durationUnit?: $Enums.DurationUnit
+  status?: boolean
+  salonId: string
+  branchId?: string | null
+  mainServiceId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
+  saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+}
+
+export type ServiceCreateOrConnectWithoutConsumablesInput = {
+  where: Prisma.ServiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutConsumablesInput, Prisma.ServiceUncheckedCreateWithoutConsumablesInput>
+}
+
+export type ServiceUpsertWithoutConsumablesInput = {
+  update: Prisma.XOR<Prisma.ServiceUpdateWithoutConsumablesInput, Prisma.ServiceUncheckedUpdateWithoutConsumablesInput>
+  create: Prisma.XOR<Prisma.ServiceCreateWithoutConsumablesInput, Prisma.ServiceUncheckedCreateWithoutConsumablesInput>
+  where?: Prisma.ServiceWhereInput
+}
+
+export type ServiceUpdateToOneWithWhereWithoutConsumablesInput = {
+  where?: Prisma.ServiceWhereInput
+  data: Prisma.XOR<Prisma.ServiceUpdateWithoutConsumablesInput, Prisma.ServiceUncheckedUpdateWithoutConsumablesInput>
+}
+
+export type ServiceUpdateWithoutConsumablesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationValue?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationUnit?: Prisma.EnumDurationUnitFieldUpdateOperationsInput | $Enums.DurationUnit
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutServicesNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutServicesNestedInput
+  mainService?: Prisma.MainServiceUpdateOneRequiredWithoutServicesNestedInput
+  appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
+  saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
+  invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+}
+
+export type ServiceUncheckedUpdateWithoutConsumablesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationValue?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationUnit?: Prisma.EnumDurationUnitFieldUpdateOperationsInput | $Enums.DurationUnit
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mainServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
+  saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+}
+
 export type ServiceCreateWithoutAppointmentServicesInput = {
   id?: string
   name: string
@@ -960,6 +1067,7 @@ export type ServiceCreateWithoutAppointmentServicesInput = {
   mainService: Prisma.MainServiceCreateNestedOneWithoutServicesInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutAppointmentServicesInput = {
@@ -977,6 +1085,7 @@ export type ServiceUncheckedCreateWithoutAppointmentServicesInput = {
   updatedAt?: Date | string
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutAppointmentServicesInput = {
@@ -1010,6 +1119,7 @@ export type ServiceUpdateWithoutAppointmentServicesInput = {
   mainService?: Prisma.MainServiceUpdateOneRequiredWithoutServicesNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutAppointmentServicesInput = {
@@ -1027,6 +1137,7 @@ export type ServiceUncheckedUpdateWithoutAppointmentServicesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceCreateWithoutSaleItemsInput = {
@@ -1044,6 +1155,7 @@ export type ServiceCreateWithoutSaleItemsInput = {
   mainService: Prisma.MainServiceCreateNestedOneWithoutServicesInput
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutSaleItemsInput = {
@@ -1061,6 +1173,7 @@ export type ServiceUncheckedCreateWithoutSaleItemsInput = {
   updatedAt?: Date | string
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutSaleItemsInput = {
@@ -1094,6 +1207,7 @@ export type ServiceUpdateWithoutSaleItemsInput = {
   mainService?: Prisma.MainServiceUpdateOneRequiredWithoutServicesNestedInput
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutSaleItemsInput = {
@@ -1111,6 +1225,7 @@ export type ServiceUncheckedUpdateWithoutSaleItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceCreateWithoutInvoiceItemsInput = {
@@ -1128,6 +1243,7 @@ export type ServiceCreateWithoutInvoiceItemsInput = {
   mainService: Prisma.MainServiceCreateNestedOneWithoutServicesInput
   appointmentServices?: Prisma.AppointmentServiceCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceUncheckedCreateWithoutInvoiceItemsInput = {
@@ -1145,6 +1261,7 @@ export type ServiceUncheckedCreateWithoutInvoiceItemsInput = {
   updatedAt?: Date | string
   appointmentServices?: Prisma.AppointmentServiceUncheckedCreateNestedManyWithoutServiceInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutServiceInput
+  consumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutServiceInput
 }
 
 export type ServiceCreateOrConnectWithoutInvoiceItemsInput = {
@@ -1178,6 +1295,7 @@ export type ServiceUpdateWithoutInvoiceItemsInput = {
   mainService?: Prisma.MainServiceUpdateOneRequiredWithoutServicesNestedInput
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutInvoiceItemsInput = {
@@ -1195,6 +1313,7 @@ export type ServiceUncheckedUpdateWithoutInvoiceItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceCreateManySalonInput = {
@@ -1226,6 +1345,7 @@ export type ServiceUpdateWithoutSalonInput = {
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutSalonInput = {
@@ -1243,6 +1363,7 @@ export type ServiceUncheckedUpdateWithoutSalonInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateManyWithoutSalonInput = {
@@ -1288,6 +1409,7 @@ export type ServiceUpdateWithoutBranchInput = {
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutBranchInput = {
@@ -1305,6 +1427,7 @@ export type ServiceUncheckedUpdateWithoutBranchInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateManyWithoutBranchInput = {
@@ -1350,6 +1473,7 @@ export type ServiceUpdateWithoutMainServiceInput = {
   appointmentServices?: Prisma.AppointmentServiceUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateWithoutMainServiceInput = {
@@ -1367,6 +1491,7 @@ export type ServiceUncheckedUpdateWithoutMainServiceInput = {
   appointmentServices?: Prisma.AppointmentServiceUncheckedUpdateManyWithoutServiceNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutServiceNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutServiceNestedInput
+  consumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutServiceNestedInput
 }
 
 export type ServiceUncheckedUpdateManyWithoutMainServiceInput = {
@@ -1392,12 +1517,14 @@ export type ServiceCountOutputType = {
   appointmentServices: number
   saleItems: number
   invoiceItems: number
+  consumables: number
 }
 
 export type ServiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointmentServices?: boolean | ServiceCountOutputTypeCountAppointmentServicesArgs
   saleItems?: boolean | ServiceCountOutputTypeCountSaleItemsArgs
   invoiceItems?: boolean | ServiceCountOutputTypeCountInvoiceItemsArgs
+  consumables?: boolean | ServiceCountOutputTypeCountConsumablesArgs
 }
 
 /**
@@ -1431,6 +1558,13 @@ export type ServiceCountOutputTypeCountInvoiceItemsArgs<ExtArgs extends runtime.
   where?: Prisma.InvoiceItemWhereInput
 }
 
+/**
+ * ServiceCountOutputType without action
+ */
+export type ServiceCountOutputTypeCountConsumablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServiceConsumableWhereInput
+}
+
 
 export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1451,6 +1585,7 @@ export type ServiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   appointmentServices?: boolean | Prisma.Service$appointmentServicesArgs<ExtArgs>
   saleItems?: boolean | Prisma.Service$saleItemsArgs<ExtArgs>
   invoiceItems?: boolean | Prisma.Service$invoiceItemsArgs<ExtArgs>
+  consumables?: boolean | Prisma.Service$consumablesArgs<ExtArgs>
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service"]>
 
@@ -1513,6 +1648,7 @@ export type ServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   appointmentServices?: boolean | Prisma.Service$appointmentServicesArgs<ExtArgs>
   saleItems?: boolean | Prisma.Service$saleItemsArgs<ExtArgs>
   invoiceItems?: boolean | Prisma.Service$invoiceItemsArgs<ExtArgs>
+  consumables?: boolean | Prisma.Service$consumablesArgs<ExtArgs>
   _count?: boolean | Prisma.ServiceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ServiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1535,6 +1671,7 @@ export type $ServicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     appointmentServices: Prisma.$AppointmentServicePayload<ExtArgs>[]
     saleItems: Prisma.$SaleItemPayload<ExtArgs>[]
     invoiceItems: Prisma.$InvoiceItemPayload<ExtArgs>[]
+    consumables: Prisma.$ServiceConsumablePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1949,6 +2086,7 @@ export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends runtime.
   appointmentServices<T extends Prisma.Service$appointmentServicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Service$appointmentServicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   saleItems<T extends Prisma.Service$saleItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Service$saleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoiceItems<T extends Prisma.Service$invoiceItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Service$invoiceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  consumables<T extends Prisma.Service$consumablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Service$consumablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceConsumablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2479,6 +2617,30 @@ export type Service$invoiceItemsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.InvoiceItemScalarFieldEnum | Prisma.InvoiceItemScalarFieldEnum[]
+}
+
+/**
+ * Service.consumables
+ */
+export type Service$consumablesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServiceConsumable
+   */
+  select?: Prisma.ServiceConsumableSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServiceConsumable
+   */
+  omit?: Prisma.ServiceConsumableOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceConsumableInclude<ExtArgs> | null
+  where?: Prisma.ServiceConsumableWhereInput
+  orderBy?: Prisma.ServiceConsumableOrderByWithRelationInput | Prisma.ServiceConsumableOrderByWithRelationInput[]
+  cursor?: Prisma.ServiceConsumableWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServiceConsumableScalarFieldEnum | Prisma.ServiceConsumableScalarFieldEnum[]
 }
 
 /**

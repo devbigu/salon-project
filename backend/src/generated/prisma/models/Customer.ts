@@ -29,11 +29,13 @@ export type AggregateCustomer = {
 export type CustomerAvgAggregateOutputType = {
   outstandingAmount: runtime.Decimal | null
   walletBalance: runtime.Decimal | null
+  loyaltyPoints: number | null
 }
 
 export type CustomerSumAggregateOutputType = {
   outstandingAmount: runtime.Decimal | null
   walletBalance: runtime.Decimal | null
+  loyaltyPoints: number | null
 }
 
 export type CustomerMinAggregateOutputType = {
@@ -49,7 +51,9 @@ export type CustomerMinAggregateOutputType = {
   status: $Enums.CustomerStatus | null
   outstandingAmount: runtime.Decimal | null
   walletBalance: runtime.Decimal | null
+  loyaltyPoints: number | null
   salonId: string | null
+  membershipId: string | null
   branchId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -68,7 +72,9 @@ export type CustomerMaxAggregateOutputType = {
   status: $Enums.CustomerStatus | null
   outstandingAmount: runtime.Decimal | null
   walletBalance: runtime.Decimal | null
+  loyaltyPoints: number | null
   salonId: string | null
+  membershipId: string | null
   branchId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -87,7 +93,9 @@ export type CustomerCountAggregateOutputType = {
   status: number
   outstandingAmount: number
   walletBalance: number
+  loyaltyPoints: number
   salonId: number
+  membershipId: number
   branchId: number
   createdAt: number
   updatedAt: number
@@ -98,11 +106,13 @@ export type CustomerCountAggregateOutputType = {
 export type CustomerAvgAggregateInputType = {
   outstandingAmount?: true
   walletBalance?: true
+  loyaltyPoints?: true
 }
 
 export type CustomerSumAggregateInputType = {
   outstandingAmount?: true
   walletBalance?: true
+  loyaltyPoints?: true
 }
 
 export type CustomerMinAggregateInputType = {
@@ -118,7 +128,9 @@ export type CustomerMinAggregateInputType = {
   status?: true
   outstandingAmount?: true
   walletBalance?: true
+  loyaltyPoints?: true
   salonId?: true
+  membershipId?: true
   branchId?: true
   createdAt?: true
   updatedAt?: true
@@ -137,7 +149,9 @@ export type CustomerMaxAggregateInputType = {
   status?: true
   outstandingAmount?: true
   walletBalance?: true
+  loyaltyPoints?: true
   salonId?: true
+  membershipId?: true
   branchId?: true
   createdAt?: true
   updatedAt?: true
@@ -156,7 +170,9 @@ export type CustomerCountAggregateInputType = {
   status?: true
   outstandingAmount?: true
   walletBalance?: true
+  loyaltyPoints?: true
   salonId?: true
+  membershipId?: true
   branchId?: true
   createdAt?: true
   updatedAt?: true
@@ -262,7 +278,9 @@ export type CustomerGroupByOutputType = {
   status: $Enums.CustomerStatus
   outstandingAmount: runtime.Decimal
   walletBalance: runtime.Decimal
+  loyaltyPoints: number
   salonId: string
+  membershipId: string | null
   branchId: string | null
   createdAt: Date
   updatedAt: Date
@@ -304,13 +322,17 @@ export type CustomerWhereInput = {
   status?: Prisma.EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFilter<"Customer"> | number
   salonId?: Prisma.StringFilter<"Customer"> | string
+  membershipId?: Prisma.StringNullableFilter<"Customer"> | string | null
   branchId?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
+  membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   transactions?: Prisma.CustomerTransactionListRelationFilter
+  loyaltyTransactions?: Prisma.LoyaltyTransactionListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
@@ -331,13 +353,17 @@ export type CustomerOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrderInput | Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   salon?: Prisma.SalonOrderByWithRelationInput
+  membership?: Prisma.MembershipOrderByWithRelationInput
   branch?: Prisma.BranchOrderByWithRelationInput
   transactions?: Prisma.CustomerTransactionOrderByRelationAggregateInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionOrderByRelationAggregateInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   sales?: Prisma.SaleOrderByRelationAggregateInput
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
@@ -364,13 +390,17 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFilter<"Customer"> | number
   salonId?: Prisma.StringFilter<"Customer"> | string
+  membershipId?: Prisma.StringNullableFilter<"Customer"> | string | null
   branchId?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
+  membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   transactions?: Prisma.CustomerTransactionListRelationFilter
+  loyaltyTransactions?: Prisma.LoyaltyTransactionListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
@@ -391,7 +421,9 @@ export type CustomerOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrderInput | Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -418,7 +450,9 @@ export type CustomerScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumCustomerStatusWithAggregatesFilter<"Customer"> | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalWithAggregatesFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalWithAggregatesFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntWithAggregatesFilter<"Customer"> | number
   salonId?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  membershipId?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   branchId?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
@@ -437,11 +471,14 @@ export type CustomerCreateInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -462,11 +499,14 @@ export type CustomerUncheckedCreateInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -487,11 +527,14 @@ export type CustomerUpdateInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -512,11 +555,14 @@ export type CustomerUncheckedUpdateInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -537,7 +583,9 @@ export type CustomerCreateManyInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -556,6 +604,7 @@ export type CustomerUpdateManyMutationInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -573,7 +622,9 @@ export type CustomerUncheckedUpdateManyInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -617,7 +668,9 @@ export type CustomerCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -626,6 +679,7 @@ export type CustomerCountOrderByAggregateInput = {
 export type CustomerAvgOrderByAggregateInput = {
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
 }
 
 export type CustomerMaxOrderByAggregateInput = {
@@ -641,7 +695,9 @@ export type CustomerMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -660,7 +716,9 @@ export type CustomerMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -669,6 +727,7 @@ export type CustomerMinOrderByAggregateInput = {
 export type CustomerSumOrderByAggregateInput = {
   outstandingAmount?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  loyaltyPoints?: Prisma.SortOrder
 }
 
 export type CustomerScalarRelationFilter = {
@@ -739,6 +798,56 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type CustomerCreateNestedManyWithoutMembershipInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput> | Prisma.CustomerCreateWithoutMembershipInput[] | Prisma.CustomerUncheckedCreateWithoutMembershipInput[]
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipInput | Prisma.CustomerCreateOrConnectWithoutMembershipInput[]
+  createMany?: Prisma.CustomerCreateManyMembershipInputEnvelope
+  connect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+}
+
+export type CustomerUncheckedCreateNestedManyWithoutMembershipInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput> | Prisma.CustomerCreateWithoutMembershipInput[] | Prisma.CustomerUncheckedCreateWithoutMembershipInput[]
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipInput | Prisma.CustomerCreateOrConnectWithoutMembershipInput[]
+  createMany?: Prisma.CustomerCreateManyMembershipInputEnvelope
+  connect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+}
+
+export type CustomerUpdateManyWithoutMembershipNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput> | Prisma.CustomerCreateWithoutMembershipInput[] | Prisma.CustomerUncheckedCreateWithoutMembershipInput[]
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipInput | Prisma.CustomerCreateOrConnectWithoutMembershipInput[]
+  upsert?: Prisma.CustomerUpsertWithWhereUniqueWithoutMembershipInput | Prisma.CustomerUpsertWithWhereUniqueWithoutMembershipInput[]
+  createMany?: Prisma.CustomerCreateManyMembershipInputEnvelope
+  set?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  disconnect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  delete?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  connect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  update?: Prisma.CustomerUpdateWithWhereUniqueWithoutMembershipInput | Prisma.CustomerUpdateWithWhereUniqueWithoutMembershipInput[]
+  updateMany?: Prisma.CustomerUpdateManyWithWhereWithoutMembershipInput | Prisma.CustomerUpdateManyWithWhereWithoutMembershipInput[]
+  deleteMany?: Prisma.CustomerScalarWhereInput | Prisma.CustomerScalarWhereInput[]
+}
+
+export type CustomerUncheckedUpdateManyWithoutMembershipNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput> | Prisma.CustomerCreateWithoutMembershipInput[] | Prisma.CustomerUncheckedCreateWithoutMembershipInput[]
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipInput | Prisma.CustomerCreateOrConnectWithoutMembershipInput[]
+  upsert?: Prisma.CustomerUpsertWithWhereUniqueWithoutMembershipInput | Prisma.CustomerUpsertWithWhereUniqueWithoutMembershipInput[]
+  createMany?: Prisma.CustomerCreateManyMembershipInputEnvelope
+  set?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  disconnect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  delete?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  connect?: Prisma.CustomerWhereUniqueInput | Prisma.CustomerWhereUniqueInput[]
+  update?: Prisma.CustomerUpdateWithWhereUniqueWithoutMembershipInput | Prisma.CustomerUpdateWithWhereUniqueWithoutMembershipInput[]
+  updateMany?: Prisma.CustomerUpdateManyWithWhereWithoutMembershipInput | Prisma.CustomerUpdateManyWithWhereWithoutMembershipInput[]
+  deleteMany?: Prisma.CustomerScalarWhereInput | Prisma.CustomerScalarWhereInput[]
+}
+
 export type CustomerCreateNestedOneWithoutTransactionsInput = {
   create?: Prisma.XOR<Prisma.CustomerCreateWithoutTransactionsInput, Prisma.CustomerUncheckedCreateWithoutTransactionsInput>
   connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutTransactionsInput
@@ -751,6 +860,20 @@ export type CustomerUpdateOneRequiredWithoutTransactionsNestedInput = {
   upsert?: Prisma.CustomerUpsertWithoutTransactionsInput
   connect?: Prisma.CustomerWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutTransactionsInput, Prisma.CustomerUpdateWithoutTransactionsInput>, Prisma.CustomerUncheckedUpdateWithoutTransactionsInput>
+}
+
+export type CustomerCreateNestedOneWithoutLoyaltyTransactionsInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedCreateWithoutLoyaltyTransactionsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutLoyaltyTransactionsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutLoyaltyTransactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedCreateWithoutLoyaltyTransactionsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutLoyaltyTransactionsInput
+  upsert?: Prisma.CustomerUpsertWithoutLoyaltyTransactionsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutLoyaltyTransactionsInput, Prisma.CustomerUpdateWithoutLoyaltyTransactionsInput>, Prisma.CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput>
 }
 
 export type CustomerCreateNestedManyWithoutBranchInput = {
@@ -882,10 +1005,13 @@ export type CustomerCreateWithoutSalonInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -906,10 +1032,13 @@ export type CustomerUncheckedCreateWithoutSalonInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -959,10 +1088,92 @@ export type CustomerScalarWhereInput = {
   status?: Prisma.EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFilter<"Customer"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFilter<"Customer"> | number
   salonId?: Prisma.StringFilter<"Customer"> | string
+  membershipId?: Prisma.StringNullableFilter<"Customer"> | string | null
   branchId?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
+}
+
+export type CustomerCreateWithoutMembershipInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
+  transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutMembershipInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  salonId: string
+  branchId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutMembershipInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput>
+}
+
+export type CustomerCreateManyMembershipInputEnvelope = {
+  data: Prisma.CustomerCreateManyMembershipInput | Prisma.CustomerCreateManyMembershipInput[]
+  skipDuplicates?: boolean
+}
+
+export type CustomerUpsertWithWhereUniqueWithoutMembershipInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutMembershipInput, Prisma.CustomerUncheckedUpdateWithoutMembershipInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipInput, Prisma.CustomerUncheckedCreateWithoutMembershipInput>
+}
+
+export type CustomerUpdateWithWhereUniqueWithoutMembershipInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutMembershipInput, Prisma.CustomerUncheckedUpdateWithoutMembershipInput>
+}
+
+export type CustomerUpdateManyWithWhereWithoutMembershipInput = {
+  where: Prisma.CustomerScalarWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateManyMutationInput, Prisma.CustomerUncheckedUpdateManyWithoutMembershipInput>
 }
 
 export type CustomerCreateWithoutTransactionsInput = {
@@ -978,10 +1189,13 @@ export type CustomerCreateWithoutTransactionsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -1002,10 +1216,13 @@ export type CustomerUncheckedCreateWithoutTransactionsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -1042,10 +1259,13 @@ export type CustomerUpdateWithoutTransactionsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -1066,10 +1286,137 @@ export type CustomerUncheckedUpdateWithoutTransactionsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutLoyaltyTransactionsInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
+  branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
+  transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutLoyaltyTransactionsInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  salonId: string
+  membershipId?: string | null
+  branchId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutLoyaltyTransactionsInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedCreateWithoutLoyaltyTransactionsInput>
+}
+
+export type CustomerUpsertWithoutLoyaltyTransactionsInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedCreateWithoutLoyaltyTransactionsInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutLoyaltyTransactionsInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutLoyaltyTransactionsInput, Prisma.CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput>
+}
+
+export type CustomerUpdateWithoutLoyaltyTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
+  transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1090,10 +1437,13 @@ export type CustomerCreateWithoutBranchInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -1114,10 +1464,13 @@ export type CustomerUncheckedCreateWithoutBranchInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -1164,11 +1517,14 @@ export type CustomerCreateWithoutAppointmentsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
@@ -1188,11 +1544,14 @@ export type CustomerUncheckedCreateWithoutAppointmentsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -1228,11 +1587,14 @@ export type CustomerUpdateWithoutAppointmentsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
@@ -1252,11 +1614,14 @@ export type CustomerUncheckedUpdateWithoutAppointmentsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1276,11 +1641,14 @@ export type CustomerCreateWithoutSalesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
@@ -1300,11 +1668,14 @@ export type CustomerUncheckedCreateWithoutSalesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -1340,11 +1711,14 @@ export type CustomerUpdateWithoutSalesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
@@ -1364,11 +1738,14 @@ export type CustomerUncheckedUpdateWithoutSalesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1388,11 +1765,14 @@ export type CustomerCreateWithoutInvoicesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
@@ -1412,11 +1792,14 @@ export type CustomerUncheckedCreateWithoutInvoicesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -1452,11 +1835,14 @@ export type CustomerUpdateWithoutInvoicesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
@@ -1476,11 +1862,14 @@ export type CustomerUncheckedUpdateWithoutInvoicesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1500,11 +1889,14 @@ export type CustomerCreateWithoutPaymentsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -1524,11 +1916,14 @@ export type CustomerUncheckedCreateWithoutPaymentsInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -1564,11 +1959,14 @@ export type CustomerUpdateWithoutPaymentsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -1588,11 +1986,14 @@ export type CustomerUncheckedUpdateWithoutPaymentsInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1612,11 +2013,14 @@ export type CustomerCreateWithoutRetailSalesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
   branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
   transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
@@ -1636,11 +2040,14 @@ export type CustomerUncheckedCreateWithoutRetailSalesInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
@@ -1676,11 +2083,14 @@ export type CustomerUpdateWithoutRetailSalesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -1700,11 +2110,14 @@ export type CustomerUncheckedUpdateWithoutRetailSalesInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1724,6 +2137,8 @@ export type CustomerCreateManySalonInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  membershipId?: string | null
   branchId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1742,10 +2157,13 @@ export type CustomerUpdateWithoutSalonInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -1766,10 +2184,13 @@ export type CustomerUncheckedUpdateWithoutSalonInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1790,6 +2211,102 @@ export type CustomerUncheckedUpdateManyWithoutSalonInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CustomerCreateManyMembershipInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  salonId: string
+  branchId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CustomerUpdateWithoutMembershipInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
+  transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutMembershipInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateManyWithoutMembershipInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1808,7 +2325,9 @@ export type CustomerCreateManyBranchInput = {
   status?: $Enums.CustomerStatus
   outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
   salonId: string
+  membershipId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1826,10 +2345,13 @@ export type CustomerUpdateWithoutBranchInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
   transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
@@ -1850,10 +2372,13 @@ export type CustomerUncheckedUpdateWithoutBranchInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1874,7 +2399,9 @@ export type CustomerUncheckedUpdateManyWithoutBranchInput = {
   status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
   outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1886,6 +2413,7 @@ export type CustomerUncheckedUpdateManyWithoutBranchInput = {
 
 export type CustomerCountOutputType = {
   transactions: number
+  loyaltyTransactions: number
   appointments: number
   sales: number
   invoices: number
@@ -1895,6 +2423,7 @@ export type CustomerCountOutputType = {
 
 export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   transactions?: boolean | CustomerCountOutputTypeCountTransactionsArgs
+  loyaltyTransactions?: boolean | CustomerCountOutputTypeCountLoyaltyTransactionsArgs
   appointments?: boolean | CustomerCountOutputTypeCountAppointmentsArgs
   sales?: boolean | CustomerCountOutputTypeCountSalesArgs
   invoices?: boolean | CustomerCountOutputTypeCountInvoicesArgs
@@ -1917,6 +2446,13 @@ export type CustomerCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
  */
 export type CustomerCountOutputTypeCountTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CustomerTransactionWhereInput
+}
+
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountLoyaltyTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LoyaltyTransactionWhereInput
 }
 
 /**
@@ -1968,13 +2504,17 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   status?: boolean
   outstandingAmount?: boolean
   walletBalance?: boolean
+  loyaltyPoints?: boolean
   salonId?: boolean
+  membershipId?: boolean
   branchId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
   transactions?: boolean | Prisma.Customer$transactionsArgs<ExtArgs>
+  loyaltyTransactions?: boolean | Prisma.Customer$loyaltyTransactionsArgs<ExtArgs>
   appointments?: boolean | Prisma.Customer$appointmentsArgs<ExtArgs>
   sales?: boolean | Prisma.Customer$salesArgs<ExtArgs>
   invoices?: boolean | Prisma.Customer$invoicesArgs<ExtArgs>
@@ -1996,11 +2536,14 @@ export type CustomerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   outstandingAmount?: boolean
   walletBalance?: boolean
+  loyaltyPoints?: boolean
   salonId?: boolean
+  membershipId?: boolean
   branchId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -2017,11 +2560,14 @@ export type CustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   outstandingAmount?: boolean
   walletBalance?: boolean
+  loyaltyPoints?: boolean
   salonId?: boolean
+  membershipId?: boolean
   branchId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -2038,17 +2584,21 @@ export type CustomerSelectScalar = {
   status?: boolean
   outstandingAmount?: boolean
   walletBalance?: boolean
+  loyaltyPoints?: boolean
   salonId?: boolean
+  membershipId?: boolean
   branchId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerCode" | "name" | "phone" | "email" | "gst" | "customNotes" | "dob" | "anniversaryDate" | "status" | "outstandingAmount" | "walletBalance" | "salonId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
+export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerCode" | "name" | "phone" | "email" | "gst" | "customNotes" | "dob" | "anniversaryDate" | "status" | "outstandingAmount" | "walletBalance" | "loyaltyPoints" | "salonId" | "membershipId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
   transactions?: boolean | Prisma.Customer$transactionsArgs<ExtArgs>
+  loyaltyTransactions?: boolean | Prisma.Customer$loyaltyTransactionsArgs<ExtArgs>
   appointments?: boolean | Prisma.Customer$appointmentsArgs<ExtArgs>
   sales?: boolean | Prisma.Customer$salesArgs<ExtArgs>
   invoices?: boolean | Prisma.Customer$invoicesArgs<ExtArgs>
@@ -2058,10 +2608,12 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
 }
 export type CustomerIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
+  membership?: boolean | Prisma.Customer$membershipArgs<ExtArgs>
   branch?: boolean | Prisma.Customer$branchArgs<ExtArgs>
 }
 
@@ -2069,8 +2621,10 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   name: "Customer"
   objects: {
     salon: Prisma.$SalonPayload<ExtArgs>
+    membership: Prisma.$MembershipPayload<ExtArgs> | null
     branch: Prisma.$BranchPayload<ExtArgs> | null
     transactions: Prisma.$CustomerTransactionPayload<ExtArgs>[]
+    loyaltyTransactions: Prisma.$LoyaltyTransactionPayload<ExtArgs>[]
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     sales: Prisma.$SalePayload<ExtArgs>[]
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
@@ -2090,7 +2644,9 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     status: $Enums.CustomerStatus
     outstandingAmount: runtime.Decimal
     walletBalance: runtime.Decimal
+    loyaltyPoints: number
     salonId: string
+    membershipId: string | null
     branchId: string | null
     createdAt: Date
     updatedAt: Date
@@ -2489,8 +3045,10 @@ readonly fields: CustomerFieldRefs;
 export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   salon<T extends Prisma.SalonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalonDefaultArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  membership<T extends Prisma.Customer$membershipArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$membershipArgs<ExtArgs>>): Prisma.Prisma__MembershipClient<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   branch<T extends Prisma.Customer$branchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$branchArgs<ExtArgs>>): Prisma.Prisma__BranchClient<runtime.Types.Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   transactions<T extends Prisma.Customer$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  loyaltyTransactions<T extends Prisma.Customer$loyaltyTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$loyaltyTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoyaltyTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   appointments<T extends Prisma.Customer$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sales<T extends Prisma.Customer$salesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$salesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.Customer$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2537,7 +3095,9 @@ export interface CustomerFieldRefs {
   readonly status: Prisma.FieldRef<"Customer", 'CustomerStatus'>
   readonly outstandingAmount: Prisma.FieldRef<"Customer", 'Decimal'>
   readonly walletBalance: Prisma.FieldRef<"Customer", 'Decimal'>
+  readonly loyaltyPoints: Prisma.FieldRef<"Customer", 'Int'>
   readonly salonId: Prisma.FieldRef<"Customer", 'String'>
+  readonly membershipId: Prisma.FieldRef<"Customer", 'String'>
   readonly branchId: Prisma.FieldRef<"Customer", 'String'>
   readonly createdAt: Prisma.FieldRef<"Customer", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Customer", 'DateTime'>
@@ -2942,6 +3502,25 @@ export type CustomerDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Customer.membership
+ */
+export type Customer$membershipArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Membership
+   */
+  select?: Prisma.MembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Membership
+   */
+  omit?: Prisma.MembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MembershipInclude<ExtArgs> | null
+  where?: Prisma.MembershipWhereInput
+}
+
+/**
  * Customer.branch
  */
 export type Customer$branchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2982,6 +3561,30 @@ export type Customer$transactionsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.CustomerTransactionScalarFieldEnum | Prisma.CustomerTransactionScalarFieldEnum[]
+}
+
+/**
+ * Customer.loyaltyTransactions
+ */
+export type Customer$loyaltyTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LoyaltyTransaction
+   */
+  select?: Prisma.LoyaltyTransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LoyaltyTransaction
+   */
+  omit?: Prisma.LoyaltyTransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LoyaltyTransactionInclude<ExtArgs> | null
+  where?: Prisma.LoyaltyTransactionWhereInput
+  orderBy?: Prisma.LoyaltyTransactionOrderByWithRelationInput | Prisma.LoyaltyTransactionOrderByWithRelationInput[]
+  cursor?: Prisma.LoyaltyTransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LoyaltyTransactionScalarFieldEnum | Prisma.LoyaltyTransactionScalarFieldEnum[]
 }
 
 /**

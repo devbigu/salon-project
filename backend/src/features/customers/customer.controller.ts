@@ -1,6 +1,8 @@
 import { type Request, type Response } from "express";
 import { CustomerModel } from "./customer.model.js";
 import { BranchModel } from "../branches/branch.model.js";
+import { MembershipModel } from "../memberships/membership.model.js";
+import { isUuid } from "../../middlewares/uuid.middleware.js";
 
 const CUSTOMER_STATUSES = ["REGULAR", "PREMIUM", "IRREGULAR"] as const;
 
@@ -352,6 +354,79 @@ export const updateCustomer = async (req: Request, res: Response) => {
       success: true,
       message: "Customer updated successfully",
       data: updatedCustomer,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const assignCustomerMembership = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const id = getCustomerIdParam(req);
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Customer ID is required",
+      });
+    }
+
+    if (
+      !("membershipId" in req.body) ||
+      (req.body.membershipId !== null && !isUuid(req.body.membershipId))
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Membership ID must be a valid UUID or null",
+      });
+    }
+
+    const existingCustomer = await getExistingCustomerByAccess(req, id);
+
+    if (!existingCustomer) {
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    const membershipId = req.body.membershipId as string | null;
+
+    if (membershipId) {
+      const membership = await MembershipModel.find(
+        membershipId,
+        existingCustomer.salonId
+      );
+
+      if (!membership) {
+        return res.status(400).json({
+          success: false,
+          message: "Membership must belong to the same salon as the customer",
+        });
+      }
+
+      if (!membership.status) {
+        return res.status(400).json({
+          success: false,
+          message: "Only active memberships can be assigned",
+        });
+      }
+    }
+
+    const data = await CustomerModel.assignMembership(id, membershipId);
+
+    return res.status(200).json({
+      success: true,
+      message: membershipId
+        ? "Membership assigned successfully"
+        : "Membership removed successfully",
+      data,
     });
   } catch (error) {
     return res.status(500).json({

@@ -5,6 +5,7 @@ import {
   getInvoices,
   getInvoiceById,
   cancelInvoice,
+  redeemLoyaltyPoints,
 } from "./invoice.controller.js";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
@@ -34,6 +35,12 @@ router.patch(
   "/:id/cancel",
   requireRole("SUPER_ADMIN", "SALON_ADMIN"),
   cancelInvoice
+);
+
+router.post(
+  "/:id/redeem-loyalty",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"),
+  redeemLoyaltyPoints
 );
 
 router.get(

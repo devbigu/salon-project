@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import { awardInvoiceLoyaltyInTransaction } from "../Invoices/invoice-retention.service.js";
 export class PaymentConflictError extends Error {
 }
 export const PaymentModel = {
@@ -104,9 +105,21 @@ export const PaymentModel = {
                     status: "COMPLETE",
                 },
             });
+            const loyalty = newPaymentStatus === "PAID"
+                ? await awardInvoiceLoyaltyInTransaction(tx, {
+                    invoiceId: lockedInvoice.id,
+                    salonId: lockedInvoice.salonId,
+                    customerId: lockedInvoice.customerId,
+                    finalPaidAmount: newPaidAmount,
+                    ...(data.createdById
+                        ? { createdById: data.createdById }
+                        : {}),
+                })
+                : null;
             return {
                 payment,
                 invoice,
+                loyalty,
             };
         });
     },

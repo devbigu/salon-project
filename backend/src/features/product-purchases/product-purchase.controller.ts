@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { type Request, type Response } from "express";
 import { prisma } from "../../config/prisma.js";
 import {
@@ -7,6 +8,7 @@ import {
   validateBranch,
 } from "../products/inventory-access.js";
 import { ProductPurchaseModel } from "./product-purchase.model.js";
+import { createStockMovement } from "../stock/stockMovement.service.js";
 
 type PurchaseItem = { productId: string; quantity: number; unitCost: number };
 const idParam = (req: Request) => typeof req.params.id === "string" ? req.params.id : "";
@@ -64,9 +66,28 @@ export const createProductPurchase = async (req: Request, res: Response) => {
       if (vendorId && !vendor) throw transactionError("Vendor not found", 404);
       if (vendor && !vendor.status) throw transactionError("Vendor is inactive");
       const total = items.reduce((sum, item) => sum + item.quantity * item.unitCost, 0);
+      const purchaseId = randomUUID();
+      for (const item of [...items].sort((left, right) => left.productId.localeCompare(right.productId))) {
+        await createStockMovement({
+          tx,
+          salonId,
+          ...(branchId ? { branchId } : {}),
+          productId: item.productId,
+          type: "STOCK_IN",
+          quantity: item.quantity,
+          referenceType: "PRODUCT_PURCHASE",
+          referenceId: purchaseId,
+          ...(req.user?.userId ? { createdById: req.user.userId } : {}),
+        });
+        await tx.product.update({
+          where: { id: item.productId },
+          data: { costPrice: item.unitCost },
+        });
+      }
       const purchase = await tx.productPurchase.create({
         data: {
-          purchaseCode: `PUR-${Date.now()}`,
+          id: purchaseId,
+          purchaseCode: `PUR-${Date.now()}-${randomUUID().slice(0, 8)}`,
           salonId,
           ...(branchId ? { branchId } : {}),
           ...(vendorId ? { vendorId } : {}),
@@ -91,27 +112,6 @@ export const createProductPurchase = async (req: Request, res: Response) => {
           },
         },
       });
-      for (const item of items) {
-        const updated = await tx.product.update({
-          where: { id: item.productId },
-          data: { currentStock: { increment: item.quantity }, costPrice: item.unitCost },
-        });
-        const stockAfter = Number(updated.currentStock);
-        await tx.productStockMovement.create({
-          data: {
-            salonId,
-            branchId: branchId ?? updated.branchId,
-            productId: item.productId,
-            type: "STOCK_IN",
-            quantity: item.quantity,
-            stockBefore: stockAfter - item.quantity,
-            stockAfter,
-            referenceType: "PRODUCT_PURCHASE",
-            referenceId: purchase.id,
-            ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-          },
-        });
-      }
       return purchase.id;
     });
     const purchase = await ProductPurchaseModel.find({ id: data, salonId });
