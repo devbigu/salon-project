@@ -109,6 +109,16 @@ const Billing = () => {
               { value: "GST_INVOICE", label: "GST invoice" },
             ],
           },
+          {
+            name: "status",
+            label: "Initial status",
+            type: "select",
+            defaultValue: "DRAFT",
+            options: [
+              { value: "DRAFT", label: "Draft (apply coupon before issuing)" },
+              { value: "ISSUED", label: "Issue immediately" },
+            ],
+          },
           { name: "discountAmount", label: "Discount", type: "number", min: 0, step: "0.01", defaultValue: 0 },
           { name: "processingFeeAmount", label: "Processing fee", type: "number", min: 0, step: "0.01", defaultValue: 0 },
           { name: "taxPercent", label: "Tax percent", type: "number", min: 0, step: "0.01", defaultValue: 0 },
@@ -117,6 +127,16 @@ const Billing = () => {
         ],
         submit: ({ appointmentId, ...values }) =>
           salonApi.invoices.fromAppointment(appointmentId, values),
+      };
+    }
+    if (action === "redeem") {
+      return {
+        title: `Redeem loyalty points · ${selected?.invoiceCode || ""}`,
+        submitLabel: "Redeem points",
+        fields: [
+          { name: "points", label: `Points to redeem (available: ${selected?.customer?.loyaltyPoints ?? 0})`, type: "number", min: 1, step: 1, required: true, fullWidth: true },
+        ],
+        submit: (values) => salonApi.invoices.redeemLoyalty(selected.id, Number(values.points)),
       };
     }
     return {
@@ -190,12 +210,16 @@ const Billing = () => {
       description="Generate invoices from completed appointments and record payments against outstanding balances."
       tools={
         <>
-          <Button color="info" onClick={() => { setSelected(null); setAction("payment"); }}>
-            <Icon name="wallet-in" /> Record payment
-          </Button>
-          <Button color="primary" onClick={() => { setSelected(null); setAction("invoice"); }}>
-            <Icon name="file-plus" /> Generate invoice
-          </Button>
+          {["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"].includes(user?.role) && (
+            <Button color="info" onClick={() => { setSelected(null); setAction("payment"); }}>
+              <Icon name="wallet-in" /> Record payment
+            </Button>
+          )}
+          {["SUPER_ADMIN", "SALON_ADMIN", "STAFF"].includes(user?.role) && (
+            <Button color="primary" onClick={() => { setSelected(null); setAction("invoice"); }}>
+              <Icon name="file-plus" /> Generate invoice
+            </Button>
+          )}
         </>
       }
     >
@@ -252,6 +276,8 @@ const Billing = () => {
               { key: "customerName", label: "Customer" },
               { key: "invoiceDate", label: "Date", render: (value) => formatDate(value) },
               { key: "totalAmount", label: "Total", render: formatMoney },
+              { key: "discountAmount", label: "Discount", render: formatMoney },
+              { key: "customer", label: "Points", render: (value) => value?.loyaltyPoints ?? 0 },
               { key: "paidAmount", label: "Paid", render: formatMoney },
               { key: "balanceAmount", label: "Balance", render: formatMoney },
               { key: "paymentStatus", label: "Payment", render: (value) => <StatusBadge value={value} /> },
@@ -277,7 +303,11 @@ const Billing = () => {
                 >
                   <Icon name="printer-fill" />
                 </Button>
-                {row.status !== "CANCELLED" && row.paymentStatus !== "PAID" && (
+                {row.status === "ISSUED" && row.paymentStatus !== "PAID" && (
+                  <Button size="sm" color="warning" outline className="ms-1" disabled={!row.customer?.loyaltyPoints}
+                    onClick={() => { setSelected(row); setAction("redeem"); }}>Redeem</Button>
+                )}
+                {row.status === "ISSUED" && row.paymentStatus !== "PAID" && (
                   <Button
                     size="sm"
                     color="success"

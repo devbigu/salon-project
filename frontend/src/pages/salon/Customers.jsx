@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Alert,
   Modal,
@@ -22,25 +23,29 @@ import {
 
 const Customers = () => {
   const { user } = useAuth();
-  const [refs, setRefs] = useState({ salons: [], branches: [] });
+  const [refs, setRefs] = useState({ salons: [], branches: [], memberships: [] });
+  const [membershipCustomer, setMembershipCustomer] = useState(null);
   const [walletCustomer, setWalletCustomer] = useState(null);
   const [ledgerCustomer, setLedgerCustomer] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [loyaltyTransactions, setLoyaltyTransactions] = useState([]);
   const [ledgerLoading, setLedgerLoading] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const canManageWallet = roleCanManage(user?.role);
   const isSuper = user?.role === "SUPER_ADMIN";
 
   const loadRefs = useCallback(async () => {
-    const [salons, branches] = await Promise.allSettled([
+    const [salons, branches, memberships] = await Promise.allSettled([
       isSuper ? salonApi.salons.list() : Promise.resolve({ data: [] }),
       user?.role === "STAFF"
         ? Promise.resolve({ data: [] })
         : salonApi.branches.list(),
+      user?.role === "STAFF" ? Promise.resolve({ data: [] }) : salonApi.memberships.list(),
     ]);
     setRefs({
       salons: salons.status === "fulfilled" ? salons.value.data || [] : [],
       branches: branches.status === "fulfilled" ? branches.value.data || [] : [],
+      memberships: memberships.status === "fulfilled" ? memberships.value.data || [] : [],
     });
   }, [isSuper, user?.role]);
 
@@ -121,8 +126,16 @@ const Customers = () => {
     setLedgerCustomer(customer);
     setLedgerLoading(true);
     try {
-      const response = await salonApi.customers.transactions(customer.id);
-      setTransactions(response.data || []);
+      const [ledger, loyalty] = await Promise.all([
+        salonApi.customers.transactions(customer.id),
+        salonApi.loyalty.transactions({
+          customerId: customer.id,
+          page: 1,
+          limit: 10,
+        }),
+      ]);
+      setTransactions(ledger.data || []);
+      setLoyaltyTransactions(loyalty.data || []);
     } finally {
       setLedgerLoading(false);
     }
@@ -143,6 +156,8 @@ const Customers = () => {
           { key: "phone", label: "Phone" },
           { key: "branch", label: "Branch", render: (value) => value?.name || "—" },
           { key: "status", label: "Status", render: (value) => <StatusBadge value={value} /> },
+          { key: "membership", label: "Membership", render: (value) => value?.name || "—" },
+          { key: "loyaltyPoints", label: "Points" },
           { key: "walletBalance", label: "Wallet", render: formatMoney },
           {
             key: "outstandingAmount",
@@ -178,8 +193,21 @@ const Customers = () => {
                 <Icon name="wallet-in" /> Wallet
               </Button>
             )}
+            {user?.role !== "STAFF" && <Button size="sm" color="primary" outline className="ms-1" onClick={() => setMembershipCustomer(row)}>Retention</Button>}
+            {user?.role !== "STAFF" && <Button size="sm" color="secondary" outline className="ms-1" onClick={() => { window.location.href = `/customer-retention/loyalty-transactions?customerId=${row.id}`; }}>Point history</Button>}
           </>
         )}
+      />
+
+      <SchemaModal
+        isOpen={Boolean(membershipCustomer)}
+        toggle={() => setMembershipCustomer(null)}
+        title={`Customer retention · ${membershipCustomer?.name || ""} · ${membershipCustomer?.loyaltyPoints || 0} points`}
+        initialValues={{ membershipId: membershipCustomer?.membershipId || "" }}
+        fields={[{ name: "membershipId", label: "Membership", type: "select", nullable: true, fullWidth: true,
+          options: refs.memberships.filter((m) => m.status).map((m) => ({ value: m.id, label: `${m.name} · ${Number(m.discountPercentage)}%` })) }]}
+        onSubmit={async (values) => { await salonApi.customers.setMembership(membershipCustomer.id, values.membershipId || null); setRefreshKey((v) => v + 1); }}
+        submitLabel="Save membership"
       />
 
       <SchemaModal
@@ -262,6 +290,49 @@ const Customers = () => {
                       <tr>
                         <td colSpan="7" className="text-center text-soft py-4">
                           No ledger transactions.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="d-flex justify-content-between align-items-center mt-4 mb-2">
+                <h6 className="mb-0">Recent loyalty activity</h6>
+                <Link
+                  to={`/customer-retention/loyalty-transactions?customerId=${ledgerCustomer?.id}`}
+                >
+                  View full history
+                </Link>
+              </div>
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Points</th>
+                      <th>Before</th>
+                      <th>After</th>
+                      <th>Reference</th>
+                      <th>Note</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loyaltyTransactions.map((item) => (
+                      <tr key={item.id}>
+                        <td>{formatDate(item.createdAt, true)}</td>
+                        <td><StatusBadge value={item.type} /></td>
+                        <td>{item.points}</td>
+                        <td>{item.balanceBefore}</td>
+                        <td>{item.balanceAfter}</td>
+                        <td>{item.referenceType || "—"}</td>
+                        <td>{item.note || "—"}</td>
+                      </tr>
+                    ))}
+                    {loyaltyTransactions.length === 0 && (
+                      <tr>
+                        <td colSpan="7" className="text-center text-soft py-4">
+                          No loyalty activity.
                         </td>
                       </tr>
                     )}

@@ -33,8 +33,9 @@ export const generateSalarySlip = async (input: {
   bonusAmount: number;
   manualDeduction: number;
   note?: string;
-}) => {
-  const salon = await prisma.salon.findUnique({
+}, tx?: Prisma.TransactionClient) => {
+  const client = tx ?? prisma;
+  const salon = await client.salon.findUnique({
     where: { id: input.salonId },
     select: { timezone: true },
   });
@@ -44,13 +45,14 @@ export const generateSalarySlip = async (input: {
     input.salonId,
     input.staffId,
     input.month,
-    input.year
+    input.year,
+    tx
   );
   if (existing && existing.status !== "CANCELLED") {
     throw Object.assign(new Error("A non-cancelled salary slip already exists for this period"), { status: 409 });
   }
 
-  const config = await prisma.staffSalaryConfig.findFirst({
+  const config = await client.staffSalaryConfig.findFirst({
     where: {
       salonId: input.salonId,
       staffId: input.staffId,
@@ -64,10 +66,10 @@ export const generateSalarySlip = async (input: {
   }
 
   const [attendance, leaves, serviceResult, retailResult] = await Promise.all([
-    prisma.staffAttendance.findMany({
+    client.staffAttendance.findMany({
       where: { salonId: input.salonId, staffId: input.staffId, date: { gte: range.start, lt: range.end } },
     }),
-    prisma.staffLeave.findMany({
+    client.staffLeave.findMany({
       where: {
         salonId: input.salonId,
         staffId: input.staffId,
@@ -76,7 +78,7 @@ export const generateSalarySlip = async (input: {
         endDate: { gte: range.start },
       },
     }),
-    prisma.invoiceItem.aggregate({
+    client.invoiceItem.aggregate({
       where: {
         serviceId: { not: null },
         invoice: {
@@ -89,7 +91,7 @@ export const generateSalarySlip = async (input: {
       },
       _sum: { lineTotal: true },
     }),
-    prisma.retailSale.aggregate({
+    client.retailSale.aggregate({
       where: {
         salonId: input.salonId,
         staffId: input.staffId,
@@ -199,5 +201,5 @@ export const generateSalarySlip = async (input: {
     netSalary,
     status: "GENERATED",
     ...(input.note ? { note: input.note } : {}),
-  });
+  }, tx);
 };

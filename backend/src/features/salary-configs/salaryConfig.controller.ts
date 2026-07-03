@@ -2,11 +2,32 @@ import { type Request, type Response } from "express";
 import type { LatePenaltyType, SalaryType } from "../../generated/prisma/enums.js";
 import { SalaryConfigModel, type SalaryConfigData } from "./salaryConfig.model.js";
 import { validateSalaryConfigInput } from "./salaryConfig.validation.js";
+import {
+  createAuditLog,
+  requestAuditContext,
+} from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
 
 const text = (value: unknown) =>
   typeof value === "string" && value.trim() ? value.trim() : undefined;
 const idParam = (req: Request, key = "id") => text(req.params[key]);
 const branchRole = (role?: string) => role === "BRANCH_MANAGER";
+const salaryAuditData = (config: Record<string, unknown>) => ({
+  baseSalary: config.baseSalary,
+  workingDaysPerMonth: config.workingDaysPerMonth,
+  salaryType: config.salaryType,
+  paidLeavesAllowed: config.paidLeavesAllowed,
+  lateGraceMinutes: config.lateGraceMinutes,
+  latePenaltyType: config.latePenaltyType,
+  latePenaltyAmount: config.latePenaltyAmount,
+  serviceCommissionPercentage: config.serviceCommissionPercentage,
+  serviceMinimumWorkThreshold: config.serviceMinimumWorkThreshold,
+  retailCommissionPercentage: config.retailCommissionPercentage,
+  retailMinimumSalesThreshold: config.retailMinimumSalesThreshold,
+  effectiveFrom: config.effectiveFrom,
+  effectiveTo: config.effectiveTo,
+  status: config.status,
+});
 
 const scopedStaff = async (req: Request, requestedId?: string) => {
   if (!req.user) return { error: [401, "Unauthorized"] as const };
@@ -115,7 +136,23 @@ export const createSalaryConfig = async (req: Request, res: Response) => {
       ...(branchId ? { branchId } : {}),
       ...values,
     };
-    const config = await SalaryConfigModel.create(data);
+    const config = await prisma.$transaction(async (tx) => {
+      const created = await SalaryConfigModel.create(data, tx);
+      await createAuditLog({
+      tx,
+      salonId: created.salonId,
+      branchId: created.branchId,
+      userId: req.user?.userId,
+      module: "SALARY",
+      action: "SALARY_CHANGED",
+      entityId: created.id,
+      entityName: access.staff.name,
+      description: `Salary configuration created for ${access.staff.name}`,
+      newData: salaryAuditData(created as unknown as Record<string, unknown>),
+      ...requestAuditContext(req),
+      });
+      return created;
+    });
     return res.status(201).json({ success: true, data: config });
   } catch (error) {
     console.error(error);
@@ -149,7 +186,24 @@ export const updateSalaryConfig = async (req: Request, res: Response) => {
     if (error) return res.status(400).json({ success: false, message: error });
     const access = await configAccess(req, id);
     if ("error" in access) return res.status(access.error[0]).json({ success: false, message: access.error[1] });
-    const config = await SalaryConfigModel.update(id, inputData(req.body));
+    const config = await prisma.$transaction(async (tx) => {
+      const updated = await SalaryConfigModel.update(id, inputData(req.body), tx);
+      await createAuditLog({
+      tx,
+      salonId: access.config.salonId,
+      branchId: access.config.branchId,
+      userId: req.user?.userId,
+      module: "SALARY",
+      action: "SALARY_CHANGED",
+      entityId: updated.id,
+      entityName: access.config.staff.name,
+      description: `Salary configuration updated for ${access.config.staff.name}`,
+      oldData: salaryAuditData(access.config as unknown as Record<string, unknown>),
+      newData: salaryAuditData(updated as unknown as Record<string, unknown>),
+      ...requestAuditContext(req),
+      });
+      return updated;
+    });
     return res.json({ success: true, data: config });
   } catch (error) {
     console.error(error);
@@ -164,6 +218,23 @@ export const setSalaryConfigStatus = async (req: Request, res: Response) => {
   }
   const access = await configAccess(req, id);
   if ("error" in access) return res.status(access.error[0]).json({ success: false, message: access.error[1] });
-  const config = await SalaryConfigModel.setStatus(id, access.config.salonId, access.config.staffId, req.body.status);
+  const config = await prisma.$transaction(async (tx) => {
+    const updated = await SalaryConfigModel.setStatus(id, access.config.salonId, access.config.staffId, req.body.status, tx);
+    await createAuditLog({
+    tx,
+    salonId: access.config.salonId,
+    branchId: access.config.branchId,
+    userId: req.user?.userId,
+    module: "SALARY",
+    action: "SALARY_CHANGED",
+    entityId: updated.id,
+    entityName: access.config.staff.name,
+    description: `Salary configuration status changed for ${access.config.staff.name}`,
+    oldData: { status: access.config.status },
+    newData: { status: updated.status },
+    ...requestAuditContext(req),
+    });
+    return updated;
+  });
   return res.json({ success: true, data: config });
 };

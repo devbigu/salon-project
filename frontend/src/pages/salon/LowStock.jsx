@@ -3,6 +3,8 @@ import { Alert } from "reactstrap";
 import DataGrid from "@/components/salon/DataGrid";
 import PageShell from "@/components/salon/PageShell";
 import { salonApi } from "@/services/salonApi";
+import { Link } from "react-router-dom";
+import { Button, Icon } from "@/components/Component";
 
 const LowStock = () => {
   const [rows, setRows] = useState([]);
@@ -17,7 +19,31 @@ const LowStock = () => {
   }, []);
 
   return (
-    <PageShell title="Low stock" description="Active products at or below their configured replenishment threshold.">
+    <PageShell
+      title="Low stock"
+      description="Active products at or below their configured replenishment threshold."
+      tools={
+        <>
+          <Button
+            tag={Link}
+            to="/inventory/stock-alerts"
+            color="primary"
+            outline
+          >
+            <Icon name="alert-circle" />
+            View Stock Alerts
+          </Button>
+          <Button
+            tag={Link}
+            to="/inventory/reorder-suggestions"
+            color="primary"
+          >
+            <Icon name="cart" />
+            View Reorder Suggestions
+          </Button>
+        </>
+      }
+    >
       {error && <Alert color="danger">{error}</Alert>}
       <DataGrid
         loading={loading}

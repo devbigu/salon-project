@@ -3,8 +3,8 @@ import { Prisma } from "../../generated/prisma/client.js";
 import { transactionError } from "../products/inventory-access.js";
 import { createStockMovement } from "../stock/stockMovement.service.js";
 export const AppointmentModel = {
-    create: async (data) => {
-        return prisma.appointment.create({
+    create: async (data, tx) => {
+        return (tx ?? prisma).appointment.create({
             data: {
                 appointmentCode: data.appointmentCode,
                 salonId: data.salonId,
@@ -318,8 +318,8 @@ export const AppointmentModel = {
             },
         });
     },
-    updateBasicDetails: async (id, data) => {
-        return prisma.appointment.update({
+    updateBasicDetails: async (id, data, tx) => {
+        return (tx ?? prisma).appointment.update({
             where: {
                 id,
             },
@@ -351,15 +351,15 @@ export const AppointmentModel = {
             },
         });
     },
-    delete: async (id) => {
-        return prisma.appointment.delete({
+    delete: async (id, tx) => {
+        return (tx ?? prisma).appointment.delete({
             where: {
                 id,
             },
         });
     },
-    updateSchedule: async (id, data) => {
-        return prisma.appointment.update({
+    updateSchedule: async (id, data, tx) => {
+        return (tx ?? prisma).appointment.update({
             where: {
                 id,
             },
@@ -526,15 +526,15 @@ export const AppointmentModel = {
             },
         });
     },
-    updateStatusWithHistory: async (id, data) => {
-        return prisma.$transaction(async (tx) => {
-            await tx.$queryRaw `
+    updateStatusWithHistory: async (id, data, tx) => {
+        const run = async (client) => {
+            await client.$queryRaw `
       SELECT "id"
       FROM "Appointment"
       WHERE "id" = ${id}
       FOR UPDATE
     `;
-            const currentAppointment = await tx.appointment.findUnique({
+            const currentAppointment = await client.appointment.findUnique({
                 where: { id },
                 select: {
                     id: true,
@@ -560,7 +560,7 @@ export const AppointmentModel = {
                     serviceCounts.set(appointmentService.serviceId, (serviceCounts.get(appointmentService.serviceId) ?? 0) + 1);
                 }
                 const consumables = serviceCounts.size
-                    ? await tx.serviceConsumable.findMany({
+                    ? await client.serviceConsumable.findMany({
                         where: {
                             salonId: currentAppointment.salonId,
                             serviceId: { in: [...serviceCounts.keys()] },
@@ -578,7 +578,7 @@ export const AppointmentModel = {
                 for (const [productId, quantity] of [...quantitiesByProduct.entries()].sort(([left], [right]) => left.localeCompare(right))) {
                     try {
                         await createStockMovement({
-                            tx,
+                            tx: client,
                             salonId: currentAppointment.salonId,
                             ...(currentAppointment.branchId
                                 ? { branchId: currentAppointment.branchId }
@@ -601,7 +601,7 @@ export const AppointmentModel = {
                     }
                 }
             }
-            const appointment = await tx.appointment.update({
+            const appointment = await client.appointment.update({
                 where: {
                     id,
                 },
@@ -646,7 +646,7 @@ export const AppointmentModel = {
                     },
                 },
             });
-            await tx.appointmentStatusHistory.create({
+            await client.appointmentStatusHistory.create({
                 data: {
                     appointmentId: id,
                     oldStatus: data.oldStatus,
@@ -656,7 +656,8 @@ export const AppointmentModel = {
                 },
             });
             return appointment;
-        });
+        };
+        return tx ? run(tx) : prisma.$transaction(run);
     },
     findStatusHistory: async (appointmentId) => {
         return prisma.appointmentStatusHistory.findMany({

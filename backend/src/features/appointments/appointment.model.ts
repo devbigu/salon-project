@@ -12,6 +12,7 @@ type AppointmentStatus =
   | "NO_SHOW";
 
 type DurationUnit = "MINUTES" | "HOURS";
+type TransactionClient = Prisma.TransactionClient;
 
 export const AppointmentModel = {
   create: async (data: {
@@ -35,8 +36,8 @@ export const AppointmentModel = {
       durationValue?: number;
       durationUnit?: DurationUnit;
     }[];
-  }) => {
-    return prisma.appointment.create({
+  }, tx?: TransactionClient) => {
+    return (tx ?? prisma).appointment.create({
       data: {
         appointmentCode: data.appointmentCode,
         salonId: data.salonId,
@@ -384,8 +385,8 @@ export const AppointmentModel = {
       internalNote?: string | null;
       status?: AppointmentStatus;
     }
-  ) => {
-    return prisma.appointment.update({
+  , tx?: TransactionClient) => {
+    return (tx ?? prisma).appointment.update({
       where: {
         id,
       },
@@ -418,8 +419,8 @@ export const AppointmentModel = {
     });
   },
 
-  delete: async (id: string) => {
-    return prisma.appointment.delete({
+  delete: async (id: string, tx?: TransactionClient) => {
+    return (tx ?? prisma).appointment.delete({
       where: {
         id,
       },
@@ -430,9 +431,10 @@ export const AppointmentModel = {
   data: {
     startTime: Date;
     endTime: Date;
-  }
+  },
+  tx?: TransactionClient
 ) => {
-  return prisma.appointment.update({
+  return (tx ?? prisma).appointment.update({
     where: {
       id,
     },
@@ -614,17 +616,18 @@ updateStatusWithHistory: async (
     newStatus: AppointmentStatus;
     note?: string;
     changedById?: string;
-  }
+  },
+  tx?: TransactionClient
 ) => {
-  return prisma.$transaction(async (tx) => {
-    await tx.$queryRaw<Array<{ id: string }>>`
+  const run = async (client: TransactionClient) => {
+    await client.$queryRaw<Array<{ id: string }>>`
       SELECT "id"
       FROM "Appointment"
       WHERE "id" = ${id}
       FOR UPDATE
     `;
 
-    const currentAppointment = await tx.appointment.findUnique({
+    const currentAppointment = await client.appointment.findUnique({
       where: { id },
       select: {
         id: true,
@@ -659,7 +662,7 @@ updateStatusWithHistory: async (
       }
 
       const consumables = serviceCounts.size
-        ? await tx.serviceConsumable.findMany({
+        ? await client.serviceConsumable.findMany({
             where: {
               salonId: currentAppointment.salonId,
               serviceId: { in: [...serviceCounts.keys()] },
@@ -684,7 +687,7 @@ updateStatusWithHistory: async (
       )) {
         try {
           await createStockMovement({
-            tx,
+            tx: client,
             salonId: currentAppointment.salonId,
             ...(currentAppointment.branchId
               ? { branchId: currentAppointment.branchId }
@@ -711,7 +714,7 @@ updateStatusWithHistory: async (
       }
     }
 
-    const appointment = await tx.appointment.update({
+    const appointment = await client.appointment.update({
       where: {
         id,
       },
@@ -757,7 +760,7 @@ updateStatusWithHistory: async (
       },
     });
 
-    await tx.appointmentStatusHistory.create({
+    await client.appointmentStatusHistory.create({
       data: {
         appointmentId: id,
         oldStatus: data.oldStatus,
@@ -768,7 +771,8 @@ updateStatusWithHistory: async (
     });
 
     return appointment;
-  });
+  };
+  return tx ? run(tx) : prisma.$transaction(run);
 },
 
 findStatusHistory: async (appointmentId: string) => {

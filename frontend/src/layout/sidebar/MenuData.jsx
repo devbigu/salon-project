@@ -107,12 +107,29 @@ const getMenu = (role) => {
               link: "/admin/stock-movements",
             },
             { text: "Low Stock", link: "/admin/low-stock" },
+            { text: "Stock Alerts", link: "/inventory/stock-alerts" },
+            {
+              text: "Reorder Suggestions",
+              link: "/inventory/reorder-suggestions",
+            },
           ],
         },
       ]
     : []),
-  ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
+  ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"])
     ? [
+        { heading: "Customer Retention" },
+        {
+          icon: "growth-fill",
+          text: "Customer Retention",
+          subMenu: [
+            { text: "Memberships", link: "/customer-retention/memberships" },
+            { text: "Loyalty Rules", link: "/customer-retention/loyalty-rules" },
+            { text: "Loyalty Transactions", link: "/customer-retention/loyalty-transactions" },
+            { text: "Coupons", link: "/customer-retention/coupons" },
+          ],
+        },
+        ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"]) ? [
         { heading: "Expenses" },
         {
           icon: "money",
@@ -122,6 +139,7 @@ const getMenu = (role) => {
             { text: "Expenses", link: "/admin/expenses" },
           ],
         },
+        ] : []),
       ]
     : []),
   ...(hasRole(role, inventoryRoles)
@@ -132,6 +150,9 @@ const getMenu = (role) => {
           text: "Reports",
           subMenu: [
             { text: "Inventory Report", link: "/reports/inventory" },
+            ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"])
+              ? [{ text: "Audit Trails", link: "/reports/audit-trails" }]
+              : []),
             ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN"])
               ? [{ text: "Profit Summary", link: "/reports/profit-summary" }]
               : []),

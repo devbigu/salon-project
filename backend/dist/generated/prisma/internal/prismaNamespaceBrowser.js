@@ -46,6 +46,7 @@ export const ModelName = {
     CustomerTransaction: 'CustomerTransaction',
     LoyaltyRule: 'LoyaltyRule',
     LoyaltyTransaction: 'LoyaltyTransaction',
+    Coupon: 'Coupon',
     Branch: 'Branch',
     Staff: 'Staff',
     UserSession: 'UserSession',
@@ -72,6 +73,9 @@ export const ModelName = {
     Vendor: 'Vendor',
     VendorPayment: 'VendorPayment',
     ProductPurchaseItem: 'ProductPurchaseItem',
+    StockAlert: 'StockAlert',
+    ReorderSuggestion: 'ReorderSuggestion',
+    AuditLog: 'AuditLog',
     RetailSale: 'RetailSale',
     RetailSaleItem: 'RetailSaleItem',
     Expense: 'Expense',
@@ -188,6 +192,24 @@ export const LoyaltyTransactionScalarFieldEnum = {
     note: 'note',
     createdById: 'createdById',
     createdAt: 'createdAt'
+};
+export const CouponScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    couponCode: 'couponCode',
+    name: 'name',
+    description: 'description',
+    discountPercentage: 'discountPercentage',
+    validFrom: 'validFrom',
+    validUntil: 'validUntil',
+    isActive: 'isActive',
+    maxUsageCount: 'maxUsageCount',
+    usedCount: 'usedCount',
+    minInvoiceAmount: 'minInvoiceAmount',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const BranchScalarFieldEnum = {
     id: 'id',
@@ -461,6 +483,9 @@ export const InvoiceScalarFieldEnum = {
     branchId: 'branchId',
     customerId: 'customerId',
     appointmentId: 'appointmentId',
+    couponId: 'couponId',
+    couponCodeSnapshot: 'couponCodeSnapshot',
+    couponDiscountAmount: 'couponDiscountAmount',
     invoiceType: 'invoiceType',
     invoiceDate: 'invoiceDate',
     salonName: 'salonName',
@@ -621,6 +646,49 @@ export const ProductPurchaseItemScalarFieldEnum = {
     totalCost: 'totalCost',
     createdAt: 'createdAt'
 };
+export const StockAlertScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    productId: 'productId',
+    currentStock: 'currentStock',
+    threshold: 'threshold',
+    status: 'status',
+    createdAt: 'createdAt',
+    resolvedAt: 'resolvedAt'
+};
+export const ReorderSuggestionScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    productId: 'productId',
+    vendorId: 'vendorId',
+    suggestedQuantity: 'suggestedQuantity',
+    status: 'status',
+    createdAt: 'createdAt',
+    approvedAt: 'approvedAt',
+    rejectedAt: 'rejectedAt',
+    convertedPurchaseId: 'convertedPurchaseId'
+};
+export const AuditLogScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    userId: 'userId',
+    userName: 'userName',
+    userRole: 'userRole',
+    module: 'module',
+    action: 'action',
+    entityId: 'entityId',
+    entityCode: 'entityCode',
+    entityName: 'entityName',
+    description: 'description',
+    oldData: 'oldData',
+    newData: 'newData',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    createdAt: 'createdAt'
+};
 export const RetailSaleScalarFieldEnum = {
     id: 'id',
     saleCode: 'saleCode',
@@ -717,6 +785,10 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
+    JsonNull: JsonNull
+};
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
@@ -724,4 +796,9 @@ export const QueryMode = {
 export const NullsOrder = {
     first: 'first',
     last: 'last'
+};
+export const JsonNullValueFilter = {
+    DbNull: DbNull,
+    JsonNull: JsonNull,
+    AnyNull: AnyNull
 };

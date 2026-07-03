@@ -1,6 +1,7 @@
 import {} from "express";
 import { PaymentConflictError, PaymentModel } from "./payment.model.js";
 import { InvoiceModel } from "../Invoices/invoice.model.js";
+import { requestAuditContext } from "../audit-logs/audit-log.service.js";
 const PAYMENT_METHODS = ["CASH", "CARD", "UPI", "OTHER"];
 const isValidPaymentMethod = (method) => {
     return PAYMENT_METHODS.includes(method);
@@ -92,6 +93,7 @@ export const createPayment = async (req, res) => {
             ...(note ? { note } : {}),
             ...(finalPaidAt ? { paidAt: finalPaidAt } : {}),
             ...(req.user?.userId ? { createdById: req.user.userId } : {}),
+            ...requestAuditContext(req),
         });
         return res.status(201).json({
             success: true,

@@ -15,6 +15,7 @@ import PageShell from "@/components/salon/PageShell";
 import ResourcePanel from "@/components/salon/ResourcePanel";
 import SchemaModal from "@/components/salon/SchemaModal";
 import StatusBadge from "@/components/salon/StatusBadge";
+import ServiceConsumablesModal from "@/components/salon/ServiceConsumablesModal";
 import { useAuth } from "@/auth/AuthContext";
 import { salonApi } from "@/services/salonApi";
 import { formatMoney, roleCanManage } from "@/utils/salonFormat";
@@ -28,6 +29,7 @@ const ServiceCatalog = () => {
   const [seeding, setSeeding] = useState(false);
   const [seedMessage, setSeedMessage] = useState("");
   const [seedError, setSeedError] = useState("");
+  const [consumableService, setConsumableService] = useState(null);
   const [refs, setRefs] = useState({
     salons: [],
     branches: [],
@@ -212,6 +214,21 @@ const ServiceCatalog = () => {
         )
       : undefined;
 
+  const serviceActions = (row, reload, setError) => (
+    <>
+      <Button
+        size="sm"
+        color="primary"
+        outline
+        onClick={() => setConsumableService(row)}
+      >
+        <Icon name="package-fill" />
+        Consumables
+      </Button>
+      {statusAction(salonApi.services)?.(row, reload, setError)}
+    </>
+  );
+
   return (
     <PageShell
       title="Service catalog"
@@ -359,7 +376,7 @@ const ServiceCatalog = () => {
                   delete createValues.status;
                   return createValues;
                 }}
-                renderActions={statusAction(salonApi.services)}
+                renderActions={serviceActions}
               />
             </Col>
           </Row>
@@ -418,6 +435,13 @@ const ServiceCatalog = () => {
         ]}
         onSubmit={runSeed}
       />
+      {consumableService && (
+        <ServiceConsumablesModal
+          service={consumableService}
+          canManage={canManage}
+          toggle={() => setConsumableService(null)}
+        />
+      )}
     </PageShell>
   );
 };

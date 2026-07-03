@@ -1,4 +1,9 @@
 import { prisma } from "../../config/prisma.js";
+import type {
+  LoyaltyTransactionType,
+  Prisma,
+} from "../../generated/prisma/client.js";
+import { createAuditLog } from "../audit-logs/audit-log.service.js";
 
 const serviceError = (message: string, status: number) =>
   Object.assign(new Error(message), {
@@ -34,7 +39,8 @@ export const findLoyaltyCustomer = (
 
 export const getLoyaltyTransactions = (
   customerId: string,
-  salonId: string
+  salonId: string,
+  limit?: number
 ) => {
   return prisma.loyaltyTransaction.findMany({
     where: {
@@ -58,7 +64,118 @@ export const getLoyaltyTransactions = (
         id: "desc",
       },
     ],
+    ...(limit ? { take: limit } : {}),
   });
+};
+
+const loyaltyTransactionInclude = {
+  customer: {
+    select: {
+      id: true,
+      customerCode: true,
+      name: true,
+      phone: true,
+      salonId: true,
+      branchId: true,
+    },
+  },
+  createdBy: {
+    select: {
+      id: true,
+      name: true,
+      role: true,
+    },
+  },
+} as const;
+
+export const listLoyaltyTransactions = async (input: {
+  page: number;
+  limit: number;
+  skip: number;
+  salonId?: string;
+  branchId?: string;
+  customerId?: string;
+  type?: LoyaltyTransactionType;
+  startDate?: Date;
+  endDate?: Date;
+  referenceType?: string;
+  referenceId?: string;
+  search?: string;
+}) => {
+  const where: Prisma.LoyaltyTransactionWhereInput = {
+    ...(input.salonId ? { salonId: input.salonId } : {}),
+    ...(input.branchId
+      ? { customer: { branchId: input.branchId } }
+      : {}),
+    ...(input.customerId ? { customerId: input.customerId } : {}),
+    ...(input.type ? { type: input.type } : {}),
+    ...(input.referenceType
+      ? { referenceType: input.referenceType }
+      : {}),
+    ...(input.referenceId ? { referenceId: input.referenceId } : {}),
+    ...(input.startDate || input.endDate
+      ? {
+          createdAt: {
+            ...(input.startDate ? { gte: input.startDate } : {}),
+            ...(input.endDate ? { lte: input.endDate } : {}),
+          },
+        }
+      : {}),
+    ...(input.search
+      ? {
+          OR: [
+            {
+              customer: {
+                name: { contains: input.search, mode: "insensitive" },
+              },
+            },
+            {
+              customer: {
+                phone: { contains: input.search, mode: "insensitive" },
+              },
+            },
+            {
+              customer: {
+                customerCode: {
+                  contains: input.search,
+                  mode: "insensitive",
+                },
+              },
+            },
+            {
+              note: { contains: input.search, mode: "insensitive" },
+            },
+            {
+              referenceId: {
+                contains: input.search,
+                mode: "insensitive",
+              },
+            },
+          ],
+        }
+      : {}),
+  };
+
+  const [data, total] = await prisma.$transaction([
+    prisma.loyaltyTransaction.findMany({
+      where,
+      include: loyaltyTransactionInclude,
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      skip: input.skip,
+      take: input.limit,
+    }),
+    prisma.loyaltyTransaction.count({ where }),
+  ]);
+
+  return {
+    data,
+    pagination: {
+      page: input.page,
+      limit: input.limit,
+      total,
+      totalPages: Math.ceil(total / input.limit),
+    },
+  };
 };
 
 export const adjustLoyaltyPoints = async (input: {
@@ -67,6 +184,8 @@ export const adjustLoyaltyPoints = async (input: {
   points: number;
   createdById: string;
   note?: string;
+  ipAddress?: string;
+  userAgent?: string;
 }) => {
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     try {
@@ -136,6 +255,12 @@ export const adjustLoyaltyPoints = async (input: {
               },
             },
           });
+          await createAuditLog({ tx, salonId: input.salonId, userId: input.createdById,
+            module: "LOYALTY", action: "UPDATE", entityId: transaction.id, entityName: customer.name,
+            description: `Admin adjusted ${input.points} loyalty points for customer ${customer.name}`,
+            oldData: { customerId: customer.id, balanceBefore },
+            newData: { customerId: customer.id, points: input.points, balanceAfter, referenceType: "MANUAL_ADJUSTMENT" },
+            ipAddress: input.ipAddress, userAgent: input.userAgent });
 
           return {
             customer: updatedCustomer,

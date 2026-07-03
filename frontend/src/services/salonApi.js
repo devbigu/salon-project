@@ -46,6 +46,41 @@ export const salonApi = {
     transactions: (id) => request(`/api/customers/${id}/transactions`),
     addWallet: (id, body) =>
       request(`/api/customers/${id}/wallet/add`, { method: "POST", body }),
+    setMembership: (id, membershipId) =>
+      request(`/api/customers/${id}/membership`, { method: "PATCH", body: { membershipId } }),
+  },
+  memberships: {
+    list: (query) => request("/api/memberships", { query }),
+    get: (id) => request(`/api/memberships/${id}`),
+    create: (body) => request("/api/memberships", { method: "POST", body }),
+    update: (id, body) => request(`/api/memberships/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/memberships/${id}/status`, { method: "PATCH", body: { status } }),
+    remove: (id) => request(`/api/memberships/${id}`, { method: "DELETE" }),
+  },
+  loyaltyRules: {
+    list: (query) => request("/api/loyalty-rules", { query }),
+    active: (query) => request("/api/loyalty-rules/active", { query }),
+    get: (id) => request(`/api/loyalty-rules/${id}`),
+    create: (body) => request("/api/loyalty-rules", { method: "POST", body }),
+    update: (id, body) => request(`/api/loyalty-rules/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) => request(`/api/loyalty-rules/${id}/status`, { method: "PATCH", body: { status } }),
+  },
+  loyalty: {
+    history: (customerId) => request(`/api/loyalty/customers/${customerId}/transactions`),
+    transactions: (query) => request("/api/loyalty-transactions", { query }),
+    adjust: (customerId, body) => request(`/api/loyalty/customers/${customerId}/adjust`, { method: "POST", body }),
+  },
+  coupons: {
+    list: (query) => request("/api/coupons", { query }),
+    get: (id) => request(`/api/coupons/${id}`),
+    create: (body) => request("/api/coupons", { method: "POST", body }),
+    update: (id, body) => request(`/api/coupons/${id}`, { method: "PUT", body }),
+    setStatus: (id, isActive) =>
+      request(`/api/coupons/${id}/status`, {
+        method: "PATCH",
+        body: { isActive },
+      }),
+    remove: (id) => request(`/api/coupons/${id}`, { method: "DELETE" }),
   },
   mainServices: {
     list: () => request("/api/main-services"),
@@ -75,6 +110,18 @@ export const salonApi = {
       }),
     remove: (id) => request(`/api/services/${id}`, { method: "DELETE" }),
   },
+  serviceConsumables: {
+    list: (serviceId) => request(`/api/services/${serviceId}/consumables`),
+    create: (serviceId, body) =>
+      request(`/api/services/${serviceId}/consumables`, {
+        method: "POST",
+        body,
+      }),
+    update: (id, body) =>
+      request(`/api/service-consumables/${id}`, { method: "PUT", body }),
+    remove: (id) =>
+      request(`/api/service-consumables/${id}`, { method: "DELETE" }),
+  },
   appointments: {
     list: (query) => request("/api/appointments", { query }),
     get: (id) => request(`/api/appointments/${id}`),
@@ -101,6 +148,17 @@ export const salonApi = {
       }),
     cancel: (id) =>
       request(`/api/invoices/${id}/cancel`, { method: "PATCH" }),
+    redeemLoyalty: (id, points) =>
+      request(`/api/invoices/${id}/redeem-loyalty`, { method: "POST", body: { points } }),
+    applyCoupon: (id, couponCode) =>
+      request(`/api/invoices/${id}/apply-coupon`, {
+        method: "POST",
+        body: { couponCode },
+      }),
+    removeCoupon: (id) =>
+      request(`/api/invoices/${id}/remove-coupon`, { method: "POST" }),
+    issue: (id) =>
+      request(`/api/invoices/${id}/issue`, { method: "PATCH" }),
   },
   payments: {
     list: (query) => request("/api/payments", { query }),
@@ -165,6 +223,28 @@ export const salonApi = {
     list: (query) => request("/api/stock-movements", { query }),
     byProduct: (productId) => request(`/api/stock-movements/product/${productId}`),
     createManual: (body) => request("/api/stock-movements/manual", { method: "POST", body }),
+  },
+  stockAlerts: {
+    list: (query) => request("/api/stock-alerts", { query }),
+    get: (id) => request(`/api/stock-alerts/${id}`),
+    resolve: (id) =>
+      request(`/api/stock-alerts/${id}/resolve`, { method: "PATCH" }),
+  },
+  reorderSuggestions: {
+    list: (query) => request("/api/reorder-suggestions", { query }),
+    get: (id) => request(`/api/reorder-suggestions/${id}`),
+    approve: (id) =>
+      request(`/api/reorder-suggestions/${id}/approve`, { method: "PATCH" }),
+    reject: (id) =>
+      request(`/api/reorder-suggestions/${id}/reject`, { method: "PATCH" }),
+    convert: (id) =>
+      request(`/api/reorder-suggestions/${id}/convert-to-purchase`, {
+        method: "POST",
+      }),
+  },
+  auditLogs: {
+    list: (query) => request("/api/audit-logs", { query }),
+    get: (id) => request(`/api/audit-logs/${id}`),
   },
   vendors: {
     list: (query) => request("/api/vendors", { query }),

@@ -1,14 +1,12 @@
-import { randomUUID } from "node:crypto";
 import { type Request, type Response } from "express";
 import { prisma } from "../../config/prisma.js";
 import {
   getSalonId,
   sendInventoryError,
-  transactionError,
   validateBranch,
 } from "../products/inventory-access.js";
 import { ProductPurchaseModel } from "./product-purchase.model.js";
-import { createStockMovement } from "../stock/stockMovement.service.js";
+import { createReceivedProductPurchase } from "./product-purchase.service.js";
 
 type PurchaseItem = { productId: string; quantity: number; unitCost: number };
 const idParam = (req: Request) => typeof req.params.id === "string" ? req.params.id : "";
@@ -52,69 +50,41 @@ export const createProductPurchase = async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, message: "Each product may appear only once per purchase" });
     }
 
-    const data = await prisma.$transaction(async (tx) => {
-      const products = await tx.product.findMany({
-        where: { id: { in: items.map((item) => item.productId) }, salonId },
-      });
-      if (products.length !== items.length) throw transactionError("One or more products were not found", 404);
-      if (branchId && products.some((product) => product.branchId && product.branchId !== branchId)) {
-        throw transactionError("A product does not belong to the selected branch");
-      }
-      const vendor = vendorId
-        ? await tx.vendor.findFirst({ where: { id: vendorId, salonId }, select: { id: true, name: true, phone: true, status: true } })
-        : null;
-      if (vendorId && !vendor) throw transactionError("Vendor not found", 404);
-      if (vendor && !vendor.status) throw transactionError("Vendor is inactive");
-      const total = items.reduce((sum, item) => sum + item.quantity * item.unitCost, 0);
-      const purchaseId = randomUUID();
-      for (const item of [...items].sort((left, right) => left.productId.localeCompare(right.productId))) {
-        await createStockMovement({
-          tx,
-          salonId,
-          ...(branchId ? { branchId } : {}),
-          productId: item.productId,
-          type: "STOCK_IN",
-          quantity: item.quantity,
-          referenceType: "PRODUCT_PURCHASE",
-          referenceId: purchaseId,
-          ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-        });
-        await tx.product.update({
-          where: { id: item.productId },
-          data: { costPrice: item.unitCost },
-        });
-      }
-      const purchase = await tx.productPurchase.create({
-        data: {
-          id: purchaseId,
-          purchaseCode: `PUR-${Date.now()}-${randomUUID().slice(0, 8)}`,
-          salonId,
-          ...(branchId ? { branchId } : {}),
-          ...(vendorId ? { vendorId } : {}),
-          ...(typeof req.body.supplierName === "string" && req.body.supplierName.trim() ? { supplierName: req.body.supplierName.trim() } : vendor?.name ? { supplierName: vendor.name } : {}),
-          ...(typeof req.body.supplierPhone === "string" && req.body.supplierPhone.trim() ? { supplierPhone: req.body.supplierPhone.trim() } : vendor?.phone ? { supplierPhone: vendor.phone } : {}),
-          ...(typeof req.body.invoiceNo === "string" && req.body.invoiceNo.trim() ? { invoiceNo: req.body.invoiceNo.trim() } : {}),
-          ...(purchaseDate ? { purchaseDate } : {}),
-          ...(typeof req.body.note === "string" && req.body.note.trim() ? { note: req.body.note.trim() } : {}),
-          subtotalAmount: total,
-          totalAmount: total,
-          paidAmount: 0,
-          balanceAmount: total,
-          paymentStatus: "UNPAID",
-          ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-          items: {
-            create: items.map((item) => ({
-              productId: item.productId,
-              quantity: item.quantity,
-              unitCost: item.unitCost,
-              totalCost: item.quantity * item.unitCost,
-            })),
-          },
-        },
-      });
-      return purchase.id;
-    });
-    const purchase = await ProductPurchaseModel.find({ id: data, salonId });
+    const data = await prisma.$transaction((tx) =>
+      createReceivedProductPurchase({
+        tx,
+        salonId,
+        ...(branchId ? { branchId } : {}),
+        ...(vendorId ? { vendorId } : {}),
+        ...(typeof req.body.supplierName === "string" &&
+        req.body.supplierName.trim()
+          ? {
+              supplierName: req.body.supplierName.trim(),
+            }
+          : {}),
+        ...(typeof req.body.supplierPhone === "string" &&
+        req.body.supplierPhone.trim()
+          ? {
+              supplierPhone: req.body.supplierPhone.trim(),
+            }
+          : {}),
+        ...(typeof req.body.invoiceNo === "string" &&
+        req.body.invoiceNo.trim()
+          ? {
+              invoiceNo: req.body.invoiceNo.trim(),
+            }
+          : {}),
+        ...(purchaseDate ? { purchaseDate } : {}),
+        ...(typeof req.body.note === "string" && req.body.note.trim()
+          ? {
+              note: req.body.note.trim(),
+            }
+          : {}),
+        ...(req.user?.userId ? { createdById: req.user.userId } : {}),
+        items,
+      })
+    );
+    const purchase = await ProductPurchaseModel.find({ id: data.id, salonId });
     return res.status(201).json({ success: true, data: purchase });
   } catch (error) {
     return sendInventoryError(res, error);

@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma.js";
 import type { LatePenaltyType, SalaryType } from "../../generated/prisma/enums.js";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 const include = {
   staff: { select: { id: true, staffCode: true, name: true, jobRole: true } },
@@ -32,10 +33,10 @@ export const SalaryConfigModel = {
   findStaffByUser: (userId: string) => prisma.staff.findUnique({ where: { userId } }),
   findBranch: (id: string) => prisma.branch.findUnique({ where: { id } }),
 
-  create: (data: SalaryConfigData) =>
-    prisma.$transaction(async (tx) => {
+  create: (data: SalaryConfigData, tx?: Prisma.TransactionClient) => {
+    const run = async (client: Prisma.TransactionClient) => {
       if (data.status !== false) {
-        await tx.staffSalaryConfig.updateMany({
+        await client.staffSalaryConfig.updateMany({
           where: { salonId: data.salonId, staffId: data.staffId, status: true },
           data: {
             status: false,
@@ -44,8 +45,10 @@ export const SalaryConfigModel = {
         });
       }
 
-      return tx.staffSalaryConfig.create({ data, include });
-    }),
+      return client.staffSalaryConfig.create({ data, include });
+    };
+    return tx ? run(tx) : prisma.$transaction(run);
+  },
 
   findActiveForStaff: (staffId: string) =>
     prisma.staffSalaryConfig.findFirst({
@@ -57,18 +60,18 @@ export const SalaryConfigModel = {
   findById: (id: string) =>
     prisma.staffSalaryConfig.findUnique({ where: { id }, include }),
 
-  update: (id: string, data: Partial<Omit<SalaryConfigData, "salonId" | "staffId">>) =>
-    prisma.staffSalaryConfig.update({ where: { id }, data, include }),
+  update: (id: string, data: Partial<Omit<SalaryConfigData, "salonId" | "staffId">>, tx?: Prisma.TransactionClient) =>
+    (tx ?? prisma).staffSalaryConfig.update({ where: { id }, data, include }),
 
-  setStatus: (id: string, salonId: string, staffId: string, status: boolean) =>
-    prisma.$transaction(async (tx) => {
+  setStatus: (id: string, salonId: string, staffId: string, status: boolean, tx?: Prisma.TransactionClient) => {
+    const run = async (client: Prisma.TransactionClient) => {
       if (status) {
-        await tx.staffSalaryConfig.updateMany({
+        await client.staffSalaryConfig.updateMany({
           where: { salonId, staffId, status: true, id: { not: id } },
           data: { status: false, effectiveTo: new Date() },
         });
       }
-      return tx.staffSalaryConfig.update({
+      return client.staffSalaryConfig.update({
         where: { id },
         data: {
           status,
@@ -76,5 +79,7 @@ export const SalaryConfigModel = {
         },
         include,
       });
-    }),
+    };
+    return tx ? run(tx) : prisma.$transaction(run);
+  },
 };

@@ -240,6 +240,68 @@ export const ProductStockMovementType = {
 export type ProductStockMovementType = (typeof ProductStockMovementType)[keyof typeof ProductStockMovementType]
 
 
+export const StockAlertStatus = {
+  OPEN: 'OPEN',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type StockAlertStatus = (typeof StockAlertStatus)[keyof typeof StockAlertStatus]
+
+
+export const ReorderSuggestionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CONVERTED_TO_PURCHASE: 'CONVERTED_TO_PURCHASE'
+} as const
+
+export type ReorderSuggestionStatus = (typeof ReorderSuggestionStatus)[keyof typeof ReorderSuggestionStatus]
+
+
+export const AuditModule = {
+  AUTH: 'AUTH',
+  APPOINTMENT: 'APPOINTMENT',
+  INVOICE: 'INVOICE',
+  PAYMENT: 'PAYMENT',
+  SALARY: 'SALARY',
+  CUSTOMER: 'CUSTOMER',
+  STAFF: 'STAFF',
+  INVENTORY: 'INVENTORY',
+  SUPPORT_TICKET: 'SUPPORT_TICKET',
+  REORDER: 'REORDER',
+  MEMBERSHIP: 'MEMBERSHIP',
+  LOYALTY: 'LOYALTY',
+  COUPON: 'COUPON',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type AuditModule = (typeof AuditModule)[keyof typeof AuditModule]
+
+
+export const AuditAction = {
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FAILED: 'LOGIN_FAILED',
+  LOGOUT: 'LOGOUT',
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  CANCEL: 'CANCEL',
+  COMPLETE: 'COMPLETE',
+  PAYMENT_RECORDED: 'PAYMENT_RECORDED',
+  STOCK_MOVEMENT: 'STOCK_MOVEMENT',
+  SALARY_CHANGED: 'SALARY_CHANGED',
+  SALARY_GENERATED: 'SALARY_GENERATED',
+  SALARY_PAID: 'SALARY_PAID',
+  SUPPORT_RESOLVED: 'SUPPORT_RESOLVED',
+  APPROVE: 'APPROVE',
+  REJECT: 'REJECT',
+  CONVERT: 'CONVERT',
+  STATUS_CHANGE: 'STATUS_CHANGE'
+} as const
+
+export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
+
+
 export const ExpenseCategory = {
   RENT: 'RENT',
   UTILITIES: 'UTILITIES',

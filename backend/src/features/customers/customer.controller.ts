@@ -3,6 +3,8 @@ import { CustomerModel } from "./customer.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { MembershipModel } from "../memberships/membership.model.js";
 import { isUuid } from "../../middlewares/uuid.middleware.js";
+import { prisma } from "../../config/prisma.js";
+import { createAuditLog, requestAuditContext } from "../audit-logs/audit-log.service.js";
 
 const CUSTOMER_STATUSES = ["REGULAR", "PREMIUM", "IRREGULAR"] as const;
 
@@ -398,8 +400,9 @@ export const assignCustomerMembership = async (
 
     const membershipId = req.body.membershipId as string | null;
 
+    let membership: Awaited<ReturnType<typeof MembershipModel.find>> = null;
     if (membershipId) {
-      const membership = await MembershipModel.find(
+      membership = await MembershipModel.find(
         membershipId,
         existingCustomer.salonId
       );
@@ -419,7 +422,19 @@ export const assignCustomerMembership = async (
       }
     }
 
-    const data = await CustomerModel.assignMembership(id, membershipId);
+    const data = await prisma.$transaction(async (tx) => {
+      const updated = await CustomerModel.assignMembership(id, membershipId, tx);
+      await createAuditLog({ tx, salonId: existingCustomer.salonId, branchId: existingCustomer.branchId,
+        userId: req.user?.userId, module: "MEMBERSHIP", action: membershipId ? "UPDATE" : "DELETE",
+        entityId: existingCustomer.id, entityCode: existingCustomer.customerCode, entityName: existingCustomer.name,
+        description: membershipId
+          ? `${req.user?.role === "RECEPTIONIST" ? "Receptionist" : "Admin"} assigned ${membership?.name} membership to customer ${existingCustomer.name}`
+          : `${req.user?.role === "RECEPTIONIST" ? "Receptionist" : "Admin"} removed membership from customer ${existingCustomer.name}`,
+        oldData: { customerId: existingCustomer.id, membershipId: existingCustomer.membershipId },
+        newData: { customerId: existingCustomer.id, membershipId, membershipName: membership?.name ?? null },
+        ...requestAuditContext(req) });
+      return updated;
+    });
 
     return res.status(200).json({
       success: true,

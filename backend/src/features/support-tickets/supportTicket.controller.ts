@@ -11,6 +11,11 @@ import {
   type SupportTicketStatus,
 } from "./supportTicket.model.js";
 import { paginationMeta, parsePagination } from "../../utils/pagination.js";
+import {
+  createAuditLog,
+  requestAuditContext,
+} from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -126,7 +131,8 @@ export const createPublicTicket = async (req: Request, res: Response) => {
     const browserInfo = getString(req.body.browserInfo);
     const errorMessage = getString(req.body.errorMessage);
 
-    const ticket = await SupportTicketModel.createPublicTicket({
+    const ticket = await prisma.$transaction(async (tx) => {
+      const created = await SupportTicketModel.createPublicTicket({
       ticketCode: generateTicketCode(),
       reporterEmail,
       title,
@@ -142,6 +148,19 @@ export const createPublicTicket = async (req: Request, res: Response) => {
       ...(pageUrl ? { pageUrl } : {}),
       ...(browserInfo ? { browserInfo } : {}),
       ...(errorMessage ? { errorMessage } : {}),
+      }, tx);
+      await createAuditLog({
+        tx,
+        module: "SUPPORT_TICKET",
+        action: "CREATE",
+        entityId: created.id,
+        entityCode: created.ticketCode,
+        entityName: created.title,
+        description: `Public support ticket ${created.ticketCode} created`,
+        newData: { status: created.status, category: created.category, priority: created.priority },
+        ...requestAuditContext(req),
+      });
+      return created;
     });
 
     return res.status(201).json({
@@ -254,7 +273,8 @@ export const createTicket = async (req: Request, res: Response) => {
     const browserInfo = getString(req.body.browserInfo);
     const errorMessage = getString(req.body.errorMessage);
 
-    const ticket = await SupportTicketModel.createDashboardTicket({
+    const ticket = await prisma.$transaction(async (tx) => {
+      const created = await SupportTicketModel.createDashboardTicket({
       ticketCode: generateTicketCode(),
       reporterId: userId,
       reporterEmail,
@@ -275,6 +295,22 @@ export const createTicket = async (req: Request, res: Response) => {
       ...(pageUrl ? { pageUrl } : {}),
       ...(browserInfo ? { browserInfo } : {}),
       ...(errorMessage ? { errorMessage } : {}),
+      }, tx);
+      await createAuditLog({
+        tx,
+        salonId: created.salonId,
+        branchId: created.branchId,
+        userId,
+        module: "SUPPORT_TICKET",
+        action: "CREATE",
+        entityId: created.id,
+        entityCode: created.ticketCode,
+        entityName: created.title,
+        description: `Support ticket ${created.ticketCode} created`,
+        newData: { status: created.status, category: created.category, priority: created.priority },
+        ...requestAuditContext(req),
+      });
+      return created;
     });
 
     return res.status(201).json({
@@ -490,12 +526,33 @@ export const updateTicketStatus = async (req: Request, res: Response) => {
     const resolutionNotes = getString(req.body.resolutionNotes);
     const note = getString(req.body.note);
 
-    const updatedTicket = await SupportTicketModel.updateStatusWithHistory(id, {
-      oldStatus: ticket.status,
-      newStatus: status,
-      changedById: req.user!.userId,
-      ...(note ? { note } : {}),
-      ...(resolutionNotes ? { resolutionNotes } : {}),
+    const updatedTicket = await prisma.$transaction(async (tx) => {
+      const updated = await SupportTicketModel.updateStatusWithHistory(id, {
+        oldStatus: ticket.status,
+        newStatus: status,
+        changedById: req.user!.userId,
+        ...(note ? { note } : {}),
+        ...(resolutionNotes ? { resolutionNotes } : {}),
+      }, tx);
+      await createAuditLog({
+      tx,
+      salonId: ticket.salonId,
+      branchId: ticket.branchId,
+      userId: req.user?.userId,
+      module: "SUPPORT_TICKET",
+      action:
+        status === "RESOLVED" || status === "CLOSED"
+          ? "SUPPORT_RESOLVED"
+          : "STATUS_CHANGE",
+      entityId: ticket.id,
+      entityCode: ticket.ticketCode,
+      entityName: ticket.title,
+      description: `Support ticket ${ticket.ticketCode} changed from ${ticket.status} to ${status}`,
+      oldData: { status: ticket.status },
+      newData: { status, resolutionNotes },
+      ...requestAuditContext(req),
+      });
+      return updated;
     });
 
     return res.status(200).json({
@@ -549,10 +606,25 @@ export const assignTicket = async (req: Request, res: Response) => {
       });
     }
 
-    const updatedTicket = await SupportTicketModel.assignTicket(
-      id,
-      assignedToId
-    );
+    const updatedTicket = await prisma.$transaction(async (tx) => {
+      const updated = await SupportTicketModel.assignTicket(id, assignedToId, tx);
+      await createAuditLog({
+        tx,
+        salonId: ticket.salonId,
+        branchId: ticket.branchId,
+        userId: req.user?.userId,
+        module: "SUPPORT_TICKET",
+        action: "UPDATE",
+        entityId: ticket.id,
+        entityCode: ticket.ticketCode,
+        entityName: ticket.title,
+        description: `Support ticket ${ticket.ticketCode} assigned to ${assignee.name}`,
+        oldData: { assignedToId: ticket.assignedToId },
+        newData: { assignedToId },
+        ...requestAuditContext(req),
+      });
+      return updated;
+    });
 
     return res.status(200).json({
       success: true,

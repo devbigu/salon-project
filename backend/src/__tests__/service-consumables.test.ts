@@ -129,9 +129,13 @@ const createFixture = async () => {
       data: {
         staffCode: `ST-${randomUUID()}`,
         name: "Consumables Stylist",
+        email: `stylist-${randomUUID()}@test.com`,
         salonId: salon.id,
         branchId: branch.id,
         jobRole: "Stylist",
+        workingFrom: "09:00",
+        workingTo: "18:00",
+        weekOff: "Sunday",
       },
     }),
   ]);

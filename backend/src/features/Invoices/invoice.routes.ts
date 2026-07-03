@@ -5,7 +5,11 @@ import {
   getInvoices,
   getInvoiceById,
   cancelInvoice,
+  updateInvoice,
   redeemLoyaltyPoints,
+  applyInvoiceCoupon,
+  removeInvoiceCoupon,
+  issueInvoice,
 } from "./invoice.controller.js";
 
 import { authenticate } from "../../middlewares/auth.middleware.js";
@@ -27,8 +31,14 @@ router.post(
 
 router.get(
   "/",
-  requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"),
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"),
   getInvoices
+);
+
+router.put(
+  "/:id",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN"),
+  updateInvoice
 );
 
 router.patch(
@@ -43,9 +53,27 @@ router.post(
   redeemLoyaltyPoints
 );
 
+router.post(
+  "/:id/apply-coupon",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"),
+  applyInvoiceCoupon
+);
+
+router.post(
+  "/:id/remove-coupon",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"),
+  removeInvoiceCoupon
+);
+
+router.patch(
+  "/:id/issue",
+  requireRole("SUPER_ADMIN", "SALON_ADMIN"),
+  issueInvoice
+);
+
 router.get(
   "/:id",
-  requireRole("SUPER_ADMIN", "SALON_ADMIN", "STAFF"),
+  requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"),
   getInvoiceById
 );
 

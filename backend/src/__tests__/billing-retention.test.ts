@@ -248,6 +248,7 @@ describe("Membership discounts and invoice loyalty integration", () => {
       referenceType: "INVOICE",
       referenceId: invoice.body.data.id,
     });
+    expect(await prisma.auditLog.count({ where: { module: "LOYALTY", action: "CREATE", entityCode: invoice.body.data.id } })).toBe(1);
   });
 
   it("does not earn points twice for the same invoice", async () => {
@@ -326,6 +327,7 @@ describe("Membership discounts and invoice loyalty integration", () => {
       referenceType: "INVOICE",
       referenceId: invoice.body.data.id,
     });
+    expect(await prisma.auditLog.count({ where: { module: "LOYALTY", action: "UPDATE", entityCode: invoice.body.data.invoiceCode } })).toBe(1);
   });
 
   it("rejects redemption above the customer's available points", async () => {

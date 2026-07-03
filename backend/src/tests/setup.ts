@@ -3,6 +3,7 @@ import { prisma } from "../config/prisma.js";
 beforeEach(async () => {
   await prisma.$executeRawUnsafe(`
     TRUNCATE TABLE
+      "AuditLog",
       "SupportTicketStatusHistory",
       "SupportTicketMessage",
       "SupportTicket",

@@ -241,6 +241,7 @@ export type VendorWhereInput = {
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   products?: Prisma.ProductListRelationFilter
   productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  reorderSuggestions?: Prisma.ReorderSuggestionListRelationFilter
   vendorPayments?: Prisma.VendorPaymentListRelationFilter
   expenses?: Prisma.ExpenseListRelationFilter
 }
@@ -261,6 +262,7 @@ export type VendorOrderByWithRelationInput = {
   salon?: Prisma.SalonOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
   productPurchases?: Prisma.ProductPurchaseOrderByRelationAggregateInput
+  reorderSuggestions?: Prisma.ReorderSuggestionOrderByRelationAggregateInput
   vendorPayments?: Prisma.VendorPaymentOrderByRelationAggregateInput
   expenses?: Prisma.ExpenseOrderByRelationAggregateInput
 }
@@ -285,6 +287,7 @@ export type VendorWhereUniqueInput = Prisma.AtLeast<{
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   products?: Prisma.ProductListRelationFilter
   productPurchases?: Prisma.ProductPurchaseListRelationFilter
+  reorderSuggestions?: Prisma.ReorderSuggestionListRelationFilter
   vendorPayments?: Prisma.VendorPaymentListRelationFilter
   expenses?: Prisma.ExpenseListRelationFilter
 }, "id" | "salonId_name">
@@ -340,6 +343,7 @@ export type VendorCreateInput = {
   salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
   products?: Prisma.ProductCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
 }
@@ -359,6 +363,7 @@ export type VendorUncheckedCreateInput = {
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
 }
@@ -378,6 +383,7 @@ export type VendorUpdateInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
 }
@@ -397,6 +403,7 @@ export type VendorUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
 }
@@ -603,6 +610,22 @@ export type VendorUpdateOneRequiredWithoutVendorPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VendorUpdateToOneWithWhereWithoutVendorPaymentsInput, Prisma.VendorUpdateWithoutVendorPaymentsInput>, Prisma.VendorUncheckedUpdateWithoutVendorPaymentsInput>
 }
 
+export type VendorCreateNestedOneWithoutReorderSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.VendorCreateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedCreateWithoutReorderSuggestionsInput>
+  connectOrCreate?: Prisma.VendorCreateOrConnectWithoutReorderSuggestionsInput
+  connect?: Prisma.VendorWhereUniqueInput
+}
+
+export type VendorUpdateOneWithoutReorderSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.VendorCreateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedCreateWithoutReorderSuggestionsInput>
+  connectOrCreate?: Prisma.VendorCreateOrConnectWithoutReorderSuggestionsInput
+  upsert?: Prisma.VendorUpsertWithoutReorderSuggestionsInput
+  disconnect?: Prisma.VendorWhereInput | boolean
+  delete?: Prisma.VendorWhereInput | boolean
+  connect?: Prisma.VendorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VendorUpdateToOneWithWhereWithoutReorderSuggestionsInput, Prisma.VendorUpdateWithoutReorderSuggestionsInput>, Prisma.VendorUncheckedUpdateWithoutReorderSuggestionsInput>
+}
+
 export type VendorCreateNestedOneWithoutExpensesInput = {
   create?: Prisma.XOR<Prisma.VendorCreateWithoutExpensesInput, Prisma.VendorUncheckedCreateWithoutExpensesInput>
   connectOrCreate?: Prisma.VendorCreateOrConnectWithoutExpensesInput
@@ -633,6 +656,7 @@ export type VendorCreateWithoutSalonInput = {
   updatedAt?: Date | string
   products?: Prisma.ProductCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
 }
@@ -651,6 +675,7 @@ export type VendorUncheckedCreateWithoutSalonInput = {
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
 }
@@ -713,6 +738,7 @@ export type VendorCreateWithoutProductsInput = {
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
   productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
 }
@@ -731,6 +757,7 @@ export type VendorUncheckedCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
 }
@@ -765,6 +792,7 @@ export type VendorUpdateWithoutProductsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
   productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
 }
@@ -783,6 +811,7 @@ export type VendorUncheckedUpdateWithoutProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
 }
@@ -801,6 +830,7 @@ export type VendorCreateWithoutProductPurchasesInput = {
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
   products?: Prisma.ProductCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
 }
@@ -819,6 +849,7 @@ export type VendorUncheckedCreateWithoutProductPurchasesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
 }
@@ -853,6 +884,7 @@ export type VendorUpdateWithoutProductPurchasesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
 }
@@ -871,6 +903,7 @@ export type VendorUncheckedUpdateWithoutProductPurchasesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
 }
@@ -890,6 +923,7 @@ export type VendorCreateWithoutVendorPaymentsInput = {
   salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
   products?: Prisma.ProductCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
 }
 
@@ -908,6 +942,7 @@ export type VendorUncheckedCreateWithoutVendorPaymentsInput = {
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
 }
 
@@ -942,6 +977,7 @@ export type VendorUpdateWithoutVendorPaymentsInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
 }
 
@@ -960,6 +996,99 @@ export type VendorUncheckedUpdateWithoutVendorPaymentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
+}
+
+export type VendorCreateWithoutReorderSuggestionsInput = {
+  id?: string
+  name: string
+  contactPerson?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  gst?: string | null
+  paymentTerms?: string | null
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
+  products?: Prisma.ProductCreateNestedManyWithoutVendorInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutVendorInput
+}
+
+export type VendorUncheckedCreateWithoutReorderSuggestionsInput = {
+  id?: string
+  salonId: string
+  name: string
+  contactPerson?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  gst?: string | null
+  paymentTerms?: string | null
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVendorInput
+}
+
+export type VendorCreateOrConnectWithoutReorderSuggestionsInput = {
+  where: Prisma.VendorWhereUniqueInput
+  create: Prisma.XOR<Prisma.VendorCreateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedCreateWithoutReorderSuggestionsInput>
+}
+
+export type VendorUpsertWithoutReorderSuggestionsInput = {
+  update: Prisma.XOR<Prisma.VendorUpdateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedUpdateWithoutReorderSuggestionsInput>
+  create: Prisma.XOR<Prisma.VendorCreateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedCreateWithoutReorderSuggestionsInput>
+  where?: Prisma.VendorWhereInput
+}
+
+export type VendorUpdateToOneWithWhereWithoutReorderSuggestionsInput = {
+  where?: Prisma.VendorWhereInput
+  data: Prisma.XOR<Prisma.VendorUpdateWithoutReorderSuggestionsInput, Prisma.VendorUncheckedUpdateWithoutReorderSuggestionsInput>
+}
+
+export type VendorUpdateWithoutReorderSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
+  products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
+}
+
+export type VendorUncheckedUpdateWithoutReorderSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactPerson?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentTerms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
 }
 
@@ -978,6 +1107,7 @@ export type VendorCreateWithoutExpensesInput = {
   salon: Prisma.SalonCreateNestedOneWithoutVendorsInput
   products?: Prisma.ProductCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutVendorInput
 }
 
@@ -996,6 +1126,7 @@ export type VendorUncheckedCreateWithoutExpensesInput = {
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutVendorInput
   productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutVendorInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutVendorInput
   vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutVendorInput
 }
 
@@ -1030,6 +1161,7 @@ export type VendorUpdateWithoutExpensesInput = {
   salon?: Prisma.SalonUpdateOneRequiredWithoutVendorsNestedInput
   products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
 }
 
@@ -1048,6 +1180,7 @@ export type VendorUncheckedUpdateWithoutExpensesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
 }
 
@@ -1079,6 +1212,7 @@ export type VendorUpdateWithoutSalonInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUpdateManyWithoutVendorNestedInput
 }
@@ -1097,6 +1231,7 @@ export type VendorUncheckedUpdateWithoutSalonInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutVendorNestedInput
   productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutVendorNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutVendorNestedInput
   vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutVendorNestedInput
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVendorNestedInput
 }
@@ -1123,6 +1258,7 @@ export type VendorUncheckedUpdateManyWithoutSalonInput = {
 export type VendorCountOutputType = {
   products: number
   productPurchases: number
+  reorderSuggestions: number
   vendorPayments: number
   expenses: number
 }
@@ -1130,6 +1266,7 @@ export type VendorCountOutputType = {
 export type VendorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | VendorCountOutputTypeCountProductsArgs
   productPurchases?: boolean | VendorCountOutputTypeCountProductPurchasesArgs
+  reorderSuggestions?: boolean | VendorCountOutputTypeCountReorderSuggestionsArgs
   vendorPayments?: boolean | VendorCountOutputTypeCountVendorPaymentsArgs
   expenses?: boolean | VendorCountOutputTypeCountExpensesArgs
 }
@@ -1156,6 +1293,13 @@ export type VendorCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types
  */
 export type VendorCountOutputTypeCountProductPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProductPurchaseWhereInput
+}
+
+/**
+ * VendorCountOutputType without action
+ */
+export type VendorCountOutputTypeCountReorderSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReorderSuggestionWhereInput
 }
 
 /**
@@ -1189,6 +1333,7 @@ export type VendorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Vendor$productsArgs<ExtArgs>
   productPurchases?: boolean | Prisma.Vendor$productPurchasesArgs<ExtArgs>
+  reorderSuggestions?: boolean | Prisma.Vendor$reorderSuggestionsArgs<ExtArgs>
   vendorPayments?: boolean | Prisma.Vendor$vendorPaymentsArgs<ExtArgs>
   expenses?: boolean | Prisma.Vendor$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.VendorCountOutputTypeDefaultArgs<ExtArgs>
@@ -1246,6 +1391,7 @@ export type VendorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   products?: boolean | Prisma.Vendor$productsArgs<ExtArgs>
   productPurchases?: boolean | Prisma.Vendor$productPurchasesArgs<ExtArgs>
+  reorderSuggestions?: boolean | Prisma.Vendor$reorderSuggestionsArgs<ExtArgs>
   vendorPayments?: boolean | Prisma.Vendor$vendorPaymentsArgs<ExtArgs>
   expenses?: boolean | Prisma.Vendor$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.VendorCountOutputTypeDefaultArgs<ExtArgs>
@@ -1263,6 +1409,7 @@ export type $VendorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     salon: Prisma.$SalonPayload<ExtArgs>
     products: Prisma.$ProductPayload<ExtArgs>[]
     productPurchases: Prisma.$ProductPurchasePayload<ExtArgs>[]
+    reorderSuggestions: Prisma.$ReorderSuggestionPayload<ExtArgs>[]
     vendorPayments: Prisma.$VendorPaymentPayload<ExtArgs>[]
     expenses: Prisma.$ExpensePayload<ExtArgs>[]
   }
@@ -1676,6 +1823,7 @@ export interface Prisma__VendorClient<T, Null = never, ExtArgs extends runtime.T
   salon<T extends Prisma.SalonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalonDefaultArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   products<T extends Prisma.Vendor$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vendor$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   productPurchases<T extends Prisma.Vendor$productPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vendor$productPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reorderSuggestions<T extends Prisma.Vendor$reorderSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vendor$reorderSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReorderSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vendorPayments<T extends Prisma.Vendor$vendorPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vendor$vendorPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VendorPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   expenses<T extends Prisma.Vendor$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vendor$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2165,6 +2313,30 @@ export type Vendor$productPurchasesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.ProductPurchaseScalarFieldEnum | Prisma.ProductPurchaseScalarFieldEnum[]
+}
+
+/**
+ * Vendor.reorderSuggestions
+ */
+export type Vendor$reorderSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReorderSuggestion
+   */
+  select?: Prisma.ReorderSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReorderSuggestion
+   */
+  omit?: Prisma.ReorderSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReorderSuggestionInclude<ExtArgs> | null
+  where?: Prisma.ReorderSuggestionWhereInput
+  orderBy?: Prisma.ReorderSuggestionOrderByWithRelationInput | Prisma.ReorderSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.ReorderSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReorderSuggestionScalarFieldEnum | Prisma.ReorderSuggestionScalarFieldEnum[]
 }
 
 /**

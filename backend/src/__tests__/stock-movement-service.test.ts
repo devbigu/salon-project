@@ -98,6 +98,15 @@ describe("central stock movement service", () => {
         },
       })
     ).toBe(1);
+    expect(
+      await prisma.auditLog.count({
+        where: {
+          entityId: first.movement.id,
+          module: "INVENTORY",
+          action: "STOCK_MOVEMENT",
+        },
+      })
+    ).toBe(1);
   });
 
   it("supports manual stock-in, stock-out, and damaged movements with exact balances", async () => {

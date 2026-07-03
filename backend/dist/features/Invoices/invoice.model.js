@@ -1,7 +1,7 @@
 import { prisma } from "../../config/prisma.js";
 export const InvoiceModel = {
-    create: async (data) => {
-        return prisma.invoice.create({
+    create: async (data, tx) => {
+        return (tx ?? prisma).invoice.create({
             data: {
                 invoiceCode: data.invoiceCode,
                 salonId: data.salonId,
@@ -86,6 +86,7 @@ export const InvoiceModel = {
                 },
                 items: true,
                 payments: true,
+                coupon: true,
             },
         });
     },
@@ -123,6 +124,7 @@ export const InvoiceModel = {
                 },
                 items: true,
                 payments: true,
+                coupon: true,
             },
             orderBy: {
                 createdAt: "desc",
@@ -166,6 +168,7 @@ export const InvoiceModel = {
                 },
                 items: true,
                 payments: true,
+                coupon: true,
             },
             orderBy: {
                 createdAt: "desc",
@@ -235,6 +238,7 @@ export const InvoiceModel = {
                 },
                 items: true,
                 payments: true,
+                coupon: true,
             },
         });
     },
@@ -283,6 +287,7 @@ export const InvoiceModel = {
                 },
                 items: true,
                 payments: true,
+                coupon: true,
             },
         });
     },
@@ -307,11 +312,12 @@ export const InvoiceModel = {
             include: {
                 items: true,
                 payments: true,
+                coupon: true,
             },
         });
     },
-    cancel: async (id) => {
-        return prisma.invoice.update({
+    cancel: async (id, tx) => {
+        return (tx ?? prisma).invoice.update({
             where: {
                 id,
             },
@@ -320,4 +326,9 @@ export const InvoiceModel = {
             },
         });
     },
+    updateSafeFields: async (id, data, tx) => tx.invoice.update({
+        where: { id },
+        data,
+        include: { items: true, payments: true, coupon: true },
+    }),
 };

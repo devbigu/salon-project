@@ -239,6 +239,7 @@ export type UserWhereInput = {
   salePaymentsReceived?: Prisma.SalePaymentListRelationFilter
   staffProfile?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   sessions?: Prisma.UserSessionListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
   salon?: Prisma.XOR<Prisma.SalonNullableScalarRelationFilter, Prisma.SalonWhereInput> | null
   reportedSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
@@ -253,6 +254,7 @@ export type UserWhereInput = {
   approvedLeaves?: Prisma.StaffLeaveListRelationFilter
   paidSalarySlips?: Prisma.SalarySlipListRelationFilter
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionListRelationFilter
+  createdCoupons?: Prisma.CouponListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -276,6 +278,7 @@ export type UserOrderByWithRelationInput = {
   salePaymentsReceived?: Prisma.SalePaymentOrderByRelationAggregateInput
   staffProfile?: Prisma.StaffOrderByWithRelationInput
   sessions?: Prisma.UserSessionOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   salon?: Prisma.SalonOrderByWithRelationInput
   reportedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
   assignedSupportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
@@ -290,6 +293,7 @@ export type UserOrderByWithRelationInput = {
   approvedLeaves?: Prisma.StaffLeaveOrderByRelationAggregateInput
   paidSalarySlips?: Prisma.SalarySlipOrderByRelationAggregateInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionOrderByRelationAggregateInput
+  createdCoupons?: Prisma.CouponOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -316,6 +320,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   salePaymentsReceived?: Prisma.SalePaymentListRelationFilter
   staffProfile?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
   sessions?: Prisma.UserSessionListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
   salon?: Prisma.XOR<Prisma.SalonNullableScalarRelationFilter, Prisma.SalonWhereInput> | null
   reportedSupportTickets?: Prisma.SupportTicketListRelationFilter
   assignedSupportTickets?: Prisma.SupportTicketListRelationFilter
@@ -330,6 +335,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   approvedLeaves?: Prisma.StaffLeaveListRelationFilter
   paidSalarySlips?: Prisma.SalarySlipListRelationFilter
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionListRelationFilter
+  createdCoupons?: Prisma.CouponListRelationFilter
 }, "id" | "email" | "phone_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -385,6 +391,7 @@ export type UserCreateInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -399,6 +406,7 @@ export type UserCreateInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -421,6 +429,7 @@ export type UserUncheckedCreateInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -434,6 +443,7 @@ export type UserUncheckedCreateInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -455,6 +465,7 @@ export type UserUpdateInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -469,6 +480,7 @@ export type UserUpdateInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -491,6 +503,7 @@ export type UserUncheckedUpdateInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -504,6 +517,7 @@ export type UserUncheckedUpdateInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -672,6 +686,22 @@ export type UserUpdateOneWithoutCreatedLoyaltyTransactionsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedLoyaltyTransactionsInput, Prisma.UserUpdateWithoutCreatedLoyaltyTransactionsInput>, Prisma.UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedCouponsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCouponsInput, Prisma.UserUncheckedCreateWithoutCreatedCouponsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCouponsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCreatedCouponsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedCouponsInput, Prisma.UserUncheckedCreateWithoutCreatedCouponsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedCouponsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedCouponsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedCouponsInput, Prisma.UserUpdateWithoutCreatedCouponsInput>, Prisma.UserUncheckedUpdateWithoutCreatedCouponsInput>
 }
 
 export type UserCreateNestedManyWithoutBranchInput = {
@@ -938,6 +968,22 @@ export type UserUpdateOneWithoutCreatedVendorPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedVendorPaymentsInput, Prisma.UserUpdateWithoutCreatedVendorPaymentsInput>, Prisma.UserUncheckedUpdateWithoutCreatedVendorPaymentsInput>
 }
 
+export type UserCreateNestedOneWithoutAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
 export type UserCreateNestedOneWithoutCreatedRetailSalesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedRetailSalesInput, Prisma.UserUncheckedCreateWithoutCreatedRetailSalesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedRetailSalesInput
@@ -1053,6 +1099,7 @@ export type UserCreateWithoutSalonInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
@@ -1066,6 +1113,7 @@ export type UserCreateWithoutSalonInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSalonInput = {
@@ -1087,6 +1135,7 @@ export type UserUncheckedCreateWithoutSalonInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1100,6 +1149,7 @@ export type UserUncheckedCreateWithoutSalonInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSalonInput = {
@@ -1164,6 +1214,7 @@ export type UserCreateWithoutCreatedLoyaltyTransactionsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1177,6 +1228,7 @@ export type UserCreateWithoutCreatedLoyaltyTransactionsInput = {
   markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLoyaltyTransactionsInput = {
@@ -1199,6 +1251,7 @@ export type UserUncheckedCreateWithoutCreatedLoyaltyTransactionsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1211,6 +1264,7 @@ export type UserUncheckedCreateWithoutCreatedLoyaltyTransactionsInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLoyaltyTransactionsInput = {
@@ -1248,6 +1302,7 @@ export type UserUpdateWithoutCreatedLoyaltyTransactionsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -1261,6 +1316,7 @@ export type UserUpdateWithoutCreatedLoyaltyTransactionsInput = {
   markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput = {
@@ -1283,6 +1339,7 @@ export type UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1295,6 +1352,167 @@ export type UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedCouponsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedCouponsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedCouponsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCouponsInput, Prisma.UserUncheckedCreateWithoutCreatedCouponsInput>
+}
+
+export type UserUpsertWithoutCreatedCouponsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCouponsInput, Prisma.UserUncheckedUpdateWithoutCreatedCouponsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedCouponsInput, Prisma.UserUncheckedCreateWithoutCreatedCouponsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedCouponsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedCouponsInput, Prisma.UserUncheckedUpdateWithoutCreatedCouponsInput>
+}
+
+export type UserUpdateWithoutCreatedCouponsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedCouponsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutBranchInput = {
@@ -1315,6 +1533,7 @@ export type UserCreateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1329,6 +1548,7 @@ export type UserCreateWithoutBranchInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutBranchInput = {
@@ -1350,6 +1570,7 @@ export type UserUncheckedCreateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1363,6 +1584,7 @@ export type UserUncheckedCreateWithoutBranchInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutBranchInput = {
@@ -1409,6 +1631,7 @@ export type UserCreateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1423,6 +1646,7 @@ export type UserCreateWithoutStaffProfileInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutStaffProfileInput = {
@@ -1444,6 +1668,7 @@ export type UserUncheckedCreateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1457,6 +1682,7 @@ export type UserUncheckedCreateWithoutStaffProfileInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutStaffProfileInput = {
@@ -1493,6 +1719,7 @@ export type UserUpdateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -1507,6 +1734,7 @@ export type UserUpdateWithoutStaffProfileInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStaffProfileInput = {
@@ -1528,6 +1756,7 @@ export type UserUncheckedUpdateWithoutStaffProfileInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1541,6 +1770,7 @@ export type UserUncheckedUpdateWithoutStaffProfileInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1561,6 +1791,7 @@ export type UserCreateWithoutSessionsInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1575,6 +1806,7 @@ export type UserCreateWithoutSessionsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1596,6 +1828,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1609,6 +1842,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1645,6 +1879,7 @@ export type UserUpdateWithoutSessionsInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -1659,6 +1894,7 @@ export type UserUpdateWithoutSessionsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1680,6 +1916,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1693,6 +1930,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutMarkedAttendancesInput = {
@@ -1714,6 +1952,7 @@ export type UserCreateWithoutMarkedAttendancesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1727,6 +1966,7 @@ export type UserCreateWithoutMarkedAttendancesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutMarkedAttendancesInput = {
@@ -1749,6 +1989,7 @@ export type UserUncheckedCreateWithoutMarkedAttendancesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1761,6 +2002,7 @@ export type UserUncheckedCreateWithoutMarkedAttendancesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutMarkedAttendancesInput = {
@@ -1798,6 +2040,7 @@ export type UserUpdateWithoutMarkedAttendancesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -1811,6 +2054,7 @@ export type UserUpdateWithoutMarkedAttendancesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMarkedAttendancesInput = {
@@ -1833,6 +2077,7 @@ export type UserUncheckedUpdateWithoutMarkedAttendancesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1845,6 +2090,7 @@ export type UserUncheckedUpdateWithoutMarkedAttendancesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutApprovedLeavesInput = {
@@ -1866,6 +2112,7 @@ export type UserCreateWithoutApprovedLeavesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -1879,6 +2126,7 @@ export type UserCreateWithoutApprovedLeavesInput = {
   markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedLeavesInput = {
@@ -1901,6 +2149,7 @@ export type UserUncheckedCreateWithoutApprovedLeavesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -1913,6 +2162,7 @@ export type UserUncheckedCreateWithoutApprovedLeavesInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedLeavesInput = {
@@ -1950,6 +2200,7 @@ export type UserUpdateWithoutApprovedLeavesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -1963,6 +2214,7 @@ export type UserUpdateWithoutApprovedLeavesInput = {
   markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedLeavesInput = {
@@ -1985,6 +2237,7 @@ export type UserUncheckedUpdateWithoutApprovedLeavesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -1997,6 +2250,7 @@ export type UserUncheckedUpdateWithoutApprovedLeavesInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPaidSalarySlipsInput = {
@@ -2018,6 +2272,7 @@ export type UserCreateWithoutPaidSalarySlipsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2031,6 +2286,7 @@ export type UserCreateWithoutPaidSalarySlipsInput = {
   markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPaidSalarySlipsInput = {
@@ -2053,6 +2309,7 @@ export type UserUncheckedCreateWithoutPaidSalarySlipsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2065,6 +2322,7 @@ export type UserUncheckedCreateWithoutPaidSalarySlipsInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPaidSalarySlipsInput = {
@@ -2102,6 +2360,7 @@ export type UserUpdateWithoutPaidSalarySlipsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2115,6 +2374,7 @@ export type UserUpdateWithoutPaidSalarySlipsInput = {
   markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidSalarySlipsInput = {
@@ -2137,6 +2397,7 @@ export type UserUncheckedUpdateWithoutPaidSalarySlipsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2149,6 +2410,7 @@ export type UserUncheckedUpdateWithoutPaidSalarySlipsInput = {
   markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAppointmentsInput = {
@@ -2169,6 +2431,7 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2183,6 +2446,7 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
@@ -2204,6 +2468,7 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2217,6 +2482,7 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAppointmentsInput = {
@@ -2253,6 +2519,7 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2267,6 +2534,7 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
@@ -2288,6 +2556,7 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2301,6 +2570,7 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutAppointmentStatusChangesInput = {
@@ -2321,6 +2591,7 @@ export type UserCreateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2335,6 +2606,7 @@ export type UserCreateWithoutAppointmentStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
@@ -2356,6 +2628,7 @@ export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2369,6 +2642,7 @@ export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAppointmentStatusChangesInput = {
@@ -2405,6 +2679,7 @@ export type UserUpdateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2419,6 +2694,7 @@ export type UserUpdateWithoutAppointmentStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
@@ -2440,6 +2716,7 @@ export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2453,6 +2730,7 @@ export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSalesCreatedInput = {
@@ -2473,6 +2751,7 @@ export type UserCreateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2487,6 +2766,7 @@ export type UserCreateWithoutSalesCreatedInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesCreatedInput = {
@@ -2508,6 +2788,7 @@ export type UserUncheckedCreateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2521,6 +2802,7 @@ export type UserUncheckedCreateWithoutSalesCreatedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesCreatedInput = {
@@ -2546,6 +2828,7 @@ export type UserCreateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2560,6 +2843,7 @@ export type UserCreateWithoutSalesEditedInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesEditedInput = {
@@ -2581,6 +2865,7 @@ export type UserUncheckedCreateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2594,6 +2879,7 @@ export type UserUncheckedCreateWithoutSalesEditedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesEditedInput = {
@@ -2619,6 +2905,7 @@ export type UserCreateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2633,6 +2920,7 @@ export type UserCreateWithoutSalesDeletedInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesDeletedInput = {
@@ -2654,6 +2942,7 @@ export type UserUncheckedCreateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2667,6 +2956,7 @@ export type UserUncheckedCreateWithoutSalesDeletedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesDeletedInput = {
@@ -2703,6 +2993,7 @@ export type UserUpdateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2717,6 +3008,7 @@ export type UserUpdateWithoutSalesCreatedInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesCreatedInput = {
@@ -2738,6 +3030,7 @@ export type UserUncheckedUpdateWithoutSalesCreatedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2751,6 +3044,7 @@ export type UserUncheckedUpdateWithoutSalesCreatedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutSalesEditedInput = {
@@ -2782,6 +3076,7 @@ export type UserUpdateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2796,6 +3091,7 @@ export type UserUpdateWithoutSalesEditedInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesEditedInput = {
@@ -2817,6 +3113,7 @@ export type UserUncheckedUpdateWithoutSalesEditedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2830,6 +3127,7 @@ export type UserUncheckedUpdateWithoutSalesEditedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutSalesDeletedInput = {
@@ -2861,6 +3159,7 @@ export type UserUpdateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -2875,6 +3174,7 @@ export type UserUpdateWithoutSalesDeletedInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesDeletedInput = {
@@ -2896,6 +3196,7 @@ export type UserUncheckedUpdateWithoutSalesDeletedInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -2909,6 +3210,7 @@ export type UserUncheckedUpdateWithoutSalesDeletedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSalePaymentsReceivedInput = {
@@ -2929,6 +3231,7 @@ export type UserCreateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -2943,6 +3246,7 @@ export type UserCreateWithoutSalePaymentsReceivedInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
@@ -2964,6 +3268,7 @@ export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -2977,6 +3282,7 @@ export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSalePaymentsReceivedInput = {
@@ -3013,6 +3319,7 @@ export type UserUpdateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3027,6 +3334,7 @@ export type UserUpdateWithoutSalePaymentsReceivedInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
@@ -3048,6 +3356,7 @@ export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
   salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3061,6 +3370,7 @@ export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedProductStockMovementsInput = {
@@ -3082,6 +3392,7 @@ export type UserCreateWithoutCreatedProductStockMovementsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -3095,6 +3406,7 @@ export type UserCreateWithoutCreatedProductStockMovementsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProductStockMovementsInput = {
@@ -3117,6 +3429,7 @@ export type UserUncheckedCreateWithoutCreatedProductStockMovementsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3129,6 +3442,7 @@ export type UserUncheckedCreateWithoutCreatedProductStockMovementsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProductStockMovementsInput = {
@@ -3166,6 +3480,7 @@ export type UserUpdateWithoutCreatedProductStockMovementsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3179,6 +3494,7 @@ export type UserUpdateWithoutCreatedProductStockMovementsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProductStockMovementsInput = {
@@ -3201,6 +3517,7 @@ export type UserUncheckedUpdateWithoutCreatedProductStockMovementsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3213,6 +3530,7 @@ export type UserUncheckedUpdateWithoutCreatedProductStockMovementsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedProductPurchasesInput = {
@@ -3234,6 +3552,7 @@ export type UserCreateWithoutCreatedProductPurchasesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -3247,6 +3566,7 @@ export type UserCreateWithoutCreatedProductPurchasesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProductPurchasesInput = {
@@ -3269,6 +3589,7 @@ export type UserUncheckedCreateWithoutCreatedProductPurchasesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3281,6 +3602,7 @@ export type UserUncheckedCreateWithoutCreatedProductPurchasesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProductPurchasesInput = {
@@ -3318,6 +3640,7 @@ export type UserUpdateWithoutCreatedProductPurchasesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3331,6 +3654,7 @@ export type UserUpdateWithoutCreatedProductPurchasesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProductPurchasesInput = {
@@ -3353,6 +3677,7 @@ export type UserUncheckedUpdateWithoutCreatedProductPurchasesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3365,6 +3690,7 @@ export type UserUncheckedUpdateWithoutCreatedProductPurchasesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedVendorPaymentsInput = {
@@ -3386,6 +3712,7 @@ export type UserCreateWithoutCreatedVendorPaymentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -3399,6 +3726,7 @@ export type UserCreateWithoutCreatedVendorPaymentsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedVendorPaymentsInput = {
@@ -3421,6 +3749,7 @@ export type UserUncheckedCreateWithoutCreatedVendorPaymentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3433,6 +3762,7 @@ export type UserUncheckedCreateWithoutCreatedVendorPaymentsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedVendorPaymentsInput = {
@@ -3470,6 +3800,7 @@ export type UserUpdateWithoutCreatedVendorPaymentsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3483,9 +3814,170 @@ export type UserUpdateWithoutCreatedVendorPaymentsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedVendorPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutAuditLogsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+}
+
+export type UserUpsertWithoutAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3512,11 +4004,13 @@ export type UserUncheckedUpdateWithoutCreatedVendorPaymentsInput = {
   createdProductStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
   createdProductPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutCreatedByNestedInput
   createdRetailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutCreatedByNestedInput
   createdExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
   markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedRetailSalesInput = {
@@ -3538,6 +4032,7 @@ export type UserCreateWithoutCreatedRetailSalesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -3551,6 +4046,7 @@ export type UserCreateWithoutCreatedRetailSalesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRetailSalesInput = {
@@ -3573,6 +4069,7 @@ export type UserUncheckedCreateWithoutCreatedRetailSalesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3585,6 +4082,7 @@ export type UserUncheckedCreateWithoutCreatedRetailSalesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRetailSalesInput = {
@@ -3622,6 +4120,7 @@ export type UserUpdateWithoutCreatedRetailSalesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3635,6 +4134,7 @@ export type UserUpdateWithoutCreatedRetailSalesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRetailSalesInput = {
@@ -3657,6 +4157,7 @@ export type UserUncheckedUpdateWithoutCreatedRetailSalesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3669,6 +4170,7 @@ export type UserUncheckedUpdateWithoutCreatedRetailSalesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedExpensesInput = {
@@ -3690,6 +4192,7 @@ export type UserCreateWithoutCreatedExpensesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -3703,6 +4206,7 @@ export type UserCreateWithoutCreatedExpensesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedExpensesInput = {
@@ -3725,6 +4229,7 @@ export type UserUncheckedCreateWithoutCreatedExpensesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -3737,6 +4242,7 @@ export type UserUncheckedCreateWithoutCreatedExpensesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedExpensesInput = {
@@ -3774,6 +4280,7 @@ export type UserUpdateWithoutCreatedExpensesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -3787,6 +4294,7 @@ export type UserUpdateWithoutCreatedExpensesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedExpensesInput = {
@@ -3809,6 +4317,7 @@ export type UserUncheckedUpdateWithoutCreatedExpensesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -3821,6 +4330,7 @@ export type UserUncheckedUpdateWithoutCreatedExpensesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutReportedSupportTicketsInput = {
@@ -3842,6 +4352,7 @@ export type UserCreateWithoutReportedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
@@ -3855,6 +4366,7 @@ export type UserCreateWithoutReportedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
@@ -3877,6 +4389,7 @@ export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
@@ -3889,6 +4402,7 @@ export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutReportedSupportTicketsInput = {
@@ -3915,6 +4429,7 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
@@ -3928,6 +4443,7 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
@@ -3950,6 +4466,7 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
@@ -3962,6 +4479,7 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedSupportTicketsInput = {
@@ -3999,6 +4517,7 @@ export type UserUpdateWithoutReportedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
@@ -4012,6 +4531,7 @@ export type UserUpdateWithoutReportedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
@@ -4034,6 +4554,7 @@ export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
@@ -4046,6 +4567,7 @@ export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedSupportTicketsInput = {
@@ -4078,6 +4600,7 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
@@ -4091,6 +4614,7 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
@@ -4113,6 +4637,7 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
@@ -4125,6 +4650,7 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketMessagesInput = {
@@ -4146,6 +4672,7 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -4159,6 +4686,7 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
@@ -4181,6 +4709,7 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
@@ -4193,6 +4722,7 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketMessagesInput = {
@@ -4230,6 +4760,7 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -4243,6 +4774,7 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
@@ -4265,6 +4797,7 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
@@ -4277,6 +4810,7 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketStatusChangesInput = {
@@ -4298,6 +4832,7 @@ export type UserCreateWithoutSupportTicketStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
   reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
@@ -4311,6 +4846,7 @@ export type UserCreateWithoutSupportTicketStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
@@ -4333,6 +4869,7 @@ export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
   staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
@@ -4345,6 +4882,7 @@ export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketStatusChangesInput = {
@@ -4382,6 +4920,7 @@ export type UserUpdateWithoutSupportTicketStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -4395,6 +4934,7 @@ export type UserUpdateWithoutSupportTicketStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
@@ -4417,6 +4957,7 @@ export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4429,6 +4970,7 @@ export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManySalonInput = {
@@ -4463,6 +5005,7 @@ export type UserUpdateWithoutSalonInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
@@ -4476,6 +5019,7 @@ export type UserUpdateWithoutSalonInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalonInput = {
@@ -4497,6 +5041,7 @@ export type UserUncheckedUpdateWithoutSalonInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4510,6 +5055,7 @@ export type UserUncheckedUpdateWithoutSalonInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSalonInput = {
@@ -4556,6 +5102,7 @@ export type UserUpdateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
@@ -4570,6 +5117,7 @@ export type UserUpdateWithoutBranchInput = {
   approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBranchInput = {
@@ -4591,6 +5139,7 @@ export type UserUncheckedUpdateWithoutBranchInput = {
   salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
   staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
   assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
   supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -4604,6 +5153,7 @@ export type UserUncheckedUpdateWithoutBranchInput = {
   approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
   paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
   createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -4632,6 +5182,7 @@ export type UserCountOutputType = {
   salesDeleted: number
   salePaymentsReceived: number
   sessions: number
+  auditLogs: number
   reportedSupportTickets: number
   assignedSupportTickets: number
   supportTicketMessages: number
@@ -4645,6 +5196,7 @@ export type UserCountOutputType = {
   approvedLeaves: number
   paidSalarySlips: number
   createdLoyaltyTransactions: number
+  createdCoupons: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4655,6 +5207,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   salesDeleted?: boolean | UserCountOutputTypeCountSalesDeletedArgs
   salePaymentsReceived?: boolean | UserCountOutputTypeCountSalePaymentsReceivedArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   reportedSupportTickets?: boolean | UserCountOutputTypeCountReportedSupportTicketsArgs
   assignedSupportTickets?: boolean | UserCountOutputTypeCountAssignedSupportTicketsArgs
   supportTicketMessages?: boolean | UserCountOutputTypeCountSupportTicketMessagesArgs
@@ -4668,6 +5221,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   approvedLeaves?: boolean | UserCountOutputTypeCountApprovedLeavesArgs
   paidSalarySlips?: boolean | UserCountOutputTypeCountPaidSalarySlipsArgs
   createdLoyaltyTransactions?: boolean | UserCountOutputTypeCountCreatedLoyaltyTransactionsArgs
+  createdCoupons?: boolean | UserCountOutputTypeCountCreatedCouponsArgs
 }
 
 /**
@@ -4727,6 +5281,13 @@ export type UserCountOutputTypeCountSalePaymentsReceivedArgs<ExtArgs extends run
  */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserSessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
 }
 
 /**
@@ -4820,6 +5381,13 @@ export type UserCountOutputTypeCountCreatedLoyaltyTransactionsArgs<ExtArgs exten
   where?: Prisma.LoyaltyTransactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedCouponsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CouponWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4842,6 +5410,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   salePaymentsReceived?: boolean | Prisma.User$salePaymentsReceivedArgs<ExtArgs>
   staffProfile?: boolean | Prisma.User$staffProfileArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   salon?: boolean | Prisma.User$salonArgs<ExtArgs>
   reportedSupportTickets?: boolean | Prisma.User$reportedSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
@@ -4856,6 +5425,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   approvedLeaves?: boolean | Prisma.User$approvedLeavesArgs<ExtArgs>
   paidSalarySlips?: boolean | Prisma.User$paidSalarySlipsArgs<ExtArgs>
   createdLoyaltyTransactions?: boolean | Prisma.User$createdLoyaltyTransactionsArgs<ExtArgs>
+  createdCoupons?: boolean | Prisma.User$createdCouponsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4916,6 +5486,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   salePaymentsReceived?: boolean | Prisma.User$salePaymentsReceivedArgs<ExtArgs>
   staffProfile?: boolean | Prisma.User$staffProfileArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   salon?: boolean | Prisma.User$salonArgs<ExtArgs>
   reportedSupportTickets?: boolean | Prisma.User$reportedSupportTicketsArgs<ExtArgs>
   assignedSupportTickets?: boolean | Prisma.User$assignedSupportTicketsArgs<ExtArgs>
@@ -4930,6 +5501,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   approvedLeaves?: boolean | Prisma.User$approvedLeavesArgs<ExtArgs>
   paidSalarySlips?: boolean | Prisma.User$paidSalarySlipsArgs<ExtArgs>
   createdLoyaltyTransactions?: boolean | Prisma.User$createdLoyaltyTransactionsArgs<ExtArgs>
+  createdCoupons?: boolean | Prisma.User$createdCouponsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4953,6 +5525,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     salePaymentsReceived: Prisma.$SalePaymentPayload<ExtArgs>[]
     staffProfile: Prisma.$StaffPayload<ExtArgs> | null
     sessions: Prisma.$UserSessionPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     salon: Prisma.$SalonPayload<ExtArgs> | null
     reportedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     assignedSupportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
@@ -4967,6 +5540,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     approvedLeaves: Prisma.$StaffLeavePayload<ExtArgs>[]
     paidSalarySlips: Prisma.$SalarySlipPayload<ExtArgs>[]
     createdLoyaltyTransactions: Prisma.$LoyaltyTransactionPayload<ExtArgs>[]
+    createdCoupons: Prisma.$CouponPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5383,6 +5957,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   salePaymentsReceived<T extends Prisma.User$salePaymentsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salePaymentsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffProfile<T extends Prisma.User$staffProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$staffProfileArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salon<T extends Prisma.User$salonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$salonArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reportedSupportTickets<T extends Prisma.User$reportedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assignedSupportTickets<T extends Prisma.User$assignedSupportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedSupportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5397,6 +5972,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   approvedLeaves<T extends Prisma.User$approvedLeavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedLeavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffLeavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paidSalarySlips<T extends Prisma.User$paidSalarySlipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paidSalarySlipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalarySlipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdLoyaltyTransactions<T extends Prisma.User$createdLoyaltyTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdLoyaltyTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoyaltyTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdCoupons<T extends Prisma.User$createdCouponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCouponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6044,6 +6620,30 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
+ * User.auditLogs
+ */
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
  * User.salon
  */
 export type User$salonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6372,6 +6972,30 @@ export type User$createdLoyaltyTransactionsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.LoyaltyTransactionScalarFieldEnum | Prisma.LoyaltyTransactionScalarFieldEnum[]
+}
+
+/**
+ * User.createdCoupons
+ */
+export type User$createdCouponsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Coupon
+   */
+  select?: Prisma.CouponSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Coupon
+   */
+  omit?: Prisma.CouponOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CouponInclude<ExtArgs> | null
+  where?: Prisma.CouponWhereInput
+  orderBy?: Prisma.CouponOrderByWithRelationInput | Prisma.CouponOrderByWithRelationInput[]
+  cursor?: Prisma.CouponWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CouponScalarFieldEnum | Prisma.CouponScalarFieldEnum[]
 }
 
 /**

@@ -5,7 +5,9 @@ import { comparePass, hashPass } from "../../utils/password.js";
 import { generateAccessToken, generateRefreshToken } from "../../utils/jwt.js";
 import { verifyRefreshToken } from "../../utils/jwt.js";
 import { env } from "../../config/env.js";
-import { createRefreshSession, findActiveRefreshSession, revokeRefreshSession, } from "./session.service.js";
+import { createRefreshSession, findActiveRefreshSession, hashRefreshToken, } from "./session.service.js";
+import { createBestEffortAuditLog, createAuditLog, requestAuditContext, } from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
 const refreshCookieBase = {
     httpOnly: true,
     secure: env.IS_PRODUCTION,
@@ -88,6 +90,14 @@ export const login = async (req, res) => {
         const { email, password } = data.data;
         const user = await UserModel.findByEmail(email);
         if (!user) {
+            await createBestEffortAuditLog({
+                module: "AUTH",
+                action: "LOGIN_FAILED",
+                entityName: email,
+                description: `Failed login attempt for ${email}`,
+                newData: { email, reason: "USER_NOT_FOUND" },
+                ...requestAuditContext(req),
+            });
             return res.status(401).json({
                 success: false,
                 message: "Invalid email or password",
@@ -95,12 +105,40 @@ export const login = async (req, res) => {
         }
         const isPasswordValid = await comparePass(password, user.passwordHash);
         if (!isPasswordValid) {
+            await createBestEffortAuditLog({
+                salonId: user.salonId,
+                branchId: user.branchId,
+                userId: user.id,
+                userName: user.name,
+                userRole: user.role,
+                module: "AUTH",
+                action: "LOGIN_FAILED",
+                entityId: user.id,
+                entityName: user.name,
+                description: `Failed login attempt for ${user.email}`,
+                newData: { email: user.email, reason: "INVALID_CREDENTIALS" },
+                ...requestAuditContext(req),
+            });
             return res.status(401).json({
                 success: false,
                 message: "Invalid email or password",
             });
         }
         if (user.status !== "ACTIVE") {
+            await createBestEffortAuditLog({
+                salonId: user.salonId,
+                branchId: user.branchId,
+                userId: user.id,
+                userName: user.name,
+                userRole: user.role,
+                module: "AUTH",
+                action: "LOGIN_FAILED",
+                entityId: user.id,
+                entityName: user.name,
+                description: `Blocked login attempt for disabled account ${user.email}`,
+                newData: { email: user.email, reason: "ACCOUNT_DISABLED" },
+                ...requestAuditContext(req),
+            });
             return res.status(403).json({
                 success: false,
                 message: "Account is disabled",
@@ -117,6 +155,20 @@ export const login = async (req, res) => {
         await createRefreshSession(user.id, refreshToken);
         const { passwordHash, ...safeUser } = user;
         res.cookie("refreshToken", refreshToken, refreshCookieOptions);
+        await createBestEffortAuditLog({
+            salonId: user.salonId,
+            branchId: user.branchId,
+            userId: user.id,
+            userName: user.name,
+            userRole: user.role,
+            module: "AUTH",
+            action: "LOGIN_SUCCESS",
+            entityId: user.id,
+            entityName: user.name,
+            description: `${user.name} logged in`,
+            newData: { email: user.email, role: user.role },
+            ...requestAuditContext(req),
+        });
         return res.status(200).json({
             success: true,
             message: "Login successful",
@@ -185,9 +237,39 @@ export const refresh = async (req, res) => {
     }
 };
 export const logout = async (req, res) => {
-    if (typeof req.cookies.refreshToken === "string" && req.cookies.refreshToken) {
-        await revokeRefreshSession(req.cookies.refreshToken);
-    }
+    const refreshToken = typeof req.cookies.refreshToken === "string"
+        ? req.cookies.refreshToken
+        : undefined;
+    const session = refreshToken
+        ? await findActiveRefreshSession(refreshToken)
+        : null;
+    await prisma.$transaction(async (tx) => {
+        if (refreshToken) {
+            await tx.userSession.updateMany({
+                where: {
+                    refreshTokenHash: hashRefreshToken(refreshToken),
+                    revokedAt: null,
+                },
+                data: { revokedAt: new Date() },
+            });
+        }
+        await createAuditLog({
+            tx,
+            salonId: session?.user.salonId,
+            branchId: session?.user.branchId,
+            userId: session?.user.id,
+            userName: session?.user.name,
+            userRole: session?.user.role,
+            module: "AUTH",
+            action: "LOGOUT",
+            entityId: session?.user.id,
+            entityName: session?.user.name,
+            description: session?.user
+                ? `${session.user.name} logged out`
+                : "Anonymous logout request",
+            ...requestAuditContext(req),
+        });
+    });
     res.clearCookie("refreshToken", refreshCookieBase);
     return res.status(200).json({
         success: true,

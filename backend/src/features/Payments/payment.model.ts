@@ -1,5 +1,6 @@
 import { prisma } from "../../config/prisma.js";
 import { awardInvoiceLoyaltyInTransaction } from "../Invoices/invoice-retention.service.js";
+import { createAuditLog } from "../audit-logs/audit-log.service.js";
 
 type PaymentMethod = "CASH" | "CARD" | "UPI" | "OTHER";
 type PaymentStatus = "UNPAID" | "PARTIALLY_PAID" | "PAID";
@@ -18,6 +19,8 @@ export const PaymentModel = {
     note?: string;
     paidAt?: Date;
     createdById?: string;
+    ipAddress?: string;
+    userAgent?: string;
   }) => {
     return prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${data.invoiceId} FOR UPDATE`;
@@ -30,6 +33,11 @@ export const PaymentModel = {
       }
       if (lockedInvoice.status === "CANCELLED") {
         throw new PaymentConflictError("Cannot add payment to cancelled invoice");
+      }
+      if (lockedInvoice.status === "DRAFT") {
+        throw new PaymentConflictError(
+          "Draft invoice must be issued before payment"
+        );
       }
       if (lockedInvoice.paymentStatus === "PAID") {
         throw new PaymentConflictError("Invoice is already fully paid");
@@ -142,6 +150,33 @@ export const PaymentModel = {
                 : {}),
             })
           : null;
+
+      await createAuditLog({
+        tx,
+        salonId: data.salonId,
+        branchId: data.branchId,
+        userId: data.createdById,
+        module: "PAYMENT",
+        action: "PAYMENT_RECORDED",
+        entityId: payment.id,
+        entityCode: lockedInvoice.invoiceCode,
+        entityName: payment.customer.name,
+        description: `Payment recorded for invoice ${lockedInvoice.invoiceCode}`,
+        oldData: {
+          paidAmount: currentPaidAmount,
+          balanceAmount: currentBalanceAmount,
+          paymentStatus: lockedInvoice.paymentStatus,
+        },
+        newData: {
+          amount: data.amount,
+          method: data.method,
+          paidAmount: newPaidAmount,
+          balanceAmount: newBalanceAmount,
+          paymentStatus: newPaymentStatus,
+        },
+        ipAddress: data.ipAddress,
+        userAgent: data.userAgent,
+      });
 
       return {
         payment,

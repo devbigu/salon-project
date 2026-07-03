@@ -1,5 +1,7 @@
 import { Prisma, type ProductStockMovementType } from "../../generated/prisma/client.js";
 import { transactionError } from "../products/inventory-access.js";
+import { syncStockLifecycleAfterMovement } from "./stockLifecycle.service.js";
+import { createAuditLog } from "../audit-logs/audit-log.service.js";
 
 type TransactionClient = Prisma.TransactionClient;
 
@@ -167,6 +169,35 @@ export const createStockMovement = async (
       ...(input.createdById ? { createdById: input.createdById } : {}),
     },
   });
+
+  await createAuditLog({
+    tx: input.tx,
+    salonId: input.salonId,
+    branchId: input.branchId ?? product.branchId,
+    userId: input.createdById,
+    module: "INVENTORY",
+    action: "STOCK_MOVEMENT",
+    entityId: movement.id,
+    entityCode: input.referenceId,
+    entityName: updatedProduct.name,
+    description: `${input.type} stock movement recorded for ${updatedProduct.name}`,
+    oldData: { currentStock: stockBefore },
+    newData: {
+      type: input.type,
+      quantity,
+      currentStock: updatedProduct.currentStock,
+      referenceType: input.referenceType,
+      referenceId: input.referenceId,
+      reason: input.reason,
+    },
+  });
+
+  await syncStockLifecycleAfterMovement(
+    input.tx,
+    input.productId,
+    input.salonId,
+    input.branchId ?? product.branchId ?? undefined
+  );
 
   return {
     product: updatedProduct,

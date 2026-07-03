@@ -7,6 +7,19 @@ import {
   InvoiceRetentionError,
   redeemInvoiceLoyalty,
 } from "./invoice-retention.service.js";
+import {
+  createAuditLog,
+  requestAuditContext,
+} from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
+import { Prisma } from "../../generated/prisma/client.js";
+import {
+  CouponServiceError,
+  applyCouponToInvoice,
+  issueInvoice as issueDraftInvoice,
+  removeCouponFromInvoice,
+} from "../coupons/coupon.service.js";
+import { applyCouponSchema } from "../coupons/coupon.validation.js";
 
 
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"] as const;
@@ -58,7 +71,16 @@ const getExistingInvoiceByAccess = async (req: Request, invoiceId: string) => {
     return null;
   }
 
-  return InvoiceModel.findByIdAndSalon(invoiceId, salonId);
+  const invoice = await InvoiceModel.findByIdAndSalon(invoiceId, salonId);
+  if (
+    invoice &&
+    req.user?.role === "RECEPTIONIST" &&
+    req.user.branchId &&
+    invoice.branchId !== req.user.branchId
+  ) {
+    return null;
+  }
+  return invoice;
 };
 
 export const createInvoiceFromAppointment = async (
@@ -73,6 +95,7 @@ export const createInvoiceFromAppointment = async (
       discountAmount,
       processingFeeAmount,
       taxPercent,
+      status,
       billingNote,
       footerNote,
     } = req.body as {
@@ -80,6 +103,7 @@ export const createInvoiceFromAppointment = async (
       discountAmount?: number;
       processingFeeAmount?: number;
       taxPercent?: number;
+      status?: string;
       billingNote?: string;
       footerNote?: string;
     };
@@ -95,6 +119,13 @@ export const createInvoiceFromAppointment = async (
       return res.status(400).json({
         success: false,
         message: "Invalid invoice type",
+      });
+    }
+
+    if (status && !["DRAFT", "ISSUED"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invoice status must be DRAFT or ISSUED",
       });
     }
 
@@ -195,7 +226,8 @@ export const createInvoiceFromAppointment = async (
 
     const totalAmount = Number((taxableAmount + finalTaxAmount).toFixed(2));
 
-    const invoice = await InvoiceModel.create({
+    const invoice = await prisma.$transaction(async (tx) => {
+      const created = await InvoiceModel.create({
       invoiceCode: generateInvoiceCode(),
 
       salonId: appointment.salonId,
@@ -237,7 +269,7 @@ export const createInvoiceFromAppointment = async (
       paidAmount: 0,
       balanceAmount: totalAmount,
 
-      status: "ISSUED",
+      status: status === "DRAFT" ? "DRAFT" : "ISSUED",
       paymentStatus: "UNPAID",
 
       ...(billingNote ? { billingNote } : {}),
@@ -267,15 +299,39 @@ export const createInvoiceFromAppointment = async (
             : Number(item.price),
       })),
       
+      }, tx);
+      await CustomerModel.increaseOutstandingWithTransaction({
+        customerId: created.customerId,
+        salonId: created.salonId,
+        invoiceId: created.id,
+        billNo: created.invoiceCode,
+        amount: Number(created.totalAmount),
+        narration: `Invoice generated: ${created.invoiceCode}`,
+      }, tx);
+
+      await createAuditLog({
+      tx,
+      salonId: created.salonId,
+      branchId: created.branchId,
+      userId: req.user?.userId,
+      module: "INVOICE",
+      action: "CREATE",
+      entityId: created.id,
+      entityCode: created.invoiceCode,
+      entityName: created.customerName,
+      description: `Invoice ${created.invoiceCode} created`,
+      newData: {
+        status: created.status,
+        paymentStatus: created.paymentStatus,
+        subtotalAmount: created.subtotalAmount,
+        discountAmount: created.discountAmount,
+        taxAmount: created.taxAmount,
+        totalAmount: created.totalAmount,
+      },
+      ...requestAuditContext(req),
+      });
+      return created;
     });
-    await CustomerModel.increaseOutstandingWithTransaction({
-  customerId: invoice.customerId,
-  salonId: invoice.salonId,
-  invoiceId: invoice.id,
-  billNo: invoice.invoiceCode,
-  amount: Number(invoice.totalAmount),
-  narration: `Invoice generated: ${invoice.invoiceCode}`,
-});
 
 
     return res.status(201).json({
@@ -331,7 +387,11 @@ export const getInvoices = async (req: Request, res: Response) => {
     }
 
     const invoices = await InvoiceModel.findBySalon(req.user.salonId, {
-      ...(branchId ? { branchId: String(branchId) } : {}),
+      ...(req.user.role === "RECEPTIONIST" && req.user.branchId
+        ? { branchId: req.user.branchId }
+        : branchId
+          ? { branchId: String(branchId) }
+          : {}),
       ...(customerId ? { customerId: String(customerId) } : {}),
       ...(status ? { status: String(status) as InvoiceStatus } : {}),
       ...(paymentStatus
@@ -385,6 +445,133 @@ export const getInvoiceById = async (req: Request, res: Response) => {
   }
 };
 
+const invoiceAuditData = (invoice: {
+  invoiceCode: string; invoiceType: string; discountAmount: unknown; processingFeeAmount: unknown;
+  couponId?: string | null; couponCodeSnapshot?: string | null; couponDiscountAmount?: unknown;
+  taxAmount: unknown; totalAmount: unknown; balanceAmount: unknown;
+  status: string; paymentStatus: string; billingNote: string | null; footerNote: string | null;
+}) => ({
+  invoiceCode: invoice.invoiceCode,
+  invoiceType: invoice.invoiceType,
+  discountAmount: invoice.discountAmount,
+  couponId: invoice.couponId ?? null,
+  couponCode: invoice.couponCodeSnapshot ?? null,
+  couponDiscountAmount: invoice.couponDiscountAmount ?? 0,
+  processingFeeAmount: invoice.processingFeeAmount,
+  taxAmount: invoice.taxAmount,
+  totalAmount: invoice.totalAmount,
+  balanceAmount: invoice.balanceAmount,
+  status: invoice.status,
+  paymentStatus: invoice.paymentStatus,
+  billingNote: invoice.billingNote,
+  footerNote: invoice.footerNote,
+});
+
+export const updateInvoice = async (req: Request, res: Response) => {
+  try {
+    const id = getInvoiceIdParam(req);
+    if (!id) return res.status(400).json({ success: false, message: "Invoice ID is required" });
+    const existing = await getExistingInvoiceByAccess(req, id);
+    if (!existing) return res.status(404).json({ success: false, message: "Invoice not found" });
+    if (existing.status === "CANCELLED") {
+      return res.status(409).json({ success: false, message: "Cancelled invoices cannot be edited" });
+    }
+
+    const allowed = new Set(["discountAmount", "processingFeeAmount", "taxAmount", "billingNote", "footerNote", "invoiceType"]);
+    const keys = Object.keys(req.body);
+    if (!keys.length || keys.some((key) => !allowed.has(key))) {
+      return res.status(400).json({ success: false, message: "Only controlled invoice fields can be edited" });
+    }
+    const monetary = keys.some((key) => ["discountAmount", "processingFeeAmount", "taxAmount", "invoiceType"].includes(key));
+    if (monetary && existing.status !== "DRAFT") {
+      return res.status(409).json({ success: false, message: "Monetary fields can only be edited on draft invoices" });
+    }
+    if (monetary && (Number(existing.paidAmount) > 0 || existing.paymentStatus !== "UNPAID")) {
+      return res.status(409).json({ success: false, message: "Paid or partially paid invoice monetary fields cannot be edited" });
+    }
+    for (const key of ["billingNote", "footerNote"] as const) {
+      if (key in req.body && req.body[key] !== null && typeof req.body[key] !== "string") {
+        return res.status(400).json({ success: false, message: `${key} must be a string or null` });
+      }
+    }
+    if ("invoiceType" in req.body && !isValidInvoiceType(req.body.invoiceType)) {
+      return res.status(400).json({ success: false, message: "Invalid invoice type" });
+    }
+
+    const parseMoney = (key: "discountAmount" | "processingFeeAmount" | "taxAmount", fallback: Prisma.Decimal) => {
+      if (!(key in req.body)) return fallback;
+      try {
+        const value = new Prisma.Decimal(req.body[key]);
+        return value.isNegative() ? null : value.toDecimalPlaces(2);
+      } catch {
+        return null;
+      }
+    };
+    const discount = parseMoney("discountAmount", existing.discountAmount);
+    const fee = parseMoney("processingFeeAmount", existing.processingFeeAmount);
+    const tax = parseMoney("taxAmount", existing.taxAmount);
+    if (!discount || !fee || !tax) {
+      return res.status(400).json({ success: false, message: "Invoice amounts must be valid non-negative numbers" });
+    }
+    if (discount.gt(existing.subtotalAmount)) {
+      return res.status(400).json({ success: false, message: "Discount cannot exceed subtotal" });
+    }
+    const total = existing.subtotalAmount
+      .minus(discount)
+      .minus(existing.couponDiscountAmount)
+      .plus(fee)
+      .plus(tax)
+      .toDecimalPlaces(2);
+    if (total.isNegative()) return res.status(400).json({ success: false, message: "Invoice total cannot be negative" });
+    const balance = total.minus(existing.paidAmount).toDecimalPlaces(2);
+
+    const updated = await prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${id} FOR UPDATE`;
+      const current = await tx.invoice.findUniqueOrThrow({ where: { id } });
+      if (current.status === "CANCELLED") throw Object.assign(new Error("Cancelled invoices cannot be edited"), { status: 409 });
+      if (monetary && (current.status !== "DRAFT" || current.paymentStatus !== "UNPAID" || current.paidAmount.gt(0))) {
+        throw Object.assign(new Error("Invoice is no longer eligible for monetary edits"), { status: 409 });
+      }
+      if (monetary && await tx.customerTransaction.count({ where: { invoiceId: id } })) {
+        throw Object.assign(new Error("Invoice ledger already exists; monetary fields are locked"), { status: 409 });
+      }
+      const invoice = await InvoiceModel.updateSafeFields(id, {
+        ...(monetary ? {
+          discountAmount: discount,
+          processingFeeAmount: fee,
+          taxAmount: tax,
+          totalAmount: total,
+          balanceAmount: balance,
+          paymentStatus: balance.lte(0) ? "PAID" : current.paidAmount.gt(0) ? "PARTIALLY_PAID" : "UNPAID",
+        } : {}),
+        ...(req.body.invoiceType ? { invoiceType: req.body.invoiceType } : {}),
+        ...("billingNote" in req.body ? { billingNote: req.body.billingNote } : {}),
+        ...("footerNote" in req.body ? { footerNote: req.body.footerNote } : {}),
+      }, tx);
+      await createAuditLog({
+        tx,
+        salonId: current.salonId,
+        branchId: current.branchId,
+        userId: req.user?.userId,
+        module: "INVOICE",
+        action: "UPDATE",
+        entityId: current.id,
+        entityCode: current.invoiceCode,
+        entityName: current.customerName,
+        description: `Invoice ${current.invoiceCode} updated`,
+        oldData: invoiceAuditData(current),
+        newData: invoiceAuditData(invoice),
+        ...requestAuditContext(req),
+      });
+      return invoice;
+    });
+    return res.json({ success: true, message: "Invoice updated successfully", data: updated });
+  } catch (error) {
+    const status = typeof error === "object" && error && "status" in error && typeof error.status === "number" ? error.status : 500;
+    return res.status(status).json({ success: false, message: error instanceof Error && status !== 500 ? error.message : "Internal server error" });
+  }
+};
+
 export const cancelInvoice = async (req: Request, res: Response) => {
   try {
     const id = getInvoiceIdParam(req);
@@ -412,7 +599,47 @@ export const cancelInvoice = async (req: Request, res: Response) => {
       });
     }
 
-    const invoice = await InvoiceModel.cancel(id);
+    const invoice = await prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${id} FOR UPDATE`;
+      const current = await tx.invoice.findUniqueOrThrow({
+        where: { id },
+      });
+      if (current.status === "CANCELLED") {
+        throw Object.assign(new Error("Invoice is already cancelled"), {
+          status: 409,
+        });
+      }
+      if (current.paymentStatus !== "UNPAID") {
+        throw Object.assign(
+          new Error("Paid or partially paid invoice cannot be cancelled"),
+          { status: 400 }
+        );
+      }
+      if (current.couponId && current.status === "ISSUED") {
+        await tx.$queryRaw`SELECT "id" FROM "Coupon" WHERE "id" = ${current.couponId} FOR UPDATE`;
+        await tx.coupon.updateMany({
+          where: { id: current.couponId, usedCount: { gt: 0 } },
+          data: { usedCount: { decrement: 1 } },
+        });
+      }
+      const cancelled = await InvoiceModel.cancel(id, tx);
+      await createAuditLog({
+      tx,
+      salonId: existingInvoice.salonId,
+      branchId: existingInvoice.branchId,
+      userId: req.user?.userId,
+      module: "INVOICE",
+      action: "CANCEL",
+      entityId: cancelled.id,
+      entityCode: cancelled.invoiceCode,
+      entityName: cancelled.customerName,
+      description: `Invoice ${cancelled.invoiceCode} cancelled`,
+      oldData: { status: existingInvoice.status },
+      newData: { status: cancelled.status },
+      ...requestAuditContext(req),
+      });
+      return cancelled;
+    });
 
     return res.status(200).json({
       success: true,
@@ -420,10 +647,130 @@ export const cancelInvoice = async (req: Request, res: Response) => {
       data: invoice,
     });
   } catch (error) {
-    return res.status(500).json({
+    const status =
+      typeof error === "object" &&
+      error !== null &&
+      "status" in error &&
+      typeof error.status === "number"
+        ? error.status
+        : 500;
+    return res.status(status).json({
       success: false,
-      message: "Internal server error",
+      message:
+        error instanceof Error && status !== 500
+          ? error.message
+          : "Internal server error",
     });
+  }
+};
+
+const invoiceCouponAccess = (req: Request) => ({
+  ...(req.user?.role === "SUPER_ADMIN"
+    ? {}
+    : { salonId: req.user?.salonId ?? "__missing__" }),
+  ...((req.user?.role === "RECEPTIONIST" ||
+    req.user?.role === "BRANCH_MANAGER") &&
+  req.user.branchId
+    ? { actorBranchId: req.user.branchId }
+    : {}),
+});
+
+const sendCouponError = (res: Response, error: unknown) => {
+  if (error instanceof CouponServiceError) {
+    return res.status(error.status).json({
+      success: false,
+      message: error.message,
+    });
+  }
+  return res.status(500).json({
+    success: false,
+    message: "Internal server error",
+  });
+};
+
+export const applyInvoiceCoupon = async (req: Request, res: Response) => {
+  try {
+    const id = getInvoiceIdParam(req);
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Invoice ID is required",
+      });
+    }
+    const parsed = applyCouponSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        success: false,
+        message:
+          parsed.error.issues[0]?.message ?? "Invalid coupon data",
+      });
+    }
+    const data = await applyCouponToInvoice({
+      invoiceId: id,
+      couponCode: parsed.data.couponCode,
+      ...invoiceCouponAccess(req),
+      ...(req.user?.userId ? { userId: req.user.userId } : {}),
+      ...requestAuditContext(req),
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Coupon applied successfully",
+      data,
+    });
+  } catch (error) {
+    return sendCouponError(res, error);
+  }
+};
+
+export const removeInvoiceCoupon = async (req: Request, res: Response) => {
+  try {
+    const id = getInvoiceIdParam(req);
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Invoice ID is required",
+      });
+    }
+    const data = await removeCouponFromInvoice({
+      invoiceId: id,
+      ...invoiceCouponAccess(req),
+      ...(req.user?.userId ? { userId: req.user.userId } : {}),
+      ...requestAuditContext(req),
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Coupon removed successfully",
+      data,
+    });
+  } catch (error) {
+    return sendCouponError(res, error);
+  }
+};
+
+export const issueInvoice = async (req: Request, res: Response) => {
+  try {
+    const id = getInvoiceIdParam(req);
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Invoice ID is required",
+      });
+    }
+    const data = await issueDraftInvoice({
+      invoiceId: id,
+      ...(req.user?.role === "SUPER_ADMIN"
+        ? {}
+        : { salonId: req.user?.salonId ?? "__missing__" }),
+      ...(req.user?.userId ? { userId: req.user.userId } : {}),
+      ...requestAuditContext(req),
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Invoice issued successfully",
+      data,
+    });
+  } catch (error) {
+    return sendCouponError(res, error);
   }
 };
 
@@ -466,6 +813,7 @@ export const redeemLoyaltyPoints = async (req: Request, res: Response) => {
         : { salonId: req.user.salonId || "__missing__" }),
       points,
       createdById: req.user.userId,
+      ...requestAuditContext(req),
     });
 
     return res.status(200).json({

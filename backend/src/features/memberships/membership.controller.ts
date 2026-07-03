@@ -1,6 +1,13 @@
 import { type Request, type Response } from "express";
 import { cleanText, getSalonId } from "../products/inventory-access.js";
 import { MembershipModel } from "./membership.model.js";
+import { prisma } from "../../config/prisma.js";
+import { createAuditLog, requestAuditContext } from "../audit-logs/audit-log.service.js";
+
+const safeMembership = (value: { id: string; name: string; discountPercentage: unknown; status: boolean }) => ({
+  membershipId: value.id, name: value.name,
+  discountPercentage: value.discountPercentage, status: value.status,
+});
 
 const membershipIdParam = (req: Request) =>
   typeof req.params.id === "string" ? req.params.id : "";
@@ -88,11 +95,13 @@ export const createMembership = async (req: Request, res: Response) => {
       });
     }
 
-    const data = await MembershipModel.create({
-      salonId,
-      name,
-      discountPercentage,
-      ...(description ? { description } : {}),
+    const data = await prisma.$transaction(async (tx) => {
+      const created = await MembershipModel.create({ salonId, name, discountPercentage, ...(description ? { description } : {}) }, tx);
+      await createAuditLog({ tx, salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "CREATE",
+        entityId: created.id, entityName: created.name,
+        description: `Admin created ${created.name} membership with ${Number(created.discountPercentage)}% discount`,
+        newData: safeMembership(created), ...requestAuditContext(req) });
+      return created;
     });
 
     return res.status(201).json({
@@ -200,10 +209,16 @@ export const updateMembership = async (req: Request, res: Response) => {
       });
     }
 
-    const data = await MembershipModel.update(existing.id, {
+    const data = await prisma.$transaction(async (tx) => {
+      const updated = await MembershipModel.update(existing.id, {
       ...(name ? { name } : {}),
       ...(description !== undefined ? { description } : {}),
       ...(discountPercentage !== undefined ? { discountPercentage } : {}),
+      }, tx);
+      await createAuditLog({ tx, salonId: existing.salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "UPDATE",
+        entityId: existing.id, entityName: updated.name, description: `Admin updated ${updated.name} membership`,
+        oldData: safeMembership(existing), newData: safeMembership(updated), ...requestAuditContext(req) });
+      return updated;
     });
 
     return res.status(200).json({
@@ -237,8 +252,13 @@ export const setMembershipStatus = async (req: Request, res: Response) => {
       });
     }
 
-    const data = await MembershipModel.update(existing.id, {
-      status: req.body.status,
+    const data = await prisma.$transaction(async (tx) => {
+      const updated = await MembershipModel.update(existing.id, { status: req.body.status }, tx);
+      await createAuditLog({ tx, salonId: existing.salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "STATUS_CHANGE",
+        entityId: existing.id, entityName: existing.name,
+        description: `Admin ${req.body.status ? "activated" : "deactivated"} ${existing.name} membership`,
+        oldData: { status: existing.status }, newData: { status: updated.status }, ...requestAuditContext(req) });
+      return updated;
     });
 
     return res.status(200).json({
@@ -266,8 +286,12 @@ export const deleteMembership = async (req: Request, res: Response) => {
     }
 
     if (existing._count.customers > 0) {
-      const data = await MembershipModel.update(existing.id, {
-        status: false,
+      const data = await prisma.$transaction(async (tx) => {
+        const updated = await MembershipModel.update(existing.id, { status: false }, tx);
+        await createAuditLog({ tx, salonId: existing.salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "DELETE",
+          entityId: existing.id, entityName: existing.name, description: `Admin soft-deleted ${existing.name} membership`,
+          oldData: safeMembership(existing), newData: { ...safeMembership(updated), status: false }, ...requestAuditContext(req) });
+        return updated;
       });
 
       return res.status(200).json({
@@ -277,7 +301,12 @@ export const deleteMembership = async (req: Request, res: Response) => {
       });
     }
 
-    await MembershipModel.remove(existing.id);
+    await prisma.$transaction(async (tx) => {
+      await MembershipModel.remove(existing.id, tx);
+      await createAuditLog({ tx, salonId: existing.salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "DELETE",
+        entityId: existing.id, entityName: existing.name, description: `Admin deleted ${existing.name} membership`,
+        oldData: safeMembership(existing), ...requestAuditContext(req) });
+    });
     return res.status(200).json({
       success: true,
       message: "Membership deleted successfully",

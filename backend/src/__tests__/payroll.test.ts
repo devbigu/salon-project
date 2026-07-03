@@ -35,6 +35,11 @@ describe("connected staff payroll", () => {
     expect(Number(first.body.data.serviceMinimumWorkThreshold)).toBe(50000);
     expect(Number(first.body.data.retailMinimumSalesThreshold)).toBe(10000);
     expect(Number(second.body.data.baseSalary)).toBe(30000);
+    const updated = await request(app).put(`/api/salary-configs/${second.body.data.id}`).set(auth(f.adminToken)).send(configBody({ baseSalary: 31000, effectiveFrom: "2026-07-01" }));
+    expect(updated.status).toBe(200);
+    const disabled = await request(app).patch(`/api/salary-configs/${second.body.data.id}/status`).set(auth(f.adminToken)).send({ status: false });
+    expect(disabled.status).toBe(200);
+    expect(await prisma.auditLog.count({ where: { salonId: f.salon.id, module: "SALARY", action: "SALARY_CHANGED" } })).toBe(4);
   });
 
   it("credits optional staff on retail sales, decrements stock, and rejects cross-salon attribution", async () => {
@@ -81,6 +86,7 @@ describe("connected staff payroll", () => {
     const pdf = await request(app).get(`/api/salary-slips/${id}/pdf`).set(auth(f.staffToken));
     expect(pdf.status).toBe(200); expect(pdf.headers["content-type"]).toContain("application/pdf");
     expect((await request(app).patch(`/api/salary-slips/${id}/mark-paid`).set(auth(f.adminToken))).status).toBe(200);
+    expect(await prisma.auditLog.count({ where: { entityId: id, action: { in: ["SALARY_GENERATED", "SALARY_PAID"] } } })).toBe(2);
     expect((await request(app).patch(`/api/salary-slips/${id}/mark-paid`).set(auth(f.adminToken))).status).toBe(409);
     expect((await request(app).patch(`/api/salary-slips/${id}/cancel`).set(auth(f.adminToken))).status).toBe(409);
   });
@@ -94,6 +100,8 @@ describe("connected staff payroll", () => {
     const result = await request(app).post("/api/salary-slips/generate").set(auth(f.adminToken)).send({ staffId: f.staff.id, month: 6, year: 2026 });
     expect(result.status).toBe(201); expect(Number(result.body.data.latePenalty)).toBe(30);
     expect(Number(result.body.data.serviceCommissionAmount)).toBe(0); expect(Number(result.body.data.retailCommissionAmount)).toBe(0);
+    expect((await request(app).patch(`/api/salary-slips/${result.body.data.id}/cancel`).set(auth(f.adminToken))).status).toBe(200);
+    expect(await prisma.auditLog.count({ where: { entityId: result.body.data.id, action: { in: ["SALARY_GENERATED", "CANCEL"] } } })).toBe(2);
   });
 
   it("returns a salon-isolated staff performance report", async () => {

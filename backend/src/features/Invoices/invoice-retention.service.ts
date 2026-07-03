@@ -1,5 +1,6 @@
 import { type Prisma } from "../../generated/prisma/client.js";
 import { prisma as prismaClient } from "../../config/prisma.js";
+import { createAuditLog } from "../audit-logs/audit-log.service.js";
 
 export class InvoiceRetentionError extends Error {
   constructor(
@@ -109,6 +110,13 @@ const awardPaidInvoiceLoyalty = async (
       ...(input.createdById ? { createdById: input.createdById } : {}),
     },
   });
+  await createAuditLog({
+    tx, salonId: input.salonId, userId: input.createdById,
+    module: "LOYALTY", action: "CREATE", entityId: transaction.id,
+    entityCode: input.invoiceId,
+    description: `Customer earned ${pointsEarned} loyalty points from invoice ${input.invoiceId}`,
+    newData: { customerId: input.customerId, points: pointsEarned, balanceBefore, balanceAfter, referenceType: "INVOICE", referenceId: input.invoiceId },
+  });
 
   return {
     pointsEarned,
@@ -124,6 +132,8 @@ export const redeemInvoiceLoyalty = async (input: {
   salonId?: string;
   points: number;
   createdById: string;
+  ipAddress?: string;
+  userAgent?: string;
 }) => {
   return prismaClient.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${input.invoiceId} FOR UPDATE`;
@@ -332,6 +342,42 @@ export const redeemInvoiceLoyalty = async (input: {
         balanceAfter: newOutstandingAmount,
         status: "COMPLETE",
       },
+    });
+
+    await createAuditLog({
+      tx,
+      salonId: invoice.salonId,
+      branchId: invoice.branchId,
+      userId: input.createdById,
+      module: "INVOICE",
+      action: "UPDATE",
+      entityId: invoice.id,
+      entityCode: invoice.invoiceCode,
+      entityName: invoice.customerName,
+      description: `Loyalty redemption applied to invoice ${invoice.invoiceCode}`,
+      oldData: {
+        discountAmount: invoice.discountAmount,
+        totalAmount: invoice.totalAmount,
+        balanceAmount: invoice.balanceAmount,
+        paymentStatus: invoice.paymentStatus,
+      },
+      newData: {
+        discountAmount: updatedInvoice.discountAmount,
+        totalAmount: updatedInvoice.totalAmount,
+        balanceAmount: updatedInvoice.balanceAmount,
+        paymentStatus: updatedInvoice.paymentStatus,
+      },
+      ipAddress: input.ipAddress,
+      userAgent: input.userAgent,
+    });
+    await createAuditLog({
+      tx, salonId: invoice.salonId, branchId: invoice.branchId, userId: input.createdById,
+      module: "LOYALTY", action: "UPDATE", entityId: loyaltyTransaction.id,
+      entityCode: invoice.invoiceCode, entityName: invoice.customerName,
+      description: `Customer redeemed ${input.points} loyalty points on invoice ${invoice.invoiceCode}`,
+      oldData: { customerId: customer.id, balanceBefore: loyaltyBalanceBefore },
+      newData: { customerId: customer.id, points: -input.points, balanceAfter: loyaltyBalanceAfter, referenceType: "INVOICE", referenceId: invoice.id },
+      ipAddress: input.ipAddress, userAgent: input.userAgent,
     });
 
     const loyaltyAward =

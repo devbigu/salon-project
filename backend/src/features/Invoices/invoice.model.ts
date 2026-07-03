@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 type InvoiceType = "GST_INVOICE" | "BILL_OF_SUPPLY";
 type InvoiceStatus = "DRAFT" | "ISSUED" | "CANCELLED";
@@ -56,8 +57,8 @@ export const InvoiceModel = {
     footerNote?: string;
 
     items: CreateInvoiceItemInput[];
-  }) => {
-    return prisma.invoice.create({
+  }, tx?: Prisma.TransactionClient) => {
+    return (tx ?? prisma).invoice.create({
       data: {
         invoiceCode: data.invoiceCode,
 
@@ -155,6 +156,7 @@ export const InvoiceModel = {
         },
         items: true,
         payments: true,
+        coupon: true,
       },
     });
   },
@@ -193,6 +195,7 @@ export const InvoiceModel = {
         },
         items: true,
         payments: true,
+        coupon: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -245,6 +248,7 @@ export const InvoiceModel = {
         },
         items: true,
         payments: true,
+        coupon: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -315,6 +319,7 @@ export const InvoiceModel = {
         },
         items: true,
         payments: true,
+        coupon: true,
       },
     });
   },
@@ -364,6 +369,7 @@ export const InvoiceModel = {
         },
         items: true,
         payments: true,
+        coupon: true,
       },
     });
   },
@@ -400,12 +406,13 @@ export const InvoiceModel = {
       include: {
         items: true,
         payments: true,
+        coupon: true,
       },
     });
   },
 
-  cancel: async (id: string) => {
-    return prisma.invoice.update({
+  cancel: async (id: string, tx?: Prisma.TransactionClient) => {
+    return (tx ?? prisma).invoice.update({
       where: {
         id,
       },
@@ -414,4 +421,15 @@ export const InvoiceModel = {
       },
     });
   },
+
+  updateSafeFields: async (
+    id: string,
+    data: Prisma.InvoiceUpdateInput,
+    tx: Prisma.TransactionClient
+  ) =>
+    tx.invoice.update({
+      where: { id },
+      data,
+      include: { items: true, payments: true, coupon: true },
+    }),
 };

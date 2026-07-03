@@ -163,8 +163,8 @@ export const CustomerModel = {
             },
         });
     },
-    assignMembership: async (id, membershipId) => {
-        return prisma.customer.update({
+    assignMembership: async (id, membershipId, tx) => {
+        return (tx ?? prisma).customer.update({
             where: {
                 id,
             },
@@ -250,9 +250,9 @@ export const CustomerModel = {
             },
         });
     },
-    increaseOutstandingWithTransaction: async (data) => {
-        return prisma.$transaction(async (tx) => {
-            const customer = await tx.customer.update({
+    increaseOutstandingWithTransaction: async (data, tx) => {
+        const run = async (client) => {
+            const customer = await client.customer.update({
                 where: {
                     id: data.customerId,
                 },
@@ -262,7 +262,7 @@ export const CustomerModel = {
                     },
                 },
             });
-            const transaction = await tx.customerTransaction.create({
+            const transaction = await client.customerTransaction.create({
                 data: {
                     customerId: data.customerId,
                     salonId: data.salonId,
@@ -280,7 +280,8 @@ export const CustomerModel = {
                 customer,
                 transaction,
             };
-        });
+        };
+        return tx ? run(tx) : prisma.$transaction(run);
     },
     decreaseOutstandingWithTransaction: async (data) => {
         return prisma.$transaction(async (tx) => {

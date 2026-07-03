@@ -125,6 +125,7 @@ describe("Support ticket API", () => {
 
     expect(publicLookup.statusCode).toBe(200);
     expect(publicLookup.body.data.ticketCode).toBe(publicTicketCode);
+    expect(await prisma.auditLog.count({ where: { entityCode: publicTicketCode, action: "CREATE", userId: null } })).toBe(1);
 
     const wrongEmailLookup = await request(app)
       .get(`/api/support-tickets/public/${publicTicketCode}`)
@@ -158,6 +159,7 @@ describe("Support ticket API", () => {
     });
 
     const dashboardTicketId = dashboardCreate.body.data.id as string;
+    expect(await prisma.auditLog.count({ where: { entityId: dashboardTicketId, action: "CREATE" } })).toBe(1);
 
     const myTickets = await request(app)
       .get("/api/support-tickets/my")
@@ -197,6 +199,7 @@ describe("Support ticket API", () => {
 
     expect(assignTicket.statusCode).toBe(200);
     expect(assignTicket.body.data.assignedToId).toBe(superAdmin.id);
+    expect(await prisma.auditLog.count({ where: { entityId: dashboardTicketId, action: "UPDATE" } })).toBe(1);
 
     const inProgress = await request(app)
       .patch(`/api/support-tickets/${dashboardTicketId}/status`)
@@ -230,6 +233,11 @@ describe("Support ticket API", () => {
       status: "RESOLVED",
       resolutionNotes: "Fixed customer create validation issue",
     });
+    expect(
+      await prisma.auditLog.count({
+        where: { entityId: dashboardTicketId, action: "SUPPORT_RESOLVED" },
+      })
+    ).toBe(1);
 
     const closed = await request(app)
       .patch(`/api/support-tickets/${dashboardTicketId}/status`)

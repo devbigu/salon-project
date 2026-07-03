@@ -172,6 +172,7 @@ describe("Memberships and customer membership assignment", () => {
       status: true,
     });
     expect(Number(response.body.data.discountPercentage)).toBe(12.5);
+    expect(await prisma.auditLog.count({ where: { module: "MEMBERSHIP", action: "CREATE", entityId: response.body.data.id } })).toBe(1);
   });
 
   it("rejects a duplicate membership name in the same salon", async () => {
@@ -239,6 +240,7 @@ describe("Memberships and customer membership assignment", () => {
         status: true,
       },
     });
+    expect(await prisma.auditLog.count({ where: { module: "MEMBERSHIP", action: "UPDATE", entityId: customerAId } })).toBe(1);
   });
 
   it("removes a membership from a customer", async () => {

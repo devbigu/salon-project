@@ -22,8 +22,8 @@ export const SalarySlipModel = {
   findStaffByUser: (userId: string) => prisma.staff.findUnique({ where: { userId } }),
   findById: (id: string) =>
     prisma.salarySlip.findUnique({ where: { id }, include: salarySlipInclude }),
-  findUniquePeriod: (salonId: string, staffId: string, month: number, year: number) =>
-    prisma.salarySlip.findUnique({
+  findUniquePeriod: (salonId: string, staffId: string, month: number, year: number, tx?: Prisma.TransactionClient) =>
+    (tx ?? prisma).salarySlip.findUnique({
       where: { salonId_staffId_month_year: { salonId, staffId, month, year } },
     }),
   findMany: (where: Prisma.SalarySlipWhereInput) =>
@@ -34,10 +34,12 @@ export const SalarySlipModel = {
     }),
   saveGenerated: async (
     existingId: string | undefined,
-    data: Prisma.SalarySlipUncheckedCreateInput
+    data: Prisma.SalarySlipUncheckedCreateInput,
+    tx?: Prisma.TransactionClient
   ) => {
+    const client = tx ?? prisma;
     if (existingId) {
-      return prisma.salarySlip.update({
+      return client.salarySlip.update({
         where: { id: existingId },
         data: {
           ...data,
@@ -49,19 +51,21 @@ export const SalarySlipModel = {
         include: salarySlipInclude,
       });
     }
-    return prisma.salarySlip.create({ data, include: salarySlipInclude });
+    return client.salarySlip.create({ data, include: salarySlipInclude });
   },
   transition: async (
     id: string,
     from: SalarySlipStatus[],
-    data: Prisma.SalarySlipUpdateManyMutationInput
+    data: Prisma.SalarySlipUpdateManyMutationInput,
+    tx?: Prisma.TransactionClient
   ) => {
-    const result = await prisma.salarySlip.updateMany({
+    const client = tx ?? prisma;
+    const result = await client.salarySlip.updateMany({
       where: { id, status: { in: from } },
       data,
     });
     return result.count
-      ? prisma.salarySlip.findUnique({ where: { id }, include: salarySlipInclude })
+      ? client.salarySlip.findUnique({ where: { id }, include: salarySlipInclude })
       : null;
   },
 };

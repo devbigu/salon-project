@@ -18,6 +18,13 @@ import StockMovements from "@/pages/salon/StockMovements";
 import Vendors from "@/pages/salon/Vendors";
 import VendorPayments from "@/pages/salon/VendorPayments";
 import LowStock from "@/pages/salon/LowStock";
+import StockAlerts from "@/pages/salon/StockAlerts";
+import ReorderSuggestions from "@/pages/salon/ReorderSuggestions";
+import AuditTrails from "@/pages/salon/AuditTrails";
+import Memberships from "@/pages/salon/Memberships";
+import LoyaltyRules from "@/pages/salon/LoyaltyRules";
+import LoyaltyTransactions from "@/pages/salon/LoyaltyTransactions";
+import Coupons from "@/pages/salon/Coupons";
 import Expenses from "@/pages/salon/Expenses";
 import ExpenseReports from "@/pages/salon/ExpenseReports";
 import InventoryReport from "@/pages/salon/InventoryReport";
@@ -105,12 +112,14 @@ const Router = () => (
                 <Route path="admin/vendors" element={<Vendors />} />
                 <Route path="admin/stock-movements" element={<StockMovements />} />
                 <Route path="admin/low-stock" element={<LowStock />} />
+                <Route path="inventory/stock-alerts" element={<StockAlerts />} />
+                <Route path="inventory/reorder-suggestions" element={<ReorderSuggestions />} />
                 <Route path="reports/inventory" element={<InventoryReport />} />
               </Route>
 
               <Route
                 element={
-                  <RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "STAFF"]} />
+                  <RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"]} />
                 }
               >
                 <Route path="billing" element={<Billing />} />
@@ -139,9 +148,14 @@ const Router = () => (
                 <Route path="reports/expenses" element={<ExpenseReports />} />
                 <Route path="reports/profit-summary" element={<ProfitSummary />} />
               </Route>
-              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"]} />}>
+              <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"]} />}>
+                <Route path="customer-retention/memberships" element={<Memberships />} />
+                <Route path="customer-retention/loyalty-rules" element={<LoyaltyRules />} />
                 <Route path="staff-operations/salary-config" element={<SalaryConfig />} />
                 <Route path="reports/staff-performance" element={<StaffPerformance />} />
+                <Route path="reports/audit-trails" element={<AuditTrails />} />
+                <Route path="customer-retention/loyalty-transactions" element={<LoyaltyTransactions />} />
+                <Route path="customer-retention/coupons" element={<Coupons />} />
               </Route>
               <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "STAFF"]} />}>
                 <Route path="staff-operations/salary-slips" element={<SalarySlips />} />
@@ -150,7 +164,7 @@ const Router = () => (
 
             <Route
               element={
-                <RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "STAFF"]} />
+                <RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"]} />
               }
             >
               <Route element={<LayoutNoSidebar />}>

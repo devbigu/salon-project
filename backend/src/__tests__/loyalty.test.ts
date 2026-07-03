@@ -154,6 +154,7 @@ describe("Loyalty rules and manual loyalty adjustments", () => {
     expect(Number(create.body.data.earnAmountStep)).toBe(100);
     expect(Number(create.body.data.earnPointsPerAmount)).toBe(1);
     expect(Number(create.body.data.redeemValuePerPoint)).toBe(1);
+    expect(await prisma.auditLog.count({ where: { module: "LOYALTY", action: "CREATE", entityId: create.body.data.id } })).toBe(1);
 
     const active = await request(app)
       .get("/api/loyalty-rules/active")
@@ -232,6 +233,7 @@ describe("Loyalty rules and manual loyalty adjustments", () => {
       referenceType: "MANUAL_ADJUSTMENT",
       note: "Service recovery bonus",
     });
+    expect(await prisma.auditLog.count({ where: { module: "LOYALTY", action: "UPDATE", entityId: response.body.data.transaction.id } })).toBe(1);
   });
 
   it("decreases the customer balance with a negative manual adjustment", async () => {
@@ -391,5 +393,127 @@ describe("Loyalty rules and manual loyalty adjustments", () => {
       salonId: salonBId,
       loyaltyPoints: 5,
     });
+  });
+
+  it("paginates and server-filters the global loyalty transaction list", async () => {
+    await prisma.loyaltyTransaction.createMany({
+      data: [
+        {
+          salonId: salonAId,
+          customerId: customerAId,
+          type: "EARNED",
+          points: 10,
+          balanceBefore: 0,
+          balanceAfter: 10,
+          referenceType: "INVOICE",
+          referenceId: "INV-SEARCH-ONE",
+          note: "Birthday reward",
+          createdAt: new Date("2030-01-10T10:00:00.000Z"),
+        },
+        {
+          salonId: salonAId,
+          customerId: customerAId,
+          type: "REDEEMED",
+          points: -2,
+          balanceBefore: 10,
+          balanceAfter: 8,
+          referenceType: "INVOICE",
+          referenceId: "INV-SEARCH-TWO",
+          createdAt: new Date("2030-02-10T10:00:00.000Z"),
+        },
+        {
+          salonId: salonAId,
+          customerId: customerAId,
+          type: "ADJUSTED",
+          points: 5,
+          balanceBefore: 8,
+          balanceAfter: 13,
+          referenceType: "MANUAL_ADJUSTMENT",
+          note: "Service recovery",
+          createdAt: new Date("2030-03-10T10:00:00.000Z"),
+        },
+      ],
+    });
+
+    const page = await request(app)
+      .get("/api/loyalty-transactions?page=2&limit=1")
+      .set(auth(salonAdminToken));
+    expect(page.status).toBe(200);
+    expect(page.body.data).toHaveLength(1);
+    expect(page.body.pagination).toEqual({
+      page: 2,
+      limit: 1,
+      total: 3,
+      totalPages: 3,
+    });
+
+    const byCustomerAndType = await request(app)
+      .get(
+        `/api/loyalty-transactions?customerId=${customerAId}&type=EARNED`
+      )
+      .set(auth(salonAdminToken));
+    expect(byCustomerAndType.status).toBe(200);
+    expect(byCustomerAndType.body.data).toHaveLength(1);
+    expect(byCustomerAndType.body.data[0]).toMatchObject({
+      customerId: customerAId,
+      type: "EARNED",
+    });
+
+    const byDate = await request(app)
+      .get(
+        "/api/loyalty-transactions?startDate=2030-02-01&endDate=2030-02-28"
+      )
+      .set(auth(salonAdminToken));
+    expect(byDate.status).toBe(200);
+    expect(byDate.body.data).toHaveLength(1);
+    expect(byDate.body.data[0].type).toBe("REDEEMED");
+
+    for (const search of [
+      "Loyalty Customer A",
+      "LOY-A-",
+      "Birthday reward",
+      "INV-SEARCH-ONE",
+    ]) {
+      const result = await request(app)
+        .get(`/api/loyalty-transactions?search=${encodeURIComponent(search)}`)
+        .set(auth(salonAdminToken));
+      expect(result.status).toBe(200);
+      expect(result.body.data.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("isolates global loyalty history by salon and blocks staff", async () => {
+    await prisma.loyaltyTransaction.createMany({
+      data: [
+        {
+          salonId: salonAId,
+          customerId: customerAId,
+          type: "ADJUSTED",
+          points: 1,
+          balanceBefore: 0,
+          balanceAfter: 1,
+        },
+        {
+          salonId: salonBId,
+          customerId: customerBId,
+          type: "ADJUSTED",
+          points: 1,
+          balanceBefore: 0,
+          balanceAfter: 1,
+        },
+      ],
+    });
+
+    const admin = await request(app)
+      .get("/api/loyalty-transactions")
+      .set(auth(salonAdminToken));
+    expect(admin.status).toBe(200);
+    expect(admin.body.data).toHaveLength(1);
+    expect(admin.body.data[0].salonId).toBe(salonAId);
+
+    const staff = await request(app)
+      .get("/api/loyalty-transactions")
+      .set(auth(staffToken));
+    expect(staff.status).toBe(403);
   });
 });

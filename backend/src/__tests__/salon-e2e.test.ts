@@ -366,6 +366,11 @@ describe("Salon SaaS backend E2E flow", () => {
     expect(new Date(appointmentA.endTime).toISOString()).toBe(
       "2030-01-01T10:45:00.000Z"
     );
+    expect(
+      await prisma.auditLog.count({
+        where: { entityId: appointmentAId, module: "APPOINTMENT", action: "CREATE" },
+      })
+    ).toBe(1);
 
     const invalidStatusJump = await request(app)
       .patch(`/api/appointments/${appointmentAId}/status`)
@@ -419,6 +424,12 @@ describe("Salon SaaS backend E2E flow", () => {
       .set(auth(salonAdminToken))
       .send({ startTime: "2030-01-01T12:30:00.000Z" });
     expectSuccess(reschedule, 200);
+    const basicUpdate = await request(app)
+      .put(`/api/appointments/${appointmentBId}`)
+      .set(auth(salonAdminToken))
+      .send({ bookingNote: "Updated safely" });
+    expectSuccess(basicUpdate, 200);
+    expect(await prisma.auditLog.count({ where: { entityId: appointmentBId, action: "UPDATE" } })).toBe(2);
 
     for (const status of ["CONFIRMED", "CHECKED_IN", "COMPLETED"]) {
       const statusRes = await request(app)
@@ -457,6 +468,9 @@ describe("Salon SaaS backend E2E flow", () => {
     expect(Number(billInvoice.taxAmount)).toBe(0);
     expect(Number(billInvoice.totalAmount)).toBe(599);
     expect(billInvoice.paymentStatus).toBe("UNPAID");
+    expect(await prisma.invoiceItem.count({ where: { invoiceId: billInvoiceId } })).toBeGreaterThan(0);
+    expect(await prisma.customerTransaction.count({ where: { invoiceId: billInvoiceId, type: "INVOICE" } })).toBe(1);
+    expect(await prisma.auditLog.count({ where: { entityId: billInvoiceId, module: "INVOICE", action: "CREATE" } })).toBe(1);
 
     const duplicateInvoice = await request(app)
       .post(`/api/invoices/from-appointment/${appointmentAId}`)
@@ -535,6 +549,15 @@ describe("Salon SaaS backend E2E flow", () => {
     expectSuccess(fullPayment, 201);
     expect(Number(fullPayment.body.data.invoice.balanceAmount)).toBe(0);
     expect(fullPayment.body.data.invoice.paymentStatus).toBe("PAID");
+    expect(
+      await prisma.auditLog.count({
+        where: {
+          entityId: { in: [partialPaymentId, fullPayment.body.data.payment.id] },
+          module: "PAYMENT",
+          action: "PAYMENT_RECORDED",
+        },
+      })
+    ).toBe(2);
 
     const payments = await request(app)
       .get("/api/payments")

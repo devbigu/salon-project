@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 const include = {
   salon: {
@@ -20,7 +21,7 @@ export const MembershipModel = {
     name: string;
     description?: string;
     discountPercentage?: number;
-  }) => prisma.membership.create({ data, include }),
+  }, tx?: Prisma.TransactionClient) => (tx ?? prisma).membership.create({ data, include }),
 
   list: (salonId?: string) =>
     prisma.membership.findMany({
@@ -72,9 +73,10 @@ export const MembershipModel = {
       description?: string | null;
       discountPercentage?: number;
       status?: boolean;
-    }
+    },
+    tx?: Prisma.TransactionClient
   ) =>
-    prisma.membership.update({
+    (tx ?? prisma).membership.update({
       where: {
         id,
       },
@@ -82,8 +84,8 @@ export const MembershipModel = {
       include,
     }),
 
-  remove: (id: string) =>
-    prisma.membership.delete({
+  remove: (id: string, tx?: Prisma.TransactionClient) =>
+    (tx ?? prisma).membership.delete({
       where: {
         id,
       },

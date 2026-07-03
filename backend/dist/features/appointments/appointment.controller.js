@@ -8,6 +8,8 @@ import { ServiceModel } from "../services/service.model.js";
 import { SalonModel } from "../salons/salon.model.js";
 import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js";
 import { sendInventoryError } from "../products/inventory-access.js";
+import { createAuditLog, requestAuditContext, } from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
     "CONFIRMED",
@@ -210,31 +212,54 @@ export const createAppointment = async (req, res) => {
                 message: "Staff is already booked for this time slot",
             });
         }
-        const appointment = await AppointmentModel.create({
-            appointmentCode: generateAppointmentCode(),
-            salonId: finalSalonId,
-            ...(finalBranchId ? { branchId: finalBranchId } : {}),
-            customerId,
-            staffId,
-            ...(req.user?.userId ? { createdById: req.user.userId } : {}),
-            startTime: finalStartTime,
-            endTime: finalEndTime,
-            totalDurationMinutes,
-            estimatedAmount,
-            ...(status ? { status } : {}),
-            ...(bookingNote ? { bookingNote } : {}),
-            ...(internalNote ? { internalNote } : {}),
-            services: services.map((service) => ({
-                serviceId: service.id,
-                serviceName: service.name,
-                price: Number(service.price),
-                ...(service.durationValue !== null && service.durationValue !== undefined
-                    ? { durationValue: service.durationValue }
-                    : {}),
-                ...(service.durationUnit
-                    ? { durationUnit: service.durationUnit }
-                    : {}),
-            })),
+        const appointment = await prisma.$transaction(async (tx) => {
+            const created = await AppointmentModel.create({
+                appointmentCode: generateAppointmentCode(),
+                salonId: finalSalonId,
+                ...(finalBranchId ? { branchId: finalBranchId } : {}),
+                customerId,
+                staffId,
+                ...(req.user?.userId ? { createdById: req.user.userId } : {}),
+                startTime: finalStartTime,
+                endTime: finalEndTime,
+                totalDurationMinutes,
+                estimatedAmount,
+                ...(status ? { status } : {}),
+                ...(bookingNote ? { bookingNote } : {}),
+                ...(internalNote ? { internalNote } : {}),
+                services: services.map((service) => ({
+                    serviceId: service.id,
+                    serviceName: service.name,
+                    price: Number(service.price),
+                    ...(service.durationValue !== null && service.durationValue !== undefined
+                        ? { durationValue: service.durationValue }
+                        : {}),
+                    ...(service.durationUnit
+                        ? { durationUnit: service.durationUnit }
+                        : {}),
+                })),
+            }, tx);
+            await createAuditLog({
+                tx,
+                salonId: created.salonId,
+                branchId: created.branchId,
+                userId: req.user?.userId,
+                module: "APPOINTMENT",
+                action: "CREATE",
+                entityId: created.id,
+                entityCode: created.appointmentCode,
+                entityName: created.customer.name,
+                description: `Appointment ${created.appointmentCode} created for ${created.customer.name}`,
+                newData: {
+                    status: created.status,
+                    startTime: created.startTime,
+                    staffId: created.staffId,
+                    customerId: created.customerId,
+                    serviceIds,
+                },
+                ...requestAuditContext(req),
+            });
+            return created;
         });
         return res.status(201).json({
             success: true,
@@ -370,11 +395,33 @@ export const updateAppointmentStatus = async (req, res) => {
                 message: `Invalid appointment status transition from ${existingAppointment.status} to ${status}`,
             });
         }
-        const appointment = await AppointmentModel.updateStatusWithHistory(id, {
-            oldStatus: existingAppointment.status,
-            newStatus: status,
-            ...(note ? { note } : {}),
-            ...(req.user?.userId ? { changedById: req.user.userId } : {}),
+        const appointment = await prisma.$transaction(async (tx) => {
+            const updated = await AppointmentModel.updateStatusWithHistory(id, {
+                oldStatus: existingAppointment.status,
+                newStatus: status,
+                ...(note ? { note } : {}),
+                ...(req.user?.userId ? { changedById: req.user.userId } : {}),
+            }, tx);
+            await createAuditLog({
+                tx,
+                salonId: existingAppointment.salonId,
+                branchId: existingAppointment.branchId,
+                userId: req.user?.userId,
+                module: "APPOINTMENT",
+                action: status === "COMPLETED"
+                    ? "COMPLETE"
+                    : status === "CANCELLED"
+                        ? "CANCEL"
+                        : "STATUS_CHANGE",
+                entityId: updated.id,
+                entityCode: updated.appointmentCode,
+                entityName: updated.customer.name,
+                description: `Appointment ${updated.appointmentCode} changed from ${existingAppointment.status} to ${status}`,
+                oldData: { status: existingAppointment.status },
+                newData: { status },
+                ...requestAuditContext(req),
+            });
+            return updated;
         });
         return res.status(200).json({
             success: true,
@@ -415,14 +462,40 @@ export const updateAppointmentBasicDetails = async (req, res) => {
                 message: "Completed, cancelled or no-show appointments cannot be edited",
             });
         }
-        const updatedAppointment = await AppointmentModel.updateBasicDetails(id, {
-            ...("bookingNote" in req.body
-                ? { bookingNote: bookingNote ?? null }
-                : {}),
-            ...("internalNote" in req.body
-                ? { internalNote: internalNote ?? null }
-                : {}),
-            ...(status ? { status } : {}),
+        const updatedAppointment = await prisma.$transaction(async (tx) => {
+            const updated = await AppointmentModel.updateBasicDetails(id, {
+                ...("bookingNote" in req.body
+                    ? { bookingNote: bookingNote ?? null }
+                    : {}),
+                ...("internalNote" in req.body
+                    ? { internalNote: internalNote ?? null }
+                    : {}),
+                ...(status ? { status } : {}),
+            }, tx);
+            await createAuditLog({
+                tx,
+                salonId: existingAppointment.salonId,
+                branchId: existingAppointment.branchId,
+                userId: req.user?.userId,
+                module: "APPOINTMENT",
+                action: "UPDATE",
+                entityId: updated.id,
+                entityCode: updated.appointmentCode,
+                entityName: updated.customer.name,
+                description: `Appointment ${updated.appointmentCode} updated`,
+                oldData: {
+                    bookingNote: existingAppointment.bookingNote,
+                    internalNote: existingAppointment.internalNote,
+                    status: existingAppointment.status,
+                },
+                newData: {
+                    bookingNote: updated.bookingNote,
+                    internalNote: updated.internalNote,
+                    status: updated.status,
+                },
+                ...requestAuditContext(req),
+            });
+            return updated;
         });
         return res.status(200).json({
             success: true,
@@ -495,9 +568,33 @@ export const rescheduleAppointment = async (req, res) => {
                 message: "Staff is already booked for this time slot",
             });
         }
-        const updatedAppointment = await AppointmentModel.updateSchedule(id, {
-            startTime: finalStartTime,
-            endTime: finalEndTime,
+        const updatedAppointment = await prisma.$transaction(async (tx) => {
+            const updated = await AppointmentModel.updateSchedule(id, {
+                startTime: finalStartTime,
+                endTime: finalEndTime,
+            }, tx);
+            await createAuditLog({
+                tx,
+                salonId: existingAppointment.salonId,
+                branchId: existingAppointment.branchId,
+                userId: req.user?.userId,
+                module: "APPOINTMENT",
+                action: "UPDATE",
+                entityId: updated.id,
+                entityCode: updated.appointmentCode,
+                entityName: updated.customer.name,
+                description: `Appointment ${updated.appointmentCode} rescheduled`,
+                oldData: {
+                    startTime: existingAppointment.startTime,
+                    endTime: existingAppointment.endTime,
+                },
+                newData: {
+                    startTime: updated.startTime,
+                    endTime: updated.endTime,
+                },
+                ...requestAuditContext(req),
+            });
+            return updated;
         });
         return res.status(200).json({
             success: true,
@@ -528,7 +625,27 @@ export const deleteAppointment = async (req, res) => {
                 message: "Appointment not found",
             });
         }
-        await AppointmentModel.delete(id);
+        await prisma.$transaction(async (tx) => {
+            await AppointmentModel.delete(id, tx);
+            await createAuditLog({
+                tx,
+                salonId: existingAppointment.salonId,
+                branchId: existingAppointment.branchId,
+                userId: req.user?.userId,
+                module: "APPOINTMENT",
+                action: "DELETE",
+                entityId: existingAppointment.id,
+                entityCode: existingAppointment.appointmentCode,
+                entityName: existingAppointment.customer.name,
+                description: `Appointment ${existingAppointment.appointmentCode} deleted`,
+                oldData: {
+                    status: existingAppointment.status,
+                    startTime: existingAppointment.startTime,
+                    customerId: existingAppointment.customerId,
+                },
+                ...requestAuditContext(req),
+            });
+        });
         return res.status(200).json({
             success: true,
             message: "Appointment deleted successfully",

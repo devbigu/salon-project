@@ -116,6 +116,17 @@ const InvoiceDocument = ({ invoice, printable = false }) => (
                 <td colSpan="2">Discount</td>
                 <td>- {formatMoney(invoice.discountAmount)}</td>
               </tr>
+              {Number(invoice.couponDiscountAmount || 0) > 0 && (
+                <tr>
+                  <td colSpan="3" />
+                  <td colSpan="2">
+                    Coupon {invoice.couponCodeSnapshot
+                      ? `(${invoice.couponCodeSnapshot})`
+                      : ""}
+                  </td>
+                  <td>- {formatMoney(invoice.couponDiscountAmount)}</td>
+                </tr>
+              )}
               <tr>
                 <td colSpan="3" />
                 <td colSpan="2">Processing fee</td>

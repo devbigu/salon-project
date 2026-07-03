@@ -354,6 +354,8 @@ export type ProductWhereInput = {
   vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
   stockMovements?: Prisma.ProductStockMovementListRelationFilter
   purchaseItems?: Prisma.ProductPurchaseItemListRelationFilter
+  stockAlerts?: Prisma.StockAlertListRelationFilter
+  reorderSuggestions?: Prisma.ReorderSuggestionListRelationFilter
   retailSaleItems?: Prisma.RetailSaleItemListRelationFilter
   serviceConsumables?: Prisma.ServiceConsumableListRelationFilter
 }
@@ -385,6 +387,8 @@ export type ProductOrderByWithRelationInput = {
   vendor?: Prisma.VendorOrderByWithRelationInput
   stockMovements?: Prisma.ProductStockMovementOrderByRelationAggregateInput
   purchaseItems?: Prisma.ProductPurchaseItemOrderByRelationAggregateInput
+  stockAlerts?: Prisma.StockAlertOrderByRelationAggregateInput
+  reorderSuggestions?: Prisma.ReorderSuggestionOrderByRelationAggregateInput
   retailSaleItems?: Prisma.RetailSaleItemOrderByRelationAggregateInput
   serviceConsumables?: Prisma.ServiceConsumableOrderByRelationAggregateInput
 }
@@ -420,6 +424,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
   stockMovements?: Prisma.ProductStockMovementListRelationFilter
   purchaseItems?: Prisma.ProductPurchaseItemListRelationFilter
+  stockAlerts?: Prisma.StockAlertListRelationFilter
+  reorderSuggestions?: Prisma.ReorderSuggestionListRelationFilter
   retailSaleItems?: Prisma.RetailSaleItemListRelationFilter
   serviceConsumables?: Prisma.ServiceConsumableListRelationFilter
 }, "id" | "salonId_name">
@@ -501,6 +507,8 @@ export type ProductCreateInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -528,6 +536,8 @@ export type ProductUncheckedCreateInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -555,6 +565,8 @@ export type ProductUpdateInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -582,6 +594,8 @@ export type ProductUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -968,6 +982,34 @@ export type ProductUpdateOneRequiredWithoutPurchaseItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutPurchaseItemsInput, Prisma.ProductUpdateWithoutPurchaseItemsInput>, Prisma.ProductUncheckedUpdateWithoutPurchaseItemsInput>
 }
 
+export type ProductCreateNestedOneWithoutStockAlertsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutStockAlertsInput, Prisma.ProductUncheckedCreateWithoutStockAlertsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutStockAlertsInput
+  connect?: Prisma.ProductWhereUniqueInput
+}
+
+export type ProductUpdateOneRequiredWithoutStockAlertsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutStockAlertsInput, Prisma.ProductUncheckedCreateWithoutStockAlertsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutStockAlertsInput
+  upsert?: Prisma.ProductUpsertWithoutStockAlertsInput
+  connect?: Prisma.ProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutStockAlertsInput, Prisma.ProductUpdateWithoutStockAlertsInput>, Prisma.ProductUncheckedUpdateWithoutStockAlertsInput>
+}
+
+export type ProductCreateNestedOneWithoutReorderSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedCreateWithoutReorderSuggestionsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReorderSuggestionsInput
+  connect?: Prisma.ProductWhereUniqueInput
+}
+
+export type ProductUpdateOneRequiredWithoutReorderSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedCreateWithoutReorderSuggestionsInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutReorderSuggestionsInput
+  upsert?: Prisma.ProductUpsertWithoutReorderSuggestionsInput
+  connect?: Prisma.ProductWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutReorderSuggestionsInput, Prisma.ProductUpdateWithoutReorderSuggestionsInput>, Prisma.ProductUncheckedUpdateWithoutReorderSuggestionsInput>
+}
+
 export type ProductCreateNestedOneWithoutRetailSaleItemsInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutRetailSaleItemsInput, Prisma.ProductUncheckedCreateWithoutRetailSaleItemsInput>
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutRetailSaleItemsInput
@@ -1004,6 +1046,8 @@ export type ProductCreateWithoutSalonInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1030,6 +1074,8 @@ export type ProductUncheckedCreateWithoutSalonInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1108,6 +1154,8 @@ export type ProductCreateWithoutBranchInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1134,6 +1182,8 @@ export type ProductUncheckedCreateWithoutBranchInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1187,6 +1237,8 @@ export type ProductCreateWithoutServiceConsumablesInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
 }
 
@@ -1213,6 +1265,8 @@ export type ProductUncheckedCreateWithoutServiceConsumablesInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -1255,6 +1309,8 @@ export type ProductUpdateWithoutServiceConsumablesInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
 }
 
@@ -1281,6 +1337,8 @@ export type ProductUncheckedUpdateWithoutServiceConsumablesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -1306,6 +1364,8 @@ export type ProductCreateWithoutBrandInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1332,6 +1392,8 @@ export type ProductUncheckedCreateWithoutBrandInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1384,6 +1446,8 @@ export type ProductCreateWithoutStockMovementsInput = {
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1410,6 +1474,8 @@ export type ProductUncheckedCreateWithoutStockMovementsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1452,6 +1518,8 @@ export type ProductUpdateWithoutStockMovementsInput = {
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -1478,6 +1546,8 @@ export type ProductUncheckedUpdateWithoutStockMovementsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -1504,6 +1574,8 @@ export type ProductCreateWithoutVendorInput = {
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1530,6 +1602,8 @@ export type ProductUncheckedCreateWithoutVendorInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1582,6 +1656,8 @@ export type ProductCreateWithoutPurchaseItemsInput = {
   brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
@@ -1608,6 +1684,8 @@ export type ProductUncheckedCreateWithoutPurchaseItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
@@ -1650,6 +1728,8 @@ export type ProductUpdateWithoutPurchaseItemsInput = {
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -1676,6 +1756,264 @@ export type ProductUncheckedUpdateWithoutPurchaseItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductCreateWithoutStockAlertsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutProductsInput
+  branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
+  brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
+  stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutStockAlertsInput = {
+  id?: string
+  salonId: string
+  branchId?: string | null
+  brandId?: string | null
+  vendorId?: string | null
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutStockAlertsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutStockAlertsInput, Prisma.ProductUncheckedCreateWithoutStockAlertsInput>
+}
+
+export type ProductUpsertWithoutStockAlertsInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutStockAlertsInput, Prisma.ProductUncheckedUpdateWithoutStockAlertsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutStockAlertsInput, Prisma.ProductUncheckedCreateWithoutStockAlertsInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutStockAlertsInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutStockAlertsInput, Prisma.ProductUncheckedUpdateWithoutStockAlertsInput>
+}
+
+export type ProductUpdateWithoutStockAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
+  brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
+  stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutStockAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
+}
+
+export type ProductCreateWithoutReorderSuggestionsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutProductsInput
+  branch?: Prisma.BranchCreateNestedOneWithoutProductsInput
+  brand?: Prisma.ProductBrandCreateNestedOneWithoutProductsInput
+  vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
+  stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemCreateNestedManyWithoutProductInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
+}
+
+export type ProductUncheckedCreateWithoutReorderSuggestionsInput = {
+  id?: string
+  salonId: string
+  branchId?: string | null
+  brandId?: string | null
+  vendorId?: string | null
+  name: string
+  description?: string | null
+  sku?: string | null
+  barcode?: string | null
+  category?: string | null
+  unit?: $Enums.ProductUnit
+  costPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: boolean
+  isServiceConsumable?: boolean
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  retailSaleItems?: Prisma.RetailSaleItemUncheckedCreateNestedManyWithoutProductInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
+}
+
+export type ProductCreateOrConnectWithoutReorderSuggestionsInput = {
+  where: Prisma.ProductWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedCreateWithoutReorderSuggestionsInput>
+}
+
+export type ProductUpsertWithoutReorderSuggestionsInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedUpdateWithoutReorderSuggestionsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedCreateWithoutReorderSuggestionsInput>
+  where?: Prisma.ProductWhereInput
+}
+
+export type ProductUpdateToOneWithWhereWithoutReorderSuggestionsInput = {
+  where?: Prisma.ProductWhereInput
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutReorderSuggestionsInput, Prisma.ProductUncheckedUpdateWithoutReorderSuggestionsInput>
+}
+
+export type ProductUpdateWithoutReorderSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutProductsNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutProductsNestedInput
+  brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
+  vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
+  stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
+}
+
+export type ProductUncheckedUpdateWithoutReorderSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  brandId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  barcode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unit?: Prisma.EnumProductUnitFieldUpdateOperationsInput | $Enums.ProductUnit
+  costPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  sellingPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lowStockAlert?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isRetailProduct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isServiceConsumable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
+  purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -1703,6 +2041,8 @@ export type ProductCreateWithoutRetailSaleItemsInput = {
   vendor?: Prisma.VendorCreateNestedOneWithoutProductsInput
   stockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutProductInput
 }
 
@@ -1729,6 +2069,8 @@ export type ProductUncheckedCreateWithoutRetailSaleItemsInput = {
   updatedAt?: Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutProductInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedCreateNestedManyWithoutProductInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProductInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutProductInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -1771,6 +2113,8 @@ export type ProductUpdateWithoutRetailSaleItemsInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
 
@@ -1797,6 +2141,8 @@ export type ProductUncheckedUpdateWithoutRetailSaleItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
 
@@ -1844,6 +2190,8 @@ export type ProductUpdateWithoutSalonInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -1870,6 +2218,8 @@ export type ProductUncheckedUpdateWithoutSalonInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -1940,6 +2290,8 @@ export type ProductUpdateWithoutBranchInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -1966,6 +2318,8 @@ export type ProductUncheckedUpdateWithoutBranchInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -2036,6 +2390,8 @@ export type ProductUpdateWithoutBrandInput = {
   vendor?: Prisma.VendorUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -2062,6 +2418,8 @@ export type ProductUncheckedUpdateWithoutBrandInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -2132,6 +2490,8 @@ export type ProductUpdateWithoutVendorInput = {
   brand?: Prisma.ProductBrandUpdateOneWithoutProductsNestedInput
   stockMovements?: Prisma.ProductStockMovementUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutProductNestedInput
 }
@@ -2158,6 +2518,8 @@ export type ProductUncheckedUpdateWithoutVendorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutProductNestedInput
   purchaseItems?: Prisma.ProductPurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProductNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutProductNestedInput
   retailSaleItems?: Prisma.RetailSaleItemUncheckedUpdateManyWithoutProductNestedInput
   serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutProductNestedInput
 }
@@ -2192,6 +2554,8 @@ export type ProductUncheckedUpdateManyWithoutVendorInput = {
 export type ProductCountOutputType = {
   stockMovements: number
   purchaseItems: number
+  stockAlerts: number
+  reorderSuggestions: number
   retailSaleItems: number
   serviceConsumables: number
 }
@@ -2199,6 +2563,8 @@ export type ProductCountOutputType = {
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stockMovements?: boolean | ProductCountOutputTypeCountStockMovementsArgs
   purchaseItems?: boolean | ProductCountOutputTypeCountPurchaseItemsArgs
+  stockAlerts?: boolean | ProductCountOutputTypeCountStockAlertsArgs
+  reorderSuggestions?: boolean | ProductCountOutputTypeCountReorderSuggestionsArgs
   retailSaleItems?: boolean | ProductCountOutputTypeCountRetailSaleItemsArgs
   serviceConsumables?: boolean | ProductCountOutputTypeCountServiceConsumablesArgs
 }
@@ -2225,6 +2591,20 @@ export type ProductCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtim
  */
 export type ProductCountOutputTypeCountPurchaseItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProductPurchaseItemWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountStockAlertsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockAlertWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountReorderSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReorderSuggestionWhereInput
 }
 
 /**
@@ -2269,6 +2649,8 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Product$stockMovementsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Product$purchaseItemsArgs<ExtArgs>
+  stockAlerts?: boolean | Prisma.Product$stockAlertsArgs<ExtArgs>
+  reorderSuggestions?: boolean | Prisma.Product$reorderSuggestionsArgs<ExtArgs>
   retailSaleItems?: boolean | Prisma.Product$retailSaleItemsArgs<ExtArgs>
   serviceConsumables?: boolean | Prisma.Product$serviceConsumablesArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -2359,6 +2741,8 @@ export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   vendor?: boolean | Prisma.Product$vendorArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Product$stockMovementsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Product$purchaseItemsArgs<ExtArgs>
+  stockAlerts?: boolean | Prisma.Product$stockAlertsArgs<ExtArgs>
+  reorderSuggestions?: boolean | Prisma.Product$reorderSuggestionsArgs<ExtArgs>
   retailSaleItems?: boolean | Prisma.Product$retailSaleItemsArgs<ExtArgs>
   serviceConsumables?: boolean | Prisma.Product$serviceConsumablesArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -2385,6 +2769,8 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     vendor: Prisma.$VendorPayload<ExtArgs> | null
     stockMovements: Prisma.$ProductStockMovementPayload<ExtArgs>[]
     purchaseItems: Prisma.$ProductPurchaseItemPayload<ExtArgs>[]
+    stockAlerts: Prisma.$StockAlertPayload<ExtArgs>[]
+    reorderSuggestions: Prisma.$ReorderSuggestionPayload<ExtArgs>[]
     retailSaleItems: Prisma.$RetailSaleItemPayload<ExtArgs>[]
     serviceConsumables: Prisma.$ServiceConsumablePayload<ExtArgs>[]
   }
@@ -2809,6 +3195,8 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
   vendor<T extends Prisma.Product$vendorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$vendorArgs<ExtArgs>>): Prisma.Prisma__VendorClient<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   stockMovements<T extends Prisma.Product$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductStockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseItems<T extends Prisma.Product$purchaseItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$purchaseItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stockAlerts<T extends Prisma.Product$stockAlertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$stockAlertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockAlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reorderSuggestions<T extends Prisma.Product$reorderSuggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$reorderSuggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReorderSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   retailSaleItems<T extends Prisma.Product$retailSaleItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$retailSaleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   serviceConsumables<T extends Prisma.Product$serviceConsumablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$serviceConsumablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServiceConsumablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3363,6 +3751,54 @@ export type Product$purchaseItemsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ProductPurchaseItemScalarFieldEnum | Prisma.ProductPurchaseItemScalarFieldEnum[]
+}
+
+/**
+ * Product.stockAlerts
+ */
+export type Product$stockAlertsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockAlert
+   */
+  select?: Prisma.StockAlertSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockAlert
+   */
+  omit?: Prisma.StockAlertOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockAlertInclude<ExtArgs> | null
+  where?: Prisma.StockAlertWhereInput
+  orderBy?: Prisma.StockAlertOrderByWithRelationInput | Prisma.StockAlertOrderByWithRelationInput[]
+  cursor?: Prisma.StockAlertWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockAlertScalarFieldEnum | Prisma.StockAlertScalarFieldEnum[]
+}
+
+/**
+ * Product.reorderSuggestions
+ */
+export type Product$reorderSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReorderSuggestion
+   */
+  select?: Prisma.ReorderSuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReorderSuggestion
+   */
+  omit?: Prisma.ReorderSuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReorderSuggestionInclude<ExtArgs> | null
+  where?: Prisma.ReorderSuggestionWhereInput
+  orderBy?: Prisma.ReorderSuggestionOrderByWithRelationInput | Prisma.ReorderSuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.ReorderSuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReorderSuggestionScalarFieldEnum | Prisma.ReorderSuggestionScalarFieldEnum[]
 }
 
 /**

@@ -1,0 +1,28 @@
+
+> backend@1.0.0 dev
+> tsx watch src/index.ts
+
+◇ injected env (9) from .env // tip: ⌘ enable debugging { debug: true }
+Server running on port 5001
+5:00:50 PM [tsx] change in ./src\features\coupons\coupon.controller.ts Restarting...
+c◇ injected env (9) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+Server running on port 5001
+5:00:58 PM [tsx] change in ./src\features\Invoices\invoice.controller.ts Restarting...
+c◇ injected env (9) from .env // tip: ⌘ suppress logs { quiet: true }
+Server running on port 5001
+5:11:02 PM [tsx] change in ./src\generated\prisma\enums.ts Restarting...
+c5:11:02 PM [tsx] unlink in ./src\generated\prisma\internal\prismaNamespace.ts Restarting...
+c◇ injected env (9) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+Server running on port 5001
+5:12:41 PM [tsx] change in ./src\features\Invoices\invoice.routes.ts Restarting...
+c◇ injected env (9) from .env // tip: ⌘ override existing { override: true }
+Server running on port 5001
+5:12:55 PM [tsx] change in ./src\features\Invoices\invoice.controller.ts Restarting...
+c◇ injected env (9) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+Server running on port 5001
+5:13:09 PM [tsx] unlink in ./src\generated\prisma\enums.ts Restarting...
+c◇ injected env (9) from .env // tip: ⌘ suppress logs { quiet: true }
+Server running on port 5001
+5:16:05 PM [tsx] unlink in ./src\generated\prisma\client.ts Restarting...
+c◇ injected env (9) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+Server running on port 5001

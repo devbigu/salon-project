@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 type CustomerStatus = "REGULAR" | "PREMIUM" | "IRREGULAR";
 type TransactionStatus = "PENDING" | "COMPLETE" | "FAILED";
@@ -210,9 +211,10 @@ export const CustomerModel = {
 
   assignMembership: async (
     id: string,
-    membershipId: string | null
+    membershipId: string | null,
+    tx?: Prisma.TransactionClient
   ) => {
-    return prisma.customer.update({
+    return (tx ?? prisma).customer.update({
       where: {
         id,
       },
@@ -329,9 +331,9 @@ export const CustomerModel = {
   billNo: string;
   amount: number;
   narration?: string;
-}) => {
-  return prisma.$transaction(async (tx) => {
-    const customer = await tx.customer.update({
+}, tx?: Prisma.TransactionClient) => {
+  const run = async (client: Prisma.TransactionClient) => {
+    const customer = await client.customer.update({
       where: {
         id: data.customerId,
       },
@@ -342,7 +344,7 @@ export const CustomerModel = {
       },
     });
 
-    const transaction = await tx.customerTransaction.create({
+    const transaction = await client.customerTransaction.create({
       data: {
         customerId: data.customerId,
         salonId: data.salonId,
@@ -361,7 +363,8 @@ export const CustomerModel = {
       customer,
       transaction,
     };
-  });
+  };
+  return tx ? run(tx) : prisma.$transaction(run);
 },
 
 decreaseOutstandingWithTransaction: async (data: {

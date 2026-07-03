@@ -7,6 +7,7 @@ import {
   updateLoyaltyRule,
   updateLoyaltyRuleStatus,
 } from "./loyalty-rule.service.js";
+import { requestAuditContext } from "../audit-logs/audit-log.service.js";
 
 const idParam = (req: Request) =>
   typeof req.params.id === "string" ? req.params.id : "";
@@ -185,7 +186,8 @@ export const createRule = async (req: Request, res: Response) => {
     const data = await createLoyaltyRule(
       salonId,
       parsed.data,
-      req.body.status ?? true
+      req.body.status ?? true,
+      { userId: req.user?.userId, ...requestAuditContext(req) }
     );
 
     return res.status(201).json({
@@ -297,7 +299,7 @@ export const updateRule = async (req: Request, res: Response) => {
       });
     }
 
-    const data = await updateLoyaltyRule(existing.id, parsed.data);
+    const data = await updateLoyaltyRule(existing.id, parsed.data, { userId: req.user?.userId, ...requestAuditContext(req) });
     return res.status(200).json({
       success: true,
       message: "Loyalty rule updated successfully",
@@ -332,7 +334,8 @@ export const setRuleStatus = async (req: Request, res: Response) => {
     const data = await updateLoyaltyRuleStatus(
       existing.id,
       existing.salonId,
-      req.body.status
+      req.body.status,
+      { userId: req.user?.userId, ...requestAuditContext(req) }
     );
 
     return res.status(200).json({

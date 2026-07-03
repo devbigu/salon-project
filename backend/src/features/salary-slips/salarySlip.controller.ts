@@ -3,6 +3,11 @@ import { SalarySlipModel } from "./salarySlip.model.js";
 import { generateSalarySlip as calculateSalarySlip } from "./salarySlip.service.js";
 import { validateGenerationInput } from "./salarySlip.validation.js";
 import { streamSalarySlipPdf } from "./salarySlip.pdf.js";
+import {
+  createAuditLog,
+  requestAuditContext,
+} from "../audit-logs/audit-log.service.js";
+import { prisma } from "../../config/prisma.js";
 
 const clean = (value: unknown) =>
   typeof value === "string" && value.trim() ? value.trim() : undefined;
@@ -50,7 +55,8 @@ export const generateSalarySlip = async (req: Request, res: Response) => {
     const staffId = String(req.body.staffId);
     const access = await staffAccess(req, staffId);
     if ("error" in access) return res.status(access.error[0]).json({ success: false, message: access.error[1] });
-    const slip = await calculateSalarySlip({
+    const slip = await prisma.$transaction(async (tx) => {
+      const generated = await calculateSalarySlip({
       salonId: access.staff.salonId,
       staffId,
       month: Number(req.body.month),
@@ -58,6 +64,30 @@ export const generateSalarySlip = async (req: Request, res: Response) => {
       bonusAmount: Number(req.body.bonusAmount ?? 0),
       manualDeduction: Number(req.body.manualDeduction ?? 0),
       ...(clean(req.body.note) ? { note: clean(req.body.note)! } : {}),
+      }, tx);
+      await createAuditLog({
+      tx,
+      salonId: generated.salonId,
+      branchId: generated.branchId,
+      userId: req.user?.userId,
+      module: "SALARY",
+      action: "SALARY_GENERATED",
+      entityId: generated.id,
+      entityName: access.staff.name,
+      description: `Salary slip generated for ${access.staff.name} for ${generated.month}/${generated.year}`,
+      newData: {
+        month: generated.month,
+        year: generated.year,
+        grossSalary: generated.grossSalary,
+        unpaidLeaveDeduction: generated.unpaidLeaveDeduction,
+        latePenalty: generated.latePenalty,
+        manualDeduction: generated.manualDeduction,
+        netSalary: generated.netSalary,
+        status: generated.status,
+      },
+      ...requestAuditContext(req),
+      });
+      return generated;
     });
     return res.status(201).json({ success: true, data: slip });
   } catch (error) {
@@ -120,10 +150,28 @@ export const markSalarySlipPaid = async (req: Request, res: Response) => {
   const access = await resolveSalarySlipAccess(req, id);
   if ("error" in access) return res.status(access.error[0]).json({ success: false, message: access.error[1] });
   if (access.slip.status !== "GENERATED") return res.status(409).json({ success: false, message: "Only generated salary slips can be marked paid" });
-  const slip = await SalarySlipModel.transition(id, ["GENERATED"], {
+  const slip = await prisma.$transaction(async (tx) => {
+    const updated = await SalarySlipModel.transition(id, ["GENERATED"], {
     status: "PAID",
     paidAt: new Date(),
     ...(req.user?.userId ? { paidById: req.user.userId } : {}),
+    }, tx);
+    if (!updated) return null;
+    await createAuditLog({
+    tx,
+    salonId: updated.salonId,
+    branchId: updated.branchId,
+    userId: req.user?.userId,
+    module: "SALARY",
+    action: "SALARY_PAID",
+    entityId: updated.id,
+    entityName: access.slip.staff.name,
+    description: `Salary slip marked paid for ${access.slip.staff.name}`,
+    oldData: { status: access.slip.status },
+    newData: { status: updated.status, paidAt: updated.paidAt },
+    ...requestAuditContext(req),
+    });
+    return updated;
   });
   if (!slip) return res.status(409).json({ success: false, message: "Salary slip status changed" });
   return res.json({ success: true, data: slip });
@@ -135,7 +183,25 @@ export const cancelSalarySlip = async (req: Request, res: Response) => {
   const access = await resolveSalarySlipAccess(req, id);
   if ("error" in access) return res.status(access.error[0]).json({ success: false, message: access.error[1] });
   if (access.slip.status === "PAID") return res.status(409).json({ success: false, message: "Paid salary slips cannot be cancelled" });
-  const slip = await SalarySlipModel.transition(id, ["DRAFT", "GENERATED"], { status: "CANCELLED" });
+  const slip = await prisma.$transaction(async (tx) => {
+    const updated = await SalarySlipModel.transition(id, ["DRAFT", "GENERATED"], { status: "CANCELLED" }, tx);
+    if (!updated) return null;
+    await createAuditLog({
+    tx,
+    salonId: updated.salonId,
+    branchId: updated.branchId,
+    userId: req.user?.userId,
+    module: "SALARY",
+    action: "CANCEL",
+    entityId: updated.id,
+    entityName: access.slip.staff.name,
+    description: `Salary slip cancelled for ${access.slip.staff.name}`,
+    oldData: { status: access.slip.status },
+    newData: { status: updated.status },
+    ...requestAuditContext(req),
+    });
+    return updated;
+  });
   if (!slip) return res.status(409).json({ success: false, message: "Only draft or generated slips can be cancelled" });
   return res.json({ success: true, data: slip });
 };

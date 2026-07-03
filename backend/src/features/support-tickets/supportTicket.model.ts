@@ -1,4 +1,5 @@
 import { prisma } from "../../config/prisma.js";
+import type { Prisma } from "../../generated/prisma/client.js";
 
 export const SUPPORT_TICKET_CATEGORIES = [
   "LOGIN_ISSUE",
@@ -112,8 +113,8 @@ const ticketInclude = {
 };
 
 export const SupportTicketModel = {
-  createPublicTicket: async (data: TicketDetails) => {
-    return prisma.supportTicket.create({
+  createPublicTicket: async (data: TicketDetails, tx?: Prisma.TransactionClient) => {
+    return (tx ?? prisma).supportTicket.create({
       data: {
         ticketCode: data.ticketCode,
         reporterEmail: data.reporterEmail,
@@ -144,9 +145,10 @@ export const SupportTicketModel = {
       reporterId: string;
       salonId?: string;
       branchId?: string;
-    }
+    },
+    tx?: Prisma.TransactionClient
   ) => {
-    return prisma.supportTicket.create({
+    return (tx ?? prisma).supportTicket.create({
       data: {
         ticketCode: data.ticketCode,
         reporterId: data.reporterId,
@@ -305,10 +307,11 @@ export const SupportTicketModel = {
       changedById: string;
       note?: string;
       resolutionNotes?: string;
-    }
+    },
+    tx?: Prisma.TransactionClient
   ) => {
-    return prisma.$transaction(async (tx) => {
-      await tx.supportTicket.update({
+    const run = async (client: Prisma.TransactionClient) => {
+      await client.supportTicket.update({
         where: { id },
         data: {
           status: data.newStatus,
@@ -320,7 +323,7 @@ export const SupportTicketModel = {
         },
       });
 
-      await tx.supportTicketStatusHistory.create({
+      await client.supportTicketStatusHistory.create({
         data: {
           ticketId: id,
           oldStatus: data.oldStatus,
@@ -330,15 +333,16 @@ export const SupportTicketModel = {
         },
       });
 
-      return tx.supportTicket.findUnique({
+      return client.supportTicket.findUnique({
         where: { id },
         include: ticketInclude,
       });
-    });
+    };
+    return tx ? run(tx) : prisma.$transaction(run);
   },
 
-  assignTicket: async (id: string, assignedToId: string) => {
-    return prisma.supportTicket.update({
+  assignTicket: async (id: string, assignedToId: string, tx?: Prisma.TransactionClient) => {
+    return (tx ?? prisma).supportTicket.update({
       where: { id },
       data: { assignedToId },
       include: ticketInclude,

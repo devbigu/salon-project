@@ -77,6 +77,11 @@ export type LoyaltyRule = Prisma.LoyaltyRuleModel
  */
 export type LoyaltyTransaction = Prisma.LoyaltyTransactionModel
 /**
+ * Model Coupon
+ * 
+ */
+export type Coupon = Prisma.CouponModel
+/**
  * Model Branch
  * 
  */
@@ -206,6 +211,21 @@ export type VendorPayment = Prisma.VendorPaymentModel
  * 
  */
 export type ProductPurchaseItem = Prisma.ProductPurchaseItemModel
+/**
+ * Model StockAlert
+ * 
+ */
+export type StockAlert = Prisma.StockAlertModel
+/**
+ * Model ReorderSuggestion
+ * 
+ */
+export type ReorderSuggestion = Prisma.ReorderSuggestionModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
 /**
  * Model RetailSale
  * 

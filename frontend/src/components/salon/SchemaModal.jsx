@@ -27,6 +27,9 @@ const normalizeInitial = (fields, initialValues) =>
         "";
       if (field.type === "checkbox") value = Boolean(value);
       if (field.type === "date" && value) value = String(value).slice(0, 10);
+      if (field.type === "datetime-local" && value) {
+        value = String(value).slice(0, 16);
+      }
       return [field.name, value];
     })
   );
