@@ -6,6 +6,7 @@ import { InvoiceRetentionError, redeemInvoiceLoyalty, } from "./invoice-retentio
 import { createAuditLog, requestAuditContext, } from "../audit-logs/audit-log.service.js";
 import { prisma } from "../../config/prisma.js";
 import { Prisma } from "../../generated/prisma/client.js";
+import { buildBusinessCode, businessCodeDayRange, } from "../../utils/business-id.js";
 import { CouponServiceError, applyCouponToInvoice, issueInvoice as issueDraftInvoice, removeCouponFromInvoice, } from "../coupons/coupon.service.js";
 import { applyCouponSchema } from "../coupons/coupon.validation.js";
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"];
@@ -20,8 +21,24 @@ const isValidInvoiceStatus = (value) => {
 const isValidPaymentStatus = (value) => {
     return PAYMENT_STATUSES.includes(value);
 };
-const generateInvoiceCode = () => {
-    return `INV${Date.now()}`;
+const generateInvoiceCode = async (tx, salon, date = new Date()) => {
+    const range = businessCodeDayRange(date, salon.timezone);
+    const serial = (await tx.invoice.count({
+        where: {
+            salonId: salon.id,
+            invoiceDate: {
+                gte: range.start,
+                lt: range.end,
+            },
+        },
+    })) + 1;
+    return buildBusinessCode({
+        salonName: salon.name,
+        type: "INV",
+        date,
+        timezone: salon.timezone,
+        serial,
+    });
 };
 const getInvoiceIdParam = (req) => {
     const { id } = req.params;
@@ -123,8 +140,9 @@ export const createInvoiceFromAppointment = async (req, res) => {
         const finalTaxAmount = Number(((taxableAmount * finalTaxPercent) / 100).toFixed(2));
         const totalAmount = Number((taxableAmount + finalTaxAmount).toFixed(2));
         const invoice = await prisma.$transaction(async (tx) => {
+            const invoiceDate = new Date();
             const created = await InvoiceModel.create({
-                invoiceCode: generateInvoiceCode(),
+                invoiceCode: await generateInvoiceCode(tx, appointment.salon, invoiceDate),
                 salonId: appointment.salonId,
                 ...(appointment.branchId ? { branchId: appointment.branchId } : {}),
                 customerId: appointment.customerId,

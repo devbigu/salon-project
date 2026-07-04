@@ -138,6 +138,29 @@ export const salonApi = {
     tracking: (id) => request(`/api/appointments/${id}/tracking`),
     remove: (id) => request(`/api/appointments/${id}`, { method: "DELETE" }),
   },
+  jobCarts: {
+    list: (query) => request("/api/job-carts", { query }),
+    references: (query) =>
+      request("/api/job-carts/references", { query }),
+    get: (id) => request(`/api/job-carts/${id}`),
+    create: (body) =>
+      request("/api/job-carts", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/job-carts/${id}`, { method: "PUT", body }),
+    addItem: (id, serviceId) =>
+      request(`/api/job-carts/${id}/items`, {
+        method: "POST",
+        body: { serviceId },
+      }),
+    removeItem: (id, itemId) =>
+      request(`/api/job-carts/${id}/items/${itemId}`, {
+        method: "DELETE",
+      }),
+    confirm: (id) =>
+      request(`/api/job-carts/${id}/confirm`, { method: "POST" }),
+    cancel: (id) =>
+      request(`/api/job-carts/${id}/cancel`, { method: "POST" }),
+  },
   publicBooking: {
     config: (slug) => request(`/api/public-booking/${slug}/config`),
     branches: (slug) => request(`/api/public-booking/${slug}/branches`),

@@ -22,6 +22,7 @@ const MODULES = [
   "LOYALTY",
   "COUPON",
   "PUBLIC_BOOKING",
+  "JOB_CART",
   "SYSTEM",
 ] as const;
 

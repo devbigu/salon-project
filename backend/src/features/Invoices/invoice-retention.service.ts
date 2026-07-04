@@ -156,6 +156,13 @@ export const redeemInvoiceLoyalty = async (input: {
       );
     }
 
+    if (invoice.status === "DRAFT") {
+      throw new InvoiceRetentionError(
+        "Issue the draft invoice before redeeming loyalty points",
+        409
+      );
+    }
+
     if (invoice.paymentStatus === "PAID") {
       throw new InvoiceRetentionError(
         "Cannot redeem loyalty points on a fully paid invoice",

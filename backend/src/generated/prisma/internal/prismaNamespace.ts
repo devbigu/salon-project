@@ -3820,6 +3820,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const SalonScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  salonCode: 'salonCode',
   timezone: 'timezone',
   status: 'status',
   addressLine1: 'addressLine1',
@@ -4188,6 +4189,8 @@ export const AppointmentScalarFieldEnum = {
   totalDurationMinutes: 'totalDurationMinutes',
   estimatedAmount: 'estimatedAmount',
   status: 'status',
+  source: 'source',
+  walkInJobCart: 'walkInJobCart',
   bookingNote: 'bookingNote',
   internalNote: 'internalNote',
   createdAt: 'createdAt',
@@ -4621,6 +4624,7 @@ export type RetailSaleItemScalarFieldEnum = (typeof RetailSaleItemScalarFieldEnu
 
 export const ExpenseScalarFieldEnum = {
   id: 'id',
+  expenseCode: 'expenseCode',
   salonId: 'salonId',
   branchId: 'branchId',
   vendorId: 'vendorId',
@@ -5008,6 +5012,20 @@ export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'AppointmentStatus[]'
  */
 export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AppointmentSource'
+ */
+export type EnumAppointmentSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentSource'>
+    
+
+
+/**
+ * Reference to a field of type 'AppointmentSource[]'
+ */
+export type ListEnumAppointmentSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentSource[]'>
     
 
 

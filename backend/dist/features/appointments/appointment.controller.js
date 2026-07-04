@@ -1,5 +1,4 @@
 import {} from "express";
-import { randomUUID } from "node:crypto";
 import { AppointmentModel } from "./appointment.model.js";
 import { CustomerModel } from "../customers/customer.model.js";
 import { StaffModel } from "../staff/staff.model.js";
@@ -10,6 +9,7 @@ import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js
 import { sendInventoryError } from "../products/inventory-access.js";
 import { createAuditLog, requestAuditContext, } from "../audit-logs/audit-log.service.js";
 import { prisma } from "../../config/prisma.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
     "CONFIRMED",
@@ -49,9 +49,7 @@ const getAppointmentIdParam = (req) => {
     const { id } = req.params;
     return typeof id === "string" ? id : null;
 };
-const generateAppointmentCode = () => {
-    return `APT${Date.now()}${randomUUID().slice(0, 8)}`;
-};
+const generateAppointmentCode = (salonName, timezone) => buildBusinessCode({ salonName, type: "APT", timezone });
 const durationToMinutes = (durationValue, durationUnit) => {
     if (!durationValue) {
         return 0;
@@ -214,7 +212,7 @@ export const createAppointment = async (req, res) => {
         }
         const appointment = await prisma.$transaction(async (tx) => {
             const created = await AppointmentModel.create({
-                appointmentCode: generateAppointmentCode(),
+                appointmentCode: generateAppointmentCode(salon.name, salon.timezone),
                 salonId: finalSalonId,
                 ...(finalBranchId ? { branchId: finalBranchId } : {}),
                 customerId,
@@ -556,12 +554,14 @@ export const rescheduleAppointment = async (req, res) => {
         }
         const finalEndTime = new Date(finalStartTime.getTime() +
             existingAppointment.totalDurationMinutes * 60 * 1000);
-        const conflict = await AppointmentModel.findConflict({
-            staffId: existingAppointment.staffId,
-            startTime: finalStartTime,
-            endTime: finalEndTime,
-            excludeAppointmentId: id,
-        });
+        const conflict = existingAppointment.staffId
+            ? await AppointmentModel.findConflict({
+                staffId: existingAppointment.staffId,
+                startTime: finalStartTime,
+                endTime: finalEndTime,
+                excludeAppointmentId: id,
+            })
+            : null;
         if (conflict) {
             return res.status(409).json({
                 success: false,

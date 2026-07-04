@@ -38,24 +38,46 @@ const getMenu = (role) => {
         },
       ]
     : []),
-  ...(hasRole(role, operationalRoles)
+  ...(hasRole(role, [...operationalRoles, "BRANCH_MANAGER"])
     ? [
         { heading: "Operations" },
-        {
-          icon: "calender-date-fill",
-          text: "Appointments",
-          link: "/appointments",
-        },
-        {
-          icon: "users-fill",
-          text: "Customers",
-          link: "/customers",
-        },
-        {
-          icon: "scissors",
-          text: "Service Catalog",
-          link: "/services",
-        },
+        ...(hasRole(role, operationalRoles)
+          ? [
+              {
+                icon: "calender-date-fill",
+                text: "Appointments",
+                link: "/appointments",
+              },
+            ]
+          : []),
+        ...(hasRole(role, [
+          "SUPER_ADMIN",
+          "SALON_ADMIN",
+          "BRANCH_MANAGER",
+          "RECEPTIONIST",
+        ])
+          ? [
+              {
+                icon: "cart-fill",
+                text: "Job Cart",
+                link: "/job-carts",
+              },
+            ]
+          : []),
+        ...(hasRole(role, operationalRoles)
+          ? [
+              {
+                icon: "users-fill",
+                text: "Customers",
+                link: "/customers",
+              },
+              {
+                icon: "scissors",
+                text: "Service Catalog",
+                link: "/services",
+              },
+            ]
+          : []),
       ]
     : []),
   ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "STAFF"])

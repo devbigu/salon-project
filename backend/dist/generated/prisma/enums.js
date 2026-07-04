@@ -84,6 +84,11 @@ export const AppointmentStatus = {
     CANCELLED: 'CANCELLED',
     NO_SHOW: 'NO_SHOW'
 };
+export const AppointmentSource = {
+    INTERNAL: 'INTERNAL',
+    PUBLIC: 'PUBLIC',
+    WALK_IN: 'WALK_IN'
+};
 export const SaleStatus = {
     ACTIVE: 'ACTIVE',
     DELETED: 'DELETED',
@@ -175,6 +180,7 @@ export const AuditModule = {
     LOYALTY: 'LOYALTY',
     COUPON: 'COUPON',
     PUBLIC_BOOKING: 'PUBLIC_BOOKING',
+    JOB_CART: 'JOB_CART',
     SYSTEM: 'SYSTEM'
 };
 export const AuditAction = {

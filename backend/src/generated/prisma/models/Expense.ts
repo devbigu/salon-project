@@ -36,6 +36,7 @@ export type ExpenseSumAggregateOutputType = {
 
 export type ExpenseMinAggregateOutputType = {
   id: string | null
+  expenseCode: string | null
   salonId: string | null
   branchId: string | null
   vendorId: string | null
@@ -54,6 +55,7 @@ export type ExpenseMinAggregateOutputType = {
 
 export type ExpenseMaxAggregateOutputType = {
   id: string | null
+  expenseCode: string | null
   salonId: string | null
   branchId: string | null
   vendorId: string | null
@@ -72,6 +74,7 @@ export type ExpenseMaxAggregateOutputType = {
 
 export type ExpenseCountAggregateOutputType = {
   id: number
+  expenseCode: number
   salonId: number
   branchId: number
   vendorId: number
@@ -100,6 +103,7 @@ export type ExpenseSumAggregateInputType = {
 
 export type ExpenseMinAggregateInputType = {
   id?: true
+  expenseCode?: true
   salonId?: true
   branchId?: true
   vendorId?: true
@@ -118,6 +122,7 @@ export type ExpenseMinAggregateInputType = {
 
 export type ExpenseMaxAggregateInputType = {
   id?: true
+  expenseCode?: true
   salonId?: true
   branchId?: true
   vendorId?: true
@@ -136,6 +141,7 @@ export type ExpenseMaxAggregateInputType = {
 
 export type ExpenseCountAggregateInputType = {
   id?: true
+  expenseCode?: true
   salonId?: true
   branchId?: true
   vendorId?: true
@@ -241,6 +247,7 @@ export type ExpenseGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ExpenseGroupByOutputType = {
   id: string
+  expenseCode: string | null
   salonId: string
   branchId: string | null
   vendorId: string | null
@@ -282,6 +289,7 @@ export type ExpenseWhereInput = {
   OR?: Prisma.ExpenseWhereInput[]
   NOT?: Prisma.ExpenseWhereInput | Prisma.ExpenseWhereInput[]
   id?: Prisma.StringFilter<"Expense"> | string
+  expenseCode?: Prisma.StringNullableFilter<"Expense"> | string | null
   salonId?: Prisma.StringFilter<"Expense"> | string
   branchId?: Prisma.StringNullableFilter<"Expense"> | string | null
   vendorId?: Prisma.StringNullableFilter<"Expense"> | string | null
@@ -305,6 +313,7 @@ export type ExpenseWhereInput = {
 
 export type ExpenseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  expenseCode?: Prisma.SortOrderInput | Prisma.SortOrder
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   vendorId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -328,9 +337,11 @@ export type ExpenseOrderByWithRelationInput = {
 
 export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  salonId_expenseCode?: Prisma.ExpenseSalonIdExpenseCodeCompoundUniqueInput
   AND?: Prisma.ExpenseWhereInput | Prisma.ExpenseWhereInput[]
   OR?: Prisma.ExpenseWhereInput[]
   NOT?: Prisma.ExpenseWhereInput | Prisma.ExpenseWhereInput[]
+  expenseCode?: Prisma.StringNullableFilter<"Expense"> | string | null
   salonId?: Prisma.StringFilter<"Expense"> | string
   branchId?: Prisma.StringNullableFilter<"Expense"> | string | null
   vendorId?: Prisma.StringNullableFilter<"Expense"> | string | null
@@ -350,10 +361,11 @@ export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
   vendor?: Prisma.XOR<Prisma.VendorNullableScalarRelationFilter, Prisma.VendorWhereInput> | null
   categoryDefinition?: Prisma.XOR<Prisma.ExpenseCategoryDefinitionNullableScalarRelationFilter, Prisma.ExpenseCategoryDefinitionWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-}, "id">
+}, "id" | "salonId_expenseCode">
 
 export type ExpenseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  expenseCode?: Prisma.SortOrderInput | Prisma.SortOrder
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrderInput | Prisma.SortOrder
   vendorId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -380,6 +392,7 @@ export type ExpenseScalarWhereWithAggregatesInput = {
   OR?: Prisma.ExpenseScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ExpenseScalarWhereWithAggregatesInput | Prisma.ExpenseScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Expense"> | string
+  expenseCode?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   salonId?: Prisma.StringWithAggregatesFilter<"Expense"> | string
   branchId?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   vendorId?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
@@ -398,6 +411,7 @@ export type ExpenseScalarWhereWithAggregatesInput = {
 
 export type ExpenseCreateInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -416,6 +430,7 @@ export type ExpenseCreateInput = {
 
 export type ExpenseUncheckedCreateInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -434,6 +449,7 @@ export type ExpenseUncheckedCreateInput = {
 
 export type ExpenseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -452,6 +468,7 @@ export type ExpenseUpdateInput = {
 
 export type ExpenseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -470,6 +487,7 @@ export type ExpenseUncheckedUpdateInput = {
 
 export type ExpenseCreateManyInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -488,6 +506,7 @@ export type ExpenseCreateManyInput = {
 
 export type ExpenseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -501,6 +520,7 @@ export type ExpenseUpdateManyMutationInput = {
 
 export type ExpenseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -527,8 +547,14 @@ export type ExpenseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ExpenseSalonIdExpenseCodeCompoundUniqueInput = {
+  salonId: string
+  expenseCode: string
+}
+
 export type ExpenseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  expenseCode?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   vendorId?: Prisma.SortOrder
@@ -551,6 +577,7 @@ export type ExpenseAvgOrderByAggregateInput = {
 
 export type ExpenseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  expenseCode?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   vendorId?: Prisma.SortOrder
@@ -569,6 +596,7 @@ export type ExpenseMaxOrderByAggregateInput = {
 
 export type ExpenseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  expenseCode?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   branchId?: Prisma.SortOrder
   vendorId?: Prisma.SortOrder
@@ -801,6 +829,7 @@ export type ExpenseUncheckedUpdateManyWithoutCategoryDefinitionNestedInput = {
 
 export type ExpenseCreateWithoutSalonInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -818,6 +847,7 @@ export type ExpenseCreateWithoutSalonInput = {
 
 export type ExpenseUncheckedCreateWithoutSalonInput = {
   id?: string
+  expenseCode?: string | null
   branchId?: string | null
   vendorId?: string | null
   categoryDefinitionId?: string | null
@@ -864,6 +894,7 @@ export type ExpenseScalarWhereInput = {
   OR?: Prisma.ExpenseScalarWhereInput[]
   NOT?: Prisma.ExpenseScalarWhereInput | Prisma.ExpenseScalarWhereInput[]
   id?: Prisma.StringFilter<"Expense"> | string
+  expenseCode?: Prisma.StringNullableFilter<"Expense"> | string | null
   salonId?: Prisma.StringFilter<"Expense"> | string
   branchId?: Prisma.StringNullableFilter<"Expense"> | string | null
   vendorId?: Prisma.StringNullableFilter<"Expense"> | string | null
@@ -882,6 +913,7 @@ export type ExpenseScalarWhereInput = {
 
 export type ExpenseCreateWithoutCreatedByInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -899,6 +931,7 @@ export type ExpenseCreateWithoutCreatedByInput = {
 
 export type ExpenseUncheckedCreateWithoutCreatedByInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -942,6 +975,7 @@ export type ExpenseUpdateManyWithWhereWithoutCreatedByInput = {
 
 export type ExpenseCreateWithoutBranchInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -959,6 +993,7 @@ export type ExpenseCreateWithoutBranchInput = {
 
 export type ExpenseUncheckedCreateWithoutBranchInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   vendorId?: string | null
   categoryDefinitionId?: string | null
@@ -1002,6 +1037,7 @@ export type ExpenseUpdateManyWithWhereWithoutBranchInput = {
 
 export type ExpenseCreateWithoutVendorInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -1019,6 +1055,7 @@ export type ExpenseCreateWithoutVendorInput = {
 
 export type ExpenseUncheckedCreateWithoutVendorInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   categoryDefinitionId?: string | null
@@ -1062,6 +1099,7 @@ export type ExpenseUpdateManyWithWhereWithoutVendorInput = {
 
 export type ExpenseCreateWithoutCategoryDefinitionInput = {
   id?: string
+  expenseCode?: string | null
   title: string
   description?: string | null
   category: string
@@ -1079,6 +1117,7 @@ export type ExpenseCreateWithoutCategoryDefinitionInput = {
 
 export type ExpenseUncheckedCreateWithoutCategoryDefinitionInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -1122,6 +1161,7 @@ export type ExpenseUpdateManyWithWhereWithoutCategoryDefinitionInput = {
 
 export type ExpenseCreateManySalonInput = {
   id?: string
+  expenseCode?: string | null
   branchId?: string | null
   vendorId?: string | null
   categoryDefinitionId?: string | null
@@ -1139,6 +1179,7 @@ export type ExpenseCreateManySalonInput = {
 
 export type ExpenseUpdateWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1156,6 +1197,7 @@ export type ExpenseUpdateWithoutSalonInput = {
 
 export type ExpenseUncheckedUpdateWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1173,6 +1215,7 @@ export type ExpenseUncheckedUpdateWithoutSalonInput = {
 
 export type ExpenseUncheckedUpdateManyWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1190,6 +1233,7 @@ export type ExpenseUncheckedUpdateManyWithoutSalonInput = {
 
 export type ExpenseCreateManyCreatedByInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -1207,6 +1251,7 @@ export type ExpenseCreateManyCreatedByInput = {
 
 export type ExpenseUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1224,6 +1269,7 @@ export type ExpenseUpdateWithoutCreatedByInput = {
 
 export type ExpenseUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1241,6 +1287,7 @@ export type ExpenseUncheckedUpdateWithoutCreatedByInput = {
 
 export type ExpenseUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1258,6 +1305,7 @@ export type ExpenseUncheckedUpdateManyWithoutCreatedByInput = {
 
 export type ExpenseCreateManyBranchInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   vendorId?: string | null
   categoryDefinitionId?: string | null
@@ -1275,6 +1323,7 @@ export type ExpenseCreateManyBranchInput = {
 
 export type ExpenseUpdateWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1292,6 +1341,7 @@ export type ExpenseUpdateWithoutBranchInput = {
 
 export type ExpenseUncheckedUpdateWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1309,6 +1359,7 @@ export type ExpenseUncheckedUpdateWithoutBranchInput = {
 
 export type ExpenseUncheckedUpdateManyWithoutBranchInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1326,6 +1377,7 @@ export type ExpenseUncheckedUpdateManyWithoutBranchInput = {
 
 export type ExpenseCreateManyVendorInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   categoryDefinitionId?: string | null
@@ -1343,6 +1395,7 @@ export type ExpenseCreateManyVendorInput = {
 
 export type ExpenseUpdateWithoutVendorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1360,6 +1413,7 @@ export type ExpenseUpdateWithoutVendorInput = {
 
 export type ExpenseUncheckedUpdateWithoutVendorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1377,6 +1431,7 @@ export type ExpenseUncheckedUpdateWithoutVendorInput = {
 
 export type ExpenseUncheckedUpdateManyWithoutVendorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDefinitionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1394,6 +1449,7 @@ export type ExpenseUncheckedUpdateManyWithoutVendorInput = {
 
 export type ExpenseCreateManyCategoryDefinitionInput = {
   id?: string
+  expenseCode?: string | null
   salonId: string
   branchId?: string | null
   vendorId?: string | null
@@ -1411,6 +1467,7 @@ export type ExpenseCreateManyCategoryDefinitionInput = {
 
 export type ExpenseUpdateWithoutCategoryDefinitionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1428,6 +1485,7 @@ export type ExpenseUpdateWithoutCategoryDefinitionInput = {
 
 export type ExpenseUncheckedUpdateWithoutCategoryDefinitionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1445,6 +1503,7 @@ export type ExpenseUncheckedUpdateWithoutCategoryDefinitionInput = {
 
 export type ExpenseUncheckedUpdateManyWithoutCategoryDefinitionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  expenseCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vendorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1464,6 +1523,7 @@ export type ExpenseUncheckedUpdateManyWithoutCategoryDefinitionInput = {
 
 export type ExpenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  expenseCode?: boolean
   salonId?: boolean
   branchId?: boolean
   vendorId?: boolean
@@ -1487,6 +1547,7 @@ export type ExpenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  expenseCode?: boolean
   salonId?: boolean
   branchId?: boolean
   vendorId?: boolean
@@ -1510,6 +1571,7 @@ export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  expenseCode?: boolean
   salonId?: boolean
   branchId?: boolean
   vendorId?: boolean
@@ -1533,6 +1595,7 @@ export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type ExpenseSelectScalar = {
   id?: boolean
+  expenseCode?: boolean
   salonId?: boolean
   branchId?: boolean
   vendorId?: boolean
@@ -1549,7 +1612,7 @@ export type ExpenseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "salonId" | "branchId" | "vendorId" | "categoryDefinitionId" | "title" | "description" | "category" | "amount" | "paymentMethod" | "expenseDate" | "note" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
+export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "expenseCode" | "salonId" | "branchId" | "vendorId" | "categoryDefinitionId" | "title" | "description" | "category" | "amount" | "paymentMethod" | "expenseDate" | "note" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["expense"]>
 export type ExpenseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   branch?: boolean | Prisma.Expense$branchArgs<ExtArgs>
@@ -1583,6 +1646,7 @@ export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    expenseCode: string | null
     salonId: string
     branchId: string | null
     vendorId: string | null
@@ -2026,6 +2090,7 @@ export interface Prisma__ExpenseClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface ExpenseFieldRefs {
   readonly id: Prisma.FieldRef<"Expense", 'String'>
+  readonly expenseCode: Prisma.FieldRef<"Expense", 'String'>
   readonly salonId: Prisma.FieldRef<"Expense", 'String'>
   readonly branchId: Prisma.FieldRef<"Expense", 'String'>
   readonly vendorId: Prisma.FieldRef<"Expense", 'String'>

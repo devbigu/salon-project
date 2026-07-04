@@ -7,6 +7,7 @@ import {
   validateBranch,
 } from "../products/inventory-access.js";
 import { ExpenseModel } from "./expense.model.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 
 const PAYMENT_METHODS = [
   "CASH",
@@ -127,6 +128,13 @@ export const createExpense = async (req: Request, res: Response) => {
         .status(400)
         .json({ success: false, message: referenceError });
     }
+    const salon = await prisma.salon.findUnique({
+      where: { id: salonId },
+      select: { name: true, timezone: true },
+    });
+    if (!salon) {
+      return res.status(400).json({ success: false, message: "Invalid salon" });
+    }
     const expenseDate = req.body.expenseDate
       ? new Date(req.body.expenseDate)
       : undefined;
@@ -138,6 +146,11 @@ export const createExpense = async (req: Request, res: Response) => {
     const description = cleanText(req.body.description);
     const note = cleanText(req.body.note);
     const data = await ExpenseModel.create({
+      expenseCode: buildBusinessCode({
+        salonName: salon.name,
+        type: "EXP",
+        timezone: salon.timezone,
+      }),
       salon: { connect: { id: salonId } },
       title,
       amount,

@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { Prisma } from "../../generated/prisma/client.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 import { transactionError } from "../products/inventory-access.js";
 import { createStockMovement } from "../stock/stockMovement.service.js";
 
@@ -30,6 +31,14 @@ export const createReceivedProductPurchase = async (
 ) => {
   if (input.items.length === 0) {
     throw transactionError("At least one purchase item is required");
+  }
+
+  const salon = await input.tx.salon.findUnique({
+    where: { id: input.salonId },
+    select: { name: true, timezone: true },
+  });
+  if (!salon) {
+    throw transactionError("Invalid salon");
   }
 
   const items = input.items.map((item) => {
@@ -120,7 +129,11 @@ export const createReceivedProductPurchase = async (
   return input.tx.productPurchase.create({
     data: {
       id: purchaseId,
-      purchaseCode: `PUR-${Date.now()}-${randomUUID().slice(0, 8)}`,
+      purchaseCode: buildBusinessCode({
+        salonName: salon.name,
+        type: "PUR",
+        timezone: salon.timezone,
+      }),
       salonId: input.salonId,
       branchId: input.branchId ?? null,
       vendorId: input.vendorId ?? null,

@@ -34,6 +34,8 @@ const modules = [
   "MEMBERSHIP",
   "LOYALTY",
   "COUPON",
+  "PUBLIC_BOOKING",
+  "JOB_CART",
   "SYSTEM",
 ];
 
@@ -69,8 +71,10 @@ const emptyFilters = {
 };
 
 const JsonBlock = ({ value }) => (
-  <pre className="bg-lighter rounded p-3 mb-0 text-wrap">
-    {value ? JSON.stringify(value, null, 2) : "No data captured."}
+  <pre className="audit-details-json bg-lighter rounded p-3 mb-0">
+    {value !== null && value !== undefined
+      ? JSON.stringify(value, null, 2)
+      : "No data captured."}
   </pre>
 );
 

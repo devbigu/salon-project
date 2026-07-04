@@ -14,6 +14,10 @@ import {
 import { prisma } from "../../config/prisma.js";
 import { Prisma } from "../../generated/prisma/client.js";
 import {
+  buildBusinessCode,
+  businessCodeDayRange,
+} from "../../utils/business-id.js";
+import {
   CouponServiceError,
   applyCouponToInvoice,
   issueInvoice as issueDraftInvoice,
@@ -42,8 +46,30 @@ const isValidPaymentStatus = (value: string): value is PaymentStatus => {
   return PAYMENT_STATUSES.includes(value as PaymentStatus);
 };
 
-const generateInvoiceCode = () => {
-  return `INV${Date.now()}`;
+const generateInvoiceCode = async (
+  tx: Prisma.TransactionClient,
+  salon: { id: string; name: string; timezone?: string | null },
+  date: Date = new Date()
+) => {
+  const range = businessCodeDayRange(date, salon.timezone);
+  const serial =
+    (await tx.invoice.count({
+      where: {
+        salonId: salon.id,
+        invoiceDate: {
+          gte: range.start,
+          lt: range.end,
+        },
+      },
+    })) + 1;
+
+  return buildBusinessCode({
+    salonName: salon.name,
+    type: "INV",
+    date,
+    timezone: salon.timezone,
+    serial,
+  });
 };
 
 const getInvoiceIdParam = (req: Request) => {
@@ -227,8 +253,9 @@ export const createInvoiceFromAppointment = async (
     const totalAmount = Number((taxableAmount + finalTaxAmount).toFixed(2));
 
     const invoice = await prisma.$transaction(async (tx) => {
+      const invoiceDate = new Date();
       const created = await InvoiceModel.create({
-      invoiceCode: generateInvoiceCode(),
+      invoiceCode: await generateInvoiceCode(tx, appointment.salon, invoiceDate),
 
       salonId: appointment.salonId,
       ...(appointment.branchId ? { branchId: appointment.branchId } : {}),

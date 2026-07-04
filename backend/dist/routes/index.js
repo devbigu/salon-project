@@ -36,6 +36,7 @@ import salaryConfigRoutes from "../features/salary-configs/salaryConfig.routes.j
 import salarySlipRoutes from "../features/salary-slips/salarySlip.routes.js";
 import publicBookingRoutes from "../features/public-booking/public-booking.routes.js";
 import publicBookingSettingRoutes from "../features/public-booking-settings/public-booking-setting.routes.js";
+import jobCartRoutes from "../features/job-carts/job-cart.routes.js";
 const router = Router();
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
@@ -73,6 +74,7 @@ router.use("/attendance", attendanceRoutes);
 router.use("/leaves", leaveRoutes);
 router.use("/public-booking", publicBookingRoutes);
 router.use("/public-booking-settings", publicBookingSettingRoutes);
+router.use("/job-carts", jobCartRoutes);
 router.use("/", salaryConfigRoutes);
 router.use("/salary-slips", salarySlipRoutes);
 export default router;

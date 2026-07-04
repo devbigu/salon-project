@@ -1,1 +1,37 @@
 [2m5:02:50 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22m[vite] Failed to reload /src/pages/salon/LoyaltyTransactions.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+[2m2:32:52 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mReceived `true` for a non-boolean attribute `block`.
+
+If you want to write it to the DOM, pass a string instead: block="true" or block={value.toString()}.
+[2m3:28:23 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mReceived `true` for a non-boolean attribute `block`.
+
+If you want to write it to the DOM, pass a string instead: block="true" or block={value.toString()}.
+[2m5:22:58 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22mReceived `true` for a non-boolean attribute `block`.
+
+If you want to write it to the DOM, pass a string instead: block="true" or block={value.toString()}.
+[2m5:29:45 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: Failed to resolve import "@/pages/salon/JobCartCustomerHistory" from "src/route/Index.jsx". Does the file exist?
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mC:/Users/JoJo/job work/Salon/frontend/src/route/Index.jsx[39m:42:35
+[33m  39 |  import JobCartCreate from "@/pages/salon/JobCartCreate";
+  40 |  import JobCartDetails from "@/pages/salon/JobCartDetails";
+  41 |  import JobCartCustomerHistory from "@/pages/salon/JobCartCustomerHistory";
+     |                                      ^
+  42 |  import PublicBooking from "@/pages/public/PublicBooking";
+  43 |  import Login from "@/pages/auth/Login";[39m
+[2m5:29:45 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "@/pages/salon/JobCartCustomerHistory" from "src/route/Index.jsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mC:/Users/JoJo/job work/Salon/frontend/src/route/Index.jsx[39m:42:35
+[33m  39 |  import JobCartCreate from "@/pages/salon/JobCartCreate";
+  40 |  import JobCartDetails from "@/pages/salon/JobCartDetails";
+  41 |  import JobCartCustomerHistory from "@/pages/salon/JobCartCustomerHistory";
+     |                                      ^
+  42 |  import PublicBooking from "@/pages/public/PublicBooking";
+  43 |  import Login from "@/pages/auth/Login";[39m
+      at TransformPluginContext._formatLog (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:30375:39)
+      at TransformPluginContext.error (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:30372:14)
+      at normalizeUrl (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:27654:18)
+      at async file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:27717:30
+      at async Promise.all (index 40)
+      at async TransformPluginContext.transform (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:27685:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:30164:14)
+      at async loadAndTransform (file:///C:/Users/JoJo/job%20work/Salon/frontend/node_modules/vite/dist/node/chunks/node.js:24512:26)
+[2m5:29:45 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22m[vite] Failed to reload /src/route/Index.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)

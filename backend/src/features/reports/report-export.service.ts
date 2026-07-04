@@ -164,7 +164,7 @@ const buildRows = async (
       take: MAX_EXPORT_ROWS + 1,
     }));
     return {
-      title: "Revenue and Sales Report",
+      title: "Billing & Payments Report",
       columns: [
         { key: "code", label: "Sale", width: 16 }, { key: "date", label: "Date", type: "date", width: 16 },
         { key: "customer", label: "Customer", width: 20 }, { key: "staff", label: "Staff", width: 18 },
@@ -236,7 +236,7 @@ const buildRows = async (
       include: { staff: { select: { name: true, staffCode: true } }, branch: { select: { name: true } } },
       orderBy: [{ year: "desc" }, { month: "desc" }], take: MAX_EXPORT_ROWS + 1,
     }));
-    return { title: "Payroll Summary", columns: [
+    return { title: "Salary Slips Report", columns: [
       { key: "period", label: "Period" }, { key: "staff", label: "Staff", width: 20 }, { key: "code", label: "Code" },
       { key: "branch", label: "Branch" }, { key: "gross", label: "Gross", type: "currency" },
       { key: "deductions", label: "Deductions", type: "currency" }, { key: "bonus", label: "Bonus", type: "currency" },
@@ -246,11 +246,11 @@ const buildRows = async (
   }
   if (reportType === "customer-outstanding") {
     const customers = limited(await prisma.customer.findMany({
-      where: { ...common, outstandingAmount: { not: 0 } },
+      where: common,
       include: { branch: { select: { name: true } } },
       orderBy: { name: "asc" }, take: MAX_EXPORT_ROWS + 1,
     }));
-    return { title: "Customer Outstanding Summary", columns: [
+    return { title: "Customer Report", columns: [
       { key: "code", label: "Code" }, { key: "customer", label: "Customer", width: 22 },
       { key: "phone", label: "Phone", width: 16 }, { key: "branch", label: "Branch", width: 16 },
       { key: "outstanding", label: "Outstanding", type: "currency" }, { key: "wallet", label: "Wallet", type: "currency" },
@@ -271,7 +271,7 @@ const buildRows = async (
       { key: "staff", label: "Staff" }, { key: "services", label: "Services", width: 28 },
       { key: "branch", label: "Branch" }, { key: "amount", label: "Estimated", type: "currency" },
       { key: "status", label: "Status" },
-    ], rows: appointments.map((a) => ({ code: a.appointmentCode, start: a.startTime, customer: a.customer.name, phone: a.customer.phone, staff: a.staff.name, services: a.services.map((s) => s.serviceName).join(", "), branch: a.branch?.name ?? "All branches", amount: Number(a.estimatedAmount), status: a.status })),
+    ], rows: appointments.map((a) => ({ code: a.appointmentCode, start: a.startTime, customer: a.customer.name, phone: a.customer.phone, staff: a.staff?.name ?? "Unassigned", services: a.services.map((s) => s.serviceName).join(", "), branch: a.branch?.name ?? "All branches", amount: Number(a.estimatedAmount), status: a.status })),
     totals: { code: "TOTAL", amount: appointments.reduce((s, a) => s + Number(a.estimatedAmount), 0) } };
   }
 

@@ -36,6 +36,10 @@ import SalaryConfig from "@/pages/salon/SalaryConfig";
 import SalarySlips from "@/pages/salon/SalarySlips";
 import StaffPerformance from "@/pages/salon/StaffPerformance";
 import OnlineBookingSettings from "@/pages/salon/OnlineBookingSettings";
+import JobCarts from "@/pages/salon/JobCarts";
+import JobCartCreate from "@/pages/salon/JobCartCreate";
+import JobCartDetails from "@/pages/salon/JobCartDetails";
+import JobCartCustomerHistory from "@/pages/salon/JobCartCustomerHistory";
 import PublicBooking from "@/pages/public/PublicBooking";
 
 import Login from "@/pages/auth/Login";
@@ -100,6 +104,27 @@ const Router = () => (
               <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"]} />}>
                 <Route path="staff-operations/attendance" element={<Attendance />} />
                 <Route path="staff-operations/leaves" element={<Leaves />} />
+              </Route>
+
+              <Route
+                element={
+                  <RoleRoute
+                    roles={[
+                      "SUPER_ADMIN",
+                      "SALON_ADMIN",
+                      "BRANCH_MANAGER",
+                      "RECEPTIONIST",
+                    ]}
+                  />
+                }
+              >
+                <Route path="job-carts" element={<JobCarts />} />
+                <Route path="job-carts/create" element={<JobCartCreate />} />
+                <Route
+                  path="job-carts/customers/:customerId"
+                  element={<JobCartCustomerHistory />}
+                />
+                <Route path="job-carts/:id" element={<JobCartDetails />} />
               </Route>
 
               <Route

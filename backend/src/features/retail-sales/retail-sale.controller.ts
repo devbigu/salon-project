@@ -9,6 +9,7 @@ import {
 } from "../products/inventory-access.js";
 import { RetailSaleModel } from "./retail-sale.model.js";
 import { createStockMovement } from "../stock/stockMovement.service.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 
 const PAYMENT_METHODS = ["CASH", "UPI", "GPAY", "PAYTM", "PHONEPE", "CARD", "BANK_TRANSFER", "CHEQUE", "OTHER"] as const;
 type PaymentMethod = (typeof PAYMENT_METHODS)[number];
@@ -62,6 +63,11 @@ export const createRetailSale = async (req: Request, res: Response) => {
     }
 
     const saleId = await prisma.$transaction(async (tx) => {
+      const salon = await tx.salon.findUnique({
+        where: { id: salonId },
+        select: { name: true, timezone: true },
+      });
+      if (!salon) throw transactionError("Invalid salon");
       const products = await tx.product.findMany({
         where: { id: { in: items.map((item) => item.productId) }, salonId },
       });
@@ -104,7 +110,11 @@ export const createRetailSale = async (req: Request, res: Response) => {
       const sale = await tx.retailSale.create({
         data: {
           id: saleId,
-          saleCode: `RET-${Date.now()}-${randomUUID().slice(0, 8)}`,
+          saleCode: buildBusinessCode({
+            salonName: salon.name,
+            type: "RET",
+            timezone: salon.timezone,
+          }),
           salonId,
           ...(branchId ? { branchId } : {}),
           ...(req.body.customerId ? { customerId: req.body.customerId } : {}),

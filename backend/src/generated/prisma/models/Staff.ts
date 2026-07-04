@@ -901,10 +901,12 @@ export type StaffCreateNestedOneWithoutAppointmentsInput = {
   connect?: Prisma.StaffWhereUniqueInput
 }
 
-export type StaffUpdateOneRequiredWithoutAppointmentsNestedInput = {
+export type StaffUpdateOneWithoutAppointmentsNestedInput = {
   create?: Prisma.XOR<Prisma.StaffCreateWithoutAppointmentsInput, Prisma.StaffUncheckedCreateWithoutAppointmentsInput>
   connectOrCreate?: Prisma.StaffCreateOrConnectWithoutAppointmentsInput
   upsert?: Prisma.StaffUpsertWithoutAppointmentsInput
+  disconnect?: Prisma.StaffWhereInput | boolean
+  delete?: Prisma.StaffWhereInput | boolean
   connect?: Prisma.StaffWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.StaffUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.StaffUpdateWithoutAppointmentsInput>, Prisma.StaffUncheckedUpdateWithoutAppointmentsInput>
 }

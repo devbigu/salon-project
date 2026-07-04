@@ -70,6 +70,17 @@ const fixture = async () => {
       { salonId: salon.id, branchId: secondBranch.id, name: `Other Branch Product ${stamp}`, currentStock: 3, lowStockAlert: 5, costPrice: 10, sellingPrice: 20 },
     ],
   });
+  await prisma.customer.create({
+    data: {
+      customerCode: `WALLET-${stamp}`,
+      name: "Wallet Customer",
+      phone: "9876501234",
+      walletBalance: 250,
+      outstandingAmount: 0,
+      salonId: salon.id,
+      branchId: branch.id,
+    },
+  });
   return {
     salon,
     otherSalon,
@@ -88,6 +99,9 @@ describe("Report exports", () => {
       .set(auth(f.adminToken));
     expect(pdf.status).toBe(200);
     expect(pdf.headers["content-type"]).toContain("application/pdf");
+    expect(pdf.headers["content-disposition"]).toContain(
+      "billing-and-payments-report.pdf"
+    );
     expect(pdf.body.subarray(0, 4).toString()).toBe("%PDF");
 
     const xlsx = await request(app)
@@ -103,7 +117,57 @@ describe("Report exports", () => {
     expect(xlsx.headers["content-type"]).toContain(
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     );
+    expect(xlsx.headers["content-disposition"]).toContain(
+      "billing-and-payments-report.xlsx"
+    );
     expect(xlsx.body.subarray(0, 2).toString()).toBe("PK");
+
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(xlsx.body as never);
+    const sheet = workbook.getWorksheet("Report");
+    expect(sheet?.getCell("A1").alignment.horizontal).toBe("center");
+    expect(sheet?.getCell("A1").font.color).toMatchObject({ argb: "FF000000" });
+    expect(sheet?.getCell("A1").fill).toMatchObject({
+      fgColor: { argb: "FFF2F2F2" },
+    });
+    expect(String(sheet?.getCell("A2").value)).toContain(
+      "Salon: Export Salon"
+    );
+    expect(String(sheet?.getCell("A2").value)).toContain(
+      " | Branch: All branches | Generated:"
+    );
+    expect(sheet?.getCell("A4").alignment.horizontal).toBe("center");
+    expect(sheet?.getCell("A4").font.color).toMatchObject({ argb: "FF000000" });
+    expect(sheet?.getCell("A4").fill).toMatchObject({
+      fgColor: { argb: "FFE7E6E6" },
+    });
+  });
+
+  it("uses report-specific filenames and includes customer wallet balances", async () => {
+    const f = await fixture();
+    const customer = await request(app)
+      .get("/api/reports/customer-outstanding/export?format=xlsx")
+      .set(auth(f.adminToken))
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => callback(null, Buffer.concat(chunks)));
+      });
+    expect(customer.headers["content-disposition"]).toContain(
+      "customer-report.xlsx"
+    );
+    const customerValues = await readSheetValues(customer.body);
+    expect(customerValues).toContain("Wallet Customer");
+    expect(customerValues).toContain("250");
+
+    const appointment = await request(app)
+      .get("/api/reports/appointments/export?format=pdf")
+      .set(auth(f.adminToken));
+    expect(appointment.status).toBe(200);
+    expect(appointment.headers["content-disposition"]).toContain(
+      "appointment-report.pdf"
+    );
   });
 
   it("applies expense date filters", async () => {

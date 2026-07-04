@@ -20,13 +20,15 @@ export const AppointmentModel = {
     salonId: string;
     branchId?: string;
     customerId: string;
-    staffId: string;
+    staffId?: string;
     createdById?: string;
     startTime: Date;
     endTime: Date;
     totalDurationMinutes: number;
     estimatedAmount: number;
     status?: AppointmentStatus;
+    source?: "INTERNAL" | "PUBLIC" | "WALK_IN";
+    walkInJobCart?: boolean;
     bookingNote?: string;
     internalNote?: string;
     services: {
@@ -42,13 +44,15 @@ export const AppointmentModel = {
         appointmentCode: data.appointmentCode,
         salonId: data.salonId,
         customerId: data.customerId,
-        staffId: data.staffId,
+        ...(data.staffId ? { staffId: data.staffId } : {}),
         ...(data.createdById ? { createdById: data.createdById } : {}),
         startTime: data.startTime,
         endTime: data.endTime,
         totalDurationMinutes: data.totalDurationMinutes,
         estimatedAmount: data.estimatedAmount,
         status: data.status || "SCHEDULED",
+        source: data.source || "INTERNAL",
+        walkInJobCart: data.walkInJobCart ?? false,
         ...(data.branchId ? { branchId: data.branchId } : {}),
         ...(data.bookingNote ? { bookingNote: data.bookingNote } : {}),
         ...(data.internalNote ? { internalNote: data.internalNote } : {}),
@@ -501,6 +505,7 @@ findInvoiceSourceById: async (id: string) => {
           state: true,
           country: true,
           postalCode: true,
+          timezone: true,
         },
       },
       branch: {
@@ -556,6 +561,7 @@ findInvoiceSourceByIdAndSalon: async (id: string, salonId: string) => {
           state: true,
           country: true,
           postalCode: true,
+          timezone: true,
         },
       },
       branch: {

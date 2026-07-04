@@ -27,6 +27,7 @@ export type AggregateSalon = {
 export type SalonMinAggregateOutputType = {
   id: string | null
   name: string | null
+  salonCode: string | null
   timezone: string | null
   status: boolean | null
   addressLine1: string | null
@@ -44,6 +45,7 @@ export type SalonMinAggregateOutputType = {
 export type SalonMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  salonCode: string | null
   timezone: string | null
   status: boolean | null
   addressLine1: string | null
@@ -61,6 +63,7 @@ export type SalonMaxAggregateOutputType = {
 export type SalonCountAggregateOutputType = {
   id: number
   name: number
+  salonCode: number
   timezone: number
   status: number
   addressLine1: number
@@ -80,6 +83,7 @@ export type SalonCountAggregateOutputType = {
 export type SalonMinAggregateInputType = {
   id?: true
   name?: true
+  salonCode?: true
   timezone?: true
   status?: true
   addressLine1?: true
@@ -97,6 +101,7 @@ export type SalonMinAggregateInputType = {
 export type SalonMaxAggregateInputType = {
   id?: true
   name?: true
+  salonCode?: true
   timezone?: true
   status?: true
   addressLine1?: true
@@ -114,6 +119,7 @@ export type SalonMaxAggregateInputType = {
 export type SalonCountAggregateInputType = {
   id?: true
   name?: true
+  salonCode?: true
   timezone?: true
   status?: true
   addressLine1?: true
@@ -204,6 +210,7 @@ export type SalonGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type SalonGroupByOutputType = {
   id: string
   name: string
+  salonCode: string | null
   timezone: string
   status: boolean
   addressLine1: string | null
@@ -242,6 +249,7 @@ export type SalonWhereInput = {
   NOT?: Prisma.SalonWhereInput | Prisma.SalonWhereInput[]
   id?: Prisma.StringFilter<"Salon"> | string
   name?: Prisma.StringFilter<"Salon"> | string
+  salonCode?: Prisma.StringNullableFilter<"Salon"> | string | null
   timezone?: Prisma.StringFilter<"Salon"> | string
   status?: Prisma.BoolFilter<"Salon"> | boolean
   addressLine1?: Prisma.StringNullableFilter<"Salon"> | string | null
@@ -293,6 +301,7 @@ export type SalonWhereInput = {
 export type SalonOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  salonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   timezone?: Prisma.SortOrder
   status?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -343,6 +352,7 @@ export type SalonOrderByWithRelationInput = {
 
 export type SalonWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  salonCode?: string
   AND?: Prisma.SalonWhereInput | Prisma.SalonWhereInput[]
   OR?: Prisma.SalonWhereInput[]
   NOT?: Prisma.SalonWhereInput | Prisma.SalonWhereInput[]
@@ -393,11 +403,12 @@ export type SalonWhereUniqueInput = Prisma.AtLeast<{
   staffLeaves?: Prisma.StaffLeaveListRelationFilter
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
-}, "id">
+}, "id" | "salonCode">
 
 export type SalonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  salonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   timezone?: Prisma.SortOrder
   status?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,6 +432,7 @@ export type SalonScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SalonScalarWhereWithAggregatesInput | Prisma.SalonScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Salon"> | string
   name?: Prisma.StringWithAggregatesFilter<"Salon"> | string
+  salonCode?: Prisma.StringNullableWithAggregatesFilter<"Salon"> | string | null
   timezone?: Prisma.StringWithAggregatesFilter<"Salon"> | string
   status?: Prisma.BoolWithAggregatesFilter<"Salon"> | boolean
   addressLine1?: Prisma.StringNullableWithAggregatesFilter<"Salon"> | string | null
@@ -438,6 +450,7 @@ export type SalonScalarWhereWithAggregatesInput = {
 export type SalonCreateInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -489,6 +502,7 @@ export type SalonCreateInput = {
 export type SalonUncheckedCreateInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -540,6 +554,7 @@ export type SalonUncheckedCreateInput = {
 export type SalonUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -591,6 +606,7 @@ export type SalonUpdateInput = {
 export type SalonUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -642,6 +658,7 @@ export type SalonUncheckedUpdateInput = {
 export type SalonCreateManyInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -659,6 +676,7 @@ export type SalonCreateManyInput = {
 export type SalonUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -676,6 +694,7 @@ export type SalonUpdateManyMutationInput = {
 export type SalonUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -693,6 +712,7 @@ export type SalonUncheckedUpdateManyInput = {
 export type SalonCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  salonCode?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
   status?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
@@ -710,6 +730,7 @@ export type SalonCountOrderByAggregateInput = {
 export type SalonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  salonCode?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
   status?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
@@ -727,6 +748,7 @@ export type SalonMaxOrderByAggregateInput = {
 export type SalonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  salonCode?: Prisma.SortOrder
   timezone?: Prisma.SortOrder
   status?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
@@ -755,12 +777,12 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -1252,6 +1274,7 @@ export type SalonUpdateOneWithoutSupportTicketsNestedInput = {
 export type SalonCreateWithoutUsersInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1302,6 +1325,7 @@ export type SalonCreateWithoutUsersInput = {
 export type SalonUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1368,6 +1392,7 @@ export type SalonUpdateToOneWithWhereWithoutUsersInput = {
 export type SalonUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1418,6 +1443,7 @@ export type SalonUpdateWithoutUsersInput = {
 export type SalonUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1468,6 +1494,7 @@ export type SalonUncheckedUpdateWithoutUsersInput = {
 export type SalonCreateWithoutCustomersInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1518,6 +1545,7 @@ export type SalonCreateWithoutCustomersInput = {
 export type SalonUncheckedCreateWithoutCustomersInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1584,6 +1612,7 @@ export type SalonUpdateToOneWithWhereWithoutCustomersInput = {
 export type SalonUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1634,6 +1663,7 @@ export type SalonUpdateWithoutCustomersInput = {
 export type SalonUncheckedUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1684,6 +1714,7 @@ export type SalonUncheckedUpdateWithoutCustomersInput = {
 export type SalonCreateWithoutMembershipsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1734,6 +1765,7 @@ export type SalonCreateWithoutMembershipsInput = {
 export type SalonUncheckedCreateWithoutMembershipsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1800,6 +1832,7 @@ export type SalonUpdateToOneWithWhereWithoutMembershipsInput = {
 export type SalonUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1850,6 +1883,7 @@ export type SalonUpdateWithoutMembershipsInput = {
 export type SalonUncheckedUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1900,6 +1934,7 @@ export type SalonUncheckedUpdateWithoutMembershipsInput = {
 export type SalonCreateWithoutCustomerTransactionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -1950,6 +1985,7 @@ export type SalonCreateWithoutCustomerTransactionsInput = {
 export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2016,6 +2052,7 @@ export type SalonUpdateToOneWithWhereWithoutCustomerTransactionsInput = {
 export type SalonUpdateWithoutCustomerTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2066,6 +2103,7 @@ export type SalonUpdateWithoutCustomerTransactionsInput = {
 export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2116,6 +2154,7 @@ export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
 export type SalonCreateWithoutLoyaltyRulesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2166,6 +2205,7 @@ export type SalonCreateWithoutLoyaltyRulesInput = {
 export type SalonUncheckedCreateWithoutLoyaltyRulesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2232,6 +2272,7 @@ export type SalonUpdateToOneWithWhereWithoutLoyaltyRulesInput = {
 export type SalonUpdateWithoutLoyaltyRulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2282,6 +2323,7 @@ export type SalonUpdateWithoutLoyaltyRulesInput = {
 export type SalonUncheckedUpdateWithoutLoyaltyRulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2332,6 +2374,7 @@ export type SalonUncheckedUpdateWithoutLoyaltyRulesInput = {
 export type SalonCreateWithoutLoyaltyTransactionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2382,6 +2425,7 @@ export type SalonCreateWithoutLoyaltyTransactionsInput = {
 export type SalonUncheckedCreateWithoutLoyaltyTransactionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2448,6 +2492,7 @@ export type SalonUpdateToOneWithWhereWithoutLoyaltyTransactionsInput = {
 export type SalonUpdateWithoutLoyaltyTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2498,6 +2543,7 @@ export type SalonUpdateWithoutLoyaltyTransactionsInput = {
 export type SalonUncheckedUpdateWithoutLoyaltyTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2548,6 +2594,7 @@ export type SalonUncheckedUpdateWithoutLoyaltyTransactionsInput = {
 export type SalonCreateWithoutCouponsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2598,6 +2645,7 @@ export type SalonCreateWithoutCouponsInput = {
 export type SalonUncheckedCreateWithoutCouponsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2664,6 +2712,7 @@ export type SalonUpdateToOneWithWhereWithoutCouponsInput = {
 export type SalonUpdateWithoutCouponsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2714,6 +2763,7 @@ export type SalonUpdateWithoutCouponsInput = {
 export type SalonUncheckedUpdateWithoutCouponsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2764,6 +2814,7 @@ export type SalonUncheckedUpdateWithoutCouponsInput = {
 export type SalonCreateWithoutBranchesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2814,6 +2865,7 @@ export type SalonCreateWithoutBranchesInput = {
 export type SalonUncheckedCreateWithoutBranchesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -2880,6 +2932,7 @@ export type SalonUpdateToOneWithWhereWithoutBranchesInput = {
 export type SalonUpdateWithoutBranchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2930,6 +2983,7 @@ export type SalonUpdateWithoutBranchesInput = {
 export type SalonUncheckedUpdateWithoutBranchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2980,6 +3034,7 @@ export type SalonUncheckedUpdateWithoutBranchesInput = {
 export type SalonCreateWithoutStaffInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3030,6 +3085,7 @@ export type SalonCreateWithoutStaffInput = {
 export type SalonUncheckedCreateWithoutStaffInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3096,6 +3152,7 @@ export type SalonUpdateToOneWithWhereWithoutStaffInput = {
 export type SalonUpdateWithoutStaffInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3146,6 +3203,7 @@ export type SalonUpdateWithoutStaffInput = {
 export type SalonUncheckedUpdateWithoutStaffInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3196,6 +3254,7 @@ export type SalonUncheckedUpdateWithoutStaffInput = {
 export type SalonCreateWithoutStaffAttendancesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3246,6 +3305,7 @@ export type SalonCreateWithoutStaffAttendancesInput = {
 export type SalonUncheckedCreateWithoutStaffAttendancesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3312,6 +3372,7 @@ export type SalonUpdateToOneWithWhereWithoutStaffAttendancesInput = {
 export type SalonUpdateWithoutStaffAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3362,6 +3423,7 @@ export type SalonUpdateWithoutStaffAttendancesInput = {
 export type SalonUncheckedUpdateWithoutStaffAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3412,6 +3474,7 @@ export type SalonUncheckedUpdateWithoutStaffAttendancesInput = {
 export type SalonCreateWithoutStaffLeavesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3462,6 +3525,7 @@ export type SalonCreateWithoutStaffLeavesInput = {
 export type SalonUncheckedCreateWithoutStaffLeavesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3528,6 +3592,7 @@ export type SalonUpdateToOneWithWhereWithoutStaffLeavesInput = {
 export type SalonUpdateWithoutStaffLeavesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3578,6 +3643,7 @@ export type SalonUpdateWithoutStaffLeavesInput = {
 export type SalonUncheckedUpdateWithoutStaffLeavesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3628,6 +3694,7 @@ export type SalonUncheckedUpdateWithoutStaffLeavesInput = {
 export type SalonCreateWithoutStaffSalaryConfigsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3678,6 +3745,7 @@ export type SalonCreateWithoutStaffSalaryConfigsInput = {
 export type SalonUncheckedCreateWithoutStaffSalaryConfigsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3744,6 +3812,7 @@ export type SalonUpdateToOneWithWhereWithoutStaffSalaryConfigsInput = {
 export type SalonUpdateWithoutStaffSalaryConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3794,6 +3863,7 @@ export type SalonUpdateWithoutStaffSalaryConfigsInput = {
 export type SalonUncheckedUpdateWithoutStaffSalaryConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3844,6 +3914,7 @@ export type SalonUncheckedUpdateWithoutStaffSalaryConfigsInput = {
 export type SalonCreateWithoutSalarySlipsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3894,6 +3965,7 @@ export type SalonCreateWithoutSalarySlipsInput = {
 export type SalonUncheckedCreateWithoutSalarySlipsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -3960,6 +4032,7 @@ export type SalonUpdateToOneWithWhereWithoutSalarySlipsInput = {
 export type SalonUpdateWithoutSalarySlipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4010,6 +4083,7 @@ export type SalonUpdateWithoutSalarySlipsInput = {
 export type SalonUncheckedUpdateWithoutSalarySlipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4060,6 +4134,7 @@ export type SalonUncheckedUpdateWithoutSalarySlipsInput = {
 export type SalonCreateWithoutMainServicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4110,6 +4185,7 @@ export type SalonCreateWithoutMainServicesInput = {
 export type SalonUncheckedCreateWithoutMainServicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4176,6 +4252,7 @@ export type SalonUpdateToOneWithWhereWithoutMainServicesInput = {
 export type SalonUpdateWithoutMainServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4226,6 +4303,7 @@ export type SalonUpdateWithoutMainServicesInput = {
 export type SalonUncheckedUpdateWithoutMainServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4276,6 +4354,7 @@ export type SalonUncheckedUpdateWithoutMainServicesInput = {
 export type SalonCreateWithoutServicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4326,6 +4405,7 @@ export type SalonCreateWithoutServicesInput = {
 export type SalonUncheckedCreateWithoutServicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4392,6 +4472,7 @@ export type SalonUpdateToOneWithWhereWithoutServicesInput = {
 export type SalonUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4442,6 +4523,7 @@ export type SalonUpdateWithoutServicesInput = {
 export type SalonUncheckedUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4492,6 +4574,7 @@ export type SalonUncheckedUpdateWithoutServicesInput = {
 export type SalonCreateWithoutServiceConsumablesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4542,6 +4625,7 @@ export type SalonCreateWithoutServiceConsumablesInput = {
 export type SalonUncheckedCreateWithoutServiceConsumablesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4608,6 +4692,7 @@ export type SalonUpdateToOneWithWhereWithoutServiceConsumablesInput = {
 export type SalonUpdateWithoutServiceConsumablesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4658,6 +4743,7 @@ export type SalonUpdateWithoutServiceConsumablesInput = {
 export type SalonUncheckedUpdateWithoutServiceConsumablesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4708,6 +4794,7 @@ export type SalonUncheckedUpdateWithoutServiceConsumablesInput = {
 export type SalonCreateWithoutAppointmentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4758,6 +4845,7 @@ export type SalonCreateWithoutAppointmentsInput = {
 export type SalonUncheckedCreateWithoutAppointmentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4824,6 +4912,7 @@ export type SalonUpdateToOneWithWhereWithoutAppointmentsInput = {
 export type SalonUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4874,6 +4963,7 @@ export type SalonUpdateWithoutAppointmentsInput = {
 export type SalonUncheckedUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4924,6 +5014,7 @@ export type SalonUncheckedUpdateWithoutAppointmentsInput = {
 export type SalonCreateWithoutPublicBookingSettingsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -4974,6 +5065,7 @@ export type SalonCreateWithoutPublicBookingSettingsInput = {
 export type SalonUncheckedCreateWithoutPublicBookingSettingsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5040,6 +5132,7 @@ export type SalonUpdateToOneWithWhereWithoutPublicBookingSettingsInput = {
 export type SalonUpdateWithoutPublicBookingSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5090,6 +5183,7 @@ export type SalonUpdateWithoutPublicBookingSettingsInput = {
 export type SalonUncheckedUpdateWithoutPublicBookingSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5140,6 +5234,7 @@ export type SalonUncheckedUpdateWithoutPublicBookingSettingsInput = {
 export type SalonCreateWithoutSalesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5190,6 +5285,7 @@ export type SalonCreateWithoutSalesInput = {
 export type SalonUncheckedCreateWithoutSalesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5256,6 +5352,7 @@ export type SalonUpdateToOneWithWhereWithoutSalesInput = {
 export type SalonUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5306,6 +5403,7 @@ export type SalonUpdateWithoutSalesInput = {
 export type SalonUncheckedUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5356,6 +5454,7 @@ export type SalonUncheckedUpdateWithoutSalesInput = {
 export type SalonCreateWithoutInvoicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5406,6 +5505,7 @@ export type SalonCreateWithoutInvoicesInput = {
 export type SalonUncheckedCreateWithoutInvoicesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5472,6 +5572,7 @@ export type SalonUpdateToOneWithWhereWithoutInvoicesInput = {
 export type SalonUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5522,6 +5623,7 @@ export type SalonUpdateWithoutInvoicesInput = {
 export type SalonUncheckedUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5572,6 +5674,7 @@ export type SalonUncheckedUpdateWithoutInvoicesInput = {
 export type SalonCreateWithoutPaymentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5622,6 +5725,7 @@ export type SalonCreateWithoutPaymentsInput = {
 export type SalonUncheckedCreateWithoutPaymentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5688,6 +5792,7 @@ export type SalonUpdateToOneWithWhereWithoutPaymentsInput = {
 export type SalonUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5738,6 +5843,7 @@ export type SalonUpdateWithoutPaymentsInput = {
 export type SalonUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5788,6 +5894,7 @@ export type SalonUncheckedUpdateWithoutPaymentsInput = {
 export type SalonCreateWithoutProductBrandsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5838,6 +5945,7 @@ export type SalonCreateWithoutProductBrandsInput = {
 export type SalonUncheckedCreateWithoutProductBrandsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -5904,6 +6012,7 @@ export type SalonUpdateToOneWithWhereWithoutProductBrandsInput = {
 export type SalonUpdateWithoutProductBrandsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5954,6 +6063,7 @@ export type SalonUpdateWithoutProductBrandsInput = {
 export type SalonUncheckedUpdateWithoutProductBrandsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6004,6 +6114,7 @@ export type SalonUncheckedUpdateWithoutProductBrandsInput = {
 export type SalonCreateWithoutProductsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6054,6 +6165,7 @@ export type SalonCreateWithoutProductsInput = {
 export type SalonUncheckedCreateWithoutProductsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6120,6 +6232,7 @@ export type SalonUpdateToOneWithWhereWithoutProductsInput = {
 export type SalonUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6170,6 +6283,7 @@ export type SalonUpdateWithoutProductsInput = {
 export type SalonUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6220,6 +6334,7 @@ export type SalonUncheckedUpdateWithoutProductsInput = {
 export type SalonCreateWithoutProductStockMovementsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6270,6 +6385,7 @@ export type SalonCreateWithoutProductStockMovementsInput = {
 export type SalonUncheckedCreateWithoutProductStockMovementsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6336,6 +6452,7 @@ export type SalonUpdateToOneWithWhereWithoutProductStockMovementsInput = {
 export type SalonUpdateWithoutProductStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6386,6 +6503,7 @@ export type SalonUpdateWithoutProductStockMovementsInput = {
 export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6436,6 +6554,7 @@ export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
 export type SalonCreateWithoutProductPurchasesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6486,6 +6605,7 @@ export type SalonCreateWithoutProductPurchasesInput = {
 export type SalonUncheckedCreateWithoutProductPurchasesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6552,6 +6672,7 @@ export type SalonUpdateToOneWithWhereWithoutProductPurchasesInput = {
 export type SalonUpdateWithoutProductPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6602,6 +6723,7 @@ export type SalonUpdateWithoutProductPurchasesInput = {
 export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6652,6 +6774,7 @@ export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
 export type SalonCreateWithoutVendorsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6702,6 +6825,7 @@ export type SalonCreateWithoutVendorsInput = {
 export type SalonUncheckedCreateWithoutVendorsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6768,6 +6892,7 @@ export type SalonUpdateToOneWithWhereWithoutVendorsInput = {
 export type SalonUpdateWithoutVendorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6818,6 +6943,7 @@ export type SalonUpdateWithoutVendorsInput = {
 export type SalonUncheckedUpdateWithoutVendorsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6868,6 +6994,7 @@ export type SalonUncheckedUpdateWithoutVendorsInput = {
 export type SalonCreateWithoutVendorPaymentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6918,6 +7045,7 @@ export type SalonCreateWithoutVendorPaymentsInput = {
 export type SalonUncheckedCreateWithoutVendorPaymentsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -6984,6 +7112,7 @@ export type SalonUpdateToOneWithWhereWithoutVendorPaymentsInput = {
 export type SalonUpdateWithoutVendorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7034,6 +7163,7 @@ export type SalonUpdateWithoutVendorPaymentsInput = {
 export type SalonUncheckedUpdateWithoutVendorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7084,6 +7214,7 @@ export type SalonUncheckedUpdateWithoutVendorPaymentsInput = {
 export type SalonCreateWithoutStockAlertsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7134,6 +7265,7 @@ export type SalonCreateWithoutStockAlertsInput = {
 export type SalonUncheckedCreateWithoutStockAlertsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7200,6 +7332,7 @@ export type SalonUpdateToOneWithWhereWithoutStockAlertsInput = {
 export type SalonUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7250,6 +7383,7 @@ export type SalonUpdateWithoutStockAlertsInput = {
 export type SalonUncheckedUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7300,6 +7434,7 @@ export type SalonUncheckedUpdateWithoutStockAlertsInput = {
 export type SalonCreateWithoutReorderSuggestionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7350,6 +7485,7 @@ export type SalonCreateWithoutReorderSuggestionsInput = {
 export type SalonUncheckedCreateWithoutReorderSuggestionsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7416,6 +7552,7 @@ export type SalonUpdateToOneWithWhereWithoutReorderSuggestionsInput = {
 export type SalonUpdateWithoutReorderSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7466,6 +7603,7 @@ export type SalonUpdateWithoutReorderSuggestionsInput = {
 export type SalonUncheckedUpdateWithoutReorderSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7516,6 +7654,7 @@ export type SalonUncheckedUpdateWithoutReorderSuggestionsInput = {
 export type SalonCreateWithoutAuditLogsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7566,6 +7705,7 @@ export type SalonCreateWithoutAuditLogsInput = {
 export type SalonUncheckedCreateWithoutAuditLogsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7632,6 +7772,7 @@ export type SalonUpdateToOneWithWhereWithoutAuditLogsInput = {
 export type SalonUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7682,6 +7823,7 @@ export type SalonUpdateWithoutAuditLogsInput = {
 export type SalonUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7732,6 +7874,7 @@ export type SalonUncheckedUpdateWithoutAuditLogsInput = {
 export type SalonCreateWithoutRetailSalesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7782,6 +7925,7 @@ export type SalonCreateWithoutRetailSalesInput = {
 export type SalonUncheckedCreateWithoutRetailSalesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7848,6 +7992,7 @@ export type SalonUpdateToOneWithWhereWithoutRetailSalesInput = {
 export type SalonUpdateWithoutRetailSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7898,6 +8043,7 @@ export type SalonUpdateWithoutRetailSalesInput = {
 export type SalonUncheckedUpdateWithoutRetailSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7948,6 +8094,7 @@ export type SalonUncheckedUpdateWithoutRetailSalesInput = {
 export type SalonCreateWithoutExpensesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -7998,6 +8145,7 @@ export type SalonCreateWithoutExpensesInput = {
 export type SalonUncheckedCreateWithoutExpensesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -8064,6 +8212,7 @@ export type SalonUpdateToOneWithWhereWithoutExpensesInput = {
 export type SalonUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8114,6 +8263,7 @@ export type SalonUpdateWithoutExpensesInput = {
 export type SalonUncheckedUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8164,6 +8314,7 @@ export type SalonUncheckedUpdateWithoutExpensesInput = {
 export type SalonCreateWithoutExpenseCategoriesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -8214,6 +8365,7 @@ export type SalonCreateWithoutExpenseCategoriesInput = {
 export type SalonUncheckedCreateWithoutExpenseCategoriesInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -8280,6 +8432,7 @@ export type SalonUpdateToOneWithWhereWithoutExpenseCategoriesInput = {
 export type SalonUpdateWithoutExpenseCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8330,6 +8483,7 @@ export type SalonUpdateWithoutExpenseCategoriesInput = {
 export type SalonUncheckedUpdateWithoutExpenseCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8380,6 +8534,7 @@ export type SalonUncheckedUpdateWithoutExpenseCategoriesInput = {
 export type SalonCreateWithoutSupportTicketsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -8430,6 +8585,7 @@ export type SalonCreateWithoutSupportTicketsInput = {
 export type SalonUncheckedCreateWithoutSupportTicketsInput = {
   id?: string
   name: string
+  salonCode?: string | null
   timezone?: string
   status?: boolean
   addressLine1?: string | null
@@ -8496,6 +8652,7 @@ export type SalonUpdateToOneWithWhereWithoutSupportTicketsInput = {
 export type SalonUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8546,6 +8703,7 @@ export type SalonUpdateWithoutSupportTicketsInput = {
 export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8924,6 +9082,7 @@ export type SalonCountOutputTypeCountSalarySlipsArgs<ExtArgs extends runtime.Typ
 export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  salonCode?: boolean
   timezone?: boolean
   status?: boolean
   addressLine1?: boolean
@@ -8976,6 +9135,7 @@ export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type SalonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  salonCode?: boolean
   timezone?: boolean
   status?: boolean
   addressLine1?: boolean
@@ -8993,6 +9153,7 @@ export type SalonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type SalonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  salonCode?: boolean
   timezone?: boolean
   status?: boolean
   addressLine1?: boolean
@@ -9010,6 +9171,7 @@ export type SalonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type SalonSelectScalar = {
   id?: boolean
   name?: boolean
+  salonCode?: boolean
   timezone?: boolean
   status?: boolean
   addressLine1?: boolean
@@ -9024,7 +9186,7 @@ export type SalonSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SalonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "timezone" | "status" | "addressLine1" | "addressLine2" | "city" | "state" | "country" | "postalCode" | "phone" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["salon"]>
+export type SalonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "salonCode" | "timezone" | "status" | "addressLine1" | "addressLine2" | "city" | "state" | "country" | "postalCode" | "phone" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["salon"]>
 export type SalonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   branches?: boolean | Prisma.Salon$branchesArgs<ExtArgs>
   publicBookingSettings?: boolean | Prisma.Salon$publicBookingSettingsArgs<ExtArgs>
@@ -9106,6 +9268,7 @@ export type $SalonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    salonCode: string | null
     timezone: string
     status: boolean
     addressLine1: string | null
@@ -9577,6 +9740,7 @@ export interface Prisma__SalonClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface SalonFieldRefs {
   readonly id: Prisma.FieldRef<"Salon", 'String'>
   readonly name: Prisma.FieldRef<"Salon", 'String'>
+  readonly salonCode: Prisma.FieldRef<"Salon", 'String'>
   readonly timezone: Prisma.FieldRef<"Salon", 'String'>
   readonly status: Prisma.FieldRef<"Salon", 'Boolean'>
   readonly addressLine1: Prisma.FieldRef<"Salon", 'String'>

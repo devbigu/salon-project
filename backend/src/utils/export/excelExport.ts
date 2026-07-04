@@ -12,40 +12,57 @@ export const createExcelReport = async (report: ReportExportDocument) => {
   workbook.creator = "Salon Management";
   workbook.created = report.generatedAt;
   const sheet = workbook.addWorksheet("Report", {
-    views: [{ state: "frozen", ySplit: 6, showGridLines: false }],
+    views: [{ state: "frozen", ySplit: 4, showGridLines: false }],
     pageSetup: { orientation: "landscape", fitToPage: true, fitToWidth: 1 },
   });
   const lastColumn = Math.max(report.columns.length, 1);
   sheet.mergeCells(1, 1, 1, lastColumn);
   const title = sheet.getCell(1, 1);
   title.value = report.title;
-  title.font = { bold: true, size: 18, color: { argb: "FFFFFFFF" } };
-  title.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF4355B9" } };
-  title.alignment = { vertical: "middle" };
+  title.font = { bold: true, size: 14, color: { argb: "FF000000" } };
+  title.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F2F2" } };
+  title.alignment = { horizontal: "center", vertical: "middle" };
   sheet.getRow(1).height = 30;
 
-  sheet.getCell(2, 1).value = `Salon: ${report.salonName}`;
-  sheet.getCell(3, 1).value = `Branch: ${report.branchName}`;
-  sheet.getCell(4, 1).value = `Generated: ${new Intl.DateTimeFormat("en-IN", {
+  const generated = new Intl.DateTimeFormat("en-IN", {
     timeZone: report.timezone,
     dateStyle: "medium",
     timeStyle: "short",
-  }).format(report.generatedAt)}`;
-  sheet.getCell(5, 1).value = `Filters: ${
-    Object.entries(report.filters).map(([key, value]) => `${key}: ${value}`).join(" | ") || "None"
-  }`;
+  }).format(report.generatedAt);
+  const filters =
+    Object.entries(report.filters)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(" | ") || "None";
   sheet.mergeCells(2, 1, 2, lastColumn);
-  sheet.mergeCells(3, 1, 3, lastColumn);
-  sheet.mergeCells(4, 1, 4, lastColumn);
-  sheet.mergeCells(5, 1, 5, lastColumn);
+  const metadata = sheet.getCell(2, 1);
+  metadata.value = `Salon: ${report.salonName} | Branch: ${report.branchName} | Generated: ${generated} | Filters: ${filters}`;
+  metadata.font = { color: { argb: "FF000000" }, size: 10 };
+  metadata.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: "FFF7F7F7" },
+  };
+  metadata.alignment = {
+    horizontal: "center",
+    vertical: "middle",
+    wrapText: true,
+  };
+  sheet.getRow(2).height = 24;
+  sheet.getRow(3).height = 8;
 
-  const header = sheet.getRow(6);
+  const header = sheet.getRow(4);
   report.columns.forEach((column, index) => {
     const cell = header.getCell(index + 1);
     cell.value = column.label;
-    cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF6576FF" } };
-    cell.alignment = { vertical: "middle" };
+    cell.font = { bold: true, color: { argb: "FF000000" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFE7E6E6" } };
+    cell.alignment = { horizontal: "center", vertical: "middle" };
+    cell.border = {
+      top: { style: "thin", color: { argb: "FFB7B7B7" } },
+      bottom: { style: "thin", color: { argb: "FFB7B7B7" } },
+      left: { style: "thin", color: { argb: "FFB7B7B7" } },
+      right: { style: "thin", color: { argb: "FFB7B7B7" } },
+    };
   });
   header.height = 24;
 
@@ -84,7 +101,7 @@ export const createExcelReport = async (report: ReportExportDocument) => {
       42
     );
   });
-  sheet.autoFilter = { from: { row: 6, column: 1 }, to: { row: 6, column: lastColumn } };
+  sheet.autoFilter = { from: { row: 4, column: 1 }, to: { row: 4, column: lastColumn } };
   const buffer = await workbook.xlsx.writeBuffer();
   return Buffer.from(buffer);
 };

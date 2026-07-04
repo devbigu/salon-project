@@ -1,5 +1,4 @@
 import { type Request, type Response } from "express";
-import { randomUUID } from "node:crypto";
 
 import { AppointmentModel } from "./appointment.model.js";
 import { CustomerModel } from "../customers/customer.model.js";
@@ -14,6 +13,7 @@ import {
   requestAuditContext,
 } from "../audit-logs/audit-log.service.js";
 import { prisma } from "../../config/prisma.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
@@ -63,9 +63,8 @@ const getAppointmentIdParam = (req: Request) => {
     return typeof id === "string" ? id : null;
 };
 
-const generateAppointmentCode = () => {
-    return `APT${Date.now()}${randomUUID().slice(0, 8)}`;
-};
+const generateAppointmentCode = (salonName: string, timezone?: string | null) =>
+    buildBusinessCode({ salonName, type: "APT", timezone });
 
 const durationToMinutes = (
     durationValue?: number | null,
@@ -312,7 +311,7 @@ export const createAppointment = async (req: Request, res: Response) => {
 
         const appointment = await prisma.$transaction(async (tx) => {
           const created = await AppointmentModel.create({
-            appointmentCode: generateAppointmentCode(),
+            appointmentCode: generateAppointmentCode(salon.name, salon.timezone),
             salonId: finalSalonId,
             ...(finalBranchId ? { branchId: finalBranchId } : {}),
             customerId,
@@ -720,12 +719,14 @@ export const rescheduleAppointment = async (
             existingAppointment.totalDurationMinutes * 60 * 1000
         );
 
-        const conflict = await AppointmentModel.findConflict({
-            staffId: existingAppointment.staffId,
-            startTime: finalStartTime,
-            endTime: finalEndTime,
-            excludeAppointmentId: id,
-        });
+        const conflict = existingAppointment.staffId
+          ? await AppointmentModel.findConflict({
+              staffId: existingAppointment.staffId,
+              startTime: finalStartTime,
+              endTime: finalEndTime,
+              excludeAppointmentId: id,
+            })
+          : null;
 
         if (conflict) {
             return res.status(409).json({

@@ -19,6 +19,18 @@ import {
 const safePart = (value: string) =>
   value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+const reportFilename: Record<ExportReportType, string> = {
+  revenue: "billing-and-payments-report",
+  expenses: "expense-report",
+  "profit-summary": "profit-summary-report",
+  inventory: "inventory-report",
+  "low-stock": "low-stock-report",
+  "staff-performance": "staff-performance-report",
+  payroll: "salary-slips-report",
+  "customer-outstanding": "customer-report",
+  appointments: "appointment-report",
+};
+
 export const exportReport = async (req: Request, res: Response) => {
   try {
     const reportType =
@@ -47,7 +59,7 @@ export const exportReport = async (req: Request, res: Response) => {
       .join("-");
     const filename = [
       safePart(report.salonName) || "salon",
-      safePart(report.reportType),
+      reportFilename[reportType as ExportReportType],
       range,
     ].filter(Boolean).join("-");
 

@@ -9,6 +9,7 @@ import {
   type requestAuditContext,
 } from "../audit-logs/audit-log.service.js";
 import { CouponModel } from "./coupon.model.js";
+import { CustomerModel } from "../customers/customer.model.js";
 import type {
   CreateCouponInput,
   UpdateCouponInput,
@@ -364,6 +365,17 @@ const updateCustomerLedgerForTotalChange = async (
   newTotal: Prisma.Decimal,
   narration: string
 ) => {
+  const isUnpostedWalkInDraft = invoice.appointmentId
+    ? await tx.appointment.findFirst({
+        where: {
+          id: invoice.appointmentId,
+          walkInJobCart: true,
+          source: "WALK_IN",
+        },
+        select: { id: true },
+      })
+    : null;
+  if (isUnpostedWalkInDraft) return;
   const delta = newTotal.minus(invoice.totalAmount).toDecimalPlaces(2);
   if (delta.isZero()) return;
 
@@ -634,8 +646,10 @@ export const issueInvoice = async (input: {
   userId?: string;
   ipAddress?: string;
   userAgent?: string;
-}) =>
-  prisma.$transaction(async (tx) => {
+  tx?: Prisma.TransactionClient;
+  allowWalkInJobCart?: boolean;
+}) => {
+  const run = async (tx: Prisma.TransactionClient) => {
     await tx.$queryRaw`SELECT "id" FROM "Invoice" WHERE "id" = ${input.invoiceId} FOR UPDATE`;
     const invoice = await tx.invoice.findFirst({
       where: {
@@ -645,6 +659,22 @@ export const issueInvoice = async (input: {
     });
     if (!invoice) {
       throw new CouponServiceError("Invoice not found", 404);
+    }
+    if (invoice.appointmentId && !input.allowWalkInJobCart) {
+      const walkInAppointment = await tx.appointment.findFirst({
+        where: {
+          id: invoice.appointmentId,
+          walkInJobCart: true,
+          source: "WALK_IN",
+        },
+        select: { id: true },
+      });
+      if (walkInAppointment) {
+        throw new CouponServiceError(
+          "Confirm the job cart to issue this invoice",
+          409
+        );
+      }
     }
     if (invoice.status !== "DRAFT") {
       throw new CouponServiceError(
@@ -679,6 +709,26 @@ export const issueInvoice = async (input: {
       data: { status: "ISSUED" },
       include: { items: true, payments: true, coupon: true },
     });
+    const ledgerExists = await tx.customerTransaction.findFirst({
+      where: {
+        invoiceId: invoice.id,
+        type: "INVOICE",
+      },
+      select: { id: true },
+    });
+    if (!ledgerExists && updated.totalAmount.gt(0)) {
+      await CustomerModel.increaseOutstandingWithTransaction(
+        {
+          customerId: updated.customerId,
+          salonId: updated.salonId,
+          invoiceId: updated.id,
+          billNo: updated.invoiceCode,
+          amount: Number(updated.totalAmount),
+          narration: `Invoice issued: ${updated.invoiceCode}`,
+        },
+        tx
+      );
+    }
     await createAuditLog({
       tx,
       salonId: invoice.salonId,
@@ -700,4 +750,6 @@ export const issueInvoice = async (input: {
       userAgent: input.userAgent,
     });
     return updated;
-  });
+  };
+  return input.tx ? run(input.tx) : prisma.$transaction(run);
+};

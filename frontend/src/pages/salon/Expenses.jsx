@@ -39,7 +39,7 @@ const downloadCsv = (rows) => {
   const content = [
     ["ID", "Name", "Expense Category", "Date", "Payment", "Amount", "Branch"],
     ...rows.map((row) => [
-      row.id,
+      row.expenseCode || row.id,
       row.title,
       row.category,
       row.expenseDate,
@@ -107,7 +107,10 @@ const Expenses = () => {
       (!filters.to || expenseDate <= filters.to) &&
       (!filters.paymentMethod || row.paymentMethod === filters.paymentMethod) &&
       (!filters.categoryDefinitionId || row.categoryDefinitionId === filters.categoryDefinitionId) &&
-      (!term || row.title.toLowerCase().includes(term) || row.id.toLowerCase().includes(term))
+      (!term ||
+        row.title.toLowerCase().includes(term) ||
+        row.id.toLowerCase().includes(term) ||
+        String(row.expenseCode || "").toLowerCase().includes(term))
     );
   }), [rows, filters]);
 
@@ -247,7 +250,7 @@ const Expenses = () => {
         loading={loading}
         rows={pageRows}
         columns={[
-          { key: "id", label: "ID", render: compactId },
+          { key: "expenseCode", label: "Expense ID", render: (value, row) => value || compactId(row.id) },
           { key: "title", label: "Name" },
           { key: "category", label: "Expense Category" },
           { key: "expenseDate", label: "Date", render: (value) => formatDate(value) },

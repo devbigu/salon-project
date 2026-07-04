@@ -6,6 +6,7 @@ import {
   parseSalonDateRange,
   salonLocalDateTimeToUtc,
 } from "../../utils/timezone.js";
+import { buildBusinessCode } from "../../utils/business-id.js";
 import { createAuditLog } from "../audit-logs/audit-log.service.js";
 
 type DbClient = typeof prisma | Prisma.TransactionClient;
@@ -582,7 +583,11 @@ export const createPublicAppointment = async (
         (total, service) => total + Number(service.price),
         0
       );
-      const appointmentCode = `APT${Date.now()}${randomUUID().slice(0, 8)}`;
+      const appointmentCode = buildBusinessCode({
+        salonName: setting.salon.name,
+        type: "APT",
+        timezone: setting.salon.timezone,
+      });
       const appointment = await tx.appointment.create({
         data: {
           appointmentCode,
@@ -595,6 +600,7 @@ export const createPublicAppointment = async (
           totalDurationMinutes: resources.totalDurationMinutes,
           estimatedAmount,
           status: "SCHEDULED",
+          source: "PUBLIC",
           bookingNote,
           services: {
             create: resources.services.map((service) => ({

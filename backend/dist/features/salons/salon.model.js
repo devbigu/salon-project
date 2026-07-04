@@ -1,8 +1,16 @@
 import { prisma } from "../../config/prisma.js";
+import { buildSalonCode } from "../../utils/business-id.js";
 export const SalonModel = {
     create: async (data) => {
+        const salonCode = buildSalonCode({
+            salonName: data.name,
+            timezone: data.timezone,
+        });
         return prisma.salon.create({
-            data,
+            data: {
+                ...data,
+                salonCode,
+            },
         });
     },
     findAll: async () => {

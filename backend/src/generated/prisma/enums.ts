@@ -138,6 +138,15 @@ export const AppointmentStatus = {
 export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
 
 
+export const AppointmentSource = {
+  INTERNAL: 'INTERNAL',
+  PUBLIC: 'PUBLIC',
+  WALK_IN: 'WALK_IN'
+} as const
+
+export type AppointmentSource = (typeof AppointmentSource)[keyof typeof AppointmentSource]
+
+
 export const SaleStatus = {
   ACTIVE: 'ACTIVE',
   DELETED: 'DELETED',
@@ -273,6 +282,7 @@ export const AuditModule = {
   LOYALTY: 'LOYALTY',
   COUPON: 'COUPON',
   PUBLIC_BOOKING: 'PUBLIC_BOOKING',
+  JOB_CART: 'JOB_CART',
   SYSTEM: 'SYSTEM'
 } as const
 
