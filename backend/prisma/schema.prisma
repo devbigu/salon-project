@@ -8,11 +8,13 @@ datasource db {
 }
 
 model Salon {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  timezone String @default("Asia/Kolkata")
+  timezone String  @default("Asia/Kolkata")
+  status   Boolean @default(true)
 
-  branches Branch[]
+  branches              Branch[]
+  publicBookingSettings PublicBookingSetting[]
 
   addressLine1 String?
   addressLine2 String?
@@ -313,8 +315,9 @@ enum TransactionStatus {
 }
 
 model Branch {
-  id   String @id @default(uuid())
-  name String
+  id     String  @id @default(uuid())
+  name   String
+  status Boolean @default(true)
 
   salonId String
   salon   Salon  @relation(fields: [salonId], references: [id])
@@ -355,6 +358,7 @@ model Branch {
   staffSalaryConfigs    StaffSalaryConfig[]
   salarySlips           SalarySlip[]
   coupons               Coupon[]
+  publicBookingSettings PublicBookingSetting[]
 
   @@unique([salonId, name])
 }
@@ -776,6 +780,36 @@ model Appointment {
   @@index([startTime])
   @@index([salonId, startTime])
   @@index([staffId, startTime, endTime])
+}
+
+model PublicBookingSetting {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id], onDelete: Cascade)
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  slug                   String  @unique
+  isEnabled              Boolean @default(false)
+  allowStaffSelection    Boolean @default(true)
+  requireCustomerOtp     Boolean @default(false)
+  requireApproval        Boolean @default(false)
+  bookingWindowDays      Int     @default(30)
+  minNoticeMinutes       Int     @default(120)
+  slotIntervalMinutes    Int     @default(15)
+  cancellationPolicyText String?
+  termsText              String?
+  themeColor             String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([salonId, branchId])
+  @@index([salonId])
+  @@index([branchId])
+  @@index([isEnabled])
 }
 
 model AppointmentStatusHistory {
@@ -1563,6 +1597,7 @@ enum AuditModule {
   MEMBERSHIP
   LOYALTY
   COUPON
+  PUBLIC_BOOKING
   SYSTEM
 }
 

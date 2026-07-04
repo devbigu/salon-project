@@ -26,6 +26,7 @@ import {
   roleCanManage,
   toLocalInput,
 } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const STATUSES = [
   "SCHEDULED",
@@ -460,6 +461,16 @@ const Appointments = () => {
       description="Book services, prevent staff conflicts, track status, reschedule, and maintain operational notes."
       actionLabel="Book appointment"
       onAction={() => openAction("create")}
+      tools={
+        <ReportExportButtons
+          reportType="appointments"
+          filters={{
+            ...(filters.date ? { from: filters.date, to: filters.date } : {}),
+            ...(filters.status ? { status: filters.status } : {}),
+            ...(filters.staffId ? { staffId: filters.staffId } : {}),
+          }}
+        />
+      }
     >
       {error && <Alert color="danger">{error}</Alert>}
       <div className="card card-bordered mb-4">

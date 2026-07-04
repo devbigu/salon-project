@@ -6,6 +6,7 @@ import DataGrid from "@/components/salon/DataGrid";
 import PageShell from "@/components/salon/PageShell";
 import { salonApi } from "@/services/salonApi";
 import { formatMoney } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const ExpenseReports = () => {
   const [filters, setFilters] = useState({ from: "", to: "" });
@@ -19,7 +20,7 @@ const ExpenseReports = () => {
     try {
       const response = await salonApi.reports.expenses({
         ...(filters.from ? { from: filters.from } : {}),
-        ...(filters.to ? { to: `${filters.to}T23:59:59.999Z` } : {}),
+        ...(filters.to ? { to: filters.to } : {}),
       });
       setData(response.data);
     } catch (loadError) {
@@ -34,7 +35,8 @@ const ExpenseReports = () => {
   useEffect(() => { load(); }, []);
 
   return (
-    <PageShell title="Expense reports" description="Expense totals grouped by category, month, and branch.">
+    <PageShell title="Expense reports" description="Expense totals grouped by category, month, and branch."
+      tools={<ReportExportButtons reportType="expenses" filters={filters} />}>
       {error && <Alert color="danger">{error}</Alert>}
       <div className="card card-bordered mb-4"><div className="card-inner"><Row className="g-3 align-items-end">
         <Col md="4"><Label>From</Label><Input type="date" value={filters.from} onChange={(event) => setFilters((current) => ({ ...current, from: event.target.value }))} /></Col>

@@ -70,6 +70,7 @@ export const ModelName = {
   Service: 'Service',
   ServiceConsumable: 'ServiceConsumable',
   Appointment: 'Appointment',
+  PublicBookingSetting: 'PublicBookingSetting',
   AppointmentStatusHistory: 'AppointmentStatusHistory',
   AppointmentService: 'AppointmentService',
   Sale: 'Sale',
@@ -117,6 +118,7 @@ export const SalonScalarFieldEnum = {
   id: 'id',
   name: 'name',
   timezone: 'timezone',
+  status: 'status',
   addressLine1: 'addressLine1',
   addressLine2: 'addressLine2',
   city: 'city',
@@ -266,6 +268,7 @@ export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof 
 export const BranchScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  status: 'status',
   salonId: 'salonId',
   addressLine1: 'addressLine1',
   city: 'city',
@@ -489,6 +492,28 @@ export const AppointmentScalarFieldEnum = {
 } as const
 
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const PublicBookingSettingScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  slug: 'slug',
+  isEnabled: 'isEnabled',
+  allowStaffSelection: 'allowStaffSelection',
+  requireCustomerOtp: 'requireCustomerOtp',
+  requireApproval: 'requireApproval',
+  bookingWindowDays: 'bookingWindowDays',
+  minNoticeMinutes: 'minNoticeMinutes',
+  slotIntervalMinutes: 'slotIntervalMinutes',
+  cancellationPolicyText: 'cancellationPolicyText',
+  termsText: 'termsText',
+  themeColor: 'themeColor',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PublicBookingSettingScalarFieldEnum = (typeof PublicBookingSettingScalarFieldEnum)[keyof typeof PublicBookingSettingScalarFieldEnum]
 
 
 export const AppointmentStatusHistoryScalarFieldEnum = {

@@ -1,0 +1,228 @@
+import { randomUUID } from "node:crypto";
+import ExcelJS from "exceljs";
+import jwt from "jsonwebtoken";
+import request from "supertest";
+import { app } from "../app.js";
+import { env } from "../config/env.js";
+import { prisma } from "../config/prisma.js";
+
+const token = (user: {
+  id: string;
+  role: string;
+  salonId?: string | null;
+  branchId?: string | null;
+}) =>
+  jwt.sign(
+    {
+      userId: user.id,
+      role: user.role,
+      ...(user.salonId ? { salonId: user.salonId } : {}),
+      ...(user.branchId ? { branchId: user.branchId } : {}),
+    },
+    env.JWT_ACCESS_SECRET,
+    { expiresIn: "15m" }
+  );
+const auth = (value: string) => ({ Authorization: `Bearer ${value}` });
+
+const readSheetValues = async (body: Buffer) => {
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(body as never);
+  const sheet = workbook.getWorksheet("Report");
+  const values: string[] = [];
+  sheet?.eachRow((row) =>
+    row.eachCell((cell) => values.push(String(cell.value ?? "")))
+  );
+  return values.join(" | ");
+};
+
+const fixture = async () => {
+  const stamp = randomUUID();
+  const salon = await prisma.salon.create({ data: { name: `Export Salon ${stamp}` } });
+  const otherSalon = await prisma.salon.create({ data: { name: `Other Export Salon ${stamp}` } });
+  const branch = await prisma.branch.create({ data: { name: `Export Branch ${stamp}`, salonId: salon.id } });
+  const secondBranch = await prisma.branch.create({ data: { name: `Second Branch ${stamp}`, salonId: salon.id } });
+  const [admin, manager] = await Promise.all([
+    prisma.user.create({ data: { name: "Export Admin", email: `admin-${stamp}@test.com`, passwordHash: "x", role: "SALON_ADMIN", salonId: salon.id } }),
+    prisma.user.create({ data: { name: "Export Manager", email: `manager-${stamp}@test.com`, passwordHash: "x", role: "BRANCH_MANAGER", salonId: salon.id, branchId: branch.id } }),
+  ]);
+  await prisma.sale.create({
+    data: {
+      saleCode: `SALE-${stamp}`,
+      salonId: salon.id,
+      branchId: branch.id,
+      customerName: "Revenue Customer",
+      saleDate: new Date("2026-05-10T10:00:00Z"),
+      subtotalAmount: 1000,
+      totalAmount: 1000,
+      paidAmount: 800,
+      dueAmount: 200,
+    },
+  });
+  await prisma.expense.createMany({
+    data: [
+      { salonId: salon.id, branchId: branch.id, title: "May Rent", category: "Rent", amount: 500, expenseDate: new Date("2026-05-12T10:00:00Z") },
+      { salonId: salon.id, branchId: branch.id, title: "June Rent", category: "Rent", amount: 600, expenseDate: new Date("2026-06-12T10:00:00Z") },
+    ],
+  });
+  await prisma.product.createMany({
+    data: [
+      { salonId: salon.id, branchId: branch.id, name: `Own Product ${stamp}`, currentStock: 2, lowStockAlert: 5, costPrice: 10, sellingPrice: 20 },
+      { salonId: salon.id, branchId: secondBranch.id, name: `Other Branch Product ${stamp}`, currentStock: 3, lowStockAlert: 5, costPrice: 10, sellingPrice: 20 },
+    ],
+  });
+  return {
+    salon,
+    otherSalon,
+    branch,
+    secondBranch,
+    adminToken: token(admin),
+    managerToken: token(manager),
+  };
+};
+
+describe("Report exports", () => {
+  it("exports revenue as PDF and XLSX", async () => {
+    const f = await fixture();
+    const pdf = await request(app)
+      .get("/api/reports/revenue/export?format=pdf")
+      .set(auth(f.adminToken));
+    expect(pdf.status).toBe(200);
+    expect(pdf.headers["content-type"]).toContain("application/pdf");
+    expect(pdf.body.subarray(0, 4).toString()).toBe("%PDF");
+
+    const xlsx = await request(app)
+      .get("/api/reports/revenue/export?format=xlsx")
+      .set(auth(f.adminToken))
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => callback(null, Buffer.concat(chunks)));
+      });
+    expect(xlsx.status).toBe(200);
+    expect(xlsx.headers["content-type"]).toContain(
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    expect(xlsx.body.subarray(0, 2).toString()).toBe("PK");
+  });
+
+  it("applies expense date filters", async () => {
+    const f = await fixture();
+    const response = await request(app)
+      .get("/api/reports/expenses/export?format=xlsx&from=2026-05-01&to=2026-05-31")
+      .set(auth(f.adminToken))
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => callback(null, Buffer.concat(chunks)));
+      });
+    const values = await readSheetValues(response.body);
+    expect(values).toContain("May Rent");
+    expect(values).not.toContain("June Rent");
+  });
+
+  it("enforces manager branch scope and ignores another salon for salon admin", async () => {
+    const f = await fixture();
+    const manager = await request(app)
+      .get(`/api/reports/inventory/export?format=xlsx&branchId=${f.secondBranch.id}`)
+      .set(auth(f.managerToken))
+      .buffer(true)
+      .parse((res, callback) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => callback(null, Buffer.concat(chunks)));
+      });
+    const managerValues = await readSheetValues(manager.body);
+    expect(managerValues).toContain("Own Product");
+    expect(managerValues).not.toContain("Other Branch Product");
+
+    const admin = await request(app)
+      .get(`/api/reports/inventory/export?format=xlsx&salonId=${f.otherSalon.id}`)
+      .set(auth(f.adminToken));
+    expect(admin.status).toBe(200);
+    expect(admin.headers["content-disposition"]).toContain("export-salon");
+  });
+
+  it("rejects invalid formats and audits successful exports", async () => {
+    const f = await fixture();
+    const invalid = await request(app)
+      .get("/api/reports/revenue/export?format=csv")
+      .set(auth(f.adminToken));
+    expect(invalid.status).toBe(400);
+
+    const exported = await request(app)
+      .get("/api/reports/revenue/export?format=pdf")
+      .set(auth(f.adminToken));
+    expect(exported.status).toBe(200);
+    const audit = await prisma.auditLog.findFirst({
+      where: {
+        salonId: f.salon.id,
+        module: "SYSTEM",
+        description: { contains: "exported as PDF" },
+      },
+    });
+    expect(audit).not.toBeNull();
+    expect(audit?.newData).toMatchObject({
+      event: "REPORT_EXPORTED",
+      reportType: "revenue",
+      format: "pdf",
+    });
+  });
+
+  it("does not block an export when best-effort audit writing fails", async () => {
+    const f = await fixture();
+    await prisma.$executeRawUnsafe(`
+      CREATE OR REPLACE FUNCTION fail_report_export_audit()
+      RETURNS trigger AS $$
+      BEGIN
+        IF NEW."description" LIKE '%exported as%' THEN
+          RAISE EXCEPTION 'forced export audit failure';
+        END IF;
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+    await prisma.$executeRawUnsafe(`
+      CREATE TRIGGER fail_report_export_audit_trigger
+      BEFORE INSERT ON "AuditLog"
+      FOR EACH ROW EXECUTE FUNCTION fail_report_export_audit()
+    `);
+    try {
+      const response = await request(app)
+        .get("/api/reports/revenue/export?format=pdf")
+        .set(auth(f.adminToken));
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toContain("application/pdf");
+    } finally {
+      await prisma.$executeRawUnsafe(
+        `DROP TRIGGER IF EXISTS fail_report_export_audit_trigger ON "AuditLog"`
+      );
+      await prisma.$executeRawUnsafe(
+        `DROP FUNCTION IF EXISTS fail_report_export_audit()`
+      );
+    }
+  });
+
+  it("rejects exports above the row limit", async () => {
+    const f = await fixture();
+    await prisma.$executeRaw`
+      INSERT INTO "Customer"
+        ("id", "customerCode", "name", "outstandingAmount", "salonId", "createdAt", "updatedAt")
+      SELECT
+        gen_random_uuid()::text,
+        'LIMIT-' || value::text,
+        'Limit Customer ' || value::text,
+        1,
+        ${f.salon.id},
+        NOW(),
+        NOW()
+      FROM generate_series(1, 10001) AS value
+    `;
+    const response = await request(app)
+      .get("/api/reports/customer-outstanding/export?format=pdf")
+      .set(auth(f.adminToken));
+    expect(response.status).toBe(413);
+    expect(response.body.message).toContain("row limit");
+  });
+});

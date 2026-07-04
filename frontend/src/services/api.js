@@ -116,3 +116,32 @@ export const requestBlob = async (path) => {
   }
   return response.blob();
 };
+
+export const downloadFile = async (path, query) => {
+  const session = readSession();
+  const response = await fetch(`${API_URL}${path}${toQuery(query)}`, {
+    credentials: "include",
+    headers: {
+      Accept: "*/*",
+      ...(session?.accessToken
+        ? { Authorization: `Bearer ${session.accessToken}` }
+        : {}),
+    },
+  });
+  if (!response.ok) {
+    let message = `Export failed with status ${response.status}`;
+    try {
+      const payload = await response.json();
+      message = payload?.message || message;
+    } catch {
+      // Keep the HTTP status message for non-JSON errors.
+    }
+    throw new ApiError(message, response.status);
+  }
+  const disposition = response.headers.get("content-disposition") || "";
+  const match = /filename="?([^";]+)"?/i.exec(disposition);
+  return {
+    blob: await response.blob(),
+    filename: match?.[1] || "report-export",
+  };
+};

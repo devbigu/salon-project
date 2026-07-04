@@ -20,6 +20,7 @@ import {
   formatMoney,
   roleCanManage,
 } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const Customers = () => {
   const { user } = useAuth();
@@ -145,6 +146,7 @@ const Customers = () => {
     <PageShell
       title="Customers"
       description="Customer profiles, membership status, wallet balance, outstanding amount, and ledger."
+      tools={<ReportExportButtons reportType="customer-outstanding" />}
     >
       <ResourcePanel
         title="Customers"

@@ -86,6 +86,38 @@ const parseDate = (value: string) => {
   return { year, month, day };
 };
 
+export const salonLocalDateTimeToUtc = (
+  date: string,
+  time: string,
+  timezone: string
+) => {
+  const { year, month, day } = parseDate(date);
+  const match = /^(\d{1,2}):(\d{2})$/.exec(time);
+  if (!match) throw new Error("Invalid local time");
+  const hour = Number(match[1]);
+  const minute = Number(match[2]);
+  if (hour > 23 || minute > 59) throw new Error("Invalid local time");
+  if (!isValidTimezone(timezone)) throw new Error("Invalid salon timezone");
+
+  const guess = Date.UTC(year, month - 1, day, hour, minute, 0, 0);
+  let result = guess - timezoneOffset(new Date(guess), timezone);
+  result = guess - timezoneOffset(new Date(result), timezone);
+  const utc = new Date(result);
+  const local = zonedParts(utc, timezone);
+
+  if (
+    local.year !== year ||
+    local.month !== month ||
+    local.day !== day ||
+    local.hour !== hour ||
+    local.minute !== minute
+  ) {
+    throw new Error("Local time does not exist in the salon timezone");
+  }
+
+  return utc;
+};
+
 export const getSalonMonthRange = (
   year: number,
   month: number,

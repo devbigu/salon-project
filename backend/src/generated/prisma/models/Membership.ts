@@ -503,10 +503,6 @@ export type MembershipUpdateOneWithoutCustomersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutCustomersInput, Prisma.MembershipUpdateWithoutCustomersInput>, Prisma.MembershipUncheckedUpdateWithoutCustomersInput>
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type MembershipCreateWithoutSalonInput = {
   id?: string
   name: string

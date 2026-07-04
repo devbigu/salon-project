@@ -7,6 +7,7 @@ import {
   getProfitSummary,
   getStaffPerformance,
 } from "./report.controller.js";
+import { exportReport } from "./report-export.controller.js";
 
 const router = Router();
 router.use(authenticate);
@@ -35,6 +36,17 @@ router.get(
   "/profit-summary",
   requireRole("SUPER_ADMIN", "SALON_ADMIN"),
   getProfitSummary
+);
+router.get(
+  "/:reportType/export",
+  requireRole(
+    "SUPER_ADMIN",
+    "SALON_ADMIN",
+    "BRANCH_MANAGER",
+    "RECEPTIONIST",
+    "STAFF"
+  ),
+  exportReport
 );
 
 export default router;

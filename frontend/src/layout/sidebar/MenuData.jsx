@@ -172,6 +172,15 @@ const getMenu = (role) => {
         },
       ]
     : []),
+  ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"])
+    ? [
+        {
+          icon: "setting",
+          text: "Online Booking",
+          link: "/settings/online-booking",
+        },
+      ]
+    : []),
   { heading: "Help" },
   ...(hasRole(role, operationalRoles)
     ? [

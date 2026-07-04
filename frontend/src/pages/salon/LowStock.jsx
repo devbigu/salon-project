@@ -5,6 +5,7 @@ import PageShell from "@/components/salon/PageShell";
 import { salonApi } from "@/services/salonApi";
 import { Link } from "react-router-dom";
 import { Button, Icon } from "@/components/Component";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const LowStock = () => {
   const [rows, setRows] = useState([]);
@@ -24,6 +25,7 @@ const LowStock = () => {
       description="Active products at or below their configured replenishment threshold."
       tools={
         <>
+          <ReportExportButtons reportType="low-stock" />
           <Button
             tag={Link}
             to="/inventory/stock-alerts"

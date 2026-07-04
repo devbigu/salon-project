@@ -1,4 +1,4 @@
-import { request, requestBlob } from "./api";
+import { downloadFile, request, requestBlob } from "./api";
 
 export const salonApi = {
   auth: {
@@ -137,6 +137,32 @@ export const salonApi = {
       }),
     tracking: (id) => request(`/api/appointments/${id}/tracking`),
     remove: (id) => request(`/api/appointments/${id}`, { method: "DELETE" }),
+  },
+  publicBooking: {
+    config: (slug) => request(`/api/public-booking/${slug}/config`),
+    branches: (slug) => request(`/api/public-booking/${slug}/branches`),
+    services: (slug, branchId) =>
+      request(`/api/public-booking/${slug}/services`, { query: { branchId } }),
+    slots: (slug, query) =>
+      request(`/api/public-booking/${slug}/available-slots`, { query }),
+    book: (slug, body) =>
+      request(`/api/public-booking/${slug}/appointments`, {
+        method: "POST",
+        body,
+      }),
+  },
+  publicBookingSettings: {
+    list: (query) => request("/api/public-booking-settings", { query }),
+    get: (id) => request(`/api/public-booking-settings/${id}`),
+    create: (body) =>
+      request("/api/public-booking-settings", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/public-booking-settings/${id}`, { method: "PUT", body }),
+    setStatus: (id, isEnabled) =>
+      request(`/api/public-booking-settings/${id}/status`, {
+        method: "PATCH",
+        body: { isEnabled },
+      }),
   },
   invoices: {
     list: (query) => request("/api/invoices", { query }),
@@ -279,6 +305,11 @@ export const salonApi = {
     expenses: (query) => request("/api/reports/expenses", { query }),
     profitSummary: (query) => request("/api/reports/profit-summary", { query }),
     staffPerformance: (query) => request("/api/reports/staff-performance", { query }),
+    exportFile: (reportType, format, query = {}) =>
+      downloadFile(`/api/reports/${reportType}/export`, {
+        ...query,
+        format,
+      }),
   },
   support: {
     createPublic: (body) =>

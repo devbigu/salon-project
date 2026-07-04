@@ -137,6 +137,11 @@ export type ServiceConsumable = Prisma.ServiceConsumableModel
  */
 export type Appointment = Prisma.AppointmentModel
 /**
+ * Model PublicBookingSetting
+ * 
+ */
+export type PublicBookingSetting = Prisma.PublicBookingSettingModel
+/**
  * Model AppointmentStatusHistory
  * 
  */

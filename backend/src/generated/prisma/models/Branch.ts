@@ -27,6 +27,7 @@ export type AggregateBranch = {
 export type BranchMinAggregateOutputType = {
   id: string | null
   name: string | null
+  status: boolean | null
   salonId: string | null
   addressLine1: string | null
   city: string | null
@@ -40,6 +41,7 @@ export type BranchMinAggregateOutputType = {
 export type BranchMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  status: boolean | null
   salonId: string | null
   addressLine1: string | null
   city: string | null
@@ -53,6 +55,7 @@ export type BranchMaxAggregateOutputType = {
 export type BranchCountAggregateOutputType = {
   id: number
   name: number
+  status: number
   salonId: number
   addressLine1: number
   city: number
@@ -68,6 +71,7 @@ export type BranchCountAggregateOutputType = {
 export type BranchMinAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   salonId?: true
   addressLine1?: true
   city?: true
@@ -81,6 +85,7 @@ export type BranchMinAggregateInputType = {
 export type BranchMaxAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   salonId?: true
   addressLine1?: true
   city?: true
@@ -94,6 +99,7 @@ export type BranchMaxAggregateInputType = {
 export type BranchCountAggregateInputType = {
   id?: true
   name?: true
+  status?: true
   salonId?: true
   addressLine1?: true
   city?: true
@@ -180,6 +186,7 @@ export type BranchGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type BranchGroupByOutputType = {
   id: string
   name: string
+  status: boolean
   salonId: string
   addressLine1: string | null
   city: string | null
@@ -214,6 +221,7 @@ export type BranchWhereInput = {
   NOT?: Prisma.BranchWhereInput | Prisma.BranchWhereInput[]
   id?: Prisma.StringFilter<"Branch"> | string
   name?: Prisma.StringFilter<"Branch"> | string
+  status?: Prisma.BoolFilter<"Branch"> | boolean
   salonId?: Prisma.StringFilter<"Branch"> | string
   addressLine1?: Prisma.StringNullableFilter<"Branch"> | string | null
   city?: Prisma.StringNullableFilter<"Branch"> | string | null
@@ -246,11 +254,13 @@ export type BranchWhereInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  publicBookingSettings?: Prisma.PublicBookingSettingListRelationFilter
 }
 
 export type BranchOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -283,6 +293,7 @@ export type BranchOrderByWithRelationInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigOrderByRelationAggregateInput
   salarySlips?: Prisma.SalarySlipOrderByRelationAggregateInput
   coupons?: Prisma.CouponOrderByRelationAggregateInput
+  publicBookingSettings?: Prisma.PublicBookingSettingOrderByRelationAggregateInput
 }
 
 export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -292,6 +303,7 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.BranchWhereInput[]
   NOT?: Prisma.BranchWhereInput | Prisma.BranchWhereInput[]
   name?: Prisma.StringFilter<"Branch"> | string
+  status?: Prisma.BoolFilter<"Branch"> | boolean
   salonId?: Prisma.StringFilter<"Branch"> | string
   addressLine1?: Prisma.StringNullableFilter<"Branch"> | string | null
   city?: Prisma.StringNullableFilter<"Branch"> | string | null
@@ -324,11 +336,13 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  publicBookingSettings?: Prisma.PublicBookingSettingListRelationFilter
 }, "id" | "salonId_name">
 
 export type BranchOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -348,6 +362,7 @@ export type BranchScalarWhereWithAggregatesInput = {
   NOT?: Prisma.BranchScalarWhereWithAggregatesInput | Prisma.BranchScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Branch"> | string
   name?: Prisma.StringWithAggregatesFilter<"Branch"> | string
+  status?: Prisma.BoolWithAggregatesFilter<"Branch"> | boolean
   salonId?: Prisma.StringWithAggregatesFilter<"Branch"> | string
   addressLine1?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
@@ -361,6 +376,7 @@ export type BranchScalarWhereWithAggregatesInput = {
 export type BranchCreateInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -392,11 +408,13 @@ export type BranchCreateInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -428,11 +446,13 @@ export type BranchUncheckedCreateInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -464,11 +484,13 @@ export type BranchUpdateInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -500,11 +522,13 @@ export type BranchUncheckedUpdateInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManyInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -518,6 +542,7 @@ export type BranchCreateManyInput = {
 export type BranchUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -530,6 +555,7 @@ export type BranchUpdateManyMutationInput = {
 export type BranchUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -563,6 +589,7 @@ export type BranchSalonIdNameCompoundUniqueInput = {
 export type BranchCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -576,6 +603,7 @@ export type BranchCountOrderByAggregateInput = {
 export type BranchMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -589,6 +617,7 @@ export type BranchMaxOrderByAggregateInput = {
 export type BranchMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   salonId?: Prisma.SortOrder
   addressLine1?: Prisma.SortOrder
   city?: Prisma.SortOrder
@@ -799,6 +828,22 @@ export type BranchUpdateOneWithoutAppointmentsNestedInput = {
   delete?: Prisma.BranchWhereInput | boolean
   connect?: Prisma.BranchWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.BranchUpdateWithoutAppointmentsInput>, Prisma.BranchUncheckedUpdateWithoutAppointmentsInput>
+}
+
+export type BranchCreateNestedOneWithoutPublicBookingSettingsInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedCreateWithoutPublicBookingSettingsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPublicBookingSettingsInput
+  connect?: Prisma.BranchWhereUniqueInput
+}
+
+export type BranchUpdateOneWithoutPublicBookingSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedCreateWithoutPublicBookingSettingsInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPublicBookingSettingsInput
+  upsert?: Prisma.BranchUpsertWithoutPublicBookingSettingsInput
+  disconnect?: Prisma.BranchWhereInput | boolean
+  delete?: Prisma.BranchWhereInput | boolean
+  connect?: Prisma.BranchWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutPublicBookingSettingsInput, Prisma.BranchUpdateWithoutPublicBookingSettingsInput>, Prisma.BranchUncheckedUpdateWithoutPublicBookingSettingsInput>
 }
 
 export type BranchCreateNestedOneWithoutSalesInput = {
@@ -1012,6 +1057,7 @@ export type BranchUpdateOneWithoutSupportTicketsNestedInput = {
 export type BranchCreateWithoutSalonInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1042,11 +1088,13 @@ export type BranchCreateWithoutSalonInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalonInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1077,6 +1125,7 @@ export type BranchUncheckedCreateWithoutSalonInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalonInput = {
@@ -1111,6 +1160,7 @@ export type BranchScalarWhereInput = {
   NOT?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
   id?: Prisma.StringFilter<"Branch"> | string
   name?: Prisma.StringFilter<"Branch"> | string
+  status?: Prisma.BoolFilter<"Branch"> | boolean
   salonId?: Prisma.StringFilter<"Branch"> | string
   addressLine1?: Prisma.StringNullableFilter<"Branch"> | string | null
   city?: Prisma.StringNullableFilter<"Branch"> | string | null
@@ -1124,6 +1174,7 @@ export type BranchScalarWhereInput = {
 export type BranchCreateWithoutUsersInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1154,11 +1205,13 @@ export type BranchCreateWithoutUsersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1189,6 +1242,7 @@ export type BranchUncheckedCreateWithoutUsersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutUsersInput = {
@@ -1210,6 +1264,7 @@ export type BranchUpdateToOneWithWhereWithoutUsersInput = {
 export type BranchUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1240,11 +1295,13 @@ export type BranchUpdateWithoutUsersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1275,11 +1332,13 @@ export type BranchUncheckedUpdateWithoutUsersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutCustomersInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1310,11 +1369,13 @@ export type BranchCreateWithoutCustomersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutCustomersInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1345,6 +1406,7 @@ export type BranchUncheckedCreateWithoutCustomersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutCustomersInput = {
@@ -1366,6 +1428,7 @@ export type BranchUpdateToOneWithWhereWithoutCustomersInput = {
 export type BranchUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1396,11 +1459,13 @@ export type BranchUpdateWithoutCustomersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1431,11 +1496,13 @@ export type BranchUncheckedUpdateWithoutCustomersInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutCouponsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1466,11 +1533,13 @@ export type BranchCreateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutBranchInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutCouponsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1501,6 +1570,7 @@ export type BranchUncheckedCreateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutBranchInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutCouponsInput = {
@@ -1522,6 +1592,7 @@ export type BranchUpdateToOneWithWhereWithoutCouponsInput = {
 export type BranchUpdateWithoutCouponsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1552,11 +1623,13 @@ export type BranchUpdateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutBranchNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutCouponsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1587,11 +1660,13 @@ export type BranchUncheckedUpdateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutBranchNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1622,11 +1697,13 @@ export type BranchCreateWithoutStaffInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1657,6 +1734,7 @@ export type BranchUncheckedCreateWithoutStaffInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffInput = {
@@ -1678,6 +1756,7 @@ export type BranchUpdateToOneWithWhereWithoutStaffInput = {
 export type BranchUpdateWithoutStaffInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1708,11 +1787,13 @@ export type BranchUpdateWithoutStaffInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1743,11 +1824,13 @@ export type BranchUncheckedUpdateWithoutStaffInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffAttendancesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1778,11 +1861,13 @@ export type BranchCreateWithoutStaffAttendancesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffAttendancesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1813,6 +1898,7 @@ export type BranchUncheckedCreateWithoutStaffAttendancesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffAttendancesInput = {
@@ -1834,6 +1920,7 @@ export type BranchUpdateToOneWithWhereWithoutStaffAttendancesInput = {
 export type BranchUpdateWithoutStaffAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1864,11 +1951,13 @@ export type BranchUpdateWithoutStaffAttendancesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffAttendancesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1899,11 +1988,13 @@ export type BranchUncheckedUpdateWithoutStaffAttendancesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffLeavesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -1934,11 +2025,13 @@ export type BranchCreateWithoutStaffLeavesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffLeavesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -1969,6 +2062,7 @@ export type BranchUncheckedCreateWithoutStaffLeavesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffLeavesInput = {
@@ -1990,6 +2084,7 @@ export type BranchUpdateToOneWithWhereWithoutStaffLeavesInput = {
 export type BranchUpdateWithoutStaffLeavesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2020,11 +2115,13 @@ export type BranchUpdateWithoutStaffLeavesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffLeavesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2055,11 +2152,13 @@ export type BranchUncheckedUpdateWithoutStaffLeavesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStaffSalaryConfigsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2090,11 +2189,13 @@ export type BranchCreateWithoutStaffSalaryConfigsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStaffSalaryConfigsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2125,6 +2226,7 @@ export type BranchUncheckedCreateWithoutStaffSalaryConfigsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStaffSalaryConfigsInput = {
@@ -2146,6 +2248,7 @@ export type BranchUpdateToOneWithWhereWithoutStaffSalaryConfigsInput = {
 export type BranchUpdateWithoutStaffSalaryConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2176,11 +2279,13 @@ export type BranchUpdateWithoutStaffSalaryConfigsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStaffSalaryConfigsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2211,11 +2316,13 @@ export type BranchUncheckedUpdateWithoutStaffSalaryConfigsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSalarySlipsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2246,11 +2353,13 @@ export type BranchCreateWithoutSalarySlipsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutBranchInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalarySlipsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2281,6 +2390,7 @@ export type BranchUncheckedCreateWithoutSalarySlipsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutBranchInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalarySlipsInput = {
@@ -2302,6 +2412,7 @@ export type BranchUpdateToOneWithWhereWithoutSalarySlipsInput = {
 export type BranchUpdateWithoutSalarySlipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2332,11 +2443,13 @@ export type BranchUpdateWithoutSalarySlipsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutBranchNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalarySlipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2367,11 +2480,13 @@ export type BranchUncheckedUpdateWithoutSalarySlipsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutBranchNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutServicesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2402,11 +2517,13 @@ export type BranchCreateWithoutServicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutServicesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2437,6 +2554,7 @@ export type BranchUncheckedCreateWithoutServicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutServicesInput = {
@@ -2458,6 +2576,7 @@ export type BranchUpdateToOneWithWhereWithoutServicesInput = {
 export type BranchUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2488,11 +2607,13 @@ export type BranchUpdateWithoutServicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2523,11 +2644,13 @@ export type BranchUncheckedUpdateWithoutServicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutAppointmentsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2558,11 +2681,13 @@ export type BranchCreateWithoutAppointmentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutAppointmentsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2593,6 +2718,7 @@ export type BranchUncheckedCreateWithoutAppointmentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutAppointmentsInput = {
@@ -2614,6 +2740,7 @@ export type BranchUpdateToOneWithWhereWithoutAppointmentsInput = {
 export type BranchUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2644,11 +2771,13 @@ export type BranchUpdateWithoutAppointmentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2679,11 +2808,177 @@ export type BranchUncheckedUpdateWithoutAppointmentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchCreateWithoutPublicBookingSettingsInput = {
+  id?: string
+  name: string
+  status?: boolean
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutBranchesInput
+  staff?: Prisma.StaffCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutBranchInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutBranchInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutBranchInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutBranchInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutBranchInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutBranchInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutBranchInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutBranchInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutPublicBookingSettingsInput = {
+  id?: string
+  name: string
+  status?: boolean
+  salonId: string
+  addressLine1?: string | null
+  city?: string | null
+  state?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutBranchInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBranchInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBranchInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBranchInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutBranchInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBranchInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutBranchInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBranchInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutBranchInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutBranchInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutBranchInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutBranchInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutBranchInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutBranchInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutBranchInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutBranchInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutBranchInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutPublicBookingSettingsInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedCreateWithoutPublicBookingSettingsInput>
+}
+
+export type BranchUpsertWithoutPublicBookingSettingsInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedUpdateWithoutPublicBookingSettingsInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedCreateWithoutPublicBookingSettingsInput>
+  where?: Prisma.BranchWhereInput
+}
+
+export type BranchUpdateToOneWithWhereWithoutPublicBookingSettingsInput = {
+  where?: Prisma.BranchWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutPublicBookingSettingsInput, Prisma.BranchUncheckedUpdateWithoutPublicBookingSettingsInput>
+}
+
+export type BranchUpdateWithoutPublicBookingSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutBranchesNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutBranchNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutBranchNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutBranchNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutBranchNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutBranchNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutBranchNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutBranchNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutBranchNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutPublicBookingSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutBranchNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBranchNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutBranchNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBranchNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBranchNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutBranchNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBranchNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutBranchNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutBranchNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutBranchNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutBranchNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutBranchNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutBranchNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutBranchNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutBranchNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSalesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2714,11 +3009,13 @@ export type BranchCreateWithoutSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSalesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2749,6 +3046,7 @@ export type BranchUncheckedCreateWithoutSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSalesInput = {
@@ -2770,6 +3068,7 @@ export type BranchUpdateToOneWithWhereWithoutSalesInput = {
 export type BranchUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2800,11 +3099,13 @@ export type BranchUpdateWithoutSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2835,11 +3136,13 @@ export type BranchUncheckedUpdateWithoutSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutInvoicesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -2870,11 +3173,13 @@ export type BranchCreateWithoutInvoicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutInvoicesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -2905,6 +3210,7 @@ export type BranchUncheckedCreateWithoutInvoicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutInvoicesInput = {
@@ -2926,6 +3232,7 @@ export type BranchUpdateToOneWithWhereWithoutInvoicesInput = {
 export type BranchUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2956,11 +3263,13 @@ export type BranchUpdateWithoutInvoicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2991,11 +3300,13 @@ export type BranchUncheckedUpdateWithoutInvoicesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutPaymentsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3026,11 +3337,13 @@ export type BranchCreateWithoutPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutPaymentsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3061,6 +3374,7 @@ export type BranchUncheckedCreateWithoutPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutPaymentsInput = {
@@ -3082,6 +3396,7 @@ export type BranchUpdateToOneWithWhereWithoutPaymentsInput = {
 export type BranchUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3112,11 +3427,13 @@ export type BranchUpdateWithoutPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3147,11 +3464,13 @@ export type BranchUncheckedUpdateWithoutPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutProductsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3182,11 +3501,13 @@ export type BranchCreateWithoutProductsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutProductsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3217,6 +3538,7 @@ export type BranchUncheckedCreateWithoutProductsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutProductsInput = {
@@ -3238,6 +3560,7 @@ export type BranchUpdateToOneWithWhereWithoutProductsInput = {
 export type BranchUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3268,11 +3591,13 @@ export type BranchUpdateWithoutProductsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3303,11 +3628,13 @@ export type BranchUncheckedUpdateWithoutProductsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutProductStockMovementsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3338,11 +3665,13 @@ export type BranchCreateWithoutProductStockMovementsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutProductStockMovementsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3373,6 +3702,7 @@ export type BranchUncheckedCreateWithoutProductStockMovementsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutProductStockMovementsInput = {
@@ -3394,6 +3724,7 @@ export type BranchUpdateToOneWithWhereWithoutProductStockMovementsInput = {
 export type BranchUpdateWithoutProductStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3424,11 +3755,13 @@ export type BranchUpdateWithoutProductStockMovementsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutProductStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3459,11 +3792,13 @@ export type BranchUncheckedUpdateWithoutProductStockMovementsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutProductPurchasesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3494,11 +3829,13 @@ export type BranchCreateWithoutProductPurchasesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutProductPurchasesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3529,6 +3866,7 @@ export type BranchUncheckedCreateWithoutProductPurchasesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutProductPurchasesInput = {
@@ -3550,6 +3888,7 @@ export type BranchUpdateToOneWithWhereWithoutProductPurchasesInput = {
 export type BranchUpdateWithoutProductPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3580,11 +3919,13 @@ export type BranchUpdateWithoutProductPurchasesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutProductPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3615,11 +3956,13 @@ export type BranchUncheckedUpdateWithoutProductPurchasesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutVendorPaymentsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3650,11 +3993,13 @@ export type BranchCreateWithoutVendorPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutVendorPaymentsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3685,6 +4030,7 @@ export type BranchUncheckedCreateWithoutVendorPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutVendorPaymentsInput = {
@@ -3706,6 +4052,7 @@ export type BranchUpdateToOneWithWhereWithoutVendorPaymentsInput = {
 export type BranchUpdateWithoutVendorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3736,11 +4083,13 @@ export type BranchUpdateWithoutVendorPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutVendorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3771,11 +4120,13 @@ export type BranchUncheckedUpdateWithoutVendorPaymentsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutStockAlertsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3806,11 +4157,13 @@ export type BranchCreateWithoutStockAlertsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutStockAlertsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3841,6 +4194,7 @@ export type BranchUncheckedCreateWithoutStockAlertsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutStockAlertsInput = {
@@ -3862,6 +4216,7 @@ export type BranchUpdateToOneWithWhereWithoutStockAlertsInput = {
 export type BranchUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3892,11 +4247,13 @@ export type BranchUpdateWithoutStockAlertsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3927,11 +4284,13 @@ export type BranchUncheckedUpdateWithoutStockAlertsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutReorderSuggestionsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -3962,11 +4321,13 @@ export type BranchCreateWithoutReorderSuggestionsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutReorderSuggestionsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -3997,6 +4358,7 @@ export type BranchUncheckedCreateWithoutReorderSuggestionsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutReorderSuggestionsInput = {
@@ -4018,6 +4380,7 @@ export type BranchUpdateToOneWithWhereWithoutReorderSuggestionsInput = {
 export type BranchUpdateWithoutReorderSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4048,11 +4411,13 @@ export type BranchUpdateWithoutReorderSuggestionsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutReorderSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4083,11 +4448,13 @@ export type BranchUncheckedUpdateWithoutReorderSuggestionsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutAuditLogsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -4118,11 +4485,13 @@ export type BranchCreateWithoutAuditLogsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutAuditLogsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -4153,6 +4522,7 @@ export type BranchUncheckedCreateWithoutAuditLogsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutAuditLogsInput = {
@@ -4174,6 +4544,7 @@ export type BranchUpdateToOneWithWhereWithoutAuditLogsInput = {
 export type BranchUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4204,11 +4575,13 @@ export type BranchUpdateWithoutAuditLogsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4239,11 +4612,13 @@ export type BranchUncheckedUpdateWithoutAuditLogsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutRetailSalesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -4274,11 +4649,13 @@ export type BranchCreateWithoutRetailSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutRetailSalesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -4309,6 +4686,7 @@ export type BranchUncheckedCreateWithoutRetailSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutRetailSalesInput = {
@@ -4330,6 +4708,7 @@ export type BranchUpdateToOneWithWhereWithoutRetailSalesInput = {
 export type BranchUpdateWithoutRetailSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4360,11 +4739,13 @@ export type BranchUpdateWithoutRetailSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutRetailSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4395,11 +4776,13 @@ export type BranchUncheckedUpdateWithoutRetailSalesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutExpensesInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -4430,11 +4813,13 @@ export type BranchCreateWithoutExpensesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutExpensesInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -4465,6 +4850,7 @@ export type BranchUncheckedCreateWithoutExpensesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutExpensesInput = {
@@ -4486,6 +4872,7 @@ export type BranchUpdateToOneWithWhereWithoutExpensesInput = {
 export type BranchUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4516,11 +4903,13 @@ export type BranchUpdateWithoutExpensesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4551,11 +4940,13 @@ export type BranchUncheckedUpdateWithoutExpensesInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateWithoutSupportTicketsInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -4586,11 +4977,13 @@ export type BranchCreateWithoutSupportTicketsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateWithoutSupportTicketsInput = {
   id?: string
   name: string
+  status?: boolean
   salonId: string
   addressLine1?: string | null
   city?: string | null
@@ -4621,6 +5014,7 @@ export type BranchUncheckedCreateWithoutSupportTicketsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutBranchInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutBranchInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutBranchInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchCreateOrConnectWithoutSupportTicketsInput = {
@@ -4642,6 +5036,7 @@ export type BranchUpdateToOneWithWhereWithoutSupportTicketsInput = {
 export type BranchUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4672,11 +5067,13 @@ export type BranchUpdateWithoutSupportTicketsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSupportTicketsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   salonId?: Prisma.StringFieldUpdateOperationsInput | string
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4707,11 +5104,13 @@ export type BranchUncheckedUpdateWithoutSupportTicketsInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManySalonInput = {
   id?: string
   name: string
+  status?: boolean
   addressLine1?: string | null
   city?: string | null
   state?: string | null
@@ -4724,6 +5123,7 @@ export type BranchCreateManySalonInput = {
 export type BranchUpdateWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4754,11 +5154,13 @@ export type BranchUpdateWithoutSalonInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4789,11 +5191,13 @@ export type BranchUncheckedUpdateWithoutSalonInput = {
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutBranchNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutBranchNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutBranchNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateManyWithoutSalonInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4832,6 +5236,7 @@ export type BranchCountOutputType = {
   staffSalaryConfigs: number
   salarySlips: number
   coupons: number
+  publicBookingSettings: number
 }
 
 export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4858,6 +5263,7 @@ export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   staffSalaryConfigs?: boolean | BranchCountOutputTypeCountStaffSalaryConfigsArgs
   salarySlips?: boolean | BranchCountOutputTypeCountSalarySlipsArgs
   coupons?: boolean | BranchCountOutputTypeCountCouponsArgs
+  publicBookingSettings?: boolean | BranchCountOutputTypeCountPublicBookingSettingsArgs
 }
 
 /**
@@ -5031,10 +5437,18 @@ export type BranchCountOutputTypeCountCouponsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.CouponWhereInput
 }
 
+/**
+ * BranchCountOutputType without action
+ */
+export type BranchCountOutputTypeCountPublicBookingSettingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PublicBookingSettingWhereInput
+}
+
 
 export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   salonId?: boolean
   addressLine1?: boolean
   city?: boolean
@@ -5067,12 +5481,14 @@ export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   staffSalaryConfigs?: boolean | Prisma.Branch$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Branch$salarySlipsArgs<ExtArgs>
   coupons?: boolean | Prisma.Branch$couponsArgs<ExtArgs>
+  publicBookingSettings?: boolean | Prisma.Branch$publicBookingSettingsArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
 export type BranchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   salonId?: boolean
   addressLine1?: boolean
   city?: boolean
@@ -5087,6 +5503,7 @@ export type BranchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  status?: boolean
   salonId?: boolean
   addressLine1?: boolean
   city?: boolean
@@ -5101,6 +5518,7 @@ export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type BranchSelectScalar = {
   id?: boolean
   name?: boolean
+  status?: boolean
   salonId?: boolean
   addressLine1?: boolean
   city?: boolean
@@ -5111,7 +5529,7 @@ export type BranchSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BranchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "salonId" | "addressLine1" | "city" | "state" | "postalCode" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
+export type BranchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "status" | "salonId" | "addressLine1" | "city" | "state" | "postalCode" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
 export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   staff?: boolean | Prisma.Branch$staffArgs<ExtArgs>
@@ -5137,6 +5555,7 @@ export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   staffSalaryConfigs?: boolean | Prisma.Branch$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Branch$salarySlipsArgs<ExtArgs>
   coupons?: boolean | Prisma.Branch$couponsArgs<ExtArgs>
+  publicBookingSettings?: boolean | Prisma.Branch$publicBookingSettingsArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5173,10 +5592,12 @@ export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     staffSalaryConfigs: Prisma.$StaffSalaryConfigPayload<ExtArgs>[]
     salarySlips: Prisma.$SalarySlipPayload<ExtArgs>[]
     coupons: Prisma.$CouponPayload<ExtArgs>[]
+    publicBookingSettings: Prisma.$PublicBookingSettingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    status: boolean
     salonId: string
     addressLine1: string | null
     city: string | null
@@ -5603,6 +6024,7 @@ export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.T
   staffSalaryConfigs<T extends Prisma.Branch$staffSalaryConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$staffSalaryConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffSalaryConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salarySlips<T extends Prisma.Branch$salarySlipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$salarySlipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalarySlipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupons<T extends Prisma.Branch$couponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  publicBookingSettings<T extends Prisma.Branch$publicBookingSettingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$publicBookingSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PublicBookingSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5634,6 +6056,7 @@ export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.T
 export interface BranchFieldRefs {
   readonly id: Prisma.FieldRef<"Branch", 'String'>
   readonly name: Prisma.FieldRef<"Branch", 'String'>
+  readonly status: Prisma.FieldRef<"Branch", 'Boolean'>
   readonly salonId: Prisma.FieldRef<"Branch", 'String'>
   readonly addressLine1: Prisma.FieldRef<"Branch", 'String'>
   readonly city: Prisma.FieldRef<"Branch", 'String'>
@@ -6592,6 +7015,30 @@ export type Branch$couponsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.CouponScalarFieldEnum | Prisma.CouponScalarFieldEnum[]
+}
+
+/**
+ * Branch.publicBookingSettings
+ */
+export type Branch$publicBookingSettingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PublicBookingSetting
+   */
+  select?: Prisma.PublicBookingSettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PublicBookingSetting
+   */
+  omit?: Prisma.PublicBookingSettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PublicBookingSettingInclude<ExtArgs> | null
+  where?: Prisma.PublicBookingSettingWhereInput
+  orderBy?: Prisma.PublicBookingSettingOrderByWithRelationInput | Prisma.PublicBookingSettingOrderByWithRelationInput[]
+  cursor?: Prisma.PublicBookingSettingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PublicBookingSettingScalarFieldEnum | Prisma.PublicBookingSettingScalarFieldEnum[]
 }
 
 /**

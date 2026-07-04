@@ -5,6 +5,7 @@ import { Button } from "@/components/Component";
 import PageShell from "@/components/salon/PageShell";
 import { salonApi } from "@/services/salonApi";
 import { formatMoney } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const ProfitSummary = () => {
   const [filters, setFilters] = useState({ from: "", to: "" });
@@ -18,7 +19,7 @@ const ProfitSummary = () => {
     try {
       const response = await salonApi.reports.profitSummary({
         ...(filters.from ? { from: filters.from } : {}),
-        ...(filters.to ? { to: `${filters.to}T23:59:59.999Z` } : {}),
+        ...(filters.to ? { to: filters.to } : {}),
       });
       setData(response.data);
     } catch (loadError) {
@@ -40,7 +41,8 @@ const ProfitSummary = () => {
   ] : [];
 
   return (
-    <PageShell title="Profit summary" description="Estimated revenue less product purchases and recorded expenses. Salary is intentionally excluded.">
+    <PageShell title="Profit summary" description="Estimated revenue less product purchases and recorded expenses. Salary is intentionally excluded."
+      tools={<ReportExportButtons reportType="profit-summary" filters={filters} />}>
       {error && <Alert color="danger">{error}</Alert>}
       <div className="card card-bordered mb-4"><div className="card-inner"><Row className="g-3 align-items-end">
         <Col md="4"><Label>From</Label><Input type="date" value={filters.from} onChange={(event) => setFilters((current) => ({ ...current, from: event.target.value }))} /></Col>

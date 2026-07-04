@@ -272,6 +272,7 @@ export const AuditModule = {
   MEMBERSHIP: 'MEMBERSHIP',
   LOYALTY: 'LOYALTY',
   COUPON: 'COUPON',
+  PUBLIC_BOOKING: 'PUBLIC_BOOKING',
   SYSTEM: 'SYSTEM'
 } as const
 

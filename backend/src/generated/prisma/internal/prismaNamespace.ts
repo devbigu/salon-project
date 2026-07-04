@@ -403,6 +403,7 @@ export const ModelName = {
   Service: 'Service',
   ServiceConsumable: 'ServiceConsumable',
   Appointment: 'Appointment',
+  PublicBookingSetting: 'PublicBookingSetting',
   AppointmentStatusHistory: 'AppointmentStatusHistory',
   AppointmentService: 'AppointmentService',
   Sale: 'Sale',
@@ -443,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "salon" | "user" | "customer" | "membership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "appointment" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
+    modelProps: "salon" | "user" | "customer" | "membership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1850,6 +1851,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AppointmentCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AppointmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    PublicBookingSetting: {
+      payload: Prisma.$PublicBookingSettingPayload<ExtArgs>
+      fields: Prisma.PublicBookingSettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PublicBookingSettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PublicBookingSettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        findFirst: {
+          args: Prisma.PublicBookingSettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PublicBookingSettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        findMany: {
+          args: Prisma.PublicBookingSettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>[]
+        }
+        create: {
+          args: Prisma.PublicBookingSettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        createMany: {
+          args: Prisma.PublicBookingSettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PublicBookingSettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>[]
+        }
+        delete: {
+          args: Prisma.PublicBookingSettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        update: {
+          args: Prisma.PublicBookingSettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PublicBookingSettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PublicBookingSettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PublicBookingSettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PublicBookingSettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PublicBookingSettingPayload>
+        }
+        aggregate: {
+          args: Prisma.PublicBookingSettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePublicBookingSetting>
+        }
+        groupBy: {
+          args: Prisma.PublicBookingSettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PublicBookingSettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PublicBookingSettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PublicBookingSettingCountAggregateOutputType> | number
         }
       }
     }
@@ -3746,6 +3821,7 @@ export const SalonScalarFieldEnum = {
   id: 'id',
   name: 'name',
   timezone: 'timezone',
+  status: 'status',
   addressLine1: 'addressLine1',
   addressLine2: 'addressLine2',
   city: 'city',
@@ -3895,6 +3971,7 @@ export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof 
 export const BranchScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  status: 'status',
   salonId: 'salonId',
   addressLine1: 'addressLine1',
   city: 'city',
@@ -4118,6 +4195,28 @@ export const AppointmentScalarFieldEnum = {
 } as const
 
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const PublicBookingSettingScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  slug: 'slug',
+  isEnabled: 'isEnabled',
+  allowStaffSelection: 'allowStaffSelection',
+  requireCustomerOtp: 'requireCustomerOtp',
+  requireApproval: 'requireApproval',
+  bookingWindowDays: 'bookingWindowDays',
+  minNoticeMinutes: 'minNoticeMinutes',
+  slotIntervalMinutes: 'slotIntervalMinutes',
+  cancellationPolicyText: 'cancellationPolicyText',
+  termsText: 'termsText',
+  themeColor: 'themeColor',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PublicBookingSettingScalarFieldEnum = (typeof PublicBookingSettingScalarFieldEnum)[keyof typeof PublicBookingSettingScalarFieldEnum]
 
 
 export const AppointmentStatusHistoryScalarFieldEnum = {
@@ -4668,6 +4767,13 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4748,13 +4854,6 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -5292,6 +5391,7 @@ export type GlobalOmitConfig = {
   service?: Prisma.ServiceOmit
   serviceConsumable?: Prisma.ServiceConsumableOmit
   appointment?: Prisma.AppointmentOmit
+  publicBookingSetting?: Prisma.PublicBookingSettingOmit
   appointmentStatusHistory?: Prisma.AppointmentStatusHistoryOmit
   appointmentService?: Prisma.AppointmentServiceOmit
   sale?: Prisma.SaleOmit

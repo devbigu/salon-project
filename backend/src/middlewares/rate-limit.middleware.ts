@@ -27,3 +27,21 @@ export const publicSupportRateLimiter = rateLimit({
   skip: skipDuringNormalTests,
   handler,
 });
+
+export const publicBookingRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: skipDuringNormalTests,
+  handler,
+});
+
+export const publicBookingCreateRateLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  limit: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: skipDuringNormalTests,
+  handler,
+});

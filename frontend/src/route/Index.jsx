@@ -35,6 +35,8 @@ import Leaves from "@/pages/salon/Leaves";
 import SalaryConfig from "@/pages/salon/SalaryConfig";
 import SalarySlips from "@/pages/salon/SalarySlips";
 import StaffPerformance from "@/pages/salon/StaffPerformance";
+import OnlineBookingSettings from "@/pages/salon/OnlineBookingSettings";
+import PublicBooking from "@/pages/public/PublicBooking";
 
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
@@ -156,6 +158,7 @@ const Router = () => (
                 <Route path="reports/audit-trails" element={<AuditTrails />} />
                 <Route path="customer-retention/loyalty-transactions" element={<LoyaltyTransactions />} />
                 <Route path="customer-retention/coupons" element={<Coupons />} />
+                <Route path="settings/online-booking" element={<OnlineBookingSettings />} />
               </Route>
               <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "STAFF"]} />}>
                 <Route path="staff-operations/salary-slips" element={<SalarySlips />} />
@@ -186,6 +189,7 @@ const Router = () => (
           </Route>
 
           <Route element={<LayoutNoSidebar />}>
+            <Route path="book/:slug" element={<PublicBooking />} />
             <Route path="support/public" element={<PublicSupport />} />
             <Route path="pages/terms-policy" element={<Terms />} />
             <Route path="*" element={<Error404Modern />} />

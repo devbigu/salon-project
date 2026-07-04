@@ -23,6 +23,7 @@ import {
   roleCanManage,
   toLocalInput,
 } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const Billing = () => {
   const { user } = useAuth();
@@ -210,6 +211,9 @@ const Billing = () => {
       description="Generate invoices from completed appointments and record payments against outstanding balances."
       tools={
         <>
+          {["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"].includes(user?.role) && (
+            <ReportExportButtons reportType="revenue" />
+          )}
           {["SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"].includes(user?.role) && (
             <Button color="info" onClick={() => { setSelected(null); setAction("payment"); }}>
               <Icon name="wallet-in" /> Record payment

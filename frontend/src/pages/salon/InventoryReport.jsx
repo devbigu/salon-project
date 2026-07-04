@@ -3,6 +3,7 @@ import { Alert, Col, Row, Spinner } from "reactstrap";
 import PageShell from "@/components/salon/PageShell";
 import { salonApi } from "@/services/salonApi";
 import { formatMoney } from "@/utils/salonFormat";
+import ReportExportButtons from "@/components/salon/ReportExportButtons";
 
 const InventoryReport = () => {
   const [data, setData] = useState(null);
@@ -20,7 +21,8 @@ const InventoryReport = () => {
     ["Low-stock products", data.lowStockCount],
   ] : [];
   return (
-    <PageShell title="Inventory report" description="A live valuation and stock-health snapshot.">
+    <PageShell title="Inventory report" description="A live valuation and stock-health snapshot."
+      tools={<ReportExportButtons reportType="inventory" />}>
       {error && <Alert color="danger">{error}</Alert>}
       {!data && !error ? <Spinner color="primary" /> : (
         <Row className="g-4">
