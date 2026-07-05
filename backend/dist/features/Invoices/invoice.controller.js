@@ -496,6 +496,34 @@ export const cancelInvoice = async (req, res) => {
                 });
             }
             const cancelled = await InvoiceModel.cancel(id, tx);
+            const customerPackages = await tx.customerPackage.findMany({
+                where: {
+                    invoiceId: id,
+                    status: { not: "CANCELLED" },
+                },
+            });
+            if (customerPackages.length) {
+                await tx.customerPackage.updateMany({
+                    where: { id: { in: customerPackages.map((item) => item.id) } },
+                    data: { status: "CANCELLED" },
+                });
+                for (const customerPackage of customerPackages) {
+                    await createAuditLog({
+                        tx,
+                        salonId: customerPackage.salonId,
+                        branchId: customerPackage.branchId,
+                        userId: req.user?.userId,
+                        module: "PACKAGE",
+                        action: "CANCEL",
+                        entityId: customerPackage.id,
+                        entityName: customerPackage.packageNameSnapshot,
+                        description: `Customer package ${customerPackage.packageNameSnapshot} cancelled with invoice ${cancelled.invoiceCode}`,
+                        oldData: { status: customerPackage.status },
+                        newData: { status: "CANCELLED", invoiceId: id },
+                        ...requestAuditContext(req),
+                    });
+                }
+            }
             await createAuditLog({
                 tx,
                 salonId: existingInvoice.salonId,

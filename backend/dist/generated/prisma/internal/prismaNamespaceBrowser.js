@@ -57,6 +57,9 @@ export const ModelName = {
     MainService: 'MainService',
     Service: 'Service',
     ServiceConsumable: 'ServiceConsumable',
+    PackageCategory: 'PackageCategory',
+    ServicePackage: 'ServicePackage',
+    ServicePackageItem: 'ServicePackageItem',
     Appointment: 'Appointment',
     PublicBookingSetting: 'PublicBookingSetting',
     AppointmentStatusHistory: 'AppointmentStatusHistory',
@@ -66,6 +69,7 @@ export const ModelName = {
     SalePayment: 'SalePayment',
     Invoice: 'Invoice',
     InvoiceItem: 'InvoiceItem',
+    CustomerPackage: 'CustomerPackage',
     Payment: 'Payment',
     ProductBrand: 'ProductBrand',
     Product: 'Product',
@@ -381,6 +385,44 @@ export const ServiceConsumableScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
+export const PackageCategoryScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    name: 'name',
+    status: 'status',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ServicePackageScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    categoryId: 'categoryId',
+    name: 'name',
+    description: 'description',
+    totalPrice: 'totalPrice',
+    specialPrice: 'specialPrice',
+    validityDays: 'validityDays',
+    status: 'status',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ServicePackageItemScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    packageId: 'packageId',
+    serviceId: 'serviceId',
+    itemType: 'itemType',
+    serviceNameSnapshot: 'serviceNameSnapshot',
+    quantity: 'quantity',
+    priceSnapshot: 'priceSnapshot',
+    durationMinutesSnapshot: 'durationMinutesSnapshot',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
 export const AppointmentScalarFieldEnum = {
     id: 'id',
     appointmentCode: 'appointmentCode',
@@ -540,6 +582,9 @@ export const InvoiceItemScalarFieldEnum = {
     id: 'id',
     invoiceId: 'invoiceId',
     serviceId: 'serviceId',
+    itemType: 'itemType',
+    packageId: 'packageId',
+    soldByStaffId: 'soldByStaffId',
     itemCode: 'itemCode',
     description: 'description',
     serviceName: 'serviceName',
@@ -550,6 +595,26 @@ export const InvoiceItemScalarFieldEnum = {
     taxAmount: 'taxAmount',
     lineTotal: 'lineTotal',
     createdAt: 'createdAt'
+};
+export const CustomerPackageScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    customerId: 'customerId',
+    packageId: 'packageId',
+    packageNameSnapshot: 'packageNameSnapshot',
+    totalPriceSnapshot: 'totalPriceSnapshot',
+    specialPriceSnapshot: 'specialPriceSnapshot',
+    validityDaysSnapshot: 'validityDaysSnapshot',
+    purchasedAt: 'purchasedAt',
+    validUntil: 'validUntil',
+    status: 'status',
+    soldByStaffId: 'soldByStaffId',
+    invoiceId: 'invoiceId',
+    jobCartAppointmentId: 'jobCartAppointmentId',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const PaymentScalarFieldEnum = {
     id: 'id',

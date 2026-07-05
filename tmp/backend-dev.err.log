@@ -24,3 +24,23 @@
 (Use `node --trace-deprecation ...` to show where the warning was created)
 (node:8868) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+C:\Users\JoJo\job work\Salon\backend\src\features\job-carts\job-cart.controller.ts:11
+  getJobCartCustomerSummary,
+  ^
+SyntaxError: The requested module './job-cart.service.js' does not provide an export named 'getJobCartCustomerSummary'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:327:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:431:5)
+    at async node:internal/modules/esm/loader:633:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.16.0
+C:\Users\JoJo\job work\Salon\backend\src\features\job-carts\job-cart.controller.ts:11
+  getJobCartCustomerSummary,
+  ^
+SyntaxError: The requested module './job-cart.service.js' does not provide an export named 'getJobCartCustomerSummary'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:327:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:431:5)
+    at async node:internal/modules/esm/loader:633:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.16.0

@@ -40,6 +40,12 @@ import salarySlipRoutes from "../features/salary-slips/salarySlip.routes.js";
 import publicBookingRoutes from "../features/public-booking/public-booking.routes.js";
 import publicBookingSettingRoutes from "../features/public-booking-settings/public-booking-setting.routes.js";
 import jobCartRoutes from "../features/job-carts/job-cart.routes.js";
+import {
+  customerPackageCustomerRoutes,
+  customerPackageRoutes,
+  packageCategoryRoutes,
+  servicePackageRoutes,
+} from "../features/packages/package.routes.js";
 
 
 
@@ -82,6 +88,10 @@ router.use("/leaves", leaveRoutes);
 router.use("/public-booking", publicBookingRoutes);
 router.use("/public-booking-settings", publicBookingSettingRoutes);
 router.use("/job-carts", jobCartRoutes);
+router.use("/package-categories", packageCategoryRoutes);
+router.use("/packages", servicePackageRoutes);
+router.use("/customer-packages", customerPackageRoutes);
+router.use("/customers", customerPackageCustomerRoutes);
 router.use("/", salaryConfigRoutes);
 router.use("/salary-slips", salarySlipRoutes);
 

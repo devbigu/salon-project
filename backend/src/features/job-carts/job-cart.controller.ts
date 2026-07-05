@@ -8,6 +8,7 @@ import {
   createJobCart,
   getJobCart,
   getJobCartReferences,
+  getJobCartCustomerSummary,
   JobCartError,
   listJobCarts,
   removeJobCartItem,
@@ -16,6 +17,7 @@ import {
 } from "./job-cart.service.js";
 import {
   addJobCartItemSchema,
+  customerSummarySchema,
   createJobCartSchema,
   listJobCartsSchema,
   updateJobCartSchema,
@@ -118,6 +120,19 @@ export const getJobCartReferenceData = async (
   }
 };
 
+export const getJobCartCustomerSummaryController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const query = customerSummarySchema.parse(req.query);
+    const data = await getJobCartCustomerSummary(actorFrom(req), query);
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
 export const postJobCart = async (req: Request, res: Response) => {
   try {
     const parsed = createJobCartSchema.parse(req.body);
@@ -201,12 +216,17 @@ export const postJobCartItem = async (req: Request, res: Response) => {
     const data = await addJobCartItem(
       actorFrom(req),
       param(req, "id"),
-      parsed.serviceId,
+      {
+        itemType: parsed.itemType,
+        ...(parsed.serviceId ? { serviceId: parsed.serviceId } : {}),
+        ...(parsed.packageId ? { packageId: parsed.packageId } : {}),
+        ...(parsed.staffId ? { staffId: parsed.staffId } : {}),
+      },
       requestAuditContext(req)
     );
     return res.status(200).json({
       success: true,
-      message: "Service added to job cart",
+      message: `${parsed.itemType === "PACKAGE" ? "Package" : "Service"} added to job cart`,
       data,
     });
   } catch (error) {
@@ -224,7 +244,7 @@ export const deleteJobCartItem = async (req: Request, res: Response) => {
     );
     return res.status(200).json({
       success: true,
-      message: "Service removed from job cart",
+      message: "Item removed from job cart",
       data,
     });
   } catch (error) {

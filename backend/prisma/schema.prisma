@@ -67,6 +67,10 @@ model Salon {
   staffLeaves           StaffLeave[]
   staffSalaryConfigs    StaffSalaryConfig[]
   salarySlips           SalarySlip[]
+  packageCategories     PackageCategory[]
+  servicePackages       ServicePackage[]
+  servicePackageItems   ServicePackageItem[]
+  customerPackages      CustomerPackage[]
 }
 
 model User {
@@ -112,6 +116,9 @@ model User {
   paidSalarySlips              SalarySlip[]                 @relation("SalarySlipPaidBy")
   createdLoyaltyTransactions   LoyaltyTransaction[]         @relation("LoyaltyTransactionCreatedBy")
   createdCoupons               Coupon[]
+  createdPackageCategories     PackageCategory[]            @relation("PackageCategoryCreatedBy")
+  createdServicePackages       ServicePackage[]             @relation("ServicePackageCreatedBy")
+  createdCustomerPackages      CustomerPackage[]            @relation("CustomerPackageCreatedBy")
 }
 
 model Customer {
@@ -149,9 +156,10 @@ model Customer {
 
   sales Sale[]
 
-  invoices    Invoice[]
-  payments    Payment[]
-  retailSales RetailSale[]
+  invoices         Invoice[]
+  payments         Payment[]
+  retailSales      RetailSale[]
+  customerPackages CustomerPackage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -360,6 +368,9 @@ model Branch {
   salarySlips           SalarySlip[]
   coupons               Coupon[]
   publicBookingSettings PublicBookingSetting[]
+  packageCategories     PackageCategory[]
+  servicePackages       ServicePackage[]
+  customerPackages      CustomerPackage[]
 
   @@unique([salonId, name])
 }
@@ -396,12 +407,14 @@ model Staff {
   salon Salon @relation(fields: [salonId], references: [id])
   user  User? @relation(fields: [userId], references: [id])
 
-  appointments  Appointment[]
-  attendances   StaffAttendance[]
-  leaves        StaffLeave[]
-  salaryConfigs StaffSalaryConfig[]
-  salarySlips   SalarySlip[]
-  retailSales   RetailSale[]
+  appointments         Appointment[]
+  attendances          StaffAttendance[]
+  leaves               StaffLeave[]
+  salaryConfigs        StaffSalaryConfig[]
+  salarySlips          SalarySlip[]
+  retailSales          RetailSale[]
+  soldCustomerPackages CustomerPackage[]   @relation("CustomerPackageSoldBy")
+  packageInvoiceItems  InvoiceItem[]       @relation("InvoiceItemSoldBy")
 
   @@unique([salonId, email])
   @@unique([salonId, staffCode])
@@ -690,7 +703,8 @@ model Service {
 
   invoiceItems InvoiceItem[]
 
-  consumables ServiceConsumable[]
+  consumables  ServiceConsumable[]
+  packageItems ServicePackageItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -726,6 +740,77 @@ model ServiceConsumable {
   @@index([serviceId])
   @@index([productId])
   @@index([status])
+}
+
+model PackageCategory {
+  id          String           @id @default(uuid())
+  salonId     String
+  salon       Salon            @relation(fields: [salonId], references: [id])
+  branchId    String?
+  branch      Branch?          @relation(fields: [branchId], references: [id])
+  name        String
+  status      PackageStatus    @default(ACTIVE)
+  createdById String?
+  createdBy   User?            @relation("PackageCategoryCreatedBy", fields: [createdById], references: [id])
+  packages    ServicePackage[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([salonId, name])
+  @@index([salonId])
+  @@index([branchId])
+  @@index([status])
+}
+
+model ServicePackage {
+  id               String               @id @default(uuid())
+  salonId          String
+  salon            Salon                @relation(fields: [salonId], references: [id])
+  branchId         String?
+  branch           Branch?              @relation(fields: [branchId], references: [id])
+  categoryId       String
+  category         PackageCategory      @relation(fields: [categoryId], references: [id])
+  name             String
+  description      String?
+  totalPrice       Decimal              @db.Decimal(10, 2)
+  specialPrice     Decimal              @db.Decimal(10, 2)
+  validityDays     Int
+  status           PackageStatus        @default(ACTIVE)
+  createdById      String?
+  createdBy        User?                @relation("ServicePackageCreatedBy", fields: [createdById], references: [id])
+  items            ServicePackageItem[]
+  invoiceItems     InvoiceItem[]
+  customerPackages CustomerPackage[]
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  @@unique([salonId, name])
+  @@index([salonId])
+  @@index([branchId])
+  @@index([categoryId])
+  @@index([status])
+}
+
+model ServicePackageItem {
+  id                      String          @id @default(uuid())
+  salonId                 String
+  salon                   Salon           @relation(fields: [salonId], references: [id])
+  packageId               String
+  package                 ServicePackage  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  serviceId               String
+  service                 Service         @relation(fields: [serviceId], references: [id])
+  itemType                PackageItemType @default(SERVICE)
+  serviceNameSnapshot     String
+  quantity                Int             @default(1)
+  priceSnapshot           Decimal         @db.Decimal(10, 2)
+  durationMinutesSnapshot Int?
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+
+  @@unique([packageId, serviceId])
+  @@index([packageId])
+  @@index([serviceId])
+  @@index([salonId])
 }
 
 enum DurationUnit {
@@ -770,8 +855,9 @@ model Appointment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  invoice       Invoice?
-  statusHistory AppointmentStatusHistory[]
+  invoice          Invoice?
+  statusHistory    AppointmentStatusHistory[]
+  customerPackages CustomerPackage[]
 
   @@unique([salonId, appointmentCode])
   @@index([salonId])
@@ -1098,6 +1184,7 @@ model Invoice {
   updatedAt DateTime @updatedAt
 
   customerTransactions CustomerTransaction[]
+  customerPackages     CustomerPackage[]
 
   @@unique([salonId, invoiceCode])
   @@index([salonId])
@@ -1119,6 +1206,12 @@ model InvoiceItem {
   serviceId String?
   service   Service? @relation(fields: [serviceId], references: [id])
 
+  itemType      InvoiceItemType @default(SERVICE)
+  packageId     String?
+  package       ServicePackage? @relation(fields: [packageId], references: [id])
+  soldByStaffId String?
+  soldByStaff   Staff?          @relation("InvoiceItemSoldBy", fields: [soldByStaffId], references: [id])
+
   itemCode    String?
   description String
   serviceName String
@@ -1138,6 +1231,48 @@ model InvoiceItem {
 
   @@index([invoiceId])
   @@index([serviceId])
+  @@index([packageId])
+  @@index([soldByStaffId])
+  @@index([itemType])
+}
+
+model CustomerPackage {
+  id                   String                @id @default(uuid())
+  salonId              String
+  salon                Salon                 @relation(fields: [salonId], references: [id])
+  branchId             String
+  branch               Branch                @relation(fields: [branchId], references: [id])
+  customerId           String
+  customer             Customer              @relation(fields: [customerId], references: [id])
+  packageId            String
+  package              ServicePackage        @relation(fields: [packageId], references: [id])
+  packageNameSnapshot  String
+  totalPriceSnapshot   Decimal               @db.Decimal(10, 2)
+  specialPriceSnapshot Decimal               @db.Decimal(10, 2)
+  validityDaysSnapshot Int
+  purchasedAt          DateTime
+  validUntil           DateTime
+  status               CustomerPackageStatus @default(ACTIVE)
+  soldByStaffId        String?
+  soldByStaff          Staff?                @relation("CustomerPackageSoldBy", fields: [soldByStaffId], references: [id])
+  invoiceId            String?
+  invoice              Invoice?              @relation(fields: [invoiceId], references: [id])
+  jobCartAppointmentId String?
+  jobCartAppointment   Appointment?          @relation(fields: [jobCartAppointmentId], references: [id])
+  createdById          String?
+  createdBy            User?                 @relation("CustomerPackageCreatedBy", fields: [createdById], references: [id])
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+
+  @@index([salonId])
+  @@index([branchId])
+  @@index([customerId])
+  @@index([packageId])
+  @@index([invoiceId])
+  @@index([jobCartAppointmentId])
+  @@index([soldByStaffId])
+  @@index([status])
+  @@index([validUntil])
 }
 
 model Payment {
@@ -1186,6 +1321,27 @@ enum InvoiceStatus {
   DRAFT
   ISSUED
   CANCELLED
+}
+
+enum PackageStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CustomerPackageStatus {
+  ACTIVE
+  EXPIRED
+  USED
+  CANCELLED
+}
+
+enum PackageItemType {
+  SERVICE
+}
+
+enum InvoiceItemType {
+  SERVICE
+  PACKAGE
 }
 
 enum CustomerTransactionType {
@@ -1609,6 +1765,7 @@ enum AuditModule {
   COUPON
   PUBLIC_BOOKING
   JOB_CART
+  PACKAGE
   SYSTEM
 }
 

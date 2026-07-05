@@ -22,6 +22,7 @@ const ResourcePanel = ({
   refreshKey,
   filterRows,
   onChanged,
+  pageSize,
 }) => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ const ResourcePanel = ({
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [details, setDetails] = useState(null);
+  const [page, setPage] = useState(1);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -99,6 +101,16 @@ const ResourcePanel = ({
   };
 
   const visibleRows = filterRows ? filterRows(rows) : rows;
+  const totalPages = pageSize
+    ? Math.max(1, Math.ceil(visibleRows.length / pageSize))
+    : 1;
+  const pagedRows = pageSize
+    ? visibleRows.slice((page - 1) * pageSize, page * pageSize)
+    : visibleRows;
+
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages);
+  }, [page, totalPages]);
 
   return (
     <div>
@@ -116,7 +128,7 @@ const ResourcePanel = ({
       </div>
       {error && <Alert color="danger">{error}</Alert>}
       <DataGrid
-        rows={visibleRows}
+        rows={pagedRows}
         columns={columns}
         loading={loading}
         onView={openDetails}
@@ -124,6 +136,31 @@ const ResourcePanel = ({
         onDelete={canDelete && api.remove ? remove : undefined}
         renderActions={(row) => renderActions?.(row, load, setError)}
       />
+      {pageSize && visibleRows.length > pageSize && (
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <span className="small text-soft">
+            Page {page} of {totalPages} • {visibleRows.length} records
+          </span>
+          <div className="d-flex gap-2">
+            <Button
+              size="sm"
+              color="light"
+              disabled={page <= 1}
+              onClick={() => setPage((current) => current - 1)}
+            >
+              Previous
+            </Button>
+            <Button
+              size="sm"
+              color="light"
+              disabled={page >= totalPages}
+              onClick={() => setPage((current) => current + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
       <SchemaModal
         isOpen={formOpen}
         toggle={() => setFormOpen((open) => !open)}

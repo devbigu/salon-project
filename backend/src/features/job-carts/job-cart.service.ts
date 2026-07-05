@@ -83,7 +83,21 @@ const jobCartInclude = {
   },
   invoice: {
     include: {
-      items: { orderBy: { createdAt: "asc" as const } },
+      items: {
+        include: {
+          package: {
+            select: {
+              id: true,
+              name: true,
+              totalPrice: true,
+              specialPrice: true,
+              validityDays: true,
+            },
+          },
+          soldByStaff: { select: { id: true, name: true } },
+        },
+        orderBy: { createdAt: "asc" as const },
+      },
       payments: { orderBy: { paidAt: "asc" as const } },
       coupon: true,
     },
@@ -137,7 +151,24 @@ const present = (cart: JobCartRecord) => ({
   staff: cart.staff,
   createdBy: cart.createdBy,
   editedBy: null,
-  items: cart.services,
+  items: [
+    ...cart.services.map((item) => ({ ...item, itemType: "SERVICE" as const })),
+    ...(cart.invoice?.items ?? [])
+      .filter((item) => item.itemType === "PACKAGE")
+      .map((item) => ({
+        id: item.id,
+        itemType: "PACKAGE" as const,
+        packageId: item.packageId,
+        packageNameSnapshot: item.serviceName,
+        serviceName: item.serviceName,
+        price: item.unitPrice,
+        quantity: item.quantity,
+        soldByStaffId: item.soldByStaffId,
+        soldByStaff: item.soldByStaff,
+        package: item.package,
+        createdAt: item.createdAt,
+      })),
+  ],
   invoice: cart.invoice,
 });
 
@@ -185,7 +216,7 @@ const durationMinutes = (service: {
   (service.durationUnit === "HOURS" ? 60 : 1);
 
 const findCustomerByPhone = async (
-  tx: TransactionClient,
+  tx: typeof prisma | TransactionClient,
   salonId: string,
   normalizedPhone: string
 ) => {
@@ -401,9 +432,16 @@ const recalculateCart = async (
     );
   }
 
-  const subtotal = cart.services.reduce(
+  const packageItems = cart.invoice.items.filter(
+    (item) => item.itemType === "PACKAGE"
+  );
+  const serviceSubtotal = cart.services.reduce(
     (sum, item) => sum.add(item.price),
     new Prisma.Decimal(0)
+  );
+  const subtotal = packageItems.reduce(
+    (sum, item) => sum.add(item.lineTotal),
+    serviceSubtotal
   );
   const membershipPercentage =
     cart.customer.membership?.status === true
@@ -434,7 +472,9 @@ const recalculateCart = async (
     excludeAppointmentId: cart.id,
   });
 
-  await tx.invoiceItem.deleteMany({ where: { invoiceId: cart.invoice.id } });
+  await tx.invoiceItem.deleteMany({
+    where: { invoiceId: cart.invoice.id, itemType: "SERVICE" },
+  });
   await tx.invoice.update({
     where: { id: cart.invoice.id },
     data: {
@@ -447,6 +487,7 @@ const recalculateCart = async (
       balanceAmount: total,
       items: {
         create: cart.services.map((item) => ({
+          itemType: "SERVICE",
           serviceId: item.serviceId,
           itemCode: item.serviceId.slice(0, 8),
           description: item.serviceName,
@@ -684,7 +725,202 @@ export const getJobCartReferences = async (
       orderBy: { name: "asc" },
     }),
   ]);
-  return { salons, branches, staff, services };
+  const packages = await prisma.servicePackage.findMany({
+    where: {
+      salonId,
+      status: "ACTIVE",
+      ...(branchId ? { OR: [{ branchId: null }, { branchId }] } : {}),
+    },
+    include: {
+      category: { select: { id: true, name: true } },
+      items: {
+        select: {
+          id: true,
+          serviceId: true,
+          serviceNameSnapshot: true,
+          quantity: true,
+        },
+      },
+    },
+    orderBy: { name: "asc" },
+  });
+  return { salons, branches, staff, services, packages };
+};
+
+export const getJobCartCustomerSummary = async (
+  actor: JobCartActor,
+  query: { customerId?: string | undefined; phone?: string | undefined }
+) => {
+  const branchWhere = branchScopedRoles.has(actor.role)
+    ? { branchId: actor.branchId ?? "__unauthorized__" }
+    : {};
+  let customerId = query.customerId;
+  if (!customerId && query.phone) {
+    if (actor.role !== "SUPER_ADMIN" && !actor.salonId) {
+      throw new JobCartError(400, "Salon is required");
+    }
+    if (actor.salonId) {
+      const customer = await findCustomerByPhone(
+        prisma,
+        actor.salonId,
+        normalizePhone(query.phone)
+      );
+      customerId = customer?.id;
+    } else {
+      const digits = normalizePhone(query.phone).replace(/\D/g, "");
+      const matches = await prisma.$queryRaw<Array<{ id: string }>>`
+        SELECT "id"
+        FROM "Customer"
+        WHERE regexp_replace(COALESCE("phone", ''), '[^0-9]', '', 'g') = ${digits}
+        ORDER BY "createdAt" DESC
+        LIMIT 1
+      `;
+      customerId = matches[0]?.id;
+    }
+  }
+  if (!customerId) throw new JobCartError(404, "Customer not found");
+
+  const customer = await prisma.customer.findFirst({
+    where: {
+      id: customerId,
+      ...(actor.role === "SUPER_ADMIN"
+        ? {}
+        : { salonId: actor.salonId ?? "__unauthorized__" }),
+      ...branchWhere,
+    },
+    include: {
+      membership: {
+        select: { id: true, name: true, status: true },
+      },
+    },
+  });
+  if (!customer) throw new JobCartError(404, "Customer not found");
+
+  await prisma.customerPackage.updateMany({
+    where: {
+      customerId: customer.id,
+      status: "ACTIVE",
+      validUntil: { lt: new Date() },
+    },
+    data: { status: "EXPIRED" },
+  });
+
+  const appointmentWhere: Prisma.AppointmentWhereInput = {
+    customerId: customer.id,
+    status: "COMPLETED",
+    ...(branchScopedRoles.has(actor.role) ? branchWhere : {}),
+  };
+  const [visits, activePackages, recentInvoices] = await Promise.all([
+    prisma.appointment.findMany({
+      where: appointmentWhere,
+      select: {
+        startTime: true,
+        staffId: true,
+        staff: { select: { id: true, name: true } },
+        _count: { select: { services: true } },
+      },
+      orderBy: { startTime: "desc" },
+    }),
+    prisma.customerPackage.findMany({
+      where: {
+        customerId: customer.id,
+        status: "ACTIVE",
+        validUntil: { gte: new Date() },
+        ...(branchScopedRoles.has(actor.role) ? branchWhere : {}),
+      },
+      select: {
+        id: true,
+        packageNameSnapshot: true,
+        validUntil: true,
+        status: true,
+        soldByStaff: { select: { name: true } },
+      },
+      orderBy: { validUntil: "asc" },
+    }),
+    prisma.invoice.findMany({
+      where: {
+        customerId: customer.id,
+        ...(branchScopedRoles.has(actor.role) ? branchWhere : {}),
+      },
+      select: {
+        id: true,
+        invoiceCode: true,
+        invoiceDate: true,
+        totalAmount: true,
+        paidAmount: true,
+        balanceAmount: true,
+        status: true,
+        paymentStatus: true,
+      },
+      orderBy: { invoiceDate: "desc" },
+      take: 10,
+    }),
+  ]);
+
+  const staffStats = new Map<
+    string,
+    { staffId: string; staffName: string; serviceCount: number; recent: Date }
+  >();
+  for (const visit of visits) {
+    if (!visit.staffId || !visit.staff) continue;
+    const current = staffStats.get(visit.staffId);
+    const serviceCount = Math.max(visit._count.services, 1);
+    if (current) {
+      current.serviceCount += serviceCount;
+    } else {
+      staffStats.set(visit.staffId, {
+        staffId: visit.staffId,
+        staffName: visit.staff.name,
+        serviceCount,
+        recent: visit.startTime,
+      });
+    }
+  }
+  const preferred = [...staffStats.values()].sort(
+    (left, right) =>
+      right.serviceCount - left.serviceCount ||
+      right.recent.getTime() - left.recent.getTime()
+  )[0];
+
+  return {
+    customerId: customer.id,
+    customerName: customer.name,
+    phone: customer.phone,
+    membershipName:
+      customer.membership?.status === true ? customer.membership.name : null,
+    membershipExpiresAt: null,
+    loyaltyPoints: customer.loyaltyPoints,
+    walletBalance: customer.walletBalance,
+    outstandingBalance: customer.outstandingAmount,
+    totalVisits: visits.length,
+    lastVisitDate: visits[0]?.startTime ?? null,
+    preferredStaff: preferred
+      ? {
+          staffId: preferred.staffId,
+          staffName: preferred.staffName,
+          serviceCount: preferred.serviceCount,
+        }
+      : null,
+    activePackages: activePackages.map((item) => ({
+      customerPackageId: item.id,
+      packageName: item.packageNameSnapshot,
+      validUntil: item.validUntil,
+      status: item.status,
+      soldByStaffName: item.soldByStaff?.name ?? null,
+    })),
+    recentInvoices: recentInvoices.map((invoice) => ({
+      invoiceId: invoice.id,
+      invoiceCode: invoice.invoiceCode,
+      date: invoice.invoiceDate,
+      totalAmount: invoice.totalAmount,
+      paidAmount: invoice.paidAmount,
+      balanceDue: invoice.balanceAmount,
+      status:
+        invoice.status === "CANCELLED"
+          ? invoice.status
+          : invoice.paymentStatus,
+    })),
+  };
 };
 
 export const createJobCart = async (
@@ -853,6 +1089,7 @@ export const createJobCart = async (
         paymentStatus: "UNPAID",
         billingNote: `Walk-in job cart ${appointment.appointmentCode}`,
         items: services.map((service) => ({
+          itemType: "SERVICE",
           serviceId: service.id,
           itemCode: service.id.slice(0, 8),
           description: service.name,
@@ -990,53 +1227,129 @@ export const updateJobCart = async (
 export const addJobCartItem = async (
   actor: JobCartActor,
   id: string,
-  serviceId: string,
+  input: {
+    itemType: "SERVICE" | "PACKAGE";
+    serviceId?: string;
+    packageId?: string;
+    staffId?: string;
+  },
   audit: AuditContext
 ) =>
   prisma.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
     const existing = await requireCart(tx, id, actor);
     requireMutable(existing);
-    const [service] = await validateServices(
-      tx,
-      existing.salonId,
-      existing.branchId!,
-      [serviceId]
-    );
-    if (!service) throw new JobCartError(400, "Service is unavailable");
-    if (existing.services.some((item) => item.serviceId === service.id)) {
-      throw new JobCartError(409, "Service is already in the job cart");
+    if (input.itemType === "PACKAGE") {
+      const servicePackage = await tx.servicePackage.findFirst({
+        where: {
+          id: input.packageId ?? "__missing__",
+          salonId: existing.salonId,
+          status: "ACTIVE",
+          OR: [{ branchId: null }, { branchId: existing.branchId }],
+        },
+      });
+      if (!servicePackage) {
+        throw new JobCartError(400, "Package is unavailable");
+      }
+      if (
+        existing.invoice!.items.some(
+          (item) =>
+            item.itemType === "PACKAGE" &&
+            item.packageId === servicePackage.id
+        )
+      ) {
+        throw new JobCartError(409, "Package is already in the job cart");
+      }
+      if (input.staffId) {
+        await validateStaff(
+          tx,
+          existing.salonId,
+          existing.branchId!,
+          input.staffId
+        );
+      }
+      const item = await tx.invoiceItem.create({
+        data: {
+          invoiceId: existing.invoice!.id,
+          itemType: "PACKAGE",
+          packageId: servicePackage.id,
+          soldByStaffId: input.staffId ?? null,
+          itemCode: servicePackage.id.slice(0, 8),
+          description: servicePackage.name,
+          serviceName: servicePackage.name,
+          quantity: 1,
+          unitPrice: servicePackage.specialPrice,
+          discountAmount: 0,
+          taxPercent: 0,
+          taxAmount: 0,
+          lineTotal: servicePackage.specialPrice,
+        },
+      });
+      await recalculateCart(tx, id);
+      await createAuditLog({
+        tx,
+        salonId: existing.salonId,
+        branchId: existing.branchId,
+        userId: actor.userId,
+        module: "JOB_CART",
+        action: "UPDATE",
+        entityId: id,
+        entityCode: existing.appointmentCode,
+        entityName: existing.customer.name,
+        description: `Package ${servicePackage.name} added to job cart ${existing.appointmentCode}`,
+        newData: {
+          itemId: item.id,
+          itemType: "PACKAGE",
+          packageId: servicePackage.id,
+          packageName: servicePackage.name,
+          price: servicePackage.specialPrice,
+          soldByStaffId: input.staffId,
+        },
+        ...audit,
+      });
+    } else {
+      const [service] = await validateServices(
+        tx,
+        existing.salonId,
+        existing.branchId!,
+        [input.serviceId ?? ""]
+      );
+      if (!service) throw new JobCartError(400, "Service is unavailable");
+      if (existing.services.some((item) => item.serviceId === service.id)) {
+        throw new JobCartError(409, "Service is already in the job cart");
+      }
+      const item = await tx.appointmentService.create({
+        data: {
+          appointmentId: existing.id,
+          serviceId: service.id,
+          serviceName: service.name,
+          price: service.price,
+          durationValue: service.durationValue,
+          durationUnit: service.durationUnit,
+        },
+      });
+      await recalculateCart(tx, id);
+      await createAuditLog({
+        tx,
+        salonId: existing.salonId,
+        branchId: existing.branchId,
+        userId: actor.userId,
+        module: "JOB_CART",
+        action: "UPDATE",
+        entityId: id,
+        entityCode: existing.appointmentCode,
+        entityName: existing.customer.name,
+        description: `Service ${service.name} added to job cart ${existing.appointmentCode}`,
+        newData: {
+          itemId: item.id,
+          itemType: "SERVICE",
+          serviceId: service.id,
+          serviceName: service.name,
+          price: service.price,
+        },
+        ...audit,
+      });
     }
-    const item = await tx.appointmentService.create({
-      data: {
-        appointmentId: existing.id,
-        serviceId: service.id,
-        serviceName: service.name,
-        price: service.price,
-        durationValue: service.durationValue,
-        durationUnit: service.durationUnit,
-      },
-    });
-    await recalculateCart(tx, id);
-    await createAuditLog({
-      tx,
-      salonId: existing.salonId,
-      branchId: existing.branchId,
-      userId: actor.userId,
-      module: "JOB_CART",
-      action: "UPDATE",
-      entityId: id,
-      entityCode: existing.appointmentCode,
-      entityName: existing.customer.name,
-      description: `Service ${service.name} added to job cart ${existing.appointmentCode}`,
-      newData: {
-        itemId: item.id,
-        serviceId: service.id,
-        serviceName: service.name,
-        price: service.price,
-      },
-      ...audit,
-    });
     return present(await requireCart(tx, id, actor));
   });
 
@@ -1050,9 +1363,20 @@ export const removeJobCartItem = async (
     await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
     const existing = await requireCart(tx, id, actor);
     requireMutable(existing);
-    const item = existing.services.find((service) => service.id === itemId);
-    if (!item) throw new JobCartError(404, "Job cart item not found");
-    await tx.appointmentService.delete({ where: { id: item.id } });
+    const serviceItem = existing.services.find(
+      (service) => service.id === itemId
+    );
+    const packageItem = existing.invoice!.items.find(
+      (item) => item.id === itemId && item.itemType === "PACKAGE"
+    );
+    if (!serviceItem && !packageItem) {
+      throw new JobCartError(404, "Job cart item not found");
+    }
+    if (serviceItem) {
+      await tx.appointmentService.delete({ where: { id: serviceItem.id } });
+    } else {
+      await tx.invoiceItem.delete({ where: { id: packageItem!.id } });
+    }
     await recalculateCart(tx, id);
     await createAuditLog({
       tx,
@@ -1064,12 +1388,16 @@ export const removeJobCartItem = async (
       entityId: id,
       entityCode: existing.appointmentCode,
       entityName: existing.customer.name,
-      description: `Service ${item.serviceName} removed from job cart ${existing.appointmentCode}`,
+      description: `${serviceItem ? "Service" : "Package"} ${
+        serviceItem?.serviceName ?? packageItem!.serviceName
+      } removed from job cart ${existing.appointmentCode}`,
       oldData: {
-        itemId: item.id,
-        serviceId: item.serviceId,
-        serviceName: item.serviceName,
-        price: item.price,
+        itemId,
+        itemType: serviceItem ? "SERVICE" : "PACKAGE",
+        serviceId: serviceItem?.serviceId,
+        packageId: packageItem?.packageId,
+        itemName: serviceItem?.serviceName ?? packageItem?.serviceName,
+        price: serviceItem?.price ?? packageItem?.unitPrice,
       },
       ...audit,
     });
@@ -1085,8 +1413,11 @@ export const confirmJobCart = async (
     await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
     const existing = await requireCart(tx, id, actor);
     requireMutable(existing);
-    if (!existing.services.length || !existing.invoice?.items.length) {
-      throw new JobCartError(400, "Add at least one service before confirming");
+    if (!existing.invoice?.items.length) {
+      throw new JobCartError(
+        400,
+        "Add at least one service or package before confirming"
+      );
     }
     await assertNoConflict(tx, {
       staffId: existing.staffId,
@@ -1112,6 +1443,54 @@ export const confirmJobCart = async (
       allowWalkInJobCart: true,
       ...audit,
     });
+    const packageItems = existing.invoice.items.filter(
+      (item) => item.itemType === "PACKAGE" && item.packageId
+    );
+    for (const item of packageItems) {
+      const servicePackage = await tx.servicePackage.findUnique({
+        where: { id: item.packageId! },
+      });
+      if (!servicePackage) {
+        throw new JobCartError(409, "A sold package no longer exists");
+      }
+      const purchasedAt = new Date();
+      const validUntil = new Date(purchasedAt);
+      validUntil.setUTCDate(
+        validUntil.getUTCDate() + servicePackage.validityDays
+      );
+      const customerPackage = await tx.customerPackage.create({
+        data: {
+          salonId: existing.salonId,
+          branchId: existing.branchId!,
+          customerId: existing.customerId,
+          packageId: servicePackage.id,
+          packageNameSnapshot: item.serviceName,
+          totalPriceSnapshot: servicePackage.totalPrice,
+          specialPriceSnapshot: item.unitPrice,
+          validityDaysSnapshot: servicePackage.validityDays,
+          purchasedAt,
+          validUntil,
+          status: "ACTIVE",
+          soldByStaffId: item.soldByStaffId,
+          invoiceId: existing.invoice.id,
+          jobCartAppointmentId: existing.id,
+          createdById: actor.userId,
+        },
+      });
+      await createAuditLog({
+        tx,
+        salonId: existing.salonId,
+        branchId: existing.branchId,
+        userId: actor.userId,
+        module: "PACKAGE",
+        action: "CREATE",
+        entityId: customerPackage.id,
+        entityName: customerPackage.packageNameSnapshot,
+        description: `Customer package ${customerPackage.packageNameSnapshot} created from job cart ${existing.appointmentCode}`,
+        newData: customerPackage,
+        ...audit,
+      });
+    }
     await createAuditLog({
       tx,
       salonId: existing.salonId,
@@ -1154,6 +1533,37 @@ export const cancelJobCart = async (
         409,
         "Job cart cannot be cancelled after ledger activity"
       );
+    }
+    const packageItems = existing.invoice!.items.filter(
+      (item) => item.itemType === "PACKAGE"
+    );
+    if (packageItems.length) {
+      await tx.invoiceItem.deleteMany({
+        where: {
+          id: { in: packageItems.map((item) => item.id) },
+        },
+      });
+      for (const item of packageItems) {
+        await createAuditLog({
+          tx,
+          salonId: existing.salonId,
+          branchId: existing.branchId,
+          userId: actor.userId,
+          module: "JOB_CART",
+          action: "DELETE",
+          entityId: existing.id,
+          entityCode: existing.appointmentCode,
+          entityName: existing.customer.name,
+          description: `Package ${item.serviceName} removed while cancelling job cart ${existing.appointmentCode}`,
+          oldData: {
+            itemId: item.id,
+            packageId: item.packageId,
+            price: item.unitPrice,
+          },
+          ...audit,
+        });
+      }
+      await recalculateCart(tx, id);
     }
     await AppointmentModel.updateStatusWithHistory(
       id,

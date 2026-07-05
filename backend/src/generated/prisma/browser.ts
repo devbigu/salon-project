@@ -108,6 +108,21 @@ export type Service = Prisma.ServiceModel
  */
 export type ServiceConsumable = Prisma.ServiceConsumableModel
 /**
+ * Model PackageCategory
+ * 
+ */
+export type PackageCategory = Prisma.PackageCategoryModel
+/**
+ * Model ServicePackage
+ * 
+ */
+export type ServicePackage = Prisma.ServicePackageModel
+/**
+ * Model ServicePackageItem
+ * 
+ */
+export type ServicePackageItem = Prisma.ServicePackageItemModel
+/**
  * Model Appointment
  * 
  */
@@ -152,6 +167,11 @@ export type Invoice = Prisma.InvoiceModel
  * 
  */
 export type InvoiceItem = Prisma.InvoiceItemModel
+/**
+ * Model CustomerPackage
+ * 
+ */
+export type CustomerPackage = Prisma.CustomerPackageModel
 /**
  * Model Payment
  * 

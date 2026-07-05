@@ -15,7 +15,7 @@ import { Button, Icon } from "@/components/Component";
 import PageShell from "@/components/salon/PageShell";
 import { useAuth } from "@/auth/AuthContext";
 import { salonApi } from "@/services/salonApi";
-import { formatMoney } from "@/utils/salonFormat";
+import { formatDate, formatMoney } from "@/utils/salonFormat";
 
 const nowParts = () => {
   const date = new Date();
@@ -39,6 +39,7 @@ const JobCartCreate = () => {
     time: initial.time,
     staffId: "",
     serviceIds: [],
+    packageIds: [],
     bookingNote: "",
   });
   const [refs, setRefs] = useState({
@@ -46,10 +47,36 @@ const JobCartCreate = () => {
     branches: [],
     staff: [],
     services: [],
+    packages: [],
   });
   const [loadingRefs, setLoadingRefs] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [customerSummary, setCustomerSummary] = useState(null);
+  const [lookingUp, setLookingUp] = useState(false);
+
+  const lookupCustomer = async () => {
+    if (!form.phone.trim()) return;
+    setLookingUp(true);
+    setError("");
+    try {
+      const response = await salonApi.jobCarts.customerSummary({
+        phone: form.phone,
+      });
+      setCustomerSummary(response.data);
+      if (response.data?.customerName) {
+        setForm((current) => ({
+          ...current,
+          customerName: response.data.customerName,
+        }));
+      }
+    } catch (lookupError) {
+      setCustomerSummary(null);
+      setError(lookupError.message);
+    } finally {
+      setLookingUp(false);
+    }
+  };
 
   useEffect(() => {
     let active = true;
@@ -66,6 +93,7 @@ const JobCartCreate = () => {
           branches: [],
           staff: [],
           services: [],
+          packages: [],
         });
         if (
           user?.role !== "SUPER_ADMIN" &&
@@ -100,6 +128,18 @@ const JobCartCreate = () => {
     (sum, service) => sum + Number(service.price || 0),
     0
   );
+  const selectedPackages = useMemo(
+    () =>
+      (refs.packages || []).filter((servicePackage) =>
+        form.packageIds.includes(servicePackage.id)
+      ),
+    [refs.packages, form.packageIds]
+  );
+  const packageSubtotal = selectedPackages.reduce(
+    (sum, servicePackage) =>
+      sum + Number(servicePackage.specialPrice || 0),
+    0
+  );
   const duration = selectedServices.reduce(
     (sum, service) =>
       sum +
@@ -127,6 +167,13 @@ const JobCartCreate = () => {
         serviceIds: form.serviceIds,
         ...(form.bookingNote ? { bookingNote: form.bookingNote } : {}),
       });
+      for (const packageId of form.packageIds) {
+        await salonApi.jobCarts.addItem(response.data.id, {
+          itemType: "PACKAGE",
+          packageId,
+          ...(form.staffId ? { staffId: form.staffId } : {}),
+        });
+      }
       navigate(`/job-carts/${response.data.id}`);
     } catch (saveError) {
       setError(saveError.message);
@@ -166,6 +213,7 @@ const JobCartCreate = () => {
                           branchId: "",
                           staffId: "",
                           serviceIds: [],
+                          packageIds: [],
                         }))
                       }
                     >
@@ -212,6 +260,19 @@ const JobCartCreate = () => {
                     </FormGroup>
                   </Col>
                 </Row>
+                <div className="mb-3">
+                  <Button
+                    type="button"
+                    color="primary"
+                    outline
+                    size="sm"
+                    disabled={lookingUp || form.phone.trim().length < 7}
+                    onClick={lookupCustomer}
+                  >
+                    {lookingUp && <Spinner size="sm" className="me-1" />}
+                    Lookup Customer
+                  </Button>
+                </div>
                 <Row>
                   <Col md="4">
                     <FormGroup>
@@ -259,6 +320,7 @@ const JobCartCreate = () => {
                             branchId: event.target.value,
                             staffId: "",
                             serviceIds: [],
+                            packageIds: [],
                           }))
                         }
                       >
@@ -292,6 +354,36 @@ const JobCartCreate = () => {
                       </option>
                     ))}
                   </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Add Packages</Label>
+                  <Input
+                    type="select"
+                    multiple
+                    value={form.packageIds}
+                    disabled={!form.branchId}
+                    style={{ minHeight: 120 }}
+                    onChange={(event) =>
+                      setForm((current) => ({
+                        ...current,
+                        packageIds: Array.from(
+                          event.target.selectedOptions,
+                          (option) => option.value
+                        ),
+                      }))
+                    }
+                  >
+                    {(refs.packages || []).map((servicePackage) => (
+                      <option key={servicePackage.id} value={servicePackage.id}>
+                        {servicePackage.name} —{" "}
+                        {formatMoney(servicePackage.specialPrice)}
+                      </option>
+                    ))}
+                  </Input>
+                  <small className="text-soft">
+                    Selected packages are added to the draft invoice after the
+                    cart is created.
+                  </small>
                 </FormGroup>
                 <FormGroup>
                   <Label>Add Services</Label>
@@ -343,9 +435,50 @@ const JobCartCreate = () => {
             <div className="card card-bordered position-sticky" style={{ top: 90 }}>
               <div className="card-inner">
                 <h5>Cart Summary</h5>
+                {customerSummary && (
+                  <div className="alert alert-light border mb-3">
+                    <strong>{customerSummary.customerName}</strong>
+                    <div className="small mt-2">
+                      Last visit: {formatDate(customerSummary.lastVisitDate)}
+                      <br />
+                      Total visits: {customerSummary.totalVisits}
+                      <br />
+                      Loyalty: {customerSummary.loyaltyPoints} points
+                      <br />
+                      Wallet: {formatMoney(customerSummary.walletBalance)}
+                      <br />
+                      Outstanding:{" "}
+                      {formatMoney(customerSummary.outstandingBalance)}
+                      <br />
+                      Membership:{" "}
+                      {customerSummary.membershipName || "None"}
+                      <br />
+                      Preferred staff:{" "}
+                      {customerSummary.preferredStaff?.staffName || "Not known"}
+                    </div>
+                    {customerSummary.activePackages?.length > 0 && (
+                      <div className="small mt-2">
+                        <strong>Available packages</strong>
+                        {customerSummary.activePackages.map((item) => (
+                          <div key={item.customerPackageId}>
+                            {item.packageName} — valid to{" "}
+                            {formatDate(item.validUntil)}
+                            {item.soldByStaffName
+                              ? ` — sold by ${item.soldByStaffName}`
+                              : ""}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="d-flex justify-content-between py-2 border-bottom">
                   <span>Services</span>
                   <strong>{selectedServices.length}</strong>
+                </div>
+                <div className="d-flex justify-content-between py-2 border-bottom">
+                  <span>Packages</span>
+                  <strong>{selectedPackages.length}</strong>
                 </div>
                 <div className="d-flex justify-content-between py-2 border-bottom">
                   <span>Duration</span>
@@ -353,7 +486,9 @@ const JobCartCreate = () => {
                 </div>
                 <div className="d-flex justify-content-between py-3">
                   <span>Estimated subtotal</span>
-                  <strong>{formatMoney(subtotal)}</strong>
+                  <strong>
+                    {formatMoney(subtotal + packageSubtotal)}
+                  </strong>
                 </div>
                 <p className="text-soft small">
                   Membership discount is calculated when the draft invoice is

@@ -62,6 +62,17 @@ const getMenu = (role) => {
                 text: "Job Cart",
                 link: "/job-carts",
               },
+              {
+                icon: "package-fill",
+                text: "Packages",
+                subMenu: [
+                  {
+                    text: "Package Categories",
+                    link: "/packages/categories",
+                  },
+                  { text: "Packages", link: "/packages" },
+                ],
+              },
             ]
           : []),
         ...(hasRole(role, operationalRoles)

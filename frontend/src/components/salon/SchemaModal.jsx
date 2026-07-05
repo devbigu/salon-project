@@ -25,6 +25,7 @@ const normalizeInitial = (fields, initialValues) =>
         initialValues?.[field.initialName || field.name] ??
         field.defaultValue ??
         "";
+      if (field.fromInitial) value = field.fromInitial(value, initialValues);
       if (field.type === "checkbox") value = Boolean(value);
       if (field.type === "date" && value) value = String(value).slice(0, 10);
       if (field.type === "datetime-local" && value) {
@@ -243,7 +244,11 @@ const SchemaModal = ({
                         type={field.type || "text"}
                         required={field.required}
                         disabled={field.disabled || saving}
-                        value={values[field.name]}
+                        value={
+                          field.derive
+                            ? field.derive(values)
+                            : values[field.name]
+                        }
                         min={field.min}
                         step={field.step}
                         placeholder={field.placeholder}

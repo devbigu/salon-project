@@ -40,6 +40,8 @@ import JobCarts from "@/pages/salon/JobCarts";
 import JobCartCreate from "@/pages/salon/JobCartCreate";
 import JobCartDetails from "@/pages/salon/JobCartDetails";
 import JobCartCustomerHistory from "@/pages/salon/JobCartCustomerHistory";
+import PackageCategories from "@/pages/salon/PackageCategories";
+import ServicePackages from "@/pages/salon/ServicePackages";
 import PublicBooking from "@/pages/public/PublicBooking";
 
 import Login from "@/pages/auth/Login";
@@ -125,6 +127,11 @@ const Router = () => (
                   element={<JobCartCustomerHistory />}
                 />
                 <Route path="job-carts/:id" element={<JobCartDetails />} />
+                <Route
+                  path="packages/categories"
+                  element={<PackageCategories />}
+                />
+                <Route path="packages" element={<ServicePackages />} />
               </Route>
 
               <Route

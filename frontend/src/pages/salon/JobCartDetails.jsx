@@ -26,7 +26,8 @@ const JobCartDetails = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [cart, setCart] = useState(null);
-  const [refs, setRefs] = useState({ staff: [], services: [] });
+  const [refs, setRefs] = useState({ staff: [], services: [], packages: [] });
+  const [customerSummary, setCustomerSummary] = useState(null);
   const [form, setForm] = useState({
     customerName: "",
     phone: "",
@@ -35,6 +36,8 @@ const JobCartDetails = () => {
     bookingNote: "",
   });
   const [serviceId, setServiceId] = useState("");
+  const [packageId, setPackageId] = useState("");
+  const [packageStaffId, setPackageStaffId] = useState("");
   const [couponCode, setCouponCode] = useState("");
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState(false);
@@ -59,6 +62,10 @@ const JobCartDetails = () => {
         ...(next.branchId ? { branchId: next.branchId } : {}),
       });
       setRefs(referenceResponse.data || { staff: [], services: [] });
+      const summaryResponse = await salonApi.jobCarts.customerSummary({
+        customerId: next.customerId,
+      });
+      setCustomerSummary(summaryResponse.data || null);
     } catch (loadError) {
       setError(loadError.message);
     } finally {
@@ -72,10 +79,22 @@ const JobCartDetails = () => {
 
   const availableServices = useMemo(() => {
     const existing = new Set(
-      (cart?.items || []).map((item) => item.serviceId)
+      (cart?.items || [])
+        .filter((item) => item.itemType !== "PACKAGE")
+        .map((item) => item.serviceId)
     );
     return refs.services.filter((service) => !existing.has(service.id));
   }, [cart?.items, refs.services]);
+  const availablePackages = useMemo(() => {
+    const existing = new Set(
+      (cart?.items || [])
+        .filter((item) => item.itemType === "PACKAGE")
+        .map((item) => item.packageId)
+    );
+    return (refs.packages || []).filter(
+      (servicePackage) => !existing.has(servicePackage.id)
+    );
+  }, [cart?.items, refs.packages]);
 
   const run = async (action) => {
     setWorking(true);
@@ -265,7 +284,7 @@ const JobCartDetails = () => {
 
             <div className="card card-bordered">
               <div className="card-inner">
-                <h5>Services</h5>
+                <h5>Services & Packages</h5>
                 {active && (
                   <div className="d-flex gap-2 mb-4">
                     <Input
@@ -285,7 +304,10 @@ const JobCartDetails = () => {
                       disabled={!serviceId || working}
                       onClick={() =>
                         run(async () => {
-                          await salonApi.jobCarts.addItem(id, serviceId);
+                          await salonApi.jobCarts.addItem(id, {
+                            itemType: "SERVICE",
+                            serviceId,
+                          });
                           setServiceId("");
                         })
                       }
@@ -294,11 +316,71 @@ const JobCartDetails = () => {
                     </Button>
                   </div>
                 )}
+                {active && (
+                  <div className="row g-2 mb-4">
+                    <div className="col-md-6">
+                      <Input
+                        type="select"
+                        value={packageId}
+                        onChange={(event) => setPackageId(event.target.value)}
+                      >
+                        <option value="">Select a package</option>
+                        {availablePackages.map((servicePackage) => (
+                          <option
+                            key={servicePackage.id}
+                            value={servicePackage.id}
+                          >
+                            {servicePackage.name} —{" "}
+                            {formatMoney(servicePackage.specialPrice)}
+                          </option>
+                        ))}
+                      </Input>
+                    </div>
+                    <div className="col-md-4">
+                      <Input
+                        type="select"
+                        value={packageStaffId}
+                        onChange={(event) =>
+                          setPackageStaffId(event.target.value)
+                        }
+                      >
+                        <option value="">Sold by (optional)</option>
+                        {refs.staff.map((member) => (
+                          <option key={member.id} value={member.id}>
+                            {member.name}
+                          </option>
+                        ))}
+                      </Input>
+                    </div>
+                    <div className="col-md-2 d-grid">
+                      <Button
+                        color="primary"
+                        outline
+                        disabled={!packageId || working}
+                        onClick={() =>
+                          run(async () => {
+                            await salonApi.jobCarts.addItem(id, {
+                              itemType: "PACKAGE",
+                              packageId,
+                              ...(packageStaffId
+                                ? { staffId: packageStaffId }
+                                : {}),
+                            });
+                            setPackageId("");
+                            setPackageStaffId("");
+                          })
+                        }
+                      >
+                        + Package
+                      </Button>
+                    </div>
+                  </div>
+                )}
                 <div className="table-responsive">
                   <table className="table table-tranx">
                     <thead>
                       <tr>
-                        <th>Service</th>
+                        <th>Item</th>
                         <th>Duration</th>
                         <th className="text-end">Price</th>
                         {active && <th className="text-end">Action</th>}
@@ -308,10 +390,23 @@ const JobCartDetails = () => {
                       {cart.items.length ? (
                         cart.items.map((item) => (
                           <tr key={item.id}>
-                            <td>{item.serviceName}</td>
                             <td>
-                              {item.durationValue || 0}{" "}
-                              {(item.durationUnit || "MINUTES").toLowerCase()}
+                              {item.serviceName}
+                              {item.itemType === "PACKAGE" && (
+                                <div className="small text-primary">
+                                  Package
+                                  {item.soldByStaff?.name
+                                    ? ` • Sold by ${item.soldByStaff.name}`
+                                    : ""}
+                                </div>
+                              )}
+                            </td>
+                            <td>
+                              {item.itemType === "PACKAGE"
+                                ? `${item.package?.validityDays || 0} days validity`
+                                : `${item.durationValue || 0} ${(
+                                    item.durationUnit || "MINUTES"
+                                  ).toLowerCase()}`}
                             </td>
                             <td className="text-end">
                               {formatMoney(item.price)}
@@ -341,7 +436,7 @@ const JobCartDetails = () => {
                             colSpan={active ? 4 : 3}
                             className="text-center text-soft py-4"
                           >
-                            No services added yet.
+                            No services or packages added yet.
                           </td>
                         </tr>
                       )}
@@ -353,6 +448,82 @@ const JobCartDetails = () => {
           </Col>
 
           <Col lg="4">
+            {customerSummary && (
+              <div className="card card-bordered mb-4">
+                <div className="card-inner">
+                  <h5>Customer Insight</h5>
+                  <Row className="g-2 small">
+                    <Col xs="6">
+                      <span className="text-soft">Last visit</span>
+                      <div>{formatDate(customerSummary.lastVisitDate)}</div>
+                    </Col>
+                    <Col xs="6">
+                      <span className="text-soft">Total visits</span>
+                      <div>{customerSummary.totalVisits}</div>
+                    </Col>
+                    <Col xs="6">
+                      <span className="text-soft">Loyalty points</span>
+                      <div>{customerSummary.loyaltyPoints}</div>
+                    </Col>
+                    <Col xs="6">
+                      <span className="text-soft">Wallet</span>
+                      <div>{formatMoney(customerSummary.walletBalance)}</div>
+                    </Col>
+                    <Col xs="6">
+                      <span className="text-soft">Outstanding</span>
+                      <div>
+                        {formatMoney(customerSummary.outstandingBalance)}
+                      </div>
+                    </Col>
+                    <Col xs="6">
+                      <span className="text-soft">Membership</span>
+                      <div>{customerSummary.membershipName || "None"}</div>
+                    </Col>
+                  </Row>
+                  <hr />
+                  <div className="small mb-2">
+                    <span className="text-soft">Preferred staff: </span>
+                    {customerSummary.preferredStaff?.staffName || "Not known"}
+                  </div>
+                  <h6>Active Packages</h6>
+                  {customerSummary.activePackages?.length ? (
+                    customerSummary.activePackages.map((item) => (
+                      <div
+                        key={item.customerPackageId}
+                        className="small border-bottom py-2"
+                      >
+                        <strong>{item.packageName}</strong>
+                        <br />
+                        Valid to {formatDate(item.validUntil)}
+                        {item.soldByStaffName
+                          ? ` • Sold by ${item.soldByStaffName}`
+                          : ""}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="small text-soft">No active packages.</p>
+                  )}
+                  <h6 className="mt-3">Recent Invoices</h6>
+                  {(customerSummary.recentInvoices || []).slice(0, 5).map(
+                    (recent) => (
+                      <Link
+                        key={recent.invoiceId}
+                        className="d-flex justify-content-between small py-1"
+                        to={`/billing/invoices/${recent.invoiceId}`}
+                      >
+                        <span>{recent.invoiceCode}</span>
+                        <span>{formatMoney(recent.totalAmount)}</span>
+                      </Link>
+                    )
+                  )}
+                  {customerSummary.recentInvoices?.length > 5 && (
+                    <Link className="small d-inline-block mt-2" to="/billing">
+                      View More Invoices
+                    </Link>
+                  )}
+                </div>
+              </div>
+            )}
             <div className="card card-bordered mb-4">
               <div className="card-inner">
                 <h5>Invoice Summary</h5>

@@ -6,6 +6,7 @@ import {
   deleteJobCartItem,
   getJobCartById,
   getJobCartReferenceData,
+  getJobCartCustomerSummaryController,
   getJobCarts,
   postCancelJobCart,
   postConfirmJobCart,
@@ -30,6 +31,7 @@ router.use(requireRole(...allowedRoles));
 router.get("/", getJobCarts);
 router.post("/", postJobCart);
 router.get("/references", getJobCartReferenceData);
+router.get("/customer-summary", getJobCartCustomerSummaryController);
 router.get("/:id", getJobCartById);
 router.put("/:id", putJobCart);
 router.post("/:id/items", postJobCartItem);

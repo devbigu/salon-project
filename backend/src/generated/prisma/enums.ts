@@ -209,6 +209,39 @@ export const InvoiceStatus = {
 export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
 
 
+export const PackageStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type PackageStatus = (typeof PackageStatus)[keyof typeof PackageStatus]
+
+
+export const CustomerPackageStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  USED: 'USED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CustomerPackageStatus = (typeof CustomerPackageStatus)[keyof typeof CustomerPackageStatus]
+
+
+export const PackageItemType = {
+  SERVICE: 'SERVICE'
+} as const
+
+export type PackageItemType = (typeof PackageItemType)[keyof typeof PackageItemType]
+
+
+export const InvoiceItemType = {
+  SERVICE: 'SERVICE',
+  PACKAGE: 'PACKAGE'
+} as const
+
+export type InvoiceItemType = (typeof InvoiceItemType)[keyof typeof InvoiceItemType]
+
+
 export const CustomerTransactionType = {
   INVOICE: 'INVOICE',
   PAYMENT: 'PAYMENT',
@@ -283,6 +316,7 @@ export const AuditModule = {
   COUPON: 'COUPON',
   PUBLIC_BOOKING: 'PUBLIC_BOOKING',
   JOB_CART: 'JOB_CART',
+  PACKAGE: 'PACKAGE',
   SYSTEM: 'SYSTEM'
 } as const
 

@@ -37,9 +37,38 @@ export const updateJobCartSchema = z
     message: "At least one field is required",
   });
 
-export const addJobCartItemSchema = z.object({
-  serviceId: uuid,
-});
+export const addJobCartItemSchema = z
+  .object({
+    itemType: z.enum(["SERVICE", "PACKAGE"]).default("SERVICE"),
+    serviceId: uuid.optional(),
+    packageId: uuid.optional(),
+    staffId: uuid.optional(),
+  })
+  .superRefine((value, context) => {
+    if (value.itemType === "SERVICE" && !value.serviceId) {
+      context.addIssue({
+        code: "custom",
+        path: ["serviceId"],
+        message: "serviceId is required for a service item",
+      });
+    }
+    if (value.itemType === "PACKAGE" && !value.packageId) {
+      context.addIssue({
+        code: "custom",
+        path: ["packageId"],
+        message: "packageId is required for a package item",
+      });
+    }
+  });
+
+export const customerSummarySchema = z
+  .object({
+    customerId: uuid.optional(),
+    phone: z.string().trim().min(7).max(24).optional(),
+  })
+  .refine((value) => value.customerId || value.phone, {
+    message: "customerId or phone is required",
+  });
 
 const positiveInteger = (fallback: number, maximum: number) =>
   z.preprocess(

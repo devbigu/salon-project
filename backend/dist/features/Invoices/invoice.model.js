@@ -35,6 +35,11 @@ export const InvoiceModel = {
                 items: {
                     create: data.items.map((item) => ({
                         ...(item.serviceId ? { serviceId: item.serviceId } : {}),
+                        ...(item.itemType ? { itemType: item.itemType } : {}),
+                        ...(item.packageId ? { packageId: item.packageId } : {}),
+                        ...(item.soldByStaffId
+                            ? { soldByStaffId: item.soldByStaffId }
+                            : {}),
                         ...(item.itemCode ? { itemCode: item.itemCode } : {}),
                         description: item.description,
                         serviceName: item.serviceName,

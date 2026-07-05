@@ -477,6 +477,40 @@ export type EnumDurationUnitWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDurationUnitFilter<$PrismaModel>
 }
 
+export type EnumPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageStatus | Prisma.EnumPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel> | $Enums.PackageStatus
+}
+
+export type EnumPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageStatus | Prisma.EnumPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.PackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel>
+}
+
+export type EnumPackageItemTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageItemType | Prisma.EnumPackageItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel> | $Enums.PackageItemType
+}
+
+export type EnumPackageItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageItemType | Prisma.EnumPackageItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PackageItemType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel>
+}
+
 export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.AppointmentStatus | Prisma.EnumAppointmentStatusFieldRefInput<$PrismaModel>
   in?: $Enums.AppointmentStatus[] | Prisma.ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -662,6 +696,40 @@ export type EnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
+}
+
+export type EnumInvoiceItemTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvoiceItemType | Prisma.EnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel> | $Enums.InvoiceItemType
+}
+
+export type EnumInvoiceItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvoiceItemType | Prisma.EnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvoiceItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceItemType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel>
+}
+
+export type EnumCustomerPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageStatus | Prisma.EnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel> | $Enums.CustomerPackageStatus
+}
+
+export type EnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageStatus | Prisma.EnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerPackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
 }
 
 export type EnumProductUnitFilter<$PrismaModel = never> = {
@@ -1395,6 +1463,40 @@ export type NestedEnumDurationUnitWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDurationUnitFilter<$PrismaModel>
 }
 
+export type NestedEnumPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageStatus | Prisma.EnumPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel> | $Enums.PackageStatus
+}
+
+export type NestedEnumPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageStatus | Prisma.EnumPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageStatus[] | Prisma.ListEnumPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.PackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumPackageItemTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageItemType | Prisma.EnumPackageItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel> | $Enums.PackageItemType
+}
+
+export type NestedEnumPackageItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PackageItemType | Prisma.EnumPackageItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PackageItemType[] | Prisma.ListEnumPackageItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPackageItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.PackageItemType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPackageItemTypeFilter<$PrismaModel>
+}
+
 export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.AppointmentStatus | Prisma.EnumAppointmentStatusFieldRefInput<$PrismaModel>
   in?: $Enums.AppointmentStatus[] | Prisma.ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -1580,6 +1682,40 @@ export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumInvoiceStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumInvoiceItemTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvoiceItemType | Prisma.EnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel> | $Enums.InvoiceItemType
+}
+
+export type NestedEnumInvoiceItemTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.InvoiceItemType | Prisma.EnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.InvoiceItemType[] | Prisma.ListEnumInvoiceItemTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumInvoiceItemTypeWithAggregatesFilter<$PrismaModel> | $Enums.InvoiceItemType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumInvoiceItemTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomerPackageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageStatus | Prisma.EnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel> | $Enums.CustomerPackageStatus
+}
+
+export type NestedEnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageStatus | Prisma.EnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageStatus[] | Prisma.ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerPackageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumProductUnitFilter<$PrismaModel = never> = {

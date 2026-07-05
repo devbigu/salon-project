@@ -296,6 +296,10 @@ export type SalonWhereInput = {
   staffLeaves?: Prisma.StaffLeaveListRelationFilter
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
+  packageCategories?: Prisma.PackageCategoryListRelationFilter
+  servicePackages?: Prisma.ServicePackageListRelationFilter
+  servicePackageItems?: Prisma.ServicePackageItemListRelationFilter
+  customerPackages?: Prisma.CustomerPackageListRelationFilter
 }
 
 export type SalonOrderByWithRelationInput = {
@@ -348,6 +352,10 @@ export type SalonOrderByWithRelationInput = {
   staffLeaves?: Prisma.StaffLeaveOrderByRelationAggregateInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigOrderByRelationAggregateInput
   salarySlips?: Prisma.SalarySlipOrderByRelationAggregateInput
+  packageCategories?: Prisma.PackageCategoryOrderByRelationAggregateInput
+  servicePackages?: Prisma.ServicePackageOrderByRelationAggregateInput
+  servicePackageItems?: Prisma.ServicePackageItemOrderByRelationAggregateInput
+  customerPackages?: Prisma.CustomerPackageOrderByRelationAggregateInput
 }
 
 export type SalonWhereUniqueInput = Prisma.AtLeast<{
@@ -403,6 +411,10 @@ export type SalonWhereUniqueInput = Prisma.AtLeast<{
   staffLeaves?: Prisma.StaffLeaveListRelationFilter
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
+  packageCategories?: Prisma.PackageCategoryListRelationFilter
+  servicePackages?: Prisma.ServicePackageListRelationFilter
+  servicePackageItems?: Prisma.ServicePackageItemListRelationFilter
+  customerPackages?: Prisma.CustomerPackageListRelationFilter
 }, "id" | "salonCode">
 
 export type SalonOrderByWithAggregationInput = {
@@ -497,6 +509,10 @@ export type SalonCreateInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateInput = {
@@ -549,6 +565,10 @@ export type SalonUncheckedCreateInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUpdateInput = {
@@ -601,6 +621,10 @@ export type SalonUpdateInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateInput = {
@@ -653,6 +677,10 @@ export type SalonUncheckedUpdateInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateManyInput = {
@@ -1015,6 +1043,48 @@ export type SalonUpdateOneRequiredWithoutServiceConsumablesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutServiceConsumablesInput, Prisma.SalonUpdateWithoutServiceConsumablesInput>, Prisma.SalonUncheckedUpdateWithoutServiceConsumablesInput>
 }
 
+export type SalonCreateNestedOneWithoutPackageCategoriesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutPackageCategoriesInput, Prisma.SalonUncheckedCreateWithoutPackageCategoriesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutPackageCategoriesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutPackageCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutPackageCategoriesInput, Prisma.SalonUncheckedCreateWithoutPackageCategoriesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutPackageCategoriesInput
+  upsert?: Prisma.SalonUpsertWithoutPackageCategoriesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutPackageCategoriesInput, Prisma.SalonUpdateWithoutPackageCategoriesInput>, Prisma.SalonUncheckedUpdateWithoutPackageCategoriesInput>
+}
+
+export type SalonCreateNestedOneWithoutServicePackagesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutServicePackagesInput, Prisma.SalonUncheckedCreateWithoutServicePackagesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutServicePackagesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutServicePackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutServicePackagesInput, Prisma.SalonUncheckedCreateWithoutServicePackagesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutServicePackagesInput
+  upsert?: Prisma.SalonUpsertWithoutServicePackagesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutServicePackagesInput, Prisma.SalonUpdateWithoutServicePackagesInput>, Prisma.SalonUncheckedUpdateWithoutServicePackagesInput>
+}
+
+export type SalonCreateNestedOneWithoutServicePackageItemsInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutServicePackageItemsInput, Prisma.SalonUncheckedCreateWithoutServicePackageItemsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutServicePackageItemsInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutServicePackageItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutServicePackageItemsInput, Prisma.SalonUncheckedCreateWithoutServicePackageItemsInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutServicePackageItemsInput
+  upsert?: Prisma.SalonUpsertWithoutServicePackageItemsInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutServicePackageItemsInput, Prisma.SalonUpdateWithoutServicePackageItemsInput>, Prisma.SalonUncheckedUpdateWithoutServicePackageItemsInput>
+}
+
 export type SalonCreateNestedOneWithoutAppointmentsInput = {
   create?: Prisma.XOR<Prisma.SalonCreateWithoutAppointmentsInput, Prisma.SalonUncheckedCreateWithoutAppointmentsInput>
   connectOrCreate?: Prisma.SalonCreateOrConnectWithoutAppointmentsInput
@@ -1069,6 +1139,20 @@ export type SalonUpdateOneRequiredWithoutInvoicesNestedInput = {
   upsert?: Prisma.SalonUpsertWithoutInvoicesInput
   connect?: Prisma.SalonWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutInvoicesInput, Prisma.SalonUpdateWithoutInvoicesInput>, Prisma.SalonUncheckedUpdateWithoutInvoicesInput>
+}
+
+export type SalonCreateNestedOneWithoutCustomerPackagesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutCustomerPackagesInput, Prisma.SalonUncheckedCreateWithoutCustomerPackagesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutCustomerPackagesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutCustomerPackagesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutCustomerPackagesInput, Prisma.SalonUncheckedCreateWithoutCustomerPackagesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutCustomerPackagesInput
+  upsert?: Prisma.SalonUpsertWithoutCustomerPackagesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutCustomerPackagesInput, Prisma.SalonUpdateWithoutCustomerPackagesInput>, Prisma.SalonUncheckedUpdateWithoutCustomerPackagesInput>
 }
 
 export type SalonCreateNestedOneWithoutPaymentsInput = {
@@ -1320,6 +1404,10 @@ export type SalonCreateWithoutUsersInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutUsersInput = {
@@ -1371,6 +1459,10 @@ export type SalonUncheckedCreateWithoutUsersInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutUsersInput = {
@@ -1438,6 +1530,10 @@ export type SalonUpdateWithoutUsersInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutUsersInput = {
@@ -1489,6 +1585,10 @@ export type SalonUncheckedUpdateWithoutUsersInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomersInput = {
@@ -1540,6 +1640,10 @@ export type SalonCreateWithoutCustomersInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomersInput = {
@@ -1591,6 +1695,10 @@ export type SalonUncheckedCreateWithoutCustomersInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomersInput = {
@@ -1658,6 +1766,10 @@ export type SalonUpdateWithoutCustomersInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomersInput = {
@@ -1709,6 +1821,10 @@ export type SalonUncheckedUpdateWithoutCustomersInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutMembershipsInput = {
@@ -1760,6 +1876,10 @@ export type SalonCreateWithoutMembershipsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutMembershipsInput = {
@@ -1811,6 +1931,10 @@ export type SalonUncheckedCreateWithoutMembershipsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutMembershipsInput = {
@@ -1878,6 +2002,10 @@ export type SalonUpdateWithoutMembershipsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutMembershipsInput = {
@@ -1929,6 +2057,10 @@ export type SalonUncheckedUpdateWithoutMembershipsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCustomerTransactionsInput = {
@@ -1980,6 +2112,10 @@ export type SalonCreateWithoutCustomerTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
@@ -2031,6 +2167,10 @@ export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCustomerTransactionsInput = {
@@ -2098,6 +2238,10 @@ export type SalonUpdateWithoutCustomerTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
@@ -2149,6 +2293,10 @@ export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutLoyaltyRulesInput = {
@@ -2200,6 +2348,10 @@ export type SalonCreateWithoutLoyaltyRulesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutLoyaltyRulesInput = {
@@ -2251,6 +2403,10 @@ export type SalonUncheckedCreateWithoutLoyaltyRulesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutLoyaltyRulesInput = {
@@ -2318,6 +2474,10 @@ export type SalonUpdateWithoutLoyaltyRulesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutLoyaltyRulesInput = {
@@ -2369,6 +2529,10 @@ export type SalonUncheckedUpdateWithoutLoyaltyRulesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutLoyaltyTransactionsInput = {
@@ -2420,6 +2584,10 @@ export type SalonCreateWithoutLoyaltyTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutLoyaltyTransactionsInput = {
@@ -2471,6 +2639,10 @@ export type SalonUncheckedCreateWithoutLoyaltyTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutLoyaltyTransactionsInput = {
@@ -2538,6 +2710,10 @@ export type SalonUpdateWithoutLoyaltyTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutLoyaltyTransactionsInput = {
@@ -2589,6 +2765,10 @@ export type SalonUncheckedUpdateWithoutLoyaltyTransactionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutCouponsInput = {
@@ -2640,6 +2820,10 @@ export type SalonCreateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutCouponsInput = {
@@ -2691,6 +2875,10 @@ export type SalonUncheckedCreateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutCouponsInput = {
@@ -2758,6 +2946,10 @@ export type SalonUpdateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutCouponsInput = {
@@ -2809,6 +3001,10 @@ export type SalonUncheckedUpdateWithoutCouponsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutBranchesInput = {
@@ -2860,6 +3056,10 @@ export type SalonCreateWithoutBranchesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutBranchesInput = {
@@ -2911,6 +3111,10 @@ export type SalonUncheckedCreateWithoutBranchesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutBranchesInput = {
@@ -2978,6 +3182,10 @@ export type SalonUpdateWithoutBranchesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutBranchesInput = {
@@ -3029,6 +3237,10 @@ export type SalonUncheckedUpdateWithoutBranchesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffInput = {
@@ -3080,6 +3292,10 @@ export type SalonCreateWithoutStaffInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffInput = {
@@ -3131,6 +3347,10 @@ export type SalonUncheckedCreateWithoutStaffInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffInput = {
@@ -3198,6 +3418,10 @@ export type SalonUpdateWithoutStaffInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffInput = {
@@ -3249,6 +3473,10 @@ export type SalonUncheckedUpdateWithoutStaffInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffAttendancesInput = {
@@ -3300,6 +3528,10 @@ export type SalonCreateWithoutStaffAttendancesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffAttendancesInput = {
@@ -3351,6 +3583,10 @@ export type SalonUncheckedCreateWithoutStaffAttendancesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffAttendancesInput = {
@@ -3418,6 +3654,10 @@ export type SalonUpdateWithoutStaffAttendancesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffAttendancesInput = {
@@ -3469,6 +3709,10 @@ export type SalonUncheckedUpdateWithoutStaffAttendancesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffLeavesInput = {
@@ -3520,6 +3764,10 @@ export type SalonCreateWithoutStaffLeavesInput = {
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffLeavesInput = {
@@ -3571,6 +3819,10 @@ export type SalonUncheckedCreateWithoutStaffLeavesInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffLeavesInput = {
@@ -3638,6 +3890,10 @@ export type SalonUpdateWithoutStaffLeavesInput = {
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffLeavesInput = {
@@ -3689,6 +3945,10 @@ export type SalonUncheckedUpdateWithoutStaffLeavesInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStaffSalaryConfigsInput = {
@@ -3740,6 +4000,10 @@ export type SalonCreateWithoutStaffSalaryConfigsInput = {
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStaffSalaryConfigsInput = {
@@ -3791,6 +4055,10 @@ export type SalonUncheckedCreateWithoutStaffSalaryConfigsInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStaffSalaryConfigsInput = {
@@ -3858,6 +4126,10 @@ export type SalonUpdateWithoutStaffSalaryConfigsInput = {
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStaffSalaryConfigsInput = {
@@ -3909,6 +4181,10 @@ export type SalonUncheckedUpdateWithoutStaffSalaryConfigsInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSalarySlipsInput = {
@@ -3960,6 +4236,10 @@ export type SalonCreateWithoutSalarySlipsInput = {
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSalarySlipsInput = {
@@ -4011,6 +4291,10 @@ export type SalonUncheckedCreateWithoutSalarySlipsInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSalarySlipsInput = {
@@ -4078,6 +4362,10 @@ export type SalonUpdateWithoutSalarySlipsInput = {
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSalarySlipsInput = {
@@ -4129,6 +4417,10 @@ export type SalonUncheckedUpdateWithoutSalarySlipsInput = {
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutMainServicesInput = {
@@ -4180,6 +4472,10 @@ export type SalonCreateWithoutMainServicesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutMainServicesInput = {
@@ -4231,6 +4527,10 @@ export type SalonUncheckedCreateWithoutMainServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutMainServicesInput = {
@@ -4298,6 +4598,10 @@ export type SalonUpdateWithoutMainServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutMainServicesInput = {
@@ -4349,6 +4653,10 @@ export type SalonUncheckedUpdateWithoutMainServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutServicesInput = {
@@ -4400,6 +4708,10 @@ export type SalonCreateWithoutServicesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutServicesInput = {
@@ -4451,6 +4763,10 @@ export type SalonUncheckedCreateWithoutServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutServicesInput = {
@@ -4518,6 +4834,10 @@ export type SalonUpdateWithoutServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutServicesInput = {
@@ -4569,6 +4889,10 @@ export type SalonUncheckedUpdateWithoutServicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutServiceConsumablesInput = {
@@ -4620,6 +4944,10 @@ export type SalonCreateWithoutServiceConsumablesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutServiceConsumablesInput = {
@@ -4671,6 +4999,10 @@ export type SalonUncheckedCreateWithoutServiceConsumablesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutServiceConsumablesInput = {
@@ -4738,6 +5070,10 @@ export type SalonUpdateWithoutServiceConsumablesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutServiceConsumablesInput = {
@@ -4789,6 +5125,718 @@ export type SalonUncheckedUpdateWithoutServiceConsumablesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutPackageCategoriesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutPackageCategoriesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutPackageCategoriesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutPackageCategoriesInput, Prisma.SalonUncheckedCreateWithoutPackageCategoriesInput>
+}
+
+export type SalonUpsertWithoutPackageCategoriesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutPackageCategoriesInput, Prisma.SalonUncheckedUpdateWithoutPackageCategoriesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutPackageCategoriesInput, Prisma.SalonUncheckedCreateWithoutPackageCategoriesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutPackageCategoriesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutPackageCategoriesInput, Prisma.SalonUncheckedUpdateWithoutPackageCategoriesInput>
+}
+
+export type SalonUpdateWithoutPackageCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutPackageCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutServicePackagesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutServicePackagesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutServicePackagesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutServicePackagesInput, Prisma.SalonUncheckedCreateWithoutServicePackagesInput>
+}
+
+export type SalonUpsertWithoutServicePackagesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutServicePackagesInput, Prisma.SalonUncheckedUpdateWithoutServicePackagesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutServicePackagesInput, Prisma.SalonUncheckedCreateWithoutServicePackagesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutServicePackagesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutServicePackagesInput, Prisma.SalonUncheckedUpdateWithoutServicePackagesInput>
+}
+
+export type SalonUpdateWithoutServicePackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutServicePackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutServicePackageItemsInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutServicePackageItemsInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutServicePackageItemsInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutServicePackageItemsInput, Prisma.SalonUncheckedCreateWithoutServicePackageItemsInput>
+}
+
+export type SalonUpsertWithoutServicePackageItemsInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutServicePackageItemsInput, Prisma.SalonUncheckedUpdateWithoutServicePackageItemsInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutServicePackageItemsInput, Prisma.SalonUncheckedCreateWithoutServicePackageItemsInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutServicePackageItemsInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutServicePackageItemsInput, Prisma.SalonUncheckedUpdateWithoutServicePackageItemsInput>
+}
+
+export type SalonUpdateWithoutServicePackageItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutServicePackageItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutAppointmentsInput = {
@@ -4840,6 +5888,10 @@ export type SalonCreateWithoutAppointmentsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutAppointmentsInput = {
@@ -4891,6 +5943,10 @@ export type SalonUncheckedCreateWithoutAppointmentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutAppointmentsInput = {
@@ -4958,6 +6014,10 @@ export type SalonUpdateWithoutAppointmentsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutAppointmentsInput = {
@@ -5009,6 +6069,10 @@ export type SalonUncheckedUpdateWithoutAppointmentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutPublicBookingSettingsInput = {
@@ -5060,6 +6124,10 @@ export type SalonCreateWithoutPublicBookingSettingsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutPublicBookingSettingsInput = {
@@ -5111,6 +6179,10 @@ export type SalonUncheckedCreateWithoutPublicBookingSettingsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutPublicBookingSettingsInput = {
@@ -5178,6 +6250,10 @@ export type SalonUpdateWithoutPublicBookingSettingsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutPublicBookingSettingsInput = {
@@ -5229,6 +6305,10 @@ export type SalonUncheckedUpdateWithoutPublicBookingSettingsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSalesInput = {
@@ -5280,6 +6360,10 @@ export type SalonCreateWithoutSalesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSalesInput = {
@@ -5331,6 +6415,10 @@ export type SalonUncheckedCreateWithoutSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSalesInput = {
@@ -5398,6 +6486,10 @@ export type SalonUpdateWithoutSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSalesInput = {
@@ -5449,6 +6541,10 @@ export type SalonUncheckedUpdateWithoutSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutInvoicesInput = {
@@ -5500,6 +6596,10 @@ export type SalonCreateWithoutInvoicesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutInvoicesInput = {
@@ -5551,6 +6651,10 @@ export type SalonUncheckedCreateWithoutInvoicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutInvoicesInput = {
@@ -5618,6 +6722,10 @@ export type SalonUpdateWithoutInvoicesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutInvoicesInput = {
@@ -5669,6 +6777,246 @@ export type SalonUncheckedUpdateWithoutInvoicesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutCustomerPackagesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutCustomerPackagesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutCustomerPackagesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutCustomerPackagesInput, Prisma.SalonUncheckedCreateWithoutCustomerPackagesInput>
+}
+
+export type SalonUpsertWithoutCustomerPackagesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutCustomerPackagesInput, Prisma.SalonUncheckedUpdateWithoutCustomerPackagesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutCustomerPackagesInput, Prisma.SalonUncheckedCreateWithoutCustomerPackagesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutCustomerPackagesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutCustomerPackagesInput, Prisma.SalonUncheckedUpdateWithoutCustomerPackagesInput>
+}
+
+export type SalonUpdateWithoutCustomerPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutCustomerPackagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutPaymentsInput = {
@@ -5720,6 +7068,10 @@ export type SalonCreateWithoutPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutPaymentsInput = {
@@ -5771,6 +7123,10 @@ export type SalonUncheckedCreateWithoutPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutPaymentsInput = {
@@ -5838,6 +7194,10 @@ export type SalonUpdateWithoutPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutPaymentsInput = {
@@ -5889,6 +7249,10 @@ export type SalonUncheckedUpdateWithoutPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutProductBrandsInput = {
@@ -5940,6 +7304,10 @@ export type SalonCreateWithoutProductBrandsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutProductBrandsInput = {
@@ -5991,6 +7359,10 @@ export type SalonUncheckedCreateWithoutProductBrandsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutProductBrandsInput = {
@@ -6058,6 +7430,10 @@ export type SalonUpdateWithoutProductBrandsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutProductBrandsInput = {
@@ -6109,6 +7485,10 @@ export type SalonUncheckedUpdateWithoutProductBrandsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutProductsInput = {
@@ -6160,6 +7540,10 @@ export type SalonCreateWithoutProductsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutProductsInput = {
@@ -6211,6 +7595,10 @@ export type SalonUncheckedCreateWithoutProductsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutProductsInput = {
@@ -6278,6 +7666,10 @@ export type SalonUpdateWithoutProductsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutProductsInput = {
@@ -6329,6 +7721,10 @@ export type SalonUncheckedUpdateWithoutProductsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutProductStockMovementsInput = {
@@ -6380,6 +7776,10 @@ export type SalonCreateWithoutProductStockMovementsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutProductStockMovementsInput = {
@@ -6431,6 +7831,10 @@ export type SalonUncheckedCreateWithoutProductStockMovementsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutProductStockMovementsInput = {
@@ -6498,6 +7902,10 @@ export type SalonUpdateWithoutProductStockMovementsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
@@ -6549,6 +7957,10 @@ export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutProductPurchasesInput = {
@@ -6600,6 +8012,10 @@ export type SalonCreateWithoutProductPurchasesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutProductPurchasesInput = {
@@ -6651,6 +8067,10 @@ export type SalonUncheckedCreateWithoutProductPurchasesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutProductPurchasesInput = {
@@ -6718,6 +8138,10 @@ export type SalonUpdateWithoutProductPurchasesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
@@ -6769,6 +8193,10 @@ export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutVendorsInput = {
@@ -6820,6 +8248,10 @@ export type SalonCreateWithoutVendorsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutVendorsInput = {
@@ -6871,6 +8303,10 @@ export type SalonUncheckedCreateWithoutVendorsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutVendorsInput = {
@@ -6938,6 +8374,10 @@ export type SalonUpdateWithoutVendorsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutVendorsInput = {
@@ -6989,6 +8429,10 @@ export type SalonUncheckedUpdateWithoutVendorsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutVendorPaymentsInput = {
@@ -7040,6 +8484,10 @@ export type SalonCreateWithoutVendorPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutVendorPaymentsInput = {
@@ -7091,6 +8539,10 @@ export type SalonUncheckedCreateWithoutVendorPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutVendorPaymentsInput = {
@@ -7158,6 +8610,10 @@ export type SalonUpdateWithoutVendorPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutVendorPaymentsInput = {
@@ -7209,6 +8665,10 @@ export type SalonUncheckedUpdateWithoutVendorPaymentsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutStockAlertsInput = {
@@ -7260,6 +8720,10 @@ export type SalonCreateWithoutStockAlertsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutStockAlertsInput = {
@@ -7311,6 +8775,10 @@ export type SalonUncheckedCreateWithoutStockAlertsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutStockAlertsInput = {
@@ -7378,6 +8846,10 @@ export type SalonUpdateWithoutStockAlertsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutStockAlertsInput = {
@@ -7429,6 +8901,10 @@ export type SalonUncheckedUpdateWithoutStockAlertsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutReorderSuggestionsInput = {
@@ -7480,6 +8956,10 @@ export type SalonCreateWithoutReorderSuggestionsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutReorderSuggestionsInput = {
@@ -7531,6 +9011,10 @@ export type SalonUncheckedCreateWithoutReorderSuggestionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutReorderSuggestionsInput = {
@@ -7598,6 +9082,10 @@ export type SalonUpdateWithoutReorderSuggestionsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutReorderSuggestionsInput = {
@@ -7649,6 +9137,10 @@ export type SalonUncheckedUpdateWithoutReorderSuggestionsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutAuditLogsInput = {
@@ -7700,6 +9192,10 @@ export type SalonCreateWithoutAuditLogsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutAuditLogsInput = {
@@ -7751,6 +9247,10 @@ export type SalonUncheckedCreateWithoutAuditLogsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutAuditLogsInput = {
@@ -7818,6 +9318,10 @@ export type SalonUpdateWithoutAuditLogsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutAuditLogsInput = {
@@ -7869,6 +9373,10 @@ export type SalonUncheckedUpdateWithoutAuditLogsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutRetailSalesInput = {
@@ -7920,6 +9428,10 @@ export type SalonCreateWithoutRetailSalesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutRetailSalesInput = {
@@ -7971,6 +9483,10 @@ export type SalonUncheckedCreateWithoutRetailSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutRetailSalesInput = {
@@ -8038,6 +9554,10 @@ export type SalonUpdateWithoutRetailSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutRetailSalesInput = {
@@ -8089,6 +9609,10 @@ export type SalonUncheckedUpdateWithoutRetailSalesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutExpensesInput = {
@@ -8140,6 +9664,10 @@ export type SalonCreateWithoutExpensesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutExpensesInput = {
@@ -8191,6 +9719,10 @@ export type SalonUncheckedCreateWithoutExpensesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutExpensesInput = {
@@ -8258,6 +9790,10 @@ export type SalonUpdateWithoutExpensesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutExpensesInput = {
@@ -8309,6 +9845,10 @@ export type SalonUncheckedUpdateWithoutExpensesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutExpenseCategoriesInput = {
@@ -8360,6 +9900,10 @@ export type SalonCreateWithoutExpenseCategoriesInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutExpenseCategoriesInput = {
@@ -8411,6 +9955,10 @@ export type SalonUncheckedCreateWithoutExpenseCategoriesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutExpenseCategoriesInput = {
@@ -8478,6 +10026,10 @@ export type SalonUpdateWithoutExpenseCategoriesInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutExpenseCategoriesInput = {
@@ -8529,6 +10081,10 @@ export type SalonUncheckedUpdateWithoutExpenseCategoriesInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonCreateWithoutSupportTicketsInput = {
@@ -8580,6 +10136,10 @@ export type SalonCreateWithoutSupportTicketsInput = {
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
 }
 
 export type SalonUncheckedCreateWithoutSupportTicketsInput = {
@@ -8631,6 +10191,10 @@ export type SalonUncheckedCreateWithoutSupportTicketsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
 }
 
 export type SalonCreateOrConnectWithoutSupportTicketsInput = {
@@ -8698,6 +10262,10 @@ export type SalonUpdateWithoutSupportTicketsInput = {
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
 }
 
 export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
@@ -8749,6 +10317,10 @@ export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
 }
 
 
@@ -8791,6 +10363,10 @@ export type SalonCountOutputType = {
   staffLeaves: number
   staffSalaryConfigs: number
   salarySlips: number
+  packageCategories: number
+  servicePackages: number
+  servicePackageItems: number
+  customerPackages: number
 }
 
 export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8828,6 +10404,10 @@ export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   staffLeaves?: boolean | SalonCountOutputTypeCountStaffLeavesArgs
   staffSalaryConfigs?: boolean | SalonCountOutputTypeCountStaffSalaryConfigsArgs
   salarySlips?: boolean | SalonCountOutputTypeCountSalarySlipsArgs
+  packageCategories?: boolean | SalonCountOutputTypeCountPackageCategoriesArgs
+  servicePackages?: boolean | SalonCountOutputTypeCountServicePackagesArgs
+  servicePackageItems?: boolean | SalonCountOutputTypeCountServicePackageItemsArgs
+  customerPackages?: boolean | SalonCountOutputTypeCountCustomerPackagesArgs
 }
 
 /**
@@ -9078,6 +10658,34 @@ export type SalonCountOutputTypeCountSalarySlipsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.SalarySlipWhereInput
 }
 
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountPackageCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PackageCategoryWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountServicePackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServicePackageWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountServicePackageItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ServicePackageItemWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountCustomerPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerPackageWhereInput
+}
+
 
 export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -9129,6 +10737,10 @@ export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   staffLeaves?: boolean | Prisma.Salon$staffLeavesArgs<ExtArgs>
   staffSalaryConfigs?: boolean | Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Salon$salarySlipsArgs<ExtArgs>
+  packageCategories?: boolean | Prisma.Salon$packageCategoriesArgs<ExtArgs>
+  servicePackages?: boolean | Prisma.Salon$servicePackagesArgs<ExtArgs>
+  servicePackageItems?: boolean | Prisma.Salon$servicePackageItemsArgs<ExtArgs>
+  customerPackages?: boolean | Prisma.Salon$customerPackagesArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["salon"]>
 
@@ -9222,6 +10834,10 @@ export type SalonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   staffLeaves?: boolean | Prisma.Salon$staffLeavesArgs<ExtArgs>
   staffSalaryConfigs?: boolean | Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Salon$salarySlipsArgs<ExtArgs>
+  packageCategories?: boolean | Prisma.Salon$packageCategoriesArgs<ExtArgs>
+  servicePackages?: boolean | Prisma.Salon$servicePackagesArgs<ExtArgs>
+  servicePackageItems?: boolean | Prisma.Salon$servicePackageItemsArgs<ExtArgs>
+  customerPackages?: boolean | Prisma.Salon$customerPackagesArgs<ExtArgs>
   _count?: boolean | Prisma.SalonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SalonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -9264,6 +10880,10 @@ export type $SalonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     staffLeaves: Prisma.$StaffLeavePayload<ExtArgs>[]
     staffSalaryConfigs: Prisma.$StaffSalaryConfigPayload<ExtArgs>[]
     salarySlips: Prisma.$SalarySlipPayload<ExtArgs>[]
+    packageCategories: Prisma.$PackageCategoryPayload<ExtArgs>[]
+    servicePackages: Prisma.$ServicePackagePayload<ExtArgs>[]
+    servicePackageItems: Prisma.$ServicePackageItemPayload<ExtArgs>[]
+    customerPackages: Prisma.$CustomerPackagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9709,6 +11329,10 @@ export interface Prisma__SalonClient<T, Null = never, ExtArgs extends runtime.Ty
   staffLeaves<T extends Prisma.Salon$staffLeavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffLeavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffLeavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffSalaryConfigs<T extends Prisma.Salon$staffSalaryConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffSalaryConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salarySlips<T extends Prisma.Salon$salarySlipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$salarySlipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalarySlipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  packageCategories<T extends Prisma.Salon$packageCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$packageCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PackageCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  servicePackages<T extends Prisma.Salon$servicePackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$servicePackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  servicePackageItems<T extends Prisma.Salon$servicePackageItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$servicePackageItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePackageItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerPackages<T extends Prisma.Salon$customerPackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$customerPackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10959,6 +12583,102 @@ export type Salon$salarySlipsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.SalarySlipScalarFieldEnum | Prisma.SalarySlipScalarFieldEnum[]
+}
+
+/**
+ * Salon.packageCategories
+ */
+export type Salon$packageCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PackageCategory
+   */
+  select?: Prisma.PackageCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PackageCategory
+   */
+  omit?: Prisma.PackageCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageCategoryInclude<ExtArgs> | null
+  where?: Prisma.PackageCategoryWhereInput
+  orderBy?: Prisma.PackageCategoryOrderByWithRelationInput | Prisma.PackageCategoryOrderByWithRelationInput[]
+  cursor?: Prisma.PackageCategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PackageCategoryScalarFieldEnum | Prisma.PackageCategoryScalarFieldEnum[]
+}
+
+/**
+ * Salon.servicePackages
+ */
+export type Salon$servicePackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServicePackage
+   */
+  select?: Prisma.ServicePackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServicePackage
+   */
+  omit?: Prisma.ServicePackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServicePackageInclude<ExtArgs> | null
+  where?: Prisma.ServicePackageWhereInput
+  orderBy?: Prisma.ServicePackageOrderByWithRelationInput | Prisma.ServicePackageOrderByWithRelationInput[]
+  cursor?: Prisma.ServicePackageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServicePackageScalarFieldEnum | Prisma.ServicePackageScalarFieldEnum[]
+}
+
+/**
+ * Salon.servicePackageItems
+ */
+export type Salon$servicePackageItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ServicePackageItem
+   */
+  select?: Prisma.ServicePackageItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ServicePackageItem
+   */
+  omit?: Prisma.ServicePackageItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServicePackageItemInclude<ExtArgs> | null
+  where?: Prisma.ServicePackageItemWhereInput
+  orderBy?: Prisma.ServicePackageItemOrderByWithRelationInput | Prisma.ServicePackageItemOrderByWithRelationInput[]
+  cursor?: Prisma.ServicePackageItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ServicePackageItemScalarFieldEnum | Prisma.ServicePackageItemScalarFieldEnum[]
+}
+
+/**
+ * Salon.customerPackages
+ */
+export type Salon$customerPackagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPackage
+   */
+  select?: Prisma.CustomerPackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPackage
+   */
+  omit?: Prisma.CustomerPackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPackageInclude<ExtArgs> | null
+  where?: Prisma.CustomerPackageWhereInput
+  orderBy?: Prisma.CustomerPackageOrderByWithRelationInput | Prisma.CustomerPackageOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerPackageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerPackageScalarFieldEnum | Prisma.CustomerPackageScalarFieldEnum[]
 }
 
 /**

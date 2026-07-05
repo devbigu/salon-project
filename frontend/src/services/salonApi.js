@@ -57,6 +57,45 @@ export const salonApi = {
     setStatus: (id, status) => request(`/api/memberships/${id}/status`, { method: "PATCH", body: { status } }),
     remove: (id) => request(`/api/memberships/${id}`, { method: "DELETE" }),
   },
+  packageCategories: {
+    list: (query) => request("/api/package-categories", { query }),
+    get: (id) => request(`/api/package-categories/${id}`),
+    create: (body) =>
+      request("/api/package-categories", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/package-categories/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) =>
+      request(`/api/package-categories/${id}/status`, {
+        method: "PATCH",
+        body: { status },
+      }),
+    remove: (id) =>
+      request(`/api/package-categories/${id}`, { method: "DELETE" }),
+  },
+  packages: {
+    list: (query) => request("/api/packages", { query }),
+    get: (id) => request(`/api/packages/${id}`),
+    create: (body) => request("/api/packages", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/packages/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) =>
+      request(`/api/packages/${id}/status`, {
+        method: "PATCH",
+        body: { status },
+      }),
+    remove: (id) => request(`/api/packages/${id}`, { method: "DELETE" }),
+  },
+  customerPackages: {
+    list: (query) => request("/api/customer-packages", { query }),
+    forCustomer: (customerId, query) =>
+      request(`/api/customers/${customerId}/packages`, { query }),
+    get: (id) => request(`/api/customer-packages/${id}`),
+    setStatus: (id, status) =>
+      request(`/api/customer-packages/${id}/status`, {
+        method: "PATCH",
+        body: { status },
+      }),
+  },
   loyaltyRules: {
     list: (query) => request("/api/loyalty-rules", { query }),
     active: (query) => request("/api/loyalty-rules/active", { query }),
@@ -142,15 +181,20 @@ export const salonApi = {
     list: (query) => request("/api/job-carts", { query }),
     references: (query) =>
       request("/api/job-carts/references", { query }),
+    customerSummary: (query) =>
+      request("/api/job-carts/customer-summary", { query }),
     get: (id) => request(`/api/job-carts/${id}`),
     create: (body) =>
       request("/api/job-carts", { method: "POST", body }),
     update: (id, body) =>
       request(`/api/job-carts/${id}`, { method: "PUT", body }),
-    addItem: (id, serviceId) =>
+    addItem: (id, item) =>
       request(`/api/job-carts/${id}/items`, {
         method: "POST",
-        body: { serviceId },
+        body:
+          typeof item === "string"
+            ? { itemType: "SERVICE", serviceId: item }
+            : item,
       }),
     removeItem: (id, itemId) =>
       request(`/api/job-carts/${id}/items/${itemId}`, {
