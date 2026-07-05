@@ -70,6 +70,25 @@ export const customerSummarySchema = z
     message: "customerId or phone is required",
   });
 
+export const addPackageRedemptionSchema = z.object({
+  customerPackageId: uuid,
+  items: z
+    .array(
+      z.object({
+        serviceId: uuid,
+        quantity: z.coerce.number().int().positive().max(100),
+        staffId: uuid.optional(),
+      })
+    )
+    .min(1)
+    .max(100)
+    .refine(
+      (items) =>
+        new Set(items.map((item) => item.serviceId)).size === items.length,
+      "Duplicate package services are not allowed"
+    ),
+});
+
 const positiveInteger = (fallback: number, maximum: number) =>
   z.preprocess(
     (value) => (value === undefined ? fallback : Number(value)),

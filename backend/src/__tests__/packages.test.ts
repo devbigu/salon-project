@@ -153,6 +153,70 @@ const createPackage = async (
       ...overrides,
     });
 
+const sellPackage = async (
+  f: Awaited<ReturnType<typeof fixture>>,
+  overrides: Record<string, unknown> = {}
+) => {
+  const category = await createCategory(f);
+  const servicePackage = await createPackage(f, category.body.data.id, {
+    validityDays: 90,
+    ...overrides,
+  });
+  const phone = `98${Math.floor(10000000 + Math.random() * 89999999)}`;
+  const cart = await request(app)
+    .post("/api/job-carts")
+    .set(auth(f.adminToken))
+    .send({
+      branchId: f.branch.id,
+      customerName: "Redemption Customer",
+      phone,
+      startTime: "2039-05-01T10:00:00.000Z",
+      serviceIds: [],
+    });
+  await request(app)
+    .post(`/api/job-carts/${cart.body.data.id}/items`)
+    .set(auth(f.adminToken))
+    .send({
+      itemType: "PACKAGE",
+      packageId: servicePackage.body.data.id,
+      staffId: f.stylist.id,
+    })
+    .expect(200);
+  const confirmed = await request(app)
+    .post(`/api/job-carts/${cart.body.data.id}/confirm`)
+    .set(auth(f.adminToken));
+  expect(confirmed.status).toBe(200);
+  const customerPackage = await prisma.customerPackage.findFirstOrThrow({
+    where: { invoiceId: confirmed.body.data.invoice.id },
+    include: { serviceBalances: true },
+  });
+  return {
+    category,
+    servicePackage: servicePackage.body.data,
+    customerPackage,
+    customerId: cart.body.data.customerId as string,
+    phone,
+    saleInvoiceId: confirmed.body.data.invoice.id as string,
+  };
+};
+
+const createRedemptionCart = async (
+  f: Awaited<ReturnType<typeof fixture>>,
+  sale: Awaited<ReturnType<typeof sellPackage>>,
+  suffix = "01",
+  branchId = f.branch.id
+) =>
+  request(app)
+    .post("/api/job-carts")
+    .set(auth(f.adminToken))
+    .send({
+      branchId,
+      customerName: "Redemption Customer",
+      phone: sale.phone,
+      startTime: `2039-06-${suffix}T10:00:00.000Z`,
+      serviceIds: [],
+    });
+
 describe("Service packages", () => {
   it("creates, updates, filters, and changes package category status with tenant isolation", async () => {
     const f = await fixture();
@@ -508,6 +572,667 @@ describe("Service packages", () => {
       );
       await prisma.$executeRawUnsafe(
         `DROP FUNCTION IF EXISTS fail_customer_package_audit()`
+      );
+    }
+  });
+
+  it("creates service balances on sale and returns them through package balance APIs", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    expect(sale.customerPackage.serviceBalances).toHaveLength(2);
+    expect(
+      sale.customerPackage.serviceBalances.every(
+        (balance) =>
+          balance.includedQuantity === 1 &&
+          balance.usedQuantity === 0 &&
+          balance.reservedQuantity === 0
+      )
+    ).toBe(true);
+
+    const byPackage = await request(app)
+      .get(
+        `/api/customer-packages/${sale.customerPackage.id}/balances`
+      )
+      .set(auth(f.adminToken));
+    expect(byPackage.status).toBe(200);
+    expect(byPackage.body.data.balances[0].remainingQuantity).toBe(1);
+
+    const byCustomer = await request(app)
+      .get(`/api/customers/${sale.customerId}/package-balances`)
+      .set(auth(f.receptionistToken));
+    expect(byCustomer.status).toBe(200);
+    expect(byCustomer.body.data[0].customerPackageId).toBe(
+      sale.customerPackage.id
+    );
+  });
+
+  it("reserves and removes package redemption without changing payable revenue", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const cart = await createRedemptionCart(f, sale);
+    const balance = sale.customerPackage.serviceBalances[0]!;
+    const reserved = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.receptionistToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [
+          {
+            serviceId: balance.serviceId,
+            quantity: 1,
+            staffId: f.stylist.id,
+          },
+        ],
+      });
+    expect(reserved.status).toBe(201);
+    expect(Number(reserved.body.data.invoice.totalAmount)).toBe(0);
+    expect(reserved.body.data.packageRedemptions[0].status).toBe("RESERVED");
+    expect(
+      (
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: balance.id },
+        })
+      ).reservedQuantity
+    ).toBe(1);
+
+    const usageId = reserved.body.data.packageRedemptions[0].id as string;
+    const removed = await request(app)
+      .delete(
+        `/api/job-carts/${cart.body.data.id}/package-redemptions/${usageId}`
+      )
+      .set(auth(f.receptionistToken));
+    expect(removed.status).toBe(200);
+    expect(
+      (
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: balance.id },
+        })
+      ).reservedQuantity
+    ).toBe(0);
+    expect(
+      (
+        await prisma.customerPackageUsage.findUniqueOrThrow({
+          where: { id: usageId },
+        })
+      ).status
+    ).toBe("CANCELLED");
+  });
+
+  it("uses redemption on confirmation, deducts consumables, and does not post duplicate revenue", async () => {
+    const f = await fixture();
+    const product = await prisma.product.create({
+      data: {
+        salonId: f.salon.id,
+        branchId: f.branch.id,
+        name: `Redemption Consumable ${randomUUID()}`,
+        currentStock: 10,
+        isServiceConsumable: true,
+      },
+    });
+    await prisma.serviceConsumable.create({
+      data: {
+        salonId: f.salon.id,
+        serviceId: f.service.id,
+        productId: product.id,
+        quantity: 2,
+      },
+    });
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances.find(
+      (item) => item.serviceId === f.service.id
+    )!;
+    const cart = await createRedemptionCart(f, sale, "02");
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: f.service.id, quantity: 1 }],
+      })
+      .expect(201);
+    const confirmed = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/confirm`)
+      .set(auth(f.adminToken));
+    expect(confirmed.status).toBe(200);
+    expect(Number(confirmed.body.data.invoice.totalAmount)).toBe(0);
+    expect(
+      await prisma.customerTransaction.count({
+        where: {
+          invoiceId: confirmed.body.data.invoice.id,
+          type: "INVOICE",
+        },
+      })
+    ).toBe(0);
+    expect(
+      Number(
+        (
+          await prisma.product.findUniqueOrThrow({
+            where: { id: product.id },
+          })
+        ).currentStock
+      )
+    ).toBe(8);
+    const updatedBalance =
+      await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+        where: { id: balance.id },
+      });
+    expect(updatedBalance.reservedQuantity).toBe(0);
+    expect(updatedBalance.usedQuantity).toBe(1);
+    expect(
+      (
+        await prisma.customerPackageUsage.findFirstOrThrow({
+          where: { invoiceId: confirmed.body.data.invoice.id },
+        })
+      ).status
+    ).toBe("USED");
+  });
+
+  it("rejects exhausted, expired, cancelled, wrong-customer, and wrong-branch redemption", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances[0]!;
+    const cart = await createRedemptionCart(f, sale, "03");
+    const redeem = (customerPackageId: string, quantity = 1) =>
+      request(app)
+        .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+        .set(auth(f.adminToken))
+        .send({
+          customerPackageId,
+          items: [{ serviceId: balance.serviceId, quantity }],
+        });
+    expect((await redeem(sale.customerPackage.id, 2)).status).toBe(409);
+
+    await prisma.customerPackage.update({
+      where: { id: sale.customerPackage.id },
+      data: {
+        status: "ACTIVE",
+        validUntil: new Date("2020-01-01T00:00:00.000Z"),
+      },
+    });
+    expect((await redeem(sale.customerPackage.id)).status).toBe(409);
+    await prisma.customerPackage.update({
+      where: { id: sale.customerPackage.id },
+      data: { status: "CANCELLED", validUntil: new Date("2040-01-01") },
+    });
+    expect((await redeem(sale.customerPackage.id)).status).toBe(409);
+
+    await prisma.customerPackage.update({
+      where: { id: sale.customerPackage.id },
+      data: { status: "ACTIVE" },
+    });
+    const otherCart = await request(app)
+      .post("/api/job-carts")
+      .set(auth(f.adminToken))
+      .send({
+        branchId: f.branch.id,
+        customerName: "Different Customer",
+        phone: "9876501998",
+        startTime: "2039-06-04T10:00:00.000Z",
+        serviceIds: [],
+      });
+    await request(app)
+      .post(`/api/job-carts/${otherCart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      })
+      .expect(404);
+
+    const wrongBranchCart = await createRedemptionCart(
+      f,
+      sale,
+      "05",
+      f.otherBranch.id
+    );
+    await request(app)
+      .post(
+        `/api/job-carts/${wrongBranchCart.body.data.id}/package-redemptions`
+      )
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      })
+      .expect(400);
+
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.foreignAdminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      })
+      .expect(404);
+    const otherReceptionist = await prisma.user.create({
+      data: {
+        name: "Other Branch Package Receptionist",
+        email: `other-redemption-${randomUUID()}@test.com`,
+        passwordHash: "test",
+        role: "RECEPTIONIST",
+        salonId: f.salon.id,
+        branchId: f.otherBranch.id,
+      },
+    });
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(tokenFor(otherReceptionist)))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      })
+      .expect(404);
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.staffToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      })
+      .expect(403);
+  });
+
+  it("reverses reserved usage on cart cancellation and used usage on invoice cancellation", async () => {
+    const f = await fixture();
+    const firstSale = await sellPackage(f);
+    const firstBalance = firstSale.customerPackage.serviceBalances[0]!;
+    const activeCart = await createRedemptionCart(f, firstSale, "06");
+    await request(app)
+      .post(`/api/job-carts/${activeCart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: firstSale.customerPackage.id,
+        items: [{ serviceId: firstBalance.serviceId, quantity: 1 }],
+      })
+      .expect(201);
+    await request(app)
+      .post(`/api/job-carts/${activeCart.body.data.id}/cancel`)
+      .set(auth(f.adminToken))
+      .expect(200);
+    expect(
+      (
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: firstBalance.id },
+        })
+      ).reservedQuantity
+    ).toBe(0);
+
+    const secondSale = await sellPackage(f);
+    const secondBalance = secondSale.customerPackage.serviceBalances.find(
+      (item) => item.serviceId === f.service.id
+    )!;
+    const product = await prisma.product.create({
+      data: {
+        salonId: f.salon.id,
+        branchId: f.branch.id,
+        name: `Cancellation Consumable ${randomUUID()}`,
+        currentStock: 10,
+        isServiceConsumable: true,
+      },
+    });
+    await prisma.serviceConsumable.create({
+      data: {
+        salonId: f.salon.id,
+        serviceId: f.service.id,
+        productId: product.id,
+        quantity: 2,
+      },
+    });
+    const usedCart = await createRedemptionCart(f, secondSale, "07");
+    await request(app)
+      .post(`/api/job-carts/${usedCart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: secondSale.customerPackage.id,
+        items: [{ serviceId: secondBalance.serviceId, quantity: 1 }],
+      })
+      .expect(201);
+    const confirmed = await request(app)
+      .post(`/api/job-carts/${usedCart.body.data.id}/confirm`)
+      .set(auth(f.adminToken));
+    expect(
+      Number(
+        (
+          await prisma.product.findUniqueOrThrow({
+            where: { id: product.id },
+          })
+        ).currentStock
+      )
+    ).toBe(8);
+    await request(app)
+      .patch(`/api/invoices/${confirmed.body.data.invoice.id}/cancel`)
+      .set(auth(f.adminToken))
+      .expect(200);
+    await request(app)
+      .patch(`/api/invoices/${confirmed.body.data.invoice.id}/cancel`)
+      .set(auth(f.adminToken))
+      .expect(409);
+    expect(
+      (
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: secondBalance.id },
+        })
+      ).usedQuantity
+    ).toBe(0);
+    expect(
+      (
+        await prisma.customerPackageUsage.findFirstOrThrow({
+          where: { invoiceId: confirmed.body.data.invoice.id },
+        })
+      ).status
+    ).toBe("CANCELLED");
+    expect(
+      Number(
+        (
+          await prisma.product.findUniqueOrThrow({
+            where: { id: product.id },
+          })
+        ).currentStock
+      )
+    ).toBe(10);
+    expect(
+      await prisma.productStockMovement.count({
+        where: {
+          productId: product.id,
+          type: "RETURNED",
+          referenceType: "APPOINTMENT_CONSUMABLE_REVERSAL",
+          referenceId: usedCart.body.data.id,
+        },
+      })
+    ).toBe(1);
+  });
+
+  it("cancels a confirmed redemption job cart with package and stock reversal", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances.find(
+      (item) => item.serviceId === f.service.id
+    )!;
+    const product = await prisma.product.create({
+      data: {
+        salonId: f.salon.id,
+        branchId: f.branch.id,
+        name: `Job Cart Reversal ${randomUUID()}`,
+        currentStock: 10,
+        isServiceConsumable: true,
+      },
+    });
+    await prisma.serviceConsumable.create({
+      data: {
+        salonId: f.salon.id,
+        serviceId: f.service.id,
+        productId: product.id,
+        quantity: 2,
+      },
+    });
+    const cart = await createRedemptionCart(f, sale, "10");
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: f.service.id, quantity: 1 }],
+      })
+      .expect(201);
+    const confirmed = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/confirm`)
+      .set(auth(f.adminToken))
+      .expect(200);
+
+    const cancelled = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/cancel`)
+      .set(auth(f.adminToken))
+      .expect(200);
+    expect(cancelled.body.data.appointmentStatus).toBe("CANCELLED");
+    expect(cancelled.body.data.invoice.status).toBe("CANCELLED");
+    expect(
+      Number(
+        (
+          await prisma.product.findUniqueOrThrow({
+            where: { id: product.id },
+          })
+        ).currentStock
+      )
+    ).toBe(10);
+    expect(
+      (
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: balance.id },
+        })
+      ).usedQuantity
+    ).toBe(0);
+    expect(
+      (
+        await prisma.customerPackageUsage.findFirstOrThrow({
+          where: { invoiceId: confirmed.body.data.invoice.id },
+        })
+      ).status
+    ).toBe("CANCELLED");
+  });
+
+  it("rolls back invoice cancellation and stock reversal when its audit fails", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances.find(
+      (item) => item.serviceId === f.service.id
+    )!;
+    const product = await prisma.product.create({
+      data: {
+        salonId: f.salon.id,
+        branchId: f.branch.id,
+        name: `Rollback Reversal ${randomUUID()}`,
+        currentStock: 10,
+        isServiceConsumable: true,
+      },
+    });
+    await prisma.serviceConsumable.create({
+      data: {
+        salonId: f.salon.id,
+        serviceId: f.service.id,
+        productId: product.id,
+        quantity: 2,
+      },
+    });
+    const cart = await createRedemptionCart(f, sale, "11");
+    await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: f.service.id, quantity: 1 }],
+      })
+      .expect(201);
+    const confirmed = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/confirm`)
+      .set(auth(f.adminToken))
+      .expect(200);
+    await prisma.$executeRawUnsafe(`
+      CREATE OR REPLACE FUNCTION fail_invoice_cancel_audit()
+      RETURNS trigger AS $$
+      BEGIN
+        IF NEW."module" = 'INVOICE' AND NEW."action" = 'CANCEL' THEN
+          RAISE EXCEPTION 'forced invoice cancellation audit failure';
+        END IF;
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+    await prisma.$executeRawUnsafe(
+      `DROP TRIGGER IF EXISTS fail_invoice_cancel_audit_trigger ON "AuditLog"`
+    );
+    await prisma.$executeRawUnsafe(`
+      CREATE TRIGGER fail_invoice_cancel_audit_trigger
+      BEFORE INSERT ON "AuditLog"
+      FOR EACH ROW EXECUTE FUNCTION fail_invoice_cancel_audit()
+    `);
+    try {
+      await request(app)
+        .patch(`/api/invoices/${confirmed.body.data.invoice.id}/cancel`)
+        .set(auth(f.adminToken))
+        .expect(500);
+      expect(
+        (
+          await prisma.invoice.findUniqueOrThrow({
+            where: { id: confirmed.body.data.invoice.id },
+          })
+        ).status
+      ).toBe("ISSUED");
+      expect(
+        Number(
+          (
+            await prisma.product.findUniqueOrThrow({
+              where: { id: product.id },
+            })
+          ).currentStock
+        )
+      ).toBe(8);
+      expect(
+        (
+          await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+            where: { id: balance.id },
+          })
+        ).usedQuantity
+      ).toBe(1);
+      expect(
+        await prisma.productStockMovement.count({
+          where: {
+            productId: product.id,
+            type: "RETURNED",
+            referenceType: "APPOINTMENT_CONSUMABLE_REVERSAL",
+            referenceId: cart.body.data.id,
+          },
+        })
+      ).toBe(0);
+    } finally {
+      await prisma.$executeRawUnsafe(
+        `DROP TRIGGER IF EXISTS fail_invoice_cancel_audit_trigger ON "AuditLog"`
+      );
+      await prisma.$executeRawUnsafe(
+        `DROP FUNCTION IF EXISTS fail_invoice_cancel_audit()`
+      );
+    }
+  });
+
+  it("rolls back reservation when the redemption audit fails", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances[0]!;
+    const cart = await createRedemptionCart(f, sale, "08");
+    await prisma.$executeRawUnsafe(`
+      CREATE OR REPLACE FUNCTION fail_redemption_reserve_audit()
+      RETURNS trigger AS $$
+      BEGIN
+        IF NEW."module" = 'PACKAGE' AND NEW."action" = 'CREATE'
+           AND NEW."description" LIKE 'Package redemption reserved%' THEN
+          RAISE EXCEPTION 'forced redemption reserve audit failure';
+        END IF;
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+    await prisma.$executeRawUnsafe(
+      `DROP TRIGGER IF EXISTS fail_redemption_reserve_audit_trigger ON "AuditLog"`
+    );
+    await prisma.$executeRawUnsafe(`
+      CREATE TRIGGER fail_redemption_reserve_audit_trigger
+      BEFORE INSERT ON "AuditLog"
+      FOR EACH ROW EXECUTE FUNCTION fail_redemption_reserve_audit()
+    `);
+    try {
+      await request(app)
+        .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+        .set(auth(f.adminToken))
+        .send({
+          customerPackageId: sale.customerPackage.id,
+          items: [{ serviceId: balance.serviceId, quantity: 1 }],
+        })
+        .expect(500);
+      expect(
+        (
+          await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+            where: { id: balance.id },
+          })
+        ).reservedQuantity
+      ).toBe(0);
+      expect(
+        await prisma.customerPackageUsage.count({
+          where: { jobCartAppointmentId: cart.body.data.id },
+        })
+      ).toBe(0);
+    } finally {
+      await prisma.$executeRawUnsafe(
+        `DROP TRIGGER IF EXISTS fail_redemption_reserve_audit_trigger ON "AuditLog"`
+      );
+      await prisma.$executeRawUnsafe(
+        `DROP FUNCTION IF EXISTS fail_redemption_reserve_audit()`
+      );
+    }
+  });
+
+  it("rolls back confirmation when the redemption-used audit fails", async () => {
+    const f = await fixture();
+    const sale = await sellPackage(f);
+    const balance = sale.customerPackage.serviceBalances[0]!;
+    const cart = await createRedemptionCart(f, sale, "09");
+    const reserved = await request(app)
+      .post(`/api/job-carts/${cart.body.data.id}/package-redemptions`)
+      .set(auth(f.adminToken))
+      .send({
+        customerPackageId: sale.customerPackage.id,
+        items: [{ serviceId: balance.serviceId, quantity: 1 }],
+      });
+    const usageId = reserved.body.data.packageRedemptions[0].id as string;
+    await prisma.$executeRawUnsafe(`
+      CREATE OR REPLACE FUNCTION fail_redemption_used_audit()
+      RETURNS trigger AS $$
+      BEGIN
+        IF NEW."module" = 'PACKAGE' AND NEW."action" = 'COMPLETE'
+           AND NEW."description" LIKE 'Package redemption used%' THEN
+          RAISE EXCEPTION 'forced redemption used audit failure';
+        END IF;
+        RETURN NEW;
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+    await prisma.$executeRawUnsafe(
+      `DROP TRIGGER IF EXISTS fail_redemption_used_audit_trigger ON "AuditLog"`
+    );
+    await prisma.$executeRawUnsafe(`
+      CREATE TRIGGER fail_redemption_used_audit_trigger
+      BEFORE INSERT ON "AuditLog"
+      FOR EACH ROW EXECUTE FUNCTION fail_redemption_used_audit()
+    `);
+    try {
+      await request(app)
+        .post(`/api/job-carts/${cart.body.data.id}/confirm`)
+        .set(auth(f.adminToken))
+        .expect(500);
+      const unchangedBalance =
+        await prisma.customerPackageServiceBalance.findUniqueOrThrow({
+          where: { id: balance.id },
+        });
+      expect(unchangedBalance.reservedQuantity).toBe(1);
+      expect(unchangedBalance.usedQuantity).toBe(0);
+      expect(
+        (
+          await prisma.customerPackageUsage.findUniqueOrThrow({
+            where: { id: usageId },
+          })
+        ).status
+      ).toBe("RESERVED");
+      expect(
+        (
+          await prisma.appointment.findUniqueOrThrow({
+            where: { id: cart.body.data.id },
+          })
+        ).status
+      ).toBe("SCHEDULED");
+    } finally {
+      await prisma.$executeRawUnsafe(
+        `DROP TRIGGER IF EXISTS fail_redemption_used_audit_trigger ON "AuditLog"`
+      );
+      await prisma.$executeRawUnsafe(
+        `DROP FUNCTION IF EXISTS fail_redemption_used_audit()`
       );
     }
   });

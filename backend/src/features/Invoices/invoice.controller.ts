@@ -24,6 +24,8 @@ import {
   removeCouponFromInvoice,
 } from "../coupons/coupon.service.js";
 import { applyCouponSchema } from "../coupons/coupon.validation.js";
+import { reverseUsedPackageUsagesForInvoice } from "../packages/package.service.js";
+import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
 
 
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"] as const;
@@ -649,7 +651,21 @@ export const cancelInvoice = async (req: Request, res: Response) => {
           data: { usedCount: { decrement: 1 } },
         });
       }
+      if (current.appointmentId) {
+        await reverseAppointmentConsumables({
+          tx,
+          appointmentId: current.appointmentId,
+          salonId: current.salonId,
+          branchId: current.branchId,
+          createdById: req.user?.userId,
+        });
+      }
       const cancelled = await InvoiceModel.cancel(id, tx);
+      await reverseUsedPackageUsagesForInvoice(tx, {
+        invoiceId: id,
+        userId: req.user?.userId,
+        ...requestAuditContext(req),
+      });
       const customerPackages = await tx.customerPackage.findMany({
         where: {
           invoiceId: id,

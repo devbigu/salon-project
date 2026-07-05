@@ -51,6 +51,7 @@ export type InvoiceItemMinAggregateOutputType = {
   itemType: $Enums.InvoiceItemType | null
   packageId: string | null
   soldByStaffId: string | null
+  customerPackageUsageItemId: string | null
   itemCode: string | null
   description: string | null
   serviceName: string | null
@@ -70,6 +71,7 @@ export type InvoiceItemMaxAggregateOutputType = {
   itemType: $Enums.InvoiceItemType | null
   packageId: string | null
   soldByStaffId: string | null
+  customerPackageUsageItemId: string | null
   itemCode: string | null
   description: string | null
   serviceName: string | null
@@ -89,6 +91,7 @@ export type InvoiceItemCountAggregateOutputType = {
   itemType: number
   packageId: number
   soldByStaffId: number
+  customerPackageUsageItemId: number
   itemCode: number
   description: number
   serviceName: number
@@ -128,6 +131,7 @@ export type InvoiceItemMinAggregateInputType = {
   itemType?: true
   packageId?: true
   soldByStaffId?: true
+  customerPackageUsageItemId?: true
   itemCode?: true
   description?: true
   serviceName?: true
@@ -147,6 +151,7 @@ export type InvoiceItemMaxAggregateInputType = {
   itemType?: true
   packageId?: true
   soldByStaffId?: true
+  customerPackageUsageItemId?: true
   itemCode?: true
   description?: true
   serviceName?: true
@@ -166,6 +171,7 @@ export type InvoiceItemCountAggregateInputType = {
   itemType?: true
   packageId?: true
   soldByStaffId?: true
+  customerPackageUsageItemId?: true
   itemCode?: true
   description?: true
   serviceName?: true
@@ -272,6 +278,7 @@ export type InvoiceItemGroupByOutputType = {
   itemType: $Enums.InvoiceItemType
   packageId: string | null
   soldByStaffId: string | null
+  customerPackageUsageItemId: string | null
   itemCode: string | null
   description: string
   serviceName: string
@@ -314,6 +321,7 @@ export type InvoiceItemWhereInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFilter<"InvoiceItem"> | $Enums.InvoiceItemType
   packageId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   soldByStaffId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
+  customerPackageUsageItemId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   itemCode?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   description?: Prisma.StringFilter<"InvoiceItem"> | string
   serviceName?: Prisma.StringFilter<"InvoiceItem"> | string
@@ -328,6 +336,7 @@ export type InvoiceItemWhereInput = {
   service?: Prisma.XOR<Prisma.ServiceNullableScalarRelationFilter, Prisma.ServiceWhereInput> | null
   package?: Prisma.XOR<Prisma.ServicePackageNullableScalarRelationFilter, Prisma.ServicePackageWhereInput> | null
   soldByStaff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
+  customerPackageUsageItem?: Prisma.XOR<Prisma.CustomerPackageUsageItemNullableScalarRelationFilter, Prisma.CustomerPackageUsageItemWhereInput> | null
 }
 
 export type InvoiceItemOrderByWithRelationInput = {
@@ -337,6 +346,7 @@ export type InvoiceItemOrderByWithRelationInput = {
   itemType?: Prisma.SortOrder
   packageId?: Prisma.SortOrderInput | Prisma.SortOrder
   soldByStaffId?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPackageUsageItemId?: Prisma.SortOrderInput | Prisma.SortOrder
   itemCode?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
   serviceName?: Prisma.SortOrder
@@ -351,10 +361,12 @@ export type InvoiceItemOrderByWithRelationInput = {
   service?: Prisma.ServiceOrderByWithRelationInput
   package?: Prisma.ServicePackageOrderByWithRelationInput
   soldByStaff?: Prisma.StaffOrderByWithRelationInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemOrderByWithRelationInput
 }
 
 export type InvoiceItemWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  customerPackageUsageItemId?: string
   AND?: Prisma.InvoiceItemWhereInput | Prisma.InvoiceItemWhereInput[]
   OR?: Prisma.InvoiceItemWhereInput[]
   NOT?: Prisma.InvoiceItemWhereInput | Prisma.InvoiceItemWhereInput[]
@@ -377,7 +389,8 @@ export type InvoiceItemWhereUniqueInput = Prisma.AtLeast<{
   service?: Prisma.XOR<Prisma.ServiceNullableScalarRelationFilter, Prisma.ServiceWhereInput> | null
   package?: Prisma.XOR<Prisma.ServicePackageNullableScalarRelationFilter, Prisma.ServicePackageWhereInput> | null
   soldByStaff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
-}, "id">
+  customerPackageUsageItem?: Prisma.XOR<Prisma.CustomerPackageUsageItemNullableScalarRelationFilter, Prisma.CustomerPackageUsageItemWhereInput> | null
+}, "id" | "customerPackageUsageItemId">
 
 export type InvoiceItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -386,6 +399,7 @@ export type InvoiceItemOrderByWithAggregationInput = {
   itemType?: Prisma.SortOrder
   packageId?: Prisma.SortOrderInput | Prisma.SortOrder
   soldByStaffId?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPackageUsageItemId?: Prisma.SortOrderInput | Prisma.SortOrder
   itemCode?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
   serviceName?: Prisma.SortOrder
@@ -413,6 +427,7 @@ export type InvoiceItemScalarWhereWithAggregatesInput = {
   itemType?: Prisma.EnumInvoiceItemTypeWithAggregatesFilter<"InvoiceItem"> | $Enums.InvoiceItemType
   packageId?: Prisma.StringNullableWithAggregatesFilter<"InvoiceItem"> | string | null
   soldByStaffId?: Prisma.StringNullableWithAggregatesFilter<"InvoiceItem"> | string | null
+  customerPackageUsageItemId?: Prisma.StringNullableWithAggregatesFilter<"InvoiceItem"> | string | null
   itemCode?: Prisma.StringNullableWithAggregatesFilter<"InvoiceItem"> | string | null
   description?: Prisma.StringWithAggregatesFilter<"InvoiceItem"> | string
   serviceName?: Prisma.StringWithAggregatesFilter<"InvoiceItem"> | string
@@ -442,6 +457,7 @@ export type InvoiceItemCreateInput = {
   service?: Prisma.ServiceCreateNestedOneWithoutInvoiceItemsInput
   package?: Prisma.ServicePackageCreateNestedOneWithoutInvoiceItemsInput
   soldByStaff?: Prisma.StaffCreateNestedOneWithoutPackageInvoiceItemsInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemCreateNestedOneWithoutInvoiceItemInput
 }
 
 export type InvoiceItemUncheckedCreateInput = {
@@ -451,6 +467,7 @@ export type InvoiceItemUncheckedCreateInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -480,6 +497,7 @@ export type InvoiceItemUpdateInput = {
   service?: Prisma.ServiceUpdateOneWithoutInvoiceItemsNestedInput
   package?: Prisma.ServicePackageUpdateOneWithoutInvoiceItemsNestedInput
   soldByStaff?: Prisma.StaffUpdateOneWithoutPackageInvoiceItemsNestedInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemUpdateOneWithoutInvoiceItemNestedInput
 }
 
 export type InvoiceItemUncheckedUpdateInput = {
@@ -489,6 +507,7 @@ export type InvoiceItemUncheckedUpdateInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -508,6 +527,7 @@ export type InvoiceItemCreateManyInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -542,6 +562,7 @@ export type InvoiceItemUncheckedUpdateManyInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -571,6 +592,7 @@ export type InvoiceItemCountOrderByAggregateInput = {
   itemType?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   soldByStaffId?: Prisma.SortOrder
+  customerPackageUsageItemId?: Prisma.SortOrder
   itemCode?: Prisma.SortOrder
   description?: Prisma.SortOrder
   serviceName?: Prisma.SortOrder
@@ -599,6 +621,7 @@ export type InvoiceItemMaxOrderByAggregateInput = {
   itemType?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   soldByStaffId?: Prisma.SortOrder
+  customerPackageUsageItemId?: Prisma.SortOrder
   itemCode?: Prisma.SortOrder
   description?: Prisma.SortOrder
   serviceName?: Prisma.SortOrder
@@ -618,6 +641,7 @@ export type InvoiceItemMinOrderByAggregateInput = {
   itemType?: Prisma.SortOrder
   packageId?: Prisma.SortOrder
   soldByStaffId?: Prisma.SortOrder
+  customerPackageUsageItemId?: Prisma.SortOrder
   itemCode?: Prisma.SortOrder
   description?: Prisma.SortOrder
   serviceName?: Prisma.SortOrder
@@ -637,6 +661,11 @@ export type InvoiceItemSumOrderByAggregateInput = {
   taxPercent?: Prisma.SortOrder
   taxAmount?: Prisma.SortOrder
   lineTotal?: Prisma.SortOrder
+}
+
+export type InvoiceItemNullableScalarRelationFilter = {
+  is?: Prisma.InvoiceItemWhereInput | null
+  isNot?: Prisma.InvoiceItemWhereInput | null
 }
 
 export type InvoiceItemCreateNestedManyWithoutSoldByStaffInput = {
@@ -811,6 +840,38 @@ export type EnumInvoiceItemTypeFieldUpdateOperationsInput = {
   set?: $Enums.InvoiceItemType
 }
 
+export type InvoiceItemCreateNestedOneWithoutCustomerPackageUsageItemInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutCustomerPackageUsageItemInput
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+}
+
+export type InvoiceItemUncheckedCreateNestedOneWithoutCustomerPackageUsageItemInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutCustomerPackageUsageItemInput
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+}
+
+export type InvoiceItemUpdateOneWithoutCustomerPackageUsageItemNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutCustomerPackageUsageItemInput
+  upsert?: Prisma.InvoiceItemUpsertWithoutCustomerPackageUsageItemInput
+  disconnect?: Prisma.InvoiceItemWhereInput | boolean
+  delete?: Prisma.InvoiceItemWhereInput | boolean
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceItemUpdateToOneWithWhereWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUpdateWithoutCustomerPackageUsageItemInput>, Prisma.InvoiceItemUncheckedUpdateWithoutCustomerPackageUsageItemInput>
+}
+
+export type InvoiceItemUncheckedUpdateOneWithoutCustomerPackageUsageItemNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+  connectOrCreate?: Prisma.InvoiceItemCreateOrConnectWithoutCustomerPackageUsageItemInput
+  upsert?: Prisma.InvoiceItemUpsertWithoutCustomerPackageUsageItemInput
+  disconnect?: Prisma.InvoiceItemWhereInput | boolean
+  delete?: Prisma.InvoiceItemWhereInput | boolean
+  connect?: Prisma.InvoiceItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceItemUpdateToOneWithWhereWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUpdateWithoutCustomerPackageUsageItemInput>, Prisma.InvoiceItemUncheckedUpdateWithoutCustomerPackageUsageItemInput>
+}
+
 export type InvoiceItemCreateWithoutSoldByStaffInput = {
   id?: string
   itemType?: $Enums.InvoiceItemType
@@ -827,6 +888,7 @@ export type InvoiceItemCreateWithoutSoldByStaffInput = {
   invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
   service?: Prisma.ServiceCreateNestedOneWithoutInvoiceItemsInput
   package?: Prisma.ServicePackageCreateNestedOneWithoutInvoiceItemsInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemCreateNestedOneWithoutInvoiceItemInput
 }
 
 export type InvoiceItemUncheckedCreateWithoutSoldByStaffInput = {
@@ -835,6 +897,7 @@ export type InvoiceItemUncheckedCreateWithoutSoldByStaffInput = {
   serviceId?: string | null
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -883,6 +946,7 @@ export type InvoiceItemScalarWhereInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFilter<"InvoiceItem"> | $Enums.InvoiceItemType
   packageId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   soldByStaffId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
+  customerPackageUsageItemId?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   itemCode?: Prisma.StringNullableFilter<"InvoiceItem"> | string | null
   description?: Prisma.StringFilter<"InvoiceItem"> | string
   serviceName?: Prisma.StringFilter<"InvoiceItem"> | string
@@ -911,6 +975,7 @@ export type InvoiceItemCreateWithoutServiceInput = {
   invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
   package?: Prisma.ServicePackageCreateNestedOneWithoutInvoiceItemsInput
   soldByStaff?: Prisma.StaffCreateNestedOneWithoutPackageInvoiceItemsInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemCreateNestedOneWithoutInvoiceItemInput
 }
 
 export type InvoiceItemUncheckedCreateWithoutServiceInput = {
@@ -919,6 +984,7 @@ export type InvoiceItemUncheckedCreateWithoutServiceInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -973,6 +1039,7 @@ export type InvoiceItemCreateWithoutPackageInput = {
   invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
   service?: Prisma.ServiceCreateNestedOneWithoutInvoiceItemsInput
   soldByStaff?: Prisma.StaffCreateNestedOneWithoutPackageInvoiceItemsInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemCreateNestedOneWithoutInvoiceItemInput
 }
 
 export type InvoiceItemUncheckedCreateWithoutPackageInput = {
@@ -981,6 +1048,7 @@ export type InvoiceItemUncheckedCreateWithoutPackageInput = {
   serviceId?: string | null
   itemType?: $Enums.InvoiceItemType
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1035,6 +1103,7 @@ export type InvoiceItemCreateWithoutInvoiceInput = {
   service?: Prisma.ServiceCreateNestedOneWithoutInvoiceItemsInput
   package?: Prisma.ServicePackageCreateNestedOneWithoutInvoiceItemsInput
   soldByStaff?: Prisma.StaffCreateNestedOneWithoutPackageInvoiceItemsInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemCreateNestedOneWithoutInvoiceItemInput
 }
 
 export type InvoiceItemUncheckedCreateWithoutInvoiceInput = {
@@ -1043,6 +1112,7 @@ export type InvoiceItemUncheckedCreateWithoutInvoiceInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1081,12 +1151,105 @@ export type InvoiceItemUpdateManyWithWhereWithoutInvoiceInput = {
   data: Prisma.XOR<Prisma.InvoiceItemUpdateManyMutationInput, Prisma.InvoiceItemUncheckedUpdateManyWithoutInvoiceInput>
 }
 
+export type InvoiceItemCreateWithoutCustomerPackageUsageItemInput = {
+  id?: string
+  itemType?: $Enums.InvoiceItemType
+  itemCode?: string | null
+  description: string
+  serviceName: string
+  quantity?: number
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lineTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+  invoice: Prisma.InvoiceCreateNestedOneWithoutItemsInput
+  service?: Prisma.ServiceCreateNestedOneWithoutInvoiceItemsInput
+  package?: Prisma.ServicePackageCreateNestedOneWithoutInvoiceItemsInput
+  soldByStaff?: Prisma.StaffCreateNestedOneWithoutPackageInvoiceItemsInput
+}
+
+export type InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput = {
+  id?: string
+  invoiceId: string
+  serviceId?: string | null
+  itemType?: $Enums.InvoiceItemType
+  packageId?: string | null
+  soldByStaffId?: string | null
+  itemCode?: string | null
+  description: string
+  serviceName: string
+  quantity?: number
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  lineTotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Date | string
+}
+
+export type InvoiceItemCreateOrConnectWithoutCustomerPackageUsageItemInput = {
+  where: Prisma.InvoiceItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+}
+
+export type InvoiceItemUpsertWithoutCustomerPackageUsageItemInput = {
+  update: Prisma.XOR<Prisma.InvoiceItemUpdateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedUpdateWithoutCustomerPackageUsageItemInput>
+  create: Prisma.XOR<Prisma.InvoiceItemCreateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedCreateWithoutCustomerPackageUsageItemInput>
+  where?: Prisma.InvoiceItemWhereInput
+}
+
+export type InvoiceItemUpdateToOneWithWhereWithoutCustomerPackageUsageItemInput = {
+  where?: Prisma.InvoiceItemWhereInput
+  data: Prisma.XOR<Prisma.InvoiceItemUpdateWithoutCustomerPackageUsageItemInput, Prisma.InvoiceItemUncheckedUpdateWithoutCustomerPackageUsageItemInput>
+}
+
+export type InvoiceItemUpdateWithoutCustomerPackageUsageItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
+  itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceName?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lineTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutInvoiceItemsNestedInput
+  package?: Prisma.ServicePackageUpdateOneWithoutInvoiceItemsNestedInput
+  soldByStaff?: Prisma.StaffUpdateOneWithoutPackageInvoiceItemsNestedInput
+}
+
+export type InvoiceItemUncheckedUpdateWithoutCustomerPackageUsageItemInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
+  packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceName?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxPercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  lineTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type InvoiceItemCreateManySoldByStaffInput = {
   id?: string
   invoiceId: string
   serviceId?: string | null
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1115,6 +1278,7 @@ export type InvoiceItemUpdateWithoutSoldByStaffInput = {
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
   service?: Prisma.ServiceUpdateOneWithoutInvoiceItemsNestedInput
   package?: Prisma.ServicePackageUpdateOneWithoutInvoiceItemsNestedInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemUpdateOneWithoutInvoiceItemNestedInput
 }
 
 export type InvoiceItemUncheckedUpdateWithoutSoldByStaffInput = {
@@ -1123,6 +1287,7 @@ export type InvoiceItemUncheckedUpdateWithoutSoldByStaffInput = {
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1141,6 +1306,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutSoldByStaffInput = {
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1159,6 +1325,7 @@ export type InvoiceItemCreateManyServiceInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1187,6 +1354,7 @@ export type InvoiceItemUpdateWithoutServiceInput = {
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
   package?: Prisma.ServicePackageUpdateOneWithoutInvoiceItemsNestedInput
   soldByStaff?: Prisma.StaffUpdateOneWithoutPackageInvoiceItemsNestedInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemUpdateOneWithoutInvoiceItemNestedInput
 }
 
 export type InvoiceItemUncheckedUpdateWithoutServiceInput = {
@@ -1195,6 +1363,7 @@ export type InvoiceItemUncheckedUpdateWithoutServiceInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1213,6 +1382,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutServiceInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1231,6 +1401,7 @@ export type InvoiceItemCreateManyPackageInput = {
   serviceId?: string | null
   itemType?: $Enums.InvoiceItemType
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1259,6 +1430,7 @@ export type InvoiceItemUpdateWithoutPackageInput = {
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutItemsNestedInput
   service?: Prisma.ServiceUpdateOneWithoutInvoiceItemsNestedInput
   soldByStaff?: Prisma.StaffUpdateOneWithoutPackageInvoiceItemsNestedInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemUpdateOneWithoutInvoiceItemNestedInput
 }
 
 export type InvoiceItemUncheckedUpdateWithoutPackageInput = {
@@ -1267,6 +1439,7 @@ export type InvoiceItemUncheckedUpdateWithoutPackageInput = {
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1285,6 +1458,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutPackageInput = {
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1303,6 +1477,7 @@ export type InvoiceItemCreateManyInvoiceInput = {
   itemType?: $Enums.InvoiceItemType
   packageId?: string | null
   soldByStaffId?: string | null
+  customerPackageUsageItemId?: string | null
   itemCode?: string | null
   description: string
   serviceName: string
@@ -1331,6 +1506,7 @@ export type InvoiceItemUpdateWithoutInvoiceInput = {
   service?: Prisma.ServiceUpdateOneWithoutInvoiceItemsNestedInput
   package?: Prisma.ServicePackageUpdateOneWithoutInvoiceItemsNestedInput
   soldByStaff?: Prisma.StaffUpdateOneWithoutPackageInvoiceItemsNestedInput
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemUpdateOneWithoutInvoiceItemNestedInput
 }
 
 export type InvoiceItemUncheckedUpdateWithoutInvoiceInput = {
@@ -1339,6 +1515,7 @@ export type InvoiceItemUncheckedUpdateWithoutInvoiceInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1357,6 +1534,7 @@ export type InvoiceItemUncheckedUpdateManyWithoutInvoiceInput = {
   itemType?: Prisma.EnumInvoiceItemTypeFieldUpdateOperationsInput | $Enums.InvoiceItemType
   packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   soldByStaffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPackageUsageItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   serviceName?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1378,6 +1556,7 @@ export type InvoiceItemSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   itemType?: boolean
   packageId?: boolean
   soldByStaffId?: boolean
+  customerPackageUsageItemId?: boolean
   itemCode?: boolean
   description?: boolean
   serviceName?: boolean
@@ -1392,6 +1571,7 @@ export type InvoiceItemSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
 
 export type InvoiceItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1401,6 +1581,7 @@ export type InvoiceItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   itemType?: boolean
   packageId?: boolean
   soldByStaffId?: boolean
+  customerPackageUsageItemId?: boolean
   itemCode?: boolean
   description?: boolean
   serviceName?: boolean
@@ -1415,6 +1596,7 @@ export type InvoiceItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
 
 export type InvoiceItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1424,6 +1606,7 @@ export type InvoiceItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   itemType?: boolean
   packageId?: boolean
   soldByStaffId?: boolean
+  customerPackageUsageItemId?: boolean
   itemCode?: boolean
   description?: boolean
   serviceName?: boolean
@@ -1438,6 +1621,7 @@ export type InvoiceItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceItem"]>
 
 export type InvoiceItemSelectScalar = {
@@ -1447,6 +1631,7 @@ export type InvoiceItemSelectScalar = {
   itemType?: boolean
   packageId?: boolean
   soldByStaffId?: boolean
+  customerPackageUsageItemId?: boolean
   itemCode?: boolean
   description?: boolean
   serviceName?: boolean
@@ -1459,24 +1644,27 @@ export type InvoiceItemSelectScalar = {
   createdAt?: boolean
 }
 
-export type InvoiceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceId" | "serviceId" | "itemType" | "packageId" | "soldByStaffId" | "itemCode" | "description" | "serviceName" | "quantity" | "unitPrice" | "discountAmount" | "taxPercent" | "taxAmount" | "lineTotal" | "createdAt", ExtArgs["result"]["invoiceItem"]>
+export type InvoiceItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceId" | "serviceId" | "itemType" | "packageId" | "soldByStaffId" | "customerPackageUsageItemId" | "itemCode" | "description" | "serviceName" | "quantity" | "unitPrice" | "discountAmount" | "taxPercent" | "taxAmount" | "lineTotal" | "createdAt", ExtArgs["result"]["invoiceItem"]>
 export type InvoiceItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }
 export type InvoiceItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }
 export type InvoiceItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   service?: boolean | Prisma.InvoiceItem$serviceArgs<ExtArgs>
   package?: boolean | Prisma.InvoiceItem$packageArgs<ExtArgs>
   soldByStaff?: boolean | Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>
+  customerPackageUsageItem?: boolean | Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>
 }
 
 export type $InvoiceItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1486,6 +1674,7 @@ export type $InvoiceItemPayload<ExtArgs extends runtime.Types.Extensions.Interna
     service: Prisma.$ServicePayload<ExtArgs> | null
     package: Prisma.$ServicePackagePayload<ExtArgs> | null
     soldByStaff: Prisma.$StaffPayload<ExtArgs> | null
+    customerPackageUsageItem: Prisma.$CustomerPackageUsageItemPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1494,6 +1683,7 @@ export type $InvoiceItemPayload<ExtArgs extends runtime.Types.Extensions.Interna
     itemType: $Enums.InvoiceItemType
     packageId: string | null
     soldByStaffId: string | null
+    customerPackageUsageItemId: string | null
     itemCode: string | null
     description: string
     serviceName: string
@@ -1902,6 +2092,7 @@ export interface Prisma__InvoiceItemClient<T, Null = never, ExtArgs extends runt
   service<T extends Prisma.InvoiceItem$serviceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceItem$serviceArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   package<T extends Prisma.InvoiceItem$packageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceItem$packageArgs<ExtArgs>>): Prisma.Prisma__ServicePackageClient<runtime.Types.Result.GetResult<Prisma.$ServicePackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   soldByStaff<T extends Prisma.InvoiceItem$soldByStaffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceItem$soldByStaffArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  customerPackageUsageItem<T extends Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceItem$customerPackageUsageItemArgs<ExtArgs>>): Prisma.Prisma__CustomerPackageUsageItemClient<runtime.Types.Result.GetResult<Prisma.$CustomerPackageUsageItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1937,6 +2128,7 @@ export interface InvoiceItemFieldRefs {
   readonly itemType: Prisma.FieldRef<"InvoiceItem", 'InvoiceItemType'>
   readonly packageId: Prisma.FieldRef<"InvoiceItem", 'String'>
   readonly soldByStaffId: Prisma.FieldRef<"InvoiceItem", 'String'>
+  readonly customerPackageUsageItemId: Prisma.FieldRef<"InvoiceItem", 'String'>
   readonly itemCode: Prisma.FieldRef<"InvoiceItem", 'String'>
   readonly description: Prisma.FieldRef<"InvoiceItem", 'String'>
   readonly serviceName: Prisma.FieldRef<"InvoiceItem", 'String'>
@@ -2402,6 +2594,25 @@ export type InvoiceItem$soldByStaffArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.StaffInclude<ExtArgs> | null
   where?: Prisma.StaffWhereInput
+}
+
+/**
+ * InvoiceItem.customerPackageUsageItem
+ */
+export type InvoiceItem$customerPackageUsageItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPackageUsageItem
+   */
+  select?: Prisma.CustomerPackageUsageItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPackageUsageItem
+   */
+  omit?: Prisma.CustomerPackageUsageItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPackageUsageItemInclude<ExtArgs> | null
+  where?: Prisma.CustomerPackageUsageItemWhereInput
 }
 
 /**

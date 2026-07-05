@@ -70,6 +70,9 @@ export const ModelName = {
     Invoice: 'Invoice',
     InvoiceItem: 'InvoiceItem',
     CustomerPackage: 'CustomerPackage',
+    CustomerPackageServiceBalance: 'CustomerPackageServiceBalance',
+    CustomerPackageUsage: 'CustomerPackageUsage',
+    CustomerPackageUsageItem: 'CustomerPackageUsageItem',
     Payment: 'Payment',
     ProductBrand: 'ProductBrand',
     Product: 'Product',
@@ -478,6 +481,7 @@ export const AppointmentServiceScalarFieldEnum = {
     price: 'price',
     durationValue: 'durationValue',
     durationUnit: 'durationUnit',
+    customerPackageUsageItemId: 'customerPackageUsageItemId',
     createdAt: 'createdAt'
 };
 export const SaleScalarFieldEnum = {
@@ -585,6 +589,7 @@ export const InvoiceItemScalarFieldEnum = {
     itemType: 'itemType',
     packageId: 'packageId',
     soldByStaffId: 'soldByStaffId',
+    customerPackageUsageItemId: 'customerPackageUsageItemId',
     itemCode: 'itemCode',
     description: 'description',
     serviceName: 'serviceName',
@@ -613,6 +618,53 @@ export const CustomerPackageScalarFieldEnum = {
     invoiceId: 'invoiceId',
     jobCartAppointmentId: 'jobCartAppointmentId',
     createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const CustomerPackageServiceBalanceScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    customerPackageId: 'customerPackageId',
+    customerId: 'customerId',
+    packageId: 'packageId',
+    serviceId: 'serviceId',
+    serviceNameSnapshot: 'serviceNameSnapshot',
+    includedQuantity: 'includedQuantity',
+    usedQuantity: 'usedQuantity',
+    reservedQuantity: 'reservedQuantity',
+    priceSnapshot: 'priceSnapshot',
+    durationMinutesSnapshot: 'durationMinutesSnapshot',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const CustomerPackageUsageScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    branchId: 'branchId',
+    customerId: 'customerId',
+    customerPackageId: 'customerPackageId',
+    appointmentId: 'appointmentId',
+    invoiceId: 'invoiceId',
+    jobCartAppointmentId: 'jobCartAppointmentId',
+    status: 'status',
+    usedAt: 'usedAt',
+    cancelledAt: 'cancelledAt',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const CustomerPackageUsageItemScalarFieldEnum = {
+    id: 'id',
+    salonId: 'salonId',
+    usageId: 'usageId',
+    customerPackageServiceBalanceId: 'customerPackageServiceBalanceId',
+    serviceId: 'serviceId',
+    serviceNameSnapshot: 'serviceNameSnapshot',
+    quantity: 'quantity',
+    priceSnapshot: 'priceSnapshot',
+    durationMinutesSnapshot: 'durationMinutesSnapshot',
+    staffId: 'staffId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

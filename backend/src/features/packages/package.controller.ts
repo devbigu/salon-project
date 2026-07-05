@@ -7,6 +7,9 @@ import {
   deletePackageCategory,
   deleteServicePackage,
   getCustomerPackage,
+  getCustomerPackageBalances,
+  getCustomerPackageBalancesForCustomer,
+  getCustomerPackageUsages,
   getPackageCategory,
   getServicePackage,
   listCustomerPackages,
@@ -335,6 +338,51 @@ export const patchCustomerPackageStatus = async (
       requestAuditContext(req)
     );
     return res.json({ success: true, message: "Status updated", data });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const getCustomerPackageBalancesById = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    return res.json({
+      success: true,
+      data: await getCustomerPackageBalances(actorFrom(req), idFrom(req)),
+    });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const getCustomerPackageUsageHistory = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    return res.json({
+      success: true,
+      data: await getCustomerPackageUsages(actorFrom(req), idFrom(req)),
+    });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const getCustomerPackageBalancesByCustomer = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    return res.json({
+      success: true,
+      data: await getCustomerPackageBalancesForCustomer(
+        actorFrom(req),
+        idFrom(req, "customerId")
+      ),
+    });
   } catch (error) {
     return sendError(res, error);
   }

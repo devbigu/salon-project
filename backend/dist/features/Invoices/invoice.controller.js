@@ -9,6 +9,8 @@ import { Prisma } from "../../generated/prisma/client.js";
 import { buildBusinessCode, businessCodeDayRange, } from "../../utils/business-id.js";
 import { CouponServiceError, applyCouponToInvoice, issueInvoice as issueDraftInvoice, removeCouponFromInvoice, } from "../coupons/coupon.service.js";
 import { applyCouponSchema } from "../coupons/coupon.validation.js";
+import { reverseUsedPackageUsagesForInvoice } from "../packages/package.service.js";
+import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"];
 const INVOICE_STATUSES = ["DRAFT", "ISSUED", "CANCELLED"];
 const PAYMENT_STATUSES = ["UNPAID", "PARTIALLY_PAID", "PAID"];
@@ -495,7 +497,21 @@ export const cancelInvoice = async (req, res) => {
                     data: { usedCount: { decrement: 1 } },
                 });
             }
+            if (current.appointmentId) {
+                await reverseAppointmentConsumables({
+                    tx,
+                    appointmentId: current.appointmentId,
+                    salonId: current.salonId,
+                    branchId: current.branchId,
+                    createdById: req.user?.userId,
+                });
+            }
             const cancelled = await InvoiceModel.cancel(id, tx);
+            await reverseUsedPackageUsagesForInvoice(tx, {
+                invoiceId: id,
+                userId: req.user?.userId,
+                ...requestAuditContext(req),
+            });
             const customerPackages = await tx.customerPackage.findMany({
                 where: {
                     invoiceId: id,

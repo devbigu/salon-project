@@ -51,6 +51,17 @@ const managementScope = (actor: PackageActor) => {
   };
 };
 
+const customerPackageScope = (actor: PackageActor) => {
+  if (actor.role === "SUPER_ADMIN") return {};
+  if (!actor.salonId) return { salonId: "__unauthorized__" };
+  return {
+    salonId: actor.salonId,
+    ...(branchRoles.has(actor.role)
+      ? { branchId: actor.branchId ?? "__unauthorized__" }
+      : {}),
+  };
+};
+
 const writeScope = (
   actor: PackageActor,
   requestedSalonId?: string,
@@ -747,7 +758,26 @@ const customerPackageInclude = {
   customer: { select: { id: true, name: true, phone: true } },
   soldByStaff: { select: { id: true, name: true } },
   invoice: { select: { id: true, invoiceCode: true, status: true } },
+  serviceBalances: {
+    orderBy: { serviceNameSnapshot: "asc" as const },
+  },
 } as const;
+
+const presentBalance = <
+  T extends {
+    includedQuantity: number;
+    usedQuantity: number;
+    reservedQuantity: number;
+  },
+>(
+  balance: T
+) => ({
+  ...balance,
+  remainingQuantity:
+    balance.includedQuantity -
+    balance.usedQuantity -
+    balance.reservedQuantity,
+});
 
 const expireCustomerPackages = async (
   where: Prisma.CustomerPackageWhereInput
@@ -774,7 +804,7 @@ export const listCustomerPackages = async (
   }
 ) => {
   const where: Prisma.CustomerPackageWhereInput = {
-    ...scope(actor),
+    ...customerPackageScope(actor),
     ...(actor.role === "SUPER_ADMIN" && filters.salonId
       ? { salonId: filters.salonId }
       : {}),
@@ -809,9 +839,9 @@ export const getCustomerPackage = async (
   actor: PackageActor,
   id: string
 ) => {
-  await expireCustomerPackages({ id, ...scope(actor) });
+  await expireCustomerPackages({ id, ...customerPackageScope(actor) });
   const data = await prisma.customerPackage.findFirst({
-    where: { id, ...scope(actor) },
+    where: { id, ...customerPackageScope(actor) },
     include: customerPackageInclude,
   });
   if (!data) throw new PackageError(404, "Customer package not found");
@@ -826,7 +856,7 @@ export const setCustomerPackageStatus = async (
 ) =>
   prisma.$transaction(async (tx) => {
     const existing = await tx.customerPackage.findFirst({
-      where: { id, ...managementScope(actor) },
+      where: { id, ...customerPackageScope(actor) },
     });
     if (!existing) throw new PackageError(404, "Customer package not found");
     const updated = await tx.customerPackage.update({
@@ -849,4 +879,206 @@ export const setCustomerPackageStatus = async (
       ...audit,
     });
     return updated;
+  });
+
+export const getCustomerPackageBalances = async (
+  actor: PackageActor,
+  customerPackageId: string
+) => {
+  await expireCustomerPackages({
+    id: customerPackageId,
+    ...customerPackageScope(actor),
+  });
+  const customerPackage = await prisma.customerPackage.findFirst({
+    where: { id: customerPackageId, ...customerPackageScope(actor) },
+    include: {
+      serviceBalances: {
+        orderBy: { serviceNameSnapshot: "asc" },
+      },
+    },
+  });
+  if (!customerPackage) {
+    throw new PackageError(404, "Customer package not found");
+  }
+  return {
+    customerPackageId: customerPackage.id,
+    packageName: customerPackage.packageNameSnapshot,
+    status: customerPackage.status,
+    validUntil: customerPackage.validUntil,
+    balances: customerPackage.serviceBalances.map(presentBalance),
+  };
+};
+
+export const getCustomerPackageUsages = async (
+  actor: PackageActor,
+  customerPackageId: string
+) => {
+  const customerPackage = await prisma.customerPackage.findFirst({
+    where: { id: customerPackageId, ...customerPackageScope(actor) },
+    select: { id: true },
+  });
+  if (!customerPackage) {
+    throw new PackageError(404, "Customer package not found");
+  }
+  return prisma.customerPackageUsage.findMany({
+    where: { customerPackageId },
+    include: {
+      items: {
+        include: {
+          staff: { select: { id: true, name: true } },
+        },
+        orderBy: { createdAt: "asc" },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+};
+
+export const getCustomerPackageBalancesForCustomer = async (
+  actor: PackageActor,
+  customerId: string
+) => {
+  const customer = await prisma.customer.findFirst({
+    where: {
+      id: customerId,
+      ...(actor.role === "SUPER_ADMIN"
+        ? {}
+        : { salonId: actor.salonId ?? "__unauthorized__" }),
+      ...(branchRoles.has(actor.role)
+        ? { branchId: actor.branchId ?? "__unauthorized__" }
+        : {}),
+    },
+    select: { id: true },
+  });
+  if (!customer) throw new PackageError(404, "Customer not found");
+  await expireCustomerPackages({
+    customerId,
+    ...customerPackageScope(actor),
+  });
+  const packages = await prisma.customerPackage.findMany({
+    where: { customerId, ...customerPackageScope(actor) },
+    include: {
+      soldByStaff: { select: { id: true, name: true } },
+      serviceBalances: {
+        orderBy: { serviceNameSnapshot: "asc" },
+      },
+    },
+    orderBy: { purchasedAt: "desc" },
+  });
+  return packages.map((customerPackage) => ({
+    customerPackageId: customerPackage.id,
+    packageName: customerPackage.packageNameSnapshot,
+    status: customerPackage.status,
+    validUntil: customerPackage.validUntil,
+    soldByStaff: customerPackage.soldByStaff,
+    balances: customerPackage.serviceBalances.map(presentBalance),
+  }));
+};
+
+const reverseUsedPackageUsages = async (
+  tx: TransactionClient,
+  input: {
+    where: Prisma.CustomerPackageUsageWhereInput;
+    referenceType: "invoice" | "appointment";
+    referenceId: string;
+    userId?: string | undefined;
+    ipAddress?: string | undefined;
+    userAgent?: string | undefined;
+  }
+) => {
+  const usages = await tx.customerPackageUsage.findMany({
+    where: { ...input.where, status: "USED" },
+    include: { items: true, customerPackage: true },
+  });
+  for (const usage of usages) {
+    await tx.$queryRaw`SELECT "id" FROM "CustomerPackageUsage" WHERE "id" = ${usage.id} FOR UPDATE`;
+    for (const item of usage.items) {
+      await tx.$queryRaw`SELECT "id" FROM "CustomerPackageServiceBalance" WHERE "id" = ${item.customerPackageServiceBalanceId} FOR UPDATE`;
+      const reversed = await tx.customerPackageServiceBalance.updateMany({
+        where: {
+          id: item.customerPackageServiceBalanceId,
+          usedQuantity: { gte: item.quantity },
+        },
+        data: { usedQuantity: { decrement: item.quantity } },
+      });
+      if (reversed.count !== 1) {
+        throw new PackageError(409, "Package usage balance changed");
+      }
+    }
+    await tx.customerPackageUsage.update({
+      where: { id: usage.id },
+      data: { status: "CANCELLED", cancelledAt: new Date() },
+    });
+    if (usage.customerPackage.status !== "CANCELLED") {
+      await tx.customerPackage.update({
+        where: { id: usage.customerPackageId },
+        data: {
+          status:
+            usage.customerPackage.validUntil < new Date()
+              ? "EXPIRED"
+              : "ACTIVE",
+        },
+      });
+    }
+    await createAuditLog({
+      tx,
+      salonId: usage.salonId,
+      branchId: usage.branchId,
+      userId: input.userId,
+      module: "PACKAGE",
+      action: "CANCEL",
+      entityId: usage.id,
+      entityName: usage.customerPackage.packageNameSnapshot,
+      description: `Package redemption reversed with ${input.referenceType} cancellation`,
+      oldData: { status: "USED", items: usage.items },
+      newData: {
+        status: "CANCELLED",
+        referenceType: input.referenceType,
+        referenceId: input.referenceId,
+      },
+      ipAddress: input.ipAddress,
+      userAgent: input.userAgent,
+    });
+  }
+};
+
+export const reverseUsedPackageUsagesForInvoice = async (
+  tx: TransactionClient,
+  input: {
+    invoiceId: string;
+    userId?: string | undefined;
+    ipAddress?: string | undefined;
+    userAgent?: string | undefined;
+  }
+) =>
+  reverseUsedPackageUsages(tx, {
+    where: { invoiceId: input.invoiceId },
+    referenceType: "invoice",
+    referenceId: input.invoiceId,
+    userId: input.userId,
+    ipAddress: input.ipAddress,
+    userAgent: input.userAgent,
+  });
+
+export const reverseUsedPackageUsagesForAppointment = async (
+  tx: TransactionClient,
+  input: {
+    appointmentId: string;
+    userId?: string | undefined;
+    ipAddress?: string | undefined;
+    userAgent?: string | undefined;
+  }
+) =>
+  reverseUsedPackageUsages(tx, {
+    where: {
+      OR: [
+        { appointmentId: input.appointmentId },
+        { jobCartAppointmentId: input.appointmentId },
+      ],
+    },
+    referenceType: "appointment",
+    referenceId: input.appointmentId,
+    userId: input.userId,
+    ipAddress: input.ipAddress,
+    userAgent: input.userAgent,
   });

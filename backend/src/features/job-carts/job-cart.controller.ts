@@ -3,20 +3,24 @@ import { z } from "zod";
 import { requestAuditContext } from "../audit-logs/audit-log.service.js";
 import {
   addJobCartItem,
+  addJobCartPackageRedemption,
   cancelJobCart,
   confirmJobCart,
   createJobCart,
   getJobCart,
   getJobCartReferences,
+  getJobCartPackageRedemptions,
   getJobCartCustomerSummary,
   JobCartError,
   listJobCarts,
   removeJobCartItem,
+  removeJobCartPackageRedemption,
   updateJobCart,
   type JobCartActor,
 } from "./job-cart.service.js";
 import {
   addJobCartItemSchema,
+  addPackageRedemptionSchema,
   customerSummarySchema,
   createJobCartSchema,
   listJobCartsSchema,
@@ -245,6 +249,64 @@ export const deleteJobCartItem = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       message: "Item removed from job cart",
+      data,
+    });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const postJobCartPackageRedemption = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const parsed = addPackageRedemptionSchema.parse(req.body);
+    const data = await addJobCartPackageRedemption(
+      actorFrom(req),
+      param(req, "id"),
+      parsed,
+      requestAuditContext(req)
+    );
+    return res.status(201).json({
+      success: true,
+      message: "Package redemption reserved",
+      data,
+    });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const getJobCartPackageRedemptionList = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const data = await getJobCartPackageRedemptions(
+      actorFrom(req),
+      param(req, "id")
+    );
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    return sendError(res, error);
+  }
+};
+
+export const deleteJobCartPackageRedemption = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const data = await removeJobCartPackageRedemption(
+      actorFrom(req),
+      param(req, "id"),
+      param(req, "usageId"),
+      requestAuditContext(req)
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Package redemption removed",
       data,
     });
   } catch (error) {

@@ -7,7 +7,7 @@ type PaymentStatus = "UNPAID" | "PARTIALLY_PAID" | "PAID";
 
 type CreateInvoiceItemInput = {
   serviceId?: string;
-  itemType?: "SERVICE" | "PACKAGE";
+  itemType?: "SERVICE" | "PACKAGE" | "PACKAGE_REDEMPTION";
   packageId?: string;
   soldByStaffId?: string;
   itemCode?: string;

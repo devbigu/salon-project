@@ -472,6 +472,31 @@ const JobCartCreate = () => {
                     )}
                   </div>
                 )}
+                {customerSummary?.activePackages?.length > 0 && (
+                  <div className="small mb-3">
+                    {customerSummary.activePackages.map((item) => (
+                      <div
+                        key={`${item.customerPackageId}-balances`}
+                        className="border rounded p-2 mb-2"
+                      >
+                        <strong>{item.packageName} balances</strong>
+                        {(item.serviceBalances || []).map((balance) => (
+                          <div
+                            key={balance.balanceId}
+                            className="d-flex justify-content-between mt-1"
+                          >
+                            <span>{balance.serviceName}</span>
+                            <span>
+                              {balance.usedQuantity}/
+                              {balance.includedQuantity} used •{" "}
+                              {balance.remainingQuantity} remaining
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="d-flex justify-content-between py-2 border-bottom">
                   <span>Services</span>
                   <strong>{selectedServices.length}</strong>

@@ -415,6 +415,9 @@ export const ModelName = {
   Invoice: 'Invoice',
   InvoiceItem: 'InvoiceItem',
   CustomerPackage: 'CustomerPackage',
+  CustomerPackageServiceBalance: 'CustomerPackageServiceBalance',
+  CustomerPackageUsage: 'CustomerPackageUsage',
+  CustomerPackageUsageItem: 'CustomerPackageUsageItem',
   Payment: 'Payment',
   ProductBrand: 'ProductBrand',
   Product: 'Product',
@@ -448,7 +451,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "salon" | "user" | "customer" | "membership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
+    modelProps: "salon" | "user" | "customer" | "membership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "customerPackageServiceBalance" | "customerPackageUsage" | "customerPackageUsageItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2746,6 +2749,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CustomerPackageServiceBalance: {
+      payload: Prisma.$CustomerPackageServiceBalancePayload<ExtArgs>
+      fields: Prisma.CustomerPackageServiceBalanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerPackageServiceBalanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerPackageServiceBalanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerPackageServiceBalanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerPackageServiceBalanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        findMany: {
+          args: Prisma.CustomerPackageServiceBalanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>[]
+        }
+        create: {
+          args: Prisma.CustomerPackageServiceBalanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        createMany: {
+          args: Prisma.CustomerPackageServiceBalanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerPackageServiceBalanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerPackageServiceBalanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        update: {
+          args: Prisma.CustomerPackageServiceBalanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerPackageServiceBalanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerPackageServiceBalanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerPackageServiceBalanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerPackageServiceBalanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageServiceBalancePayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerPackageServiceBalanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerPackageServiceBalance>
+        }
+        groupBy: {
+          args: Prisma.CustomerPackageServiceBalanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageServiceBalanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerPackageServiceBalanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageServiceBalanceCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerPackageUsage: {
+      payload: Prisma.$CustomerPackageUsagePayload<ExtArgs>
+      fields: Prisma.CustomerPackageUsageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerPackageUsageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerPackageUsageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerPackageUsageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerPackageUsageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        findMany: {
+          args: Prisma.CustomerPackageUsageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>[]
+        }
+        create: {
+          args: Prisma.CustomerPackageUsageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        createMany: {
+          args: Prisma.CustomerPackageUsageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerPackageUsageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerPackageUsageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        update: {
+          args: Prisma.CustomerPackageUsageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerPackageUsageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerPackageUsageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerPackageUsageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerPackageUsageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsagePayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerPackageUsageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerPackageUsage>
+        }
+        groupBy: {
+          args: Prisma.CustomerPackageUsageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageUsageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerPackageUsageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageUsageCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerPackageUsageItem: {
+      payload: Prisma.$CustomerPackageUsageItemPayload<ExtArgs>
+      fields: Prisma.CustomerPackageUsageItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerPackageUsageItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerPackageUsageItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerPackageUsageItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerPackageUsageItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerPackageUsageItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerPackageUsageItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerPackageUsageItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerPackageUsageItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerPackageUsageItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        update: {
+          args: Prisma.CustomerPackageUsageItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerPackageUsageItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerPackageUsageItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerPackageUsageItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerPackageUsageItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerPackageUsageItemPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerPackageUsageItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerPackageUsageItem>
+        }
+        groupBy: {
+          args: Prisma.CustomerPackageUsageItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageUsageItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerPackageUsageItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerPackageUsageItemCountAggregateOutputType> | number
+        }
+      }
+    }
     Payment: {
       payload: Prisma.$PaymentPayload<ExtArgs>
       fields: Prisma.PaymentFieldRefs
@@ -4593,6 +4818,7 @@ export const AppointmentServiceScalarFieldEnum = {
   price: 'price',
   durationValue: 'durationValue',
   durationUnit: 'durationUnit',
+  customerPackageUsageItemId: 'customerPackageUsageItemId',
   createdAt: 'createdAt'
 } as const
 
@@ -4720,6 +4946,7 @@ export const InvoiceItemScalarFieldEnum = {
   itemType: 'itemType',
   packageId: 'packageId',
   soldByStaffId: 'soldByStaffId',
+  customerPackageUsageItemId: 'customerPackageUsageItemId',
   itemCode: 'itemCode',
   description: 'description',
   serviceName: 'serviceName',
@@ -4757,6 +4984,65 @@ export const CustomerPackageScalarFieldEnum = {
 } as const
 
 export type CustomerPackageScalarFieldEnum = (typeof CustomerPackageScalarFieldEnum)[keyof typeof CustomerPackageScalarFieldEnum]
+
+
+export const CustomerPackageServiceBalanceScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  customerPackageId: 'customerPackageId',
+  customerId: 'customerId',
+  packageId: 'packageId',
+  serviceId: 'serviceId',
+  serviceNameSnapshot: 'serviceNameSnapshot',
+  includedQuantity: 'includedQuantity',
+  usedQuantity: 'usedQuantity',
+  reservedQuantity: 'reservedQuantity',
+  priceSnapshot: 'priceSnapshot',
+  durationMinutesSnapshot: 'durationMinutesSnapshot',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerPackageServiceBalanceScalarFieldEnum = (typeof CustomerPackageServiceBalanceScalarFieldEnum)[keyof typeof CustomerPackageServiceBalanceScalarFieldEnum]
+
+
+export const CustomerPackageUsageScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  customerId: 'customerId',
+  customerPackageId: 'customerPackageId',
+  appointmentId: 'appointmentId',
+  invoiceId: 'invoiceId',
+  jobCartAppointmentId: 'jobCartAppointmentId',
+  status: 'status',
+  usedAt: 'usedAt',
+  cancelledAt: 'cancelledAt',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerPackageUsageScalarFieldEnum = (typeof CustomerPackageUsageScalarFieldEnum)[keyof typeof CustomerPackageUsageScalarFieldEnum]
+
+
+export const CustomerPackageUsageItemScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  usageId: 'usageId',
+  customerPackageServiceBalanceId: 'customerPackageServiceBalanceId',
+  serviceId: 'serviceId',
+  serviceNameSnapshot: 'serviceNameSnapshot',
+  quantity: 'quantity',
+  priceSnapshot: 'priceSnapshot',
+  durationMinutesSnapshot: 'durationMinutesSnapshot',
+  staffId: 'staffId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerPackageUsageItemScalarFieldEnum = (typeof CustomerPackageUsageItemScalarFieldEnum)[keyof typeof CustomerPackageUsageItemScalarFieldEnum]
 
 
 export const PaymentScalarFieldEnum = {
@@ -5547,6 +5833,20 @@ export type ListEnumCustomerPackageStatusFieldRefInput<$PrismaModel> = FieldRefI
 
 
 /**
+ * Reference to a field of type 'CustomerPackageUsageStatus'
+ */
+export type EnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerPackageUsageStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerPackageUsageStatus[]'
+ */
+export type ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerPackageUsageStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ProductUnit'
  */
 export type EnumProductUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductUnit'>
@@ -5854,6 +6154,9 @@ export type GlobalOmitConfig = {
   invoice?: Prisma.InvoiceOmit
   invoiceItem?: Prisma.InvoiceItemOmit
   customerPackage?: Prisma.CustomerPackageOmit
+  customerPackageServiceBalance?: Prisma.CustomerPackageServiceBalanceOmit
+  customerPackageUsage?: Prisma.CustomerPackageUsageOmit
+  customerPackageUsageItem?: Prisma.CustomerPackageUsageItemOmit
   payment?: Prisma.PaymentOmit
   productBrand?: Prisma.ProductBrandOmit
   product?: Prisma.ProductOmit

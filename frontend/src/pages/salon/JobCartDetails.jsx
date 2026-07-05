@@ -38,6 +38,7 @@ const JobCartDetails = () => {
   const [serviceId, setServiceId] = useState("");
   const [packageId, setPackageId] = useState("");
   const [packageStaffId, setPackageStaffId] = useState("");
+  const [redemptionSelections, setRedemptionSelections] = useState({});
   const [couponCode, setCouponCode] = useState("");
   const [loading, setLoading] = useState(true);
   const [working, setWorking] = useState(false);
@@ -149,6 +150,45 @@ const JobCartDetails = () => {
   const active = cart?.status === "ACTIVE";
   const invoice = cart?.invoice;
   const membershipDiscount = Number(invoice?.discountAmount || 0);
+  const packageCoveredAmount = (cart?.packageRedemptions || [])
+    .filter((usage) => usage.status !== "CANCELLED")
+    .flatMap((usage) => usage.items || [])
+    .reduce(
+      (total, item) =>
+        total + Number(item.priceSnapshot || 0) * Number(item.quantity || 0),
+      0
+    );
+
+  const setRedemptionValue = (balanceId, key, value) =>
+    setRedemptionSelections((current) => ({
+      ...current,
+      [balanceId]: {
+        ...(current[balanceId] || {}),
+        [key]: value,
+      },
+    }));
+
+  const redeemPackage = (customerPackage) =>
+    run(async () => {
+      const items = (customerPackage.serviceBalances || [])
+        .map((balance) => {
+          const selected = redemptionSelections[balance.balanceId] || {};
+          return {
+            serviceId: balance.serviceId,
+            quantity: Number(selected.quantity || 0),
+            ...(selected.staffId ? { staffId: selected.staffId } : {}),
+          };
+        })
+        .filter((item) => item.quantity > 0);
+      if (!items.length) {
+        throw new Error("Choose at least one package service to redeem");
+      }
+      await salonApi.jobCarts.addRedemption(id, {
+        customerPackageId: customerPackage.customerPackageId,
+        items,
+      });
+      setRedemptionSelections({});
+    });
 
   return (
     <PageShell
@@ -443,6 +483,60 @@ const JobCartDetails = () => {
                     </tbody>
                   </table>
                 </div>
+                {(cart.packageRedemptions || []).length > 0 && (
+                  <div className="mt-4">
+                    <h6>Package-covered Services</h6>
+                    {(cart.packageRedemptions || []).map((usage) => (
+                      <div
+                        key={usage.id}
+                        className="border rounded p-3 mb-2"
+                      >
+                        <div className="d-flex justify-content-between gap-2">
+                          <div>
+                            <strong>
+                              {usage.customerPackage?.packageNameSnapshot}
+                            </strong>
+                            <div className="small text-soft">
+                              {usage.status}
+                            </div>
+                          </div>
+                          {active && usage.status === "RESERVED" && (
+                            <Button
+                              color="danger"
+                              outline
+                              size="sm"
+                              disabled={working}
+                              onClick={() =>
+                                run(() =>
+                                  salonApi.jobCarts.removeRedemption(
+                                    id,
+                                    usage.id
+                                  )
+                                )
+                              }
+                            >
+                              Remove
+                            </Button>
+                          )}
+                        </div>
+                        {(usage.items || []).map((item) => (
+                          <div
+                            key={item.id}
+                            className="d-flex justify-content-between small mt-2"
+                          >
+                            <span>
+                              {item.serviceNameSnapshot} × {item.quantity}
+                              {item.staff?.name
+                                ? ` • ${item.staff.name}`
+                                : ""}
+                            </span>
+                            <strong>Package covered</strong>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </Col>
@@ -503,6 +597,96 @@ const JobCartDetails = () => {
                   ) : (
                     <p className="small text-soft">No active packages.</p>
                   )}
+                  {(customerSummary.activePackages || []).map((item) => (
+                    <div
+                      key={`${item.customerPackageId}-balances`}
+                      className="small mb-3"
+                    >
+                      {(item.serviceBalances || []).map((balance) => (
+                        <div
+                          key={balance.balanceId}
+                          className="border rounded p-2 mt-1"
+                        >
+                          <div className="d-flex justify-content-between">
+                            <span>{balance.serviceName}</span>
+                            <span>
+                              {balance.usedQuantity}/{balance.includedQuantity}{" "}
+                              used
+                            </span>
+                          </div>
+                          <div className="text-soft">
+                            {balance.remainingQuantity} remaining
+                            {balance.reservedQuantity
+                              ? ` • ${balance.reservedQuantity} reserved`
+                              : ""}
+                          </div>
+                          {active && balance.remainingQuantity > 0 && (
+                            <div className="row g-1 mt-1">
+                              <div className="col-4">
+                                <Input
+                                  bsSize="sm"
+                                  type="number"
+                                  min="0"
+                                  max={balance.remainingQuantity}
+                                  placeholder="Qty"
+                                  value={
+                                    redemptionSelections[balance.balanceId]
+                                      ?.quantity || ""
+                                  }
+                                  onChange={(event) =>
+                                    setRedemptionValue(
+                                      balance.balanceId,
+                                      "quantity",
+                                      event.target.value
+                                    )
+                                  }
+                                />
+                              </div>
+                              <div className="col-8">
+                                <Input
+                                  bsSize="sm"
+                                  type="select"
+                                  value={
+                                    redemptionSelections[balance.balanceId]
+                                      ?.staffId || ""
+                                  }
+                                  onChange={(event) =>
+                                    setRedemptionValue(
+                                      balance.balanceId,
+                                      "staffId",
+                                      event.target.value
+                                    )
+                                  }
+                                >
+                                  <option value="">Staff optional</option>
+                                  {refs.staff.map((member) => (
+                                    <option key={member.id} value={member.id}>
+                                      {member.name}
+                                    </option>
+                                  ))}
+                                </Input>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                      {active &&
+                        (item.serviceBalances || []).some(
+                          (balance) => balance.remainingQuantity > 0
+                        ) && (
+                          <Button
+                            className="mt-2"
+                            size="sm"
+                            color="primary"
+                            outline
+                            disabled={working}
+                            onClick={() => redeemPackage(item)}
+                          >
+                            Redeem {item.packageName}
+                          </Button>
+                        )}
+                    </div>
+                  ))}
                   <h6 className="mt-3">Recent Invoices</h6>
                   {(customerSummary.recentInvoices || []).slice(0, 5).map(
                     (recent) => (
@@ -528,8 +712,12 @@ const JobCartDetails = () => {
               <div className="card-inner">
                 <h5>Invoice Summary</h5>
                 <div className="d-flex justify-content-between py-2 border-bottom">
-                  <span>Subtotal</span>
+                  <span>Paid services / packages</span>
                   <strong>{formatMoney(invoice?.subtotalAmount)}</strong>
+                </div>
+                <div className="d-flex justify-content-between py-2 border-bottom">
+                  <span>Package-covered services</span>
+                  <strong>{formatMoney(packageCoveredAmount)}</strong>
                 </div>
                 <div className="d-flex justify-content-between py-2 border-bottom">
                   <span>Membership / discount</span>
@@ -542,7 +730,7 @@ const JobCartDetails = () => {
                   </strong>
                 </div>
                 <div className="d-flex justify-content-between py-3 fs-5">
-                  <span>Total</span>
+                  <span>Payable amount</span>
                   <strong>{formatMoney(invoice?.totalAmount)}</strong>
                 </div>
                 <div className="small text-soft mb-3">

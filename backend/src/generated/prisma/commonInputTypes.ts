@@ -732,6 +732,23 @@ export type EnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel = never> 
   _max?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
 }
 
+export type EnumCustomerPackageUsageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageUsageStatus | Prisma.EnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel> | $Enums.CustomerPackageUsageStatus
+}
+
+export type EnumCustomerPackageUsageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageUsageStatus | Prisma.EnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageUsageStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerPackageUsageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel>
+}
+
 export type EnumProductUnitFilter<$PrismaModel = never> = {
   equals?: $Enums.ProductUnit | Prisma.EnumProductUnitFieldRefInput<$PrismaModel>
   in?: $Enums.ProductUnit[] | Prisma.ListEnumProductUnitFieldRefInput<$PrismaModel>
@@ -1716,6 +1733,23 @@ export type NestedEnumCustomerPackageStatusWithAggregatesFilter<$PrismaModel = n
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCustomerPackageStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageUsageStatus | Prisma.EnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel> | $Enums.CustomerPackageUsageStatus
+}
+
+export type NestedEnumCustomerPackageUsageStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerPackageUsageStatus | Prisma.EnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerPackageUsageStatus[] | Prisma.ListEnumCustomerPackageUsageStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerPackageUsageStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerPackageUsageStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerPackageUsageStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumProductUnitFilter<$PrismaModel = never> = {

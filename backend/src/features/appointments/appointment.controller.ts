@@ -14,6 +14,8 @@ import {
 } from "../audit-logs/audit-log.service.js";
 import { prisma } from "../../config/prisma.js";
 import { buildBusinessCode } from "../../utils/business-id.js";
+import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
+import { reverseUsedPackageUsagesForAppointment } from "../packages/package.service.js";
 
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
@@ -30,7 +32,7 @@ const STATUS_TRANSITIONS: Record<AppointmentStatus, AppointmentStatus[]> = {
     SCHEDULED: ["CONFIRMED", "CANCELLED", "NO_SHOW"],
     CONFIRMED: ["CHECKED_IN", "CANCELLED", "NO_SHOW"],
     CHECKED_IN: ["COMPLETED", "CANCELLED"],
-    COMPLETED: [],
+    COMPLETED: ["CANCELLED"],
     CANCELLED: [],
     NO_SHOW: [],
 };
@@ -525,6 +527,23 @@ export const updateAppointmentStatus = async (
         }
 
         const appointment = await prisma.$transaction(async (tx) => {
+          if (
+            existingAppointment.status === "COMPLETED" &&
+            status === "CANCELLED"
+          ) {
+            await reverseAppointmentConsumables({
+              tx,
+              appointmentId: id,
+              salonId: existingAppointment.salonId,
+              branchId: existingAppointment.branchId,
+              createdById: req.user?.userId,
+            });
+            await reverseUsedPackageUsagesForAppointment(tx, {
+              appointmentId: id,
+              userId: req.user?.userId,
+              ...requestAuditContext(req),
+            });
+          }
           const updated = await AppointmentModel.updateStatusWithHistory(id, {
               oldStatus: existingAppointment.status,
               newStatus: status,

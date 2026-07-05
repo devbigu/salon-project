@@ -90,6 +90,10 @@ export const salonApi = {
     forCustomer: (customerId, query) =>
       request(`/api/customers/${customerId}/packages`, { query }),
     get: (id) => request(`/api/customer-packages/${id}`),
+    balances: (id) => request(`/api/customer-packages/${id}/balances`),
+    usages: (id) => request(`/api/customer-packages/${id}/usages`),
+    balancesForCustomer: (customerId) =>
+      request(`/api/customers/${customerId}/package-balances`),
     setStatus: (id, status) =>
       request(`/api/customer-packages/${id}/status`, {
         method: "PATCH",
@@ -198,6 +202,17 @@ export const salonApi = {
       }),
     removeItem: (id, itemId) =>
       request(`/api/job-carts/${id}/items/${itemId}`, {
+        method: "DELETE",
+      }),
+    redemptions: (id) =>
+      request(`/api/job-carts/${id}/package-redemptions`),
+    addRedemption: (id, body) =>
+      request(`/api/job-carts/${id}/package-redemptions`, {
+        method: "POST",
+        body,
+      }),
+    removeRedemption: (id, usageId) =>
+      request(`/api/job-carts/${id}/package-redemptions/${usageId}`, {
         method: "DELETE",
       }),
     confirm: (id) =>

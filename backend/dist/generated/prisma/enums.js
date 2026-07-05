@@ -137,12 +137,18 @@ export const CustomerPackageStatus = {
     USED: 'USED',
     CANCELLED: 'CANCELLED'
 };
+export const CustomerPackageUsageStatus = {
+    RESERVED: 'RESERVED',
+    USED: 'USED',
+    CANCELLED: 'CANCELLED'
+};
 export const PackageItemType = {
     SERVICE: 'SERVICE'
 };
 export const InvoiceItemType = {
     SERVICE: 'SERVICE',
-    PACKAGE: 'PACKAGE'
+    PACKAGE: 'PACKAGE',
+    PACKAGE_REDEMPTION: 'PACKAGE_REDEMPTION'
 };
 export const CustomerTransactionType = {
     INVOICE: 'INVOICE',

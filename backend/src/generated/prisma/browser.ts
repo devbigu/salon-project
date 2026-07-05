@@ -173,6 +173,21 @@ export type InvoiceItem = Prisma.InvoiceItemModel
  */
 export type CustomerPackage = Prisma.CustomerPackageModel
 /**
+ * Model CustomerPackageServiceBalance
+ * 
+ */
+export type CustomerPackageServiceBalance = Prisma.CustomerPackageServiceBalanceModel
+/**
+ * Model CustomerPackageUsage
+ * 
+ */
+export type CustomerPackageUsage = Prisma.CustomerPackageUsageModel
+/**
+ * Model CustomerPackageUsageItem
+ * 
+ */
+export type CustomerPackageUsageItem = Prisma.CustomerPackageUsageItemModel
+/**
  * Model Payment
  * 
  */

@@ -4,6 +4,9 @@ import { requireRole } from "../../middlewares/rbac.middleware.js";
 import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
 import {
   getCustomerPackageById,
+  getCustomerPackageBalancesByCustomer,
+  getCustomerPackageBalancesById,
+  getCustomerPackageUsageHistory,
   getCustomerPackages,
   getCustomerPackagesForCustomer,
   getPackageById,
@@ -74,6 +77,16 @@ customerPackageRoutes.param("id", validateUuidParam("id"));
 customerPackageRoutes.use(authenticate);
 customerPackageRoutes.get("/", requireRole(...viewers), getCustomerPackages);
 customerPackageRoutes.get(
+  "/:id/balances",
+  requireRole(...viewers),
+  getCustomerPackageBalancesById
+);
+customerPackageRoutes.get(
+  "/:id/usages",
+  requireRole(...viewers),
+  getCustomerPackageUsageHistory
+);
+customerPackageRoutes.get(
   "/:id",
   requireRole(...viewers),
   getCustomerPackageById
@@ -91,8 +104,12 @@ customerPackageCustomerRoutes.param(
 );
 customerPackageCustomerRoutes.use(authenticate);
 customerPackageCustomerRoutes.get(
+  "/:customerId/package-balances",
+  requireRole(...viewers),
+  getCustomerPackageBalancesByCustomer
+);
+customerPackageCustomerRoutes.get(
   "/:customerId/packages",
   requireRole(...viewers),
   getCustomerPackagesForCustomer
 );
-

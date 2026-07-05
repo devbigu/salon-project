@@ -295,6 +295,7 @@ export type ServicePackageWhereInput = {
   items?: Prisma.ServicePackageItemListRelationFilter
   invoiceItems?: Prisma.InvoiceItemListRelationFilter
   customerPackages?: Prisma.CustomerPackageListRelationFilter
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceListRelationFilter
 }
 
 export type ServicePackageOrderByWithRelationInput = {
@@ -318,6 +319,7 @@ export type ServicePackageOrderByWithRelationInput = {
   items?: Prisma.ServicePackageItemOrderByRelationAggregateInput
   invoiceItems?: Prisma.InvoiceItemOrderByRelationAggregateInput
   customerPackages?: Prisma.CustomerPackageOrderByRelationAggregateInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceOrderByRelationAggregateInput
 }
 
 export type ServicePackageWhereUniqueInput = Prisma.AtLeast<{
@@ -345,6 +347,7 @@ export type ServicePackageWhereUniqueInput = Prisma.AtLeast<{
   items?: Prisma.ServicePackageItemListRelationFilter
   invoiceItems?: Prisma.InvoiceItemListRelationFilter
   customerPackages?: Prisma.CustomerPackageListRelationFilter
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceListRelationFilter
 }, "id" | "salonId_name">
 
 export type ServicePackageOrderByWithAggregationInput = {
@@ -404,6 +407,7 @@ export type ServicePackageCreateInput = {
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateInput = {
@@ -423,6 +427,7 @@ export type ServicePackageUncheckedCreateInput = {
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUpdateInput = {
@@ -442,6 +447,7 @@ export type ServicePackageUpdateInput = {
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateInput = {
@@ -461,6 +467,7 @@ export type ServicePackageUncheckedUpdateInput = {
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageCreateManyInput = {
@@ -804,6 +811,20 @@ export type ServicePackageUpdateOneRequiredWithoutCustomerPackagesNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.ServicePackageUpdateToOneWithWhereWithoutCustomerPackagesInput, Prisma.ServicePackageUpdateWithoutCustomerPackagesInput>, Prisma.ServicePackageUncheckedUpdateWithoutCustomerPackagesInput>
 }
 
+export type ServicePackageCreateNestedOneWithoutServiceBalancesInput = {
+  create?: Prisma.XOR<Prisma.ServicePackageCreateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedCreateWithoutServiceBalancesInput>
+  connectOrCreate?: Prisma.ServicePackageCreateOrConnectWithoutServiceBalancesInput
+  connect?: Prisma.ServicePackageWhereUniqueInput
+}
+
+export type ServicePackageUpdateOneRequiredWithoutServiceBalancesNestedInput = {
+  create?: Prisma.XOR<Prisma.ServicePackageCreateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedCreateWithoutServiceBalancesInput>
+  connectOrCreate?: Prisma.ServicePackageCreateOrConnectWithoutServiceBalancesInput
+  upsert?: Prisma.ServicePackageUpsertWithoutServiceBalancesInput
+  connect?: Prisma.ServicePackageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ServicePackageUpdateToOneWithWhereWithoutServiceBalancesInput, Prisma.ServicePackageUpdateWithoutServiceBalancesInput>, Prisma.ServicePackageUncheckedUpdateWithoutServiceBalancesInput>
+}
+
 export type ServicePackageCreateWithoutSalonInput = {
   id?: string
   name: string
@@ -820,6 +841,7 @@ export type ServicePackageCreateWithoutSalonInput = {
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutSalonInput = {
@@ -838,6 +860,7 @@ export type ServicePackageUncheckedCreateWithoutSalonInput = {
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutSalonInput = {
@@ -901,6 +924,7 @@ export type ServicePackageCreateWithoutCreatedByInput = {
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutCreatedByInput = {
@@ -919,6 +943,7 @@ export type ServicePackageUncheckedCreateWithoutCreatedByInput = {
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutCreatedByInput = {
@@ -963,6 +988,7 @@ export type ServicePackageCreateWithoutBranchInput = {
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutBranchInput = {
@@ -981,6 +1007,7 @@ export type ServicePackageUncheckedCreateWithoutBranchInput = {
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutBranchInput = {
@@ -1025,6 +1052,7 @@ export type ServicePackageCreateWithoutCategoryInput = {
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutCategoryInput = {
@@ -1043,6 +1071,7 @@ export type ServicePackageUncheckedCreateWithoutCategoryInput = {
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutCategoryInput = {
@@ -1087,6 +1116,7 @@ export type ServicePackageCreateWithoutItemsInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedServicePackagesInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutItemsInput = {
@@ -1105,6 +1135,7 @@ export type ServicePackageUncheckedCreateWithoutItemsInput = {
   updatedAt?: Date | string
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutItemsInput = {
@@ -1139,6 +1170,7 @@ export type ServicePackageUpdateWithoutItemsInput = {
   createdBy?: Prisma.UserUpdateOneWithoutCreatedServicePackagesNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutItemsInput = {
@@ -1157,6 +1189,7 @@ export type ServicePackageUncheckedUpdateWithoutItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageCreateWithoutInvoiceItemsInput = {
@@ -1175,6 +1208,7 @@ export type ServicePackageCreateWithoutInvoiceItemsInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedServicePackagesInput
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutInvoiceItemsInput = {
@@ -1193,6 +1227,7 @@ export type ServicePackageUncheckedCreateWithoutInvoiceItemsInput = {
   updatedAt?: Date | string
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutInvoiceItemsInput = {
@@ -1227,6 +1262,7 @@ export type ServicePackageUpdateWithoutInvoiceItemsInput = {
   createdBy?: Prisma.UserUpdateOneWithoutCreatedServicePackagesNestedInput
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutInvoiceItemsInput = {
@@ -1245,6 +1281,7 @@ export type ServicePackageUncheckedUpdateWithoutInvoiceItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageCreateWithoutCustomerPackagesInput = {
@@ -1263,6 +1300,7 @@ export type ServicePackageCreateWithoutCustomerPackagesInput = {
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedServicePackagesInput
   items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageUncheckedCreateWithoutCustomerPackagesInput = {
@@ -1281,6 +1319,7 @@ export type ServicePackageUncheckedCreateWithoutCustomerPackagesInput = {
   updatedAt?: Date | string
   items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
   invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type ServicePackageCreateOrConnectWithoutCustomerPackagesInput = {
@@ -1315,6 +1354,7 @@ export type ServicePackageUpdateWithoutCustomerPackagesInput = {
   createdBy?: Prisma.UserUpdateOneWithoutCreatedServicePackagesNestedInput
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutCustomerPackagesInput = {
@@ -1333,6 +1373,99 @@ export type ServicePackageUncheckedUpdateWithoutCustomerPackagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
+}
+
+export type ServicePackageCreateWithoutServiceBalancesInput = {
+  id?: string
+  name: string
+  description?: string | null
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  specialPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  validityDays: number
+  status?: $Enums.PackageStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutServicePackagesInput
+  branch?: Prisma.BranchCreateNestedOneWithoutServicePackagesInput
+  category: Prisma.PackageCategoryCreateNestedOneWithoutPackagesInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedServicePackagesInput
+  items?: Prisma.ServicePackageItemCreateNestedManyWithoutPackageInput
+  invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutPackageInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutPackageInput
+}
+
+export type ServicePackageUncheckedCreateWithoutServiceBalancesInput = {
+  id?: string
+  salonId: string
+  branchId?: string | null
+  categoryId: string
+  name: string
+  description?: string | null
+  totalPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  specialPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  validityDays: number
+  status?: $Enums.PackageStatus
+  createdById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutPackageInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutPackageInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutPackageInput
+}
+
+export type ServicePackageCreateOrConnectWithoutServiceBalancesInput = {
+  where: Prisma.ServicePackageWhereUniqueInput
+  create: Prisma.XOR<Prisma.ServicePackageCreateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedCreateWithoutServiceBalancesInput>
+}
+
+export type ServicePackageUpsertWithoutServiceBalancesInput = {
+  update: Prisma.XOR<Prisma.ServicePackageUpdateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedUpdateWithoutServiceBalancesInput>
+  create: Prisma.XOR<Prisma.ServicePackageCreateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedCreateWithoutServiceBalancesInput>
+  where?: Prisma.ServicePackageWhereInput
+}
+
+export type ServicePackageUpdateToOneWithWhereWithoutServiceBalancesInput = {
+  where?: Prisma.ServicePackageWhereInput
+  data: Prisma.XOR<Prisma.ServicePackageUpdateWithoutServiceBalancesInput, Prisma.ServicePackageUncheckedUpdateWithoutServiceBalancesInput>
+}
+
+export type ServicePackageUpdateWithoutServiceBalancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  specialPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  validityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPackageStatusFieldUpdateOperationsInput | $Enums.PackageStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutServicePackagesNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutServicePackagesNestedInput
+  category?: Prisma.PackageCategoryUpdateOneRequiredWithoutPackagesNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedServicePackagesNestedInput
+  items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
+  invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+}
+
+export type ServicePackageUncheckedUpdateWithoutServiceBalancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  specialPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  validityDays?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPackageStatusFieldUpdateOperationsInput | $Enums.PackageStatus
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageCreateManySalonInput = {
@@ -1366,6 +1499,7 @@ export type ServicePackageUpdateWithoutSalonInput = {
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutSalonInput = {
@@ -1384,6 +1518,7 @@ export type ServicePackageUncheckedUpdateWithoutSalonInput = {
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateManyWithoutSalonInput = {
@@ -1432,6 +1567,7 @@ export type ServicePackageUpdateWithoutCreatedByInput = {
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutCreatedByInput = {
@@ -1450,6 +1586,7 @@ export type ServicePackageUncheckedUpdateWithoutCreatedByInput = {
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1498,6 +1635,7 @@ export type ServicePackageUpdateWithoutBranchInput = {
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutBranchInput = {
@@ -1516,6 +1654,7 @@ export type ServicePackageUncheckedUpdateWithoutBranchInput = {
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateManyWithoutBranchInput = {
@@ -1564,6 +1703,7 @@ export type ServicePackageUpdateWithoutCategoryInput = {
   items?: Prisma.ServicePackageItemUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateWithoutCategoryInput = {
@@ -1582,6 +1722,7 @@ export type ServicePackageUncheckedUpdateWithoutCategoryInput = {
   items?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutPackageNestedInput
   invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutPackageNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutPackageNestedInput
+  serviceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type ServicePackageUncheckedUpdateManyWithoutCategoryInput = {
@@ -1608,12 +1749,14 @@ export type ServicePackageCountOutputType = {
   items: number
   invoiceItems: number
   customerPackages: number
+  serviceBalances: number
 }
 
 export type ServicePackageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | ServicePackageCountOutputTypeCountItemsArgs
   invoiceItems?: boolean | ServicePackageCountOutputTypeCountInvoiceItemsArgs
   customerPackages?: boolean | ServicePackageCountOutputTypeCountCustomerPackagesArgs
+  serviceBalances?: boolean | ServicePackageCountOutputTypeCountServiceBalancesArgs
 }
 
 /**
@@ -1647,6 +1790,13 @@ export type ServicePackageCountOutputTypeCountCustomerPackagesArgs<ExtArgs exten
   where?: Prisma.CustomerPackageWhereInput
 }
 
+/**
+ * ServicePackageCountOutputType without action
+ */
+export type ServicePackageCountOutputTypeCountServiceBalancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerPackageServiceBalanceWhereInput
+}
+
 
 export type ServicePackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1669,6 +1819,7 @@ export type ServicePackageSelect<ExtArgs extends runtime.Types.Extensions.Intern
   items?: boolean | Prisma.ServicePackage$itemsArgs<ExtArgs>
   invoiceItems?: boolean | Prisma.ServicePackage$invoiceItemsArgs<ExtArgs>
   customerPackages?: boolean | Prisma.ServicePackage$customerPackagesArgs<ExtArgs>
+  serviceBalances?: boolean | Prisma.ServicePackage$serviceBalancesArgs<ExtArgs>
   _count?: boolean | Prisma.ServicePackageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["servicePackage"]>
 
@@ -1737,6 +1888,7 @@ export type ServicePackageInclude<ExtArgs extends runtime.Types.Extensions.Inter
   items?: boolean | Prisma.ServicePackage$itemsArgs<ExtArgs>
   invoiceItems?: boolean | Prisma.ServicePackage$invoiceItemsArgs<ExtArgs>
   customerPackages?: boolean | Prisma.ServicePackage$customerPackagesArgs<ExtArgs>
+  serviceBalances?: boolean | Prisma.ServicePackage$serviceBalancesArgs<ExtArgs>
   _count?: boolean | Prisma.ServicePackageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ServicePackageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1762,6 +1914,7 @@ export type $ServicePackagePayload<ExtArgs extends runtime.Types.Extensions.Inte
     items: Prisma.$ServicePackageItemPayload<ExtArgs>[]
     invoiceItems: Prisma.$InvoiceItemPayload<ExtArgs>[]
     customerPackages: Prisma.$CustomerPackagePayload<ExtArgs>[]
+    serviceBalances: Prisma.$CustomerPackageServiceBalancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2178,6 +2331,7 @@ export interface Prisma__ServicePackageClient<T, Null = never, ExtArgs extends r
   items<T extends Prisma.ServicePackage$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServicePackage$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePackageItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoiceItems<T extends Prisma.ServicePackage$invoiceItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServicePackage$invoiceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerPackages<T extends Prisma.ServicePackage$customerPackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServicePackage$customerPackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  serviceBalances<T extends Prisma.ServicePackage$serviceBalancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServicePackage$serviceBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackageServiceBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2728,6 +2882,30 @@ export type ServicePackage$customerPackagesArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.CustomerPackageScalarFieldEnum | Prisma.CustomerPackageScalarFieldEnum[]
+}
+
+/**
+ * ServicePackage.serviceBalances
+ */
+export type ServicePackage$serviceBalancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerPackageServiceBalance
+   */
+  select?: Prisma.CustomerPackageServiceBalanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerPackageServiceBalance
+   */
+  omit?: Prisma.CustomerPackageServiceBalanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerPackageServiceBalanceInclude<ExtArgs> | null
+  where?: Prisma.CustomerPackageServiceBalanceWhereInput
+  orderBy?: Prisma.CustomerPackageServiceBalanceOrderByWithRelationInput | Prisma.CustomerPackageServiceBalanceOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerPackageServiceBalanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerPackageServiceBalanceScalarFieldEnum | Prisma.CustomerPackageServiceBalanceScalarFieldEnum[]
 }
 
 /**

@@ -386,6 +386,52 @@ describe("service consumables", () => {
     ).toBe(1);
   });
 
+  it("restores completed appointment consumables once on cancellation", async () => {
+    const fixture = await createFixture();
+    await prisma.serviceConsumable.create({
+      data: {
+        salonId: fixture.salon.id,
+        serviceId: fixture.service.id,
+        productId: fixture.product.id,
+        quantity: 2,
+      },
+    });
+    const appointment = await createAppointment(fixture, [fixture.service.id]);
+
+    await request(app)
+      .patch(`/api/appointments/${appointment.id}/status`)
+      .set(auth(fixture.token))
+      .send({ status: "COMPLETED" })
+      .expect(200);
+    await request(app)
+      .patch(`/api/appointments/${appointment.id}/status`)
+      .set(auth(fixture.token))
+      .send({ status: "CANCELLED" })
+      .expect(200);
+    await request(app)
+      .patch(`/api/appointments/${appointment.id}/status`)
+      .set(auth(fixture.token))
+      .send({ status: "CANCELLED" })
+      .expect(400);
+
+    const [product, appointmentAfter, reversals] = await Promise.all([
+      prisma.product.findUniqueOrThrow({ where: { id: fixture.product.id } }),
+      prisma.appointment.findUniqueOrThrow({ where: { id: appointment.id } }),
+      prisma.productStockMovement.findMany({
+        where: {
+          productId: fixture.product.id,
+          type: "RETURNED",
+          referenceType: "APPOINTMENT_CONSUMABLE_REVERSAL",
+          referenceId: appointment.id,
+        },
+      }),
+    ]);
+    expect(Number(product.currentStock)).toBe(20);
+    expect(appointmentAfter.status).toBe("CANCELLED");
+    expect(reversals).toHaveLength(1);
+    expect(Number(reversals[0]!.quantity)).toBe(2);
+  });
+
   it("rolls back every deduction, status, and history when stock is insufficient", async () => {
     const fixture = await createFixture();
     await prisma.product.update({

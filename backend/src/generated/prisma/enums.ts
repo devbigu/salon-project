@@ -227,6 +227,15 @@ export const CustomerPackageStatus = {
 export type CustomerPackageStatus = (typeof CustomerPackageStatus)[keyof typeof CustomerPackageStatus]
 
 
+export const CustomerPackageUsageStatus = {
+  RESERVED: 'RESERVED',
+  USED: 'USED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type CustomerPackageUsageStatus = (typeof CustomerPackageUsageStatus)[keyof typeof CustomerPackageUsageStatus]
+
+
 export const PackageItemType = {
   SERVICE: 'SERVICE'
 } as const
@@ -236,7 +245,8 @@ export type PackageItemType = (typeof PackageItemType)[keyof typeof PackageItemT
 
 export const InvoiceItemType = {
   SERVICE: 'SERVICE',
-  PACKAGE: 'PACKAGE'
+  PACKAGE: 'PACKAGE',
+  PACKAGE_REDEMPTION: 'PACKAGE_REDEMPTION'
 } as const
 
 export type InvoiceItemType = (typeof InvoiceItemType)[keyof typeof InvoiceItemType]

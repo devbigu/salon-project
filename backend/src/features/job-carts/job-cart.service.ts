@@ -9,7 +9,9 @@ import { AppointmentModel } from "../appointments/appointment.model.js";
 import { createAuditLog } from "../audit-logs/audit-log.service.js";
 import { issueInvoice } from "../coupons/coupon.service.js";
 import { InvoiceModel } from "../Invoices/invoice.model.js";
+import { reverseUsedPackageUsagesForInvoice } from "../packages/package.service.js";
 import { normalizePhone } from "../public-booking/public-booking.service.js";
+import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
 
 type TransactionClient = Prisma.TransactionClient;
 
@@ -78,6 +80,9 @@ const jobCartInclude = {
           durationUnit: true,
         },
       },
+      customerPackageUsageItem: {
+        select: { id: true, usageId: true },
+      },
     },
     orderBy: { createdAt: "asc" as const },
   },
@@ -101,6 +106,26 @@ const jobCartInclude = {
       payments: { orderBy: { paidAt: "asc" as const } },
       coupon: true,
     },
+  },
+  packageUsageJobCarts: {
+    include: {
+      customerPackage: {
+        select: {
+          id: true,
+          packageNameSnapshot: true,
+          validUntil: true,
+          status: true,
+        },
+      },
+      items: {
+        include: {
+          staff: { select: { id: true, name: true } },
+          customerPackageServiceBalance: true,
+        },
+        orderBy: { createdAt: "asc" as const },
+      },
+    },
+    orderBy: { createdAt: "asc" as const },
   },
 } as const;
 
@@ -152,7 +177,9 @@ const present = (cart: JobCartRecord) => ({
   createdBy: cart.createdBy,
   editedBy: null,
   items: [
-    ...cart.services.map((item) => ({ ...item, itemType: "SERVICE" as const })),
+    ...cart.services
+      .filter((item) => !item.customerPackageUsageItemId)
+      .map((item) => ({ ...item, itemType: "SERVICE" as const })),
     ...(cart.invoice?.items ?? [])
       .filter((item) => item.itemType === "PACKAGE")
       .map((item) => ({
@@ -169,6 +196,7 @@ const present = (cart: JobCartRecord) => ({
         createdAt: item.createdAt,
       })),
   ],
+  packageRedemptions: cart.packageUsageJobCarts,
   invoice: cart.invoice,
 });
 
@@ -435,7 +463,10 @@ const recalculateCart = async (
   const packageItems = cart.invoice.items.filter(
     (item) => item.itemType === "PACKAGE"
   );
-  const serviceSubtotal = cart.services.reduce(
+  const paidServices = cart.services.filter(
+    (item) => !item.customerPackageUsageItemId
+  );
+  const serviceSubtotal = paidServices.reduce(
     (sum, item) => sum.add(item.price),
     new Prisma.Decimal(0)
   );
@@ -486,7 +517,7 @@ const recalculateCart = async (
       totalAmount: total,
       balanceAmount: total,
       items: {
-        create: cart.services.map((item) => ({
+        create: paidServices.map((item) => ({
           itemType: "SERVICE",
           serviceId: item.serviceId,
           itemCode: item.serviceId.slice(0, 8),
@@ -834,6 +865,9 @@ export const getJobCartCustomerSummary = async (
         validUntil: true,
         status: true,
         soldByStaff: { select: { name: true } },
+        serviceBalances: {
+          orderBy: { serviceNameSnapshot: "asc" },
+        },
       },
       orderBy: { validUntil: "asc" },
     }),
@@ -907,6 +941,18 @@ export const getJobCartCustomerSummary = async (
       validUntil: item.validUntil,
       status: item.status,
       soldByStaffName: item.soldByStaff?.name ?? null,
+      serviceBalances: item.serviceBalances.map((balance) => ({
+        balanceId: balance.id,
+        serviceId: balance.serviceId,
+        serviceName: balance.serviceNameSnapshot,
+        includedQuantity: balance.includedQuantity,
+        usedQuantity: balance.usedQuantity,
+        reservedQuantity: balance.reservedQuantity,
+        remainingQuantity:
+          balance.includedQuantity -
+          balance.usedQuantity -
+          balance.reservedQuantity,
+      })),
     })),
     recentInvoices: recentInvoices.map((invoice) => ({
       invoiceId: invoice.id,
@@ -1404,6 +1450,358 @@ export const removeJobCartItem = async (
     return present(await requireCart(tx, id, actor));
   });
 
+const cancelReservedUsage = async (
+  tx: TransactionClient,
+  usage: {
+    id: string;
+    salonId: string;
+    branchId: string;
+    customerPackageId: string;
+    items: Array<{
+      id: string;
+      quantity: number;
+      customerPackageServiceBalanceId: string;
+      serviceNameSnapshot: string;
+      appointmentServices: Array<{ id: string }>;
+      invoiceItem: { id: string } | null;
+    }>;
+  },
+  actor: JobCartActor,
+  audit: AuditContext,
+  description: string
+) => {
+  for (const item of usage.items) {
+    await tx.$queryRaw`SELECT "id" FROM "CustomerPackageServiceBalance" WHERE "id" = ${item.customerPackageServiceBalanceId} FOR UPDATE`;
+    const released = await tx.customerPackageServiceBalance.updateMany({
+      where: {
+        id: item.customerPackageServiceBalanceId,
+        reservedQuantity: { gte: item.quantity },
+      },
+      data: { reservedQuantity: { decrement: item.quantity } },
+    });
+    if (released.count !== 1) {
+      throw new JobCartError(409, "Package reservation balance changed");
+    }
+    if (item.appointmentServices.length) {
+      await tx.appointmentService.deleteMany({
+        where: { id: { in: item.appointmentServices.map((row) => row.id) } },
+      });
+    }
+    if (item.invoiceItem) {
+      await tx.invoiceItem.delete({ where: { id: item.invoiceItem.id } });
+    }
+  }
+  const cancelled = await tx.customerPackageUsage.update({
+    where: { id: usage.id },
+    data: { status: "CANCELLED", cancelledAt: new Date() },
+  });
+  await createAuditLog({
+    tx,
+    salonId: usage.salonId,
+    branchId: usage.branchId,
+    userId: actor.userId,
+    module: "PACKAGE",
+    action: "CANCEL",
+    entityId: usage.id,
+    description,
+    oldData: {
+      status: "RESERVED",
+      customerPackageId: usage.customerPackageId,
+    },
+    newData: { status: cancelled.status },
+    ...audit,
+  });
+};
+
+export const addJobCartPackageRedemption = async (
+  actor: JobCartActor,
+  id: string,
+  input: {
+    customerPackageId: string;
+    items: Array<{
+      serviceId: string;
+      quantity: number;
+      staffId?: string | undefined;
+    }>;
+  },
+  audit: AuditContext
+) =>
+  prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
+    const existing = await requireCart(tx, id, actor);
+    requireMutable(existing);
+    await tx.$queryRaw`SELECT "id" FROM "CustomerPackage" WHERE "id" = ${input.customerPackageId} FOR UPDATE`;
+    const customerPackage = await tx.customerPackage.findFirst({
+      where: {
+        id: input.customerPackageId,
+        salonId: existing.salonId,
+        customerId: existing.customerId,
+      },
+      include: {
+        package: { select: { branchId: true } },
+        serviceBalances: true,
+      },
+    });
+    if (!customerPackage) {
+      throw new JobCartError(404, "Customer package not found");
+    }
+    if (
+      customerPackage.status !== "ACTIVE" ||
+      customerPackage.validUntil < new Date()
+    ) {
+      throw new JobCartError(409, "Customer package is not active");
+    }
+    if (
+      customerPackage.package.branchId &&
+      customerPackage.package.branchId !== existing.branchId
+    ) {
+      throw new JobCartError(400, "Package is not valid for this branch");
+    }
+
+    const balances = new Map(
+      customerPackage.serviceBalances.map((balance) => [
+        balance.serviceId,
+        balance,
+      ])
+    );
+    for (const requested of input.items) {
+      const balance = balances.get(requested.serviceId);
+      if (!balance) {
+        throw new JobCartError(400, "Service is not included in this package");
+      }
+      await tx.$queryRaw`SELECT "id" FROM "CustomerPackageServiceBalance" WHERE "id" = ${balance.id} FOR UPDATE`;
+      const current = await tx.customerPackageServiceBalance.findUniqueOrThrow({
+        where: { id: balance.id },
+      });
+      const remaining =
+        current.includedQuantity -
+        current.usedQuantity -
+        current.reservedQuantity;
+      if (remaining < requested.quantity) {
+        throw new JobCartError(
+          409,
+          `Only ${remaining} ${current.serviceNameSnapshot} redemption(s) remain`
+        );
+      }
+      if (requested.staffId) {
+        await validateStaff(
+          tx,
+          existing.salonId,
+          existing.branchId!,
+          requested.staffId
+        );
+      }
+    }
+
+    const usage = await tx.customerPackageUsage.create({
+      data: {
+        salonId: existing.salonId,
+        branchId: existing.branchId!,
+        customerId: existing.customerId,
+        customerPackageId: customerPackage.id,
+        appointmentId: existing.id,
+        invoiceId: existing.invoice!.id,
+        jobCartAppointmentId: existing.id,
+        status: "RESERVED",
+        createdById: actor.userId,
+      },
+    });
+
+    for (const requested of input.items) {
+      const balance = balances.get(requested.serviceId)!;
+      const usageItem = await tx.customerPackageUsageItem.create({
+        data: {
+          salonId: existing.salonId,
+          usageId: usage.id,
+          customerPackageServiceBalanceId: balance.id,
+          serviceId: balance.serviceId,
+          serviceNameSnapshot: balance.serviceNameSnapshot,
+          quantity: requested.quantity,
+          priceSnapshot: balance.priceSnapshot,
+          durationMinutesSnapshot: balance.durationMinutesSnapshot,
+          staffId: requested.staffId ?? null,
+        },
+      });
+      const reserved = await tx.customerPackageServiceBalance.updateMany({
+        where: {
+          id: balance.id,
+          includedQuantity: {
+            gte:
+              balance.usedQuantity +
+              balance.reservedQuantity +
+              requested.quantity,
+          },
+        },
+        data: { reservedQuantity: { increment: requested.quantity } },
+      });
+      if (reserved.count !== 1) {
+        throw new JobCartError(409, "Package service balance changed");
+      }
+      await tx.appointmentService.createMany({
+        data: Array.from({ length: requested.quantity }, () => ({
+          appointmentId: existing.id,
+          serviceId: balance.serviceId,
+          serviceName: balance.serviceNameSnapshot,
+          price: new Prisma.Decimal(0),
+          durationValue: balance.durationMinutesSnapshot,
+          durationUnit: "MINUTES" as const,
+          customerPackageUsageItemId: usageItem.id,
+        })),
+      });
+      await tx.invoiceItem.create({
+        data: {
+          invoiceId: existing.invoice!.id,
+          serviceId: balance.serviceId,
+          itemType: "PACKAGE_REDEMPTION",
+          customerPackageUsageItemId: usageItem.id,
+          itemCode: `RED-${balance.serviceId.slice(0, 8)}`,
+          description: `${balance.serviceNameSnapshot} — package covered`,
+          serviceName: balance.serviceNameSnapshot,
+          quantity: requested.quantity,
+          unitPrice: 0,
+          discountAmount: 0,
+          taxPercent: 0,
+          taxAmount: 0,
+          lineTotal: 0,
+        },
+      });
+    }
+    await recalculateCart(tx, id);
+    await createAuditLog({
+      tx,
+      salonId: existing.salonId,
+      branchId: existing.branchId,
+      userId: actor.userId,
+      module: "PACKAGE",
+      action: "CREATE",
+      entityId: usage.id,
+      entityName: customerPackage.packageNameSnapshot,
+      description: `Package redemption reserved in job cart ${existing.appointmentCode}`,
+      newData: {
+        customerPackageId: customerPackage.id,
+        items: input.items,
+        status: "RESERVED",
+      },
+      ...audit,
+    });
+    return present(await requireCart(tx, id, actor));
+  });
+
+export const removeJobCartPackageRedemption = async (
+  actor: JobCartActor,
+  id: string,
+  usageId: string,
+  audit: AuditContext
+) =>
+  prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
+    const existing = await requireCart(tx, id, actor);
+    requireMutable(existing);
+    await tx.$queryRaw`SELECT "id" FROM "CustomerPackageUsage" WHERE "id" = ${usageId} FOR UPDATE`;
+    const usage = await tx.customerPackageUsage.findFirst({
+      where: {
+        id: usageId,
+        jobCartAppointmentId: id,
+        status: "RESERVED",
+        salonId: existing.salonId,
+      },
+      include: {
+        items: {
+          include: {
+            appointmentServices: { select: { id: true } },
+            invoiceItem: { select: { id: true } },
+          },
+        },
+      },
+    });
+    if (!usage) {
+      throw new JobCartError(404, "Reserved package redemption not found");
+    }
+    await cancelReservedUsage(
+      tx,
+      usage,
+      actor,
+      audit,
+      `Package redemption removed from job cart ${existing.appointmentCode}`
+    );
+    await recalculateCart(tx, id);
+    return present(await requireCart(tx, id, actor));
+  });
+
+export const getJobCartPackageRedemptions = async (
+  actor: JobCartActor,
+  id: string
+) => {
+  const cart = await requireCart(prisma, id, actor);
+  return cart.packageUsageJobCarts;
+};
+
+const useReservedPackageRedemptions = async (
+  tx: TransactionClient,
+  cart: JobCartRecord,
+  actor: JobCartActor,
+  audit: AuditContext
+) => {
+  const reservedUsages = cart.packageUsageJobCarts.filter(
+    (usage) => usage.status === "RESERVED"
+  );
+  const affectedPackages = new Set<string>();
+  for (const usage of reservedUsages) {
+    await tx.$queryRaw`SELECT "id" FROM "CustomerPackageUsage" WHERE "id" = ${usage.id} FOR UPDATE`;
+    for (const item of usage.items) {
+      await tx.$queryRaw`SELECT "id" FROM "CustomerPackageServiceBalance" WHERE "id" = ${item.customerPackageServiceBalanceId} FOR UPDATE`;
+      const moved = await tx.customerPackageServiceBalance.updateMany({
+        where: {
+          id: item.customerPackageServiceBalanceId,
+          reservedQuantity: { gte: item.quantity },
+        },
+        data: {
+          reservedQuantity: { decrement: item.quantity },
+          usedQuantity: { increment: item.quantity },
+        },
+      });
+      if (moved.count !== 1) {
+        throw new JobCartError(409, "Package reservation balance changed");
+      }
+    }
+    await tx.customerPackageUsage.update({
+      where: { id: usage.id },
+      data: { status: "USED", usedAt: new Date() },
+    });
+    affectedPackages.add(usage.customerPackageId);
+    await createAuditLog({
+      tx,
+      salonId: usage.salonId,
+      branchId: usage.branchId,
+      userId: actor.userId,
+      module: "PACKAGE",
+      action: "COMPLETE",
+      entityId: usage.id,
+      entityName: usage.customerPackage.packageNameSnapshot,
+      description: `Package redemption used in job cart ${cart.appointmentCode}`,
+      oldData: { status: "RESERVED" },
+      newData: { status: "USED", items: usage.items },
+      ...audit,
+    });
+  }
+  for (const customerPackageId of affectedPackages) {
+    const balances = await tx.customerPackageServiceBalance.findMany({
+      where: { customerPackageId },
+    });
+    if (
+      balances.length > 0 &&
+      balances.every(
+        (balance) => balance.usedQuantity >= balance.includedQuantity
+      )
+    ) {
+      await tx.customerPackage.update({
+        where: { id: customerPackageId },
+        data: { status: "USED" },
+      });
+    }
+  }
+};
+
 export const confirmJobCart = async (
   actor: JobCartActor,
   id: string,
@@ -1425,6 +1823,7 @@ export const confirmJobCart = async (
       endTime: existing.endTime,
       excludeAppointmentId: existing.id,
     });
+    await useReservedPackageRedemptions(tx, existing, actor, audit);
     await AppointmentModel.updateStatusWithHistory(
       id,
       {
@@ -1449,6 +1848,7 @@ export const confirmJobCart = async (
     for (const item of packageItems) {
       const servicePackage = await tx.servicePackage.findUnique({
         where: { id: item.packageId! },
+        include: { items: true },
       });
       if (!servicePackage) {
         throw new JobCartError(409, "A sold package no longer exists");
@@ -1475,6 +1875,22 @@ export const confirmJobCart = async (
           invoiceId: existing.invoice.id,
           jobCartAppointmentId: existing.id,
           createdById: actor.userId,
+          serviceBalances: {
+            create: servicePackage.items.map((packageItem) => ({
+              salonId: existing.salonId,
+              branchId: existing.branchId!,
+              customerId: existing.customerId,
+              packageId: servicePackage.id,
+              serviceId: packageItem.serviceId,
+              serviceNameSnapshot: packageItem.serviceNameSnapshot,
+              includedQuantity: packageItem.quantity,
+              usedQuantity: 0,
+              reservedQuantity: 0,
+              priceSnapshot: packageItem.priceSnapshot,
+              durationMinutesSnapshot:
+                packageItem.durationMinutesSnapshot,
+            })),
+          },
         },
       });
       await createAuditLog({
@@ -1523,7 +1939,26 @@ export const cancelJobCart = async (
   prisma.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT "id" FROM "Appointment" WHERE "id" = ${id} FOR UPDATE`;
     const existing = await requireCart(tx, id, actor);
-    requireMutable(existing);
+    const invoice = existing.invoice;
+    const status = mappedStatus(existing);
+    const isCompletedRedemption =
+      status === "COMPLETED" &&
+      invoice?.status === "ISSUED" &&
+      (await tx.customerPackageUsage.count({
+        where: {
+          invoiceId: invoice.id,
+          jobCartAppointmentId: id,
+          status: "USED",
+        },
+      })) > 0;
+    if (!isCompletedRedemption) {
+      requireMutable(existing);
+    } else if (
+      invoice.paymentStatus !== "UNPAID" ||
+      invoice.paidAmount.gt(0)
+    ) {
+      throw new JobCartError(409, "Paid job carts cannot be cancelled");
+    }
     const ledgerEntry = await tx.customerTransaction.findFirst({
       where: { invoiceId: existing.invoice!.id },
       select: { id: true },
@@ -1533,6 +1968,63 @@ export const cancelJobCart = async (
         409,
         "Job cart cannot be cancelled after ledger activity"
       );
+    }
+    if (isCompletedRedemption) {
+      if (existing.invoice!.couponId) {
+        await tx.$queryRaw`SELECT "id" FROM "Coupon" WHERE "id" = ${existing.invoice!.couponId} FOR UPDATE`;
+        await tx.coupon.updateMany({
+          where: {
+            id: existing.invoice!.couponId,
+            usedCount: { gt: 0 },
+          },
+          data: { usedCount: { decrement: 1 } },
+        });
+      }
+      await reverseAppointmentConsumables({
+        tx,
+        appointmentId: id,
+        salonId: existing.salonId,
+        branchId: existing.branchId,
+        createdById: actor.userId,
+      });
+      await reverseUsedPackageUsagesForInvoice(tx, {
+        invoiceId: existing.invoice!.id,
+        userId: actor.userId,
+        ...audit,
+      });
+      await AppointmentModel.updateStatusWithHistory(
+        id,
+        {
+          oldStatus: existing.status,
+          newStatus: "CANCELLED",
+          note: "Confirmed package redemption job cart cancelled",
+          changedById: actor.userId,
+        },
+        tx
+      );
+      await InvoiceModel.cancel(existing.invoice!.id, tx);
+      await createAuditLog({
+        tx,
+        salonId: existing.salonId,
+        branchId: existing.branchId,
+        userId: actor.userId,
+        module: "JOB_CART",
+        action: "CANCEL",
+        entityId: id,
+        entityCode: existing.appointmentCode,
+        entityName: existing.customer.name,
+        description: `Confirmed package redemption job cart ${existing.appointmentCode} cancelled`,
+        oldData: {
+          appointmentStatus: existing.status,
+          invoiceStatus: existing.invoice!.status,
+        },
+        newData: {
+          appointmentStatus: "CANCELLED",
+          invoiceStatus: "CANCELLED",
+        },
+        ...audit,
+      });
+      return present(await requireCart(tx, id, actor));
     }
     const packageItems = existing.invoice!.items.filter(
       (item) => item.itemType === "PACKAGE"
@@ -1563,6 +2055,32 @@ export const cancelJobCart = async (
           ...audit,
         });
       }
+      await recalculateCart(tx, id);
+    }
+    const reservedUsages = await tx.customerPackageUsage.findMany({
+      where: {
+        jobCartAppointmentId: id,
+        status: "RESERVED",
+      },
+      include: {
+        items: {
+          include: {
+            appointmentServices: { select: { id: true } },
+            invoiceItem: { select: { id: true } },
+          },
+        },
+      },
+    });
+    for (const usage of reservedUsages) {
+      await cancelReservedUsage(
+        tx,
+        usage,
+        actor,
+        audit,
+        `Package redemption cancelled with job cart ${existing.appointmentCode}`
+      );
+    }
+    if (reservedUsages.length) {
       await recalculateCart(tx, id);
     }
     await AppointmentModel.updateStatusWithHistory(
