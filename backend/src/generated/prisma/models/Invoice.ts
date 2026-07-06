@@ -486,6 +486,7 @@ export type InvoiceWhereInput = {
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
   customerPackages?: Prisma.CustomerPackageListRelationFilter
   packageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  customerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }
 
 export type InvoiceOrderByWithRelationInput = {
@@ -533,6 +534,7 @@ export type InvoiceOrderByWithRelationInput = {
   customerTransactions?: Prisma.CustomerTransactionOrderByRelationAggregateInput
   customerPackages?: Prisma.CustomerPackageOrderByRelationAggregateInput
   packageUsages?: Prisma.CustomerPackageUsageOrderByRelationAggregateInput
+  customerMemberships?: Prisma.CustomerMembershipOrderByRelationAggregateInput
 }
 
 export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -584,6 +586,7 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   customerTransactions?: Prisma.CustomerTransactionListRelationFilter
   customerPackages?: Prisma.CustomerPackageListRelationFilter
   packageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  customerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }, "id" | "appointmentId" | "salonId_invoiceCode">
 
 export type InvoiceOrderByWithAggregationInput = {
@@ -708,6 +711,7 @@ export type InvoiceCreateInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateInput = {
@@ -750,6 +754,7 @@ export type InvoiceUncheckedCreateInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUpdateInput = {
@@ -792,6 +797,7 @@ export type InvoiceUpdateInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateInput = {
@@ -834,6 +840,7 @@ export type InvoiceUncheckedUpdateInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateManyInput = {
@@ -1184,6 +1191,22 @@ export type InvoiceUncheckedUpdateManyWithoutCustomerNestedInput = {
   deleteMany?: Prisma.InvoiceScalarWhereInput | Prisma.InvoiceScalarWhereInput[]
 }
 
+export type InvoiceCreateNestedOneWithoutCustomerMembershipsInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedCreateWithoutCustomerMembershipsInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutCustomerMembershipsInput
+  connect?: Prisma.InvoiceWhereUniqueInput
+}
+
+export type InvoiceUpdateOneWithoutCustomerMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedCreateWithoutCustomerMembershipsInput>
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutCustomerMembershipsInput
+  upsert?: Prisma.InvoiceUpsertWithoutCustomerMembershipsInput
+  disconnect?: Prisma.InvoiceWhereInput | boolean
+  delete?: Prisma.InvoiceWhereInput | boolean
+  connect?: Prisma.InvoiceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InvoiceUpdateToOneWithWhereWithoutCustomerMembershipsInput, Prisma.InvoiceUpdateWithoutCustomerMembershipsInput>, Prisma.InvoiceUncheckedUpdateWithoutCustomerMembershipsInput>
+}
+
 export type InvoiceCreateNestedOneWithoutCustomerTransactionsInput = {
   create?: Prisma.XOR<Prisma.InvoiceCreateWithoutCustomerTransactionsInput, Prisma.InvoiceUncheckedCreateWithoutCustomerTransactionsInput>
   connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutCustomerTransactionsInput
@@ -1423,6 +1446,7 @@ export type InvoiceCreateWithoutSalonInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutSalonInput = {
@@ -1464,6 +1488,7 @@ export type InvoiceUncheckedCreateWithoutSalonInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutSalonInput = {
@@ -1571,6 +1596,7 @@ export type InvoiceCreateWithoutCustomerInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCustomerInput = {
@@ -1612,6 +1638,7 @@ export type InvoiceUncheckedCreateWithoutCustomerInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutCustomerInput = {
@@ -1638,6 +1665,190 @@ export type InvoiceUpdateWithWhereUniqueWithoutCustomerInput = {
 export type InvoiceUpdateManyWithWhereWithoutCustomerInput = {
   where: Prisma.InvoiceScalarWhereInput
   data: Prisma.XOR<Prisma.InvoiceUpdateManyMutationInput, Prisma.InvoiceUncheckedUpdateManyWithoutCustomerInput>
+}
+
+export type InvoiceCreateWithoutCustomerMembershipsInput = {
+  id?: string
+  invoiceCode: string
+  couponCodeSnapshot?: string | null
+  couponDiscountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  invoiceType?: $Enums.InvoiceType
+  invoiceDate?: Date | string
+  salonName: string
+  salonPhone?: string | null
+  salonEmail?: string | null
+  salonAddress?: string | null
+  salonGst?: string | null
+  customerName: string
+  customerPhone?: string | null
+  customerEmail?: string | null
+  customerAddress?: string | null
+  customerGst?: string | null
+  subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  processingFeeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balanceAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.InvoiceStatus
+  paymentStatus?: $Enums.PaymentStatus
+  billingNote?: string | null
+  footerNote?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutInvoicesInput
+  branch?: Prisma.BranchCreateNestedOneWithoutInvoicesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutInvoicesInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutInvoiceInput
+  coupon?: Prisma.CouponCreateNestedOneWithoutInvoicesInput
+  items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
+  packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+}
+
+export type InvoiceUncheckedCreateWithoutCustomerMembershipsInput = {
+  id?: string
+  invoiceCode: string
+  salonId: string
+  branchId?: string | null
+  customerId: string
+  appointmentId?: string | null
+  couponId?: string | null
+  couponCodeSnapshot?: string | null
+  couponDiscountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  invoiceType?: $Enums.InvoiceType
+  invoiceDate?: Date | string
+  salonName: string
+  salonPhone?: string | null
+  salonEmail?: string | null
+  salonAddress?: string | null
+  salonGst?: string | null
+  customerName: string
+  customerPhone?: string | null
+  customerEmail?: string | null
+  customerAddress?: string | null
+  customerGst?: string | null
+  subtotalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  processingFeeAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  balanceAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.InvoiceStatus
+  paymentStatus?: $Enums.PaymentStatus
+  billingNote?: string | null
+  footerNote?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
+  packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+}
+
+export type InvoiceCreateOrConnectWithoutCustomerMembershipsInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedCreateWithoutCustomerMembershipsInput>
+}
+
+export type InvoiceUpsertWithoutCustomerMembershipsInput = {
+  update: Prisma.XOR<Prisma.InvoiceUpdateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedUpdateWithoutCustomerMembershipsInput>
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedCreateWithoutCustomerMembershipsInput>
+  where?: Prisma.InvoiceWhereInput
+}
+
+export type InvoiceUpdateToOneWithWhereWithoutCustomerMembershipsInput = {
+  where?: Prisma.InvoiceWhereInput
+  data: Prisma.XOR<Prisma.InvoiceUpdateWithoutCustomerMembershipsInput, Prisma.InvoiceUncheckedUpdateWithoutCustomerMembershipsInput>
+}
+
+export type InvoiceUpdateWithoutCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  couponCodeSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponDiscountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  invoiceType?: Prisma.EnumInvoiceTypeFieldUpdateOperationsInput | $Enums.InvoiceType
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salonName?: Prisma.StringFieldUpdateOperationsInput | string
+  salonPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonGst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerGst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  processingFeeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balanceAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  billingNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutInvoicesNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutInvoicesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutInvoicesNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutInvoiceNestedInput
+  coupon?: Prisma.CouponUpdateOneWithoutInvoicesNestedInput
+  items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
+  packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+}
+
+export type InvoiceUncheckedUpdateWithoutCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  appointmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponCodeSnapshot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  couponDiscountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  invoiceType?: Prisma.EnumInvoiceTypeFieldUpdateOperationsInput | $Enums.InvoiceType
+  invoiceDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salonName?: Prisma.StringFieldUpdateOperationsInput | string
+  salonPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salonGst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerGst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discountAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  processingFeeAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paidAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  balanceAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  billingNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footerNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
+  packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutCustomerTransactionsInput = {
@@ -1679,6 +1890,7 @@ export type InvoiceCreateWithoutCustomerTransactionsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCustomerTransactionsInput = {
@@ -1720,6 +1932,7 @@ export type InvoiceUncheckedCreateWithoutCustomerTransactionsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutCustomerTransactionsInput = {
@@ -1777,6 +1990,7 @@ export type InvoiceUpdateWithoutCustomerTransactionsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCustomerTransactionsInput = {
@@ -1818,6 +2032,7 @@ export type InvoiceUncheckedUpdateWithoutCustomerTransactionsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutCouponInput = {
@@ -1859,6 +2074,7 @@ export type InvoiceCreateWithoutCouponInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCouponInput = {
@@ -1900,6 +2116,7 @@ export type InvoiceUncheckedCreateWithoutCouponInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutCouponInput = {
@@ -1967,6 +2184,7 @@ export type InvoiceCreateWithoutBranchInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutBranchInput = {
@@ -2008,6 +2226,7 @@ export type InvoiceUncheckedCreateWithoutBranchInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutBranchInput = {
@@ -2075,6 +2294,7 @@ export type InvoiceCreateWithoutAppointmentInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutAppointmentInput = {
@@ -2116,6 +2336,7 @@ export type InvoiceUncheckedCreateWithoutAppointmentInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutAppointmentInput = {
@@ -2173,6 +2394,7 @@ export type InvoiceUpdateWithoutAppointmentInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutAppointmentInput = {
@@ -2214,6 +2436,7 @@ export type InvoiceUncheckedUpdateWithoutAppointmentInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutItemsInput = {
@@ -2255,6 +2478,7 @@ export type InvoiceCreateWithoutItemsInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutItemsInput = {
@@ -2296,6 +2520,7 @@ export type InvoiceUncheckedCreateWithoutItemsInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutItemsInput = {
@@ -2353,6 +2578,7 @@ export type InvoiceUpdateWithoutItemsInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutItemsInput = {
@@ -2394,6 +2620,7 @@ export type InvoiceUncheckedUpdateWithoutItemsInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutCustomerPackagesInput = {
@@ -2435,6 +2662,7 @@ export type InvoiceCreateWithoutCustomerPackagesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutCustomerPackagesInput = {
@@ -2476,6 +2704,7 @@ export type InvoiceUncheckedCreateWithoutCustomerPackagesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutInvoiceInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutCustomerPackagesInput = {
@@ -2533,6 +2762,7 @@ export type InvoiceUpdateWithoutCustomerPackagesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCustomerPackagesInput = {
@@ -2574,6 +2804,7 @@ export type InvoiceUncheckedUpdateWithoutCustomerPackagesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutPackageUsagesInput = {
@@ -2615,6 +2846,7 @@ export type InvoiceCreateWithoutPackageUsagesInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutPackageUsagesInput = {
@@ -2656,6 +2888,7 @@ export type InvoiceUncheckedCreateWithoutPackageUsagesInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutInvoiceInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutPackageUsagesInput = {
@@ -2713,6 +2946,7 @@ export type InvoiceUpdateWithoutPackageUsagesInput = {
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutPackageUsagesInput = {
@@ -2754,6 +2988,7 @@ export type InvoiceUncheckedUpdateWithoutPackageUsagesInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateWithoutPaymentsInput = {
@@ -2795,6 +3030,7 @@ export type InvoiceCreateWithoutPaymentsInput = {
   customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceUncheckedCreateWithoutPaymentsInput = {
@@ -2836,6 +3072,7 @@ export type InvoiceUncheckedCreateWithoutPaymentsInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutInvoiceInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutInvoiceInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutInvoiceInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutInvoiceInput
 }
 
 export type InvoiceCreateOrConnectWithoutPaymentsInput = {
@@ -2893,6 +3130,7 @@ export type InvoiceUpdateWithoutPaymentsInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
@@ -2934,6 +3172,7 @@ export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceCreateManySalonInput = {
@@ -3011,6 +3250,7 @@ export type InvoiceUpdateWithoutSalonInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutSalonInput = {
@@ -3052,6 +3292,7 @@ export type InvoiceUncheckedUpdateWithoutSalonInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateManyWithoutSalonInput = {
@@ -3165,6 +3406,7 @@ export type InvoiceUpdateWithoutCustomerInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCustomerInput = {
@@ -3206,6 +3448,7 @@ export type InvoiceUncheckedUpdateWithoutCustomerInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateManyWithoutCustomerInput = {
@@ -3319,6 +3562,7 @@ export type InvoiceUpdateWithoutCouponInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutCouponInput = {
@@ -3360,6 +3604,7 @@ export type InvoiceUncheckedUpdateWithoutCouponInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateManyWithoutCouponInput = {
@@ -3473,6 +3718,7 @@ export type InvoiceUpdateWithoutBranchInput = {
   customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateWithoutBranchInput = {
@@ -3514,6 +3760,7 @@ export type InvoiceUncheckedUpdateWithoutBranchInput = {
   customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutInvoiceNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutInvoiceNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutInvoiceNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutInvoiceNestedInput
 }
 
 export type InvoiceUncheckedUpdateManyWithoutBranchInput = {
@@ -3563,6 +3810,7 @@ export type InvoiceCountOutputType = {
   customerTransactions: number
   customerPackages: number
   packageUsages: number
+  customerMemberships: number
 }
 
 export type InvoiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3571,6 +3819,7 @@ export type InvoiceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   customerTransactions?: boolean | InvoiceCountOutputTypeCountCustomerTransactionsArgs
   customerPackages?: boolean | InvoiceCountOutputTypeCountCustomerPackagesArgs
   packageUsages?: boolean | InvoiceCountOutputTypeCountPackageUsagesArgs
+  customerMemberships?: boolean | InvoiceCountOutputTypeCountCustomerMembershipsArgs
 }
 
 /**
@@ -3616,6 +3865,13 @@ export type InvoiceCountOutputTypeCountCustomerPackagesArgs<ExtArgs extends runt
  */
 export type InvoiceCountOutputTypeCountPackageUsagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CustomerPackageUsageWhereInput
+}
+
+/**
+ * InvoiceCountOutputType without action
+ */
+export type InvoiceCountOutputTypeCountCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerMembershipWhereInput
 }
 
 
@@ -3664,6 +3920,7 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   customerTransactions?: boolean | Prisma.Invoice$customerTransactionsArgs<ExtArgs>
   customerPackages?: boolean | Prisma.Invoice$customerPackagesArgs<ExtArgs>
   packageUsages?: boolean | Prisma.Invoice$packageUsagesArgs<ExtArgs>
+  customerMemberships?: boolean | Prisma.Invoice$customerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.InvoiceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
@@ -3800,6 +4057,7 @@ export type InvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   customerTransactions?: boolean | Prisma.Invoice$customerTransactionsArgs<ExtArgs>
   customerPackages?: boolean | Prisma.Invoice$customerPackagesArgs<ExtArgs>
   packageUsages?: boolean | Prisma.Invoice$packageUsagesArgs<ExtArgs>
+  customerMemberships?: boolean | Prisma.Invoice$customerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.InvoiceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3830,6 +4088,7 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     customerTransactions: Prisma.$CustomerTransactionPayload<ExtArgs>[]
     customerPackages: Prisma.$CustomerPackagePayload<ExtArgs>[]
     packageUsages: Prisma.$CustomerPackageUsagePayload<ExtArgs>[]
+    customerMemberships: Prisma.$CustomerMembershipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4270,6 +4529,7 @@ export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends runtime.
   customerTransactions<T extends Prisma.Invoice$customerTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$customerTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerPackages<T extends Prisma.Invoice$customerPackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$customerPackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   packageUsages<T extends Prisma.Invoice$packageUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$packageUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackageUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerMemberships<T extends Prisma.Invoice$customerMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$customerMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4908,6 +5168,30 @@ export type Invoice$packageUsagesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.CustomerPackageUsageScalarFieldEnum | Prisma.CustomerPackageUsageScalarFieldEnum[]
+}
+
+/**
+ * Invoice.customerMemberships
+ */
+export type Invoice$customerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerMembership
+   */
+  select?: Prisma.CustomerMembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerMembership
+   */
+  omit?: Prisma.CustomerMembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerMembershipInclude<ExtArgs> | null
+  where?: Prisma.CustomerMembershipWhereInput
+  orderBy?: Prisma.CustomerMembershipOrderByWithRelationInput | Prisma.CustomerMembershipOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerMembershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerMembershipScalarFieldEnum | Prisma.CustomerMembershipScalarFieldEnum[]
 }
 
 /**

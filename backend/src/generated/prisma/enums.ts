@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const CustomerMembershipStatus = {
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED',
+  REMOVED: 'REMOVED'
+} as const
+
+export type CustomerMembershipStatus = (typeof CustomerMembershipStatus)[keyof typeof CustomerMembershipStatus]
+
+
 export const CustomerStatus = {
   REGULAR: 'REGULAR',
   PREMIUM: 'PREMIUM',

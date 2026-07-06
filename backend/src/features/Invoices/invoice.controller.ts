@@ -26,6 +26,7 @@ import {
 import { applyCouponSchema } from "../coupons/coupon.validation.js";
 import { reverseUsedPackageUsagesForInvoice } from "../packages/package.service.js";
 import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
+import { resolveCurrentCustomerMembership } from "../customer-memberships/customer-membership.service.js";
 
 
 const INVOICE_TYPES = ["GST_INVOICE", "BILL_OF_SUPPLY"] as const;
@@ -216,152 +217,178 @@ export const createInvoiceFromAppointment = async (
     const manualDiscountAmount = Number(
       Math.min(requestedManualDiscountAmount, subtotalAmount).toFixed(2)
     );
-    const membershipDiscountAmount =
-      appointment.customer.membership?.status
-        ? Number(
-            Math.min(
-              (subtotalAmount *
-                Number(
-                  appointment.customer.membership.discountPercentage
-                )) /
-                100,
-              subtotalAmount - manualDiscountAmount
-            ).toFixed(2)
-          )
-        : 0;
-    const finalDiscountAmount = Number(
-      Math.min(
-        manualDiscountAmount + membershipDiscountAmount,
-        subtotalAmount
-      ).toFixed(2)
-    );
     const finalProcessingFeeAmount = Math.max(
       Number(processingFeeAmount || 0),
       0
     );
-
-    const taxableAmount = Math.max(
-      subtotalAmount - finalDiscountAmount + finalProcessingFeeAmount,
-      0
-    );
-
     const finalTaxPercent =
-      finalInvoiceType === "GST_INVOICE" ? Math.max(Number(taxPercent || 0), 0) : 0;
+      finalInvoiceType === "GST_INVOICE"
+        ? Math.max(Number(taxPercent || 0), 0)
+        : 0;
+    const auditContext = requestAuditContext(req);
+    const membershipActor = {
+      userId: req.user!.userId,
+      role: req.user!.role,
+      ...(req.user?.salonId ? { salonId: req.user.salonId } : {}),
+      ...(req.user?.branchId ? { branchId: req.user.branchId } : {}),
+    };
 
-    const finalTaxAmount = Number(
-      ((taxableAmount * finalTaxPercent) / 100).toFixed(2)
+    const { invoice, membershipDiscountAmount } = await prisma.$transaction(
+      async (tx) => {
+        const currentMembership = await resolveCurrentCustomerMembership(tx, {
+          customerId: appointment.customerId,
+          actor: membershipActor,
+          audit: auditContext,
+        });
+        const membershipDiscountAmount = currentMembership
+          ? Number(
+              Math.min(
+                (subtotalAmount *
+                  Number(currentMembership.discountPercentageSnapshot)) /
+                  100,
+                subtotalAmount - manualDiscountAmount
+              ).toFixed(2)
+            )
+          : 0;
+        const finalDiscountAmount = Number(
+          Math.min(
+            manualDiscountAmount + membershipDiscountAmount,
+            subtotalAmount
+          ).toFixed(2)
+        );
+        const taxableAmount = Math.max(
+          subtotalAmount - finalDiscountAmount + finalProcessingFeeAmount,
+          0
+        );
+        const finalTaxAmount = Number(
+          ((taxableAmount * finalTaxPercent) / 100).toFixed(2)
+        );
+        const totalAmount = Number((taxableAmount + finalTaxAmount).toFixed(2));
+        const invoiceDate = new Date();
+        const created = await InvoiceModel.create(
+          {
+            invoiceCode: await generateInvoiceCode(
+              tx,
+              appointment.salon,
+              invoiceDate
+            ),
+            salonId: appointment.salonId,
+            ...(appointment.branchId
+              ? { branchId: appointment.branchId }
+              : {}),
+            customerId: appointment.customerId,
+            appointmentId: appointment.id,
+            invoiceType: finalInvoiceType,
+            salonName: appointment.salon.name,
+            ...(appointment.salon.phone
+              ? { salonPhone: appointment.salon.phone }
+              : {}),
+            ...(appointment.salon.email
+              ? { salonEmail: appointment.salon.email }
+              : {}),
+            salonAddress: buildAddress([
+              appointment.salon.addressLine1,
+              appointment.salon.addressLine2,
+              appointment.salon.city,
+              appointment.salon.state,
+              appointment.salon.country,
+              appointment.salon.postalCode,
+            ]),
+            customerName: appointment.customer.name,
+            ...(appointment.customer.phone
+              ? { customerPhone: appointment.customer.phone }
+              : {}),
+            ...(appointment.customer.email
+              ? { customerEmail: appointment.customer.email }
+              : {}),
+            ...(appointment.customer.gst
+              ? { customerGst: appointment.customer.gst }
+              : {}),
+            subtotalAmount,
+            discountAmount: finalDiscountAmount,
+            processingFeeAmount: finalProcessingFeeAmount,
+            taxAmount: finalTaxAmount,
+            totalAmount,
+            paidAmount: 0,
+            balanceAmount: totalAmount,
+            status: status === "DRAFT" ? "DRAFT" : "ISSUED",
+            paymentStatus: "UNPAID",
+            ...(billingNote ? { billingNote } : {}),
+            ...(footerNote ? { footerNote } : {}),
+            items: appointment.services.map((item) => ({
+              serviceId: item.serviceId,
+              itemCode: item.serviceId.slice(0, 8),
+              description: item.serviceName,
+              serviceName: item.serviceName,
+              quantity: 1,
+              unitPrice: Number(item.price),
+              discountAmount: 0,
+              taxPercent: finalTaxPercent,
+              taxAmount:
+                finalInvoiceType === "GST_INVOICE"
+                  ? Number(
+                      (
+                        (Number(item.price) * finalTaxPercent) /
+                        100
+                      ).toFixed(2)
+                    )
+                  : 0,
+              lineTotal:
+                finalInvoiceType === "GST_INVOICE"
+                  ? Number(
+                      (
+                        Number(item.price) +
+                        (Number(item.price) * finalTaxPercent) / 100
+                      ).toFixed(2)
+                    )
+                  : Number(item.price),
+            })),
+          },
+          tx
+        );
+
+        await CustomerModel.increaseOutstandingWithTransaction(
+          {
+            customerId: created.customerId,
+            salonId: created.salonId,
+            invoiceId: created.id,
+            billNo: created.invoiceCode,
+            amount: Number(created.totalAmount),
+            narration: `Invoice generated: ${created.invoiceCode}`,
+          },
+          tx
+        );
+
+        await createAuditLog({
+          tx,
+          salonId: created.salonId,
+          branchId: created.branchId,
+          userId: req.user?.userId,
+          module: "INVOICE",
+          action: "CREATE",
+          entityId: created.id,
+          entityCode: created.invoiceCode,
+          entityName: created.customerName,
+          description: `Invoice ${created.invoiceCode} created`,
+          newData: {
+            status: created.status,
+            paymentStatus: created.paymentStatus,
+            subtotalAmount: created.subtotalAmount,
+            discountAmount: created.discountAmount,
+            taxAmount: created.taxAmount,
+            totalAmount: created.totalAmount,
+            customerMembershipId: currentMembership?.id ?? null,
+            membershipName:
+              currentMembership?.membershipNameSnapshot ?? null,
+            membershipDiscountPercentage:
+              currentMembership?.discountPercentageSnapshot ?? null,
+            membershipDiscountAmount,
+          },
+          ...auditContext,
+        });
+        return { invoice: created, membershipDiscountAmount };
+      }
     );
-
-    const totalAmount = Number((taxableAmount + finalTaxAmount).toFixed(2));
-
-    const invoice = await prisma.$transaction(async (tx) => {
-      const invoiceDate = new Date();
-      const created = await InvoiceModel.create({
-      invoiceCode: await generateInvoiceCode(tx, appointment.salon, invoiceDate),
-
-      salonId: appointment.salonId,
-      ...(appointment.branchId ? { branchId: appointment.branchId } : {}),
-      customerId: appointment.customerId,
-      appointmentId: appointment.id,
-
-      invoiceType: finalInvoiceType,
-
-      salonName: appointment.salon.name,
-      ...(appointment.salon.phone ? { salonPhone: appointment.salon.phone } : {}),
-      ...(appointment.salon.email ? { salonEmail: appointment.salon.email } : {}),
-      salonAddress: buildAddress([
-        appointment.salon.addressLine1,
-        appointment.salon.addressLine2,
-        appointment.salon.city,
-        appointment.salon.state,
-        appointment.salon.country,
-        appointment.salon.postalCode,
-      ]),
-
-      customerName: appointment.customer.name,
-      ...(appointment.customer.phone
-        ? { customerPhone: appointment.customer.phone }
-        : {}),
-      ...(appointment.customer.email
-        ? { customerEmail: appointment.customer.email }
-        : {}),
-      ...(appointment.customer.gst
-        ? { customerGst: appointment.customer.gst }
-        : {}),
-
-      subtotalAmount,
-      discountAmount: finalDiscountAmount,
-      processingFeeAmount: finalProcessingFeeAmount,
-      taxAmount: finalTaxAmount,
-      totalAmount,
-
-      paidAmount: 0,
-      balanceAmount: totalAmount,
-
-      status: status === "DRAFT" ? "DRAFT" : "ISSUED",
-      paymentStatus: "UNPAID",
-
-      ...(billingNote ? { billingNote } : {}),
-      ...(footerNote ? { footerNote } : {}),
-
-      items: appointment.services.map((item) => ({
-        serviceId: item.serviceId,
-        itemCode: item.serviceId.slice(0, 8),
-        description: item.serviceName,
-        serviceName: item.serviceName,
-        quantity: 1,
-        unitPrice: Number(item.price),
-        discountAmount: 0,
-        taxPercent: finalTaxPercent,
-        taxAmount:
-          finalInvoiceType === "GST_INVOICE"
-            ? Number(((Number(item.price) * finalTaxPercent) / 100).toFixed(2))
-            : 0,
-        lineTotal:
-          finalInvoiceType === "GST_INVOICE"
-            ? Number(
-                (
-                  Number(item.price) +
-                  (Number(item.price) * finalTaxPercent) / 100
-                ).toFixed(2)
-              )
-            : Number(item.price),
-      })),
-      
-      }, tx);
-      await CustomerModel.increaseOutstandingWithTransaction({
-        customerId: created.customerId,
-        salonId: created.salonId,
-        invoiceId: created.id,
-        billNo: created.invoiceCode,
-        amount: Number(created.totalAmount),
-        narration: `Invoice generated: ${created.invoiceCode}`,
-      }, tx);
-
-      await createAuditLog({
-      tx,
-      salonId: created.salonId,
-      branchId: created.branchId,
-      userId: req.user?.userId,
-      module: "INVOICE",
-      action: "CREATE",
-      entityId: created.id,
-      entityCode: created.invoiceCode,
-      entityName: created.customerName,
-      description: `Invoice ${created.invoiceCode} created`,
-      newData: {
-        status: created.status,
-        paymentStatus: created.paymentStatus,
-        subtotalAmount: created.subtotalAmount,
-        discountAmount: created.discountAmount,
-        taxAmount: created.taxAmount,
-        totalAmount: created.totalAmount,
-      },
-      ...requestAuditContext(req),
-      });
-      return created;
-    });
-
 
     return res.status(201).json({
       success: true,

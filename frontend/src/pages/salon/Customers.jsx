@@ -3,10 +3,17 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Alert,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
   Modal,
   ModalBody,
   ModalHeader,
+  Row,
   Spinner,
+  Table,
 } from "reactstrap";
 import { Button, Icon } from "@/components/Component";
 import PageShell from "@/components/salon/PageShell";
@@ -26,6 +33,16 @@ const Customers = () => {
   const { user } = useAuth();
   const [refs, setRefs] = useState({ salons: [], branches: [], memberships: [] });
   const [membershipCustomer, setMembershipCustomer] = useState(null);
+  const [membershipHistory, setMembershipHistory] = useState([]);
+  const [membershipLoading, setMembershipLoading] = useState(false);
+  const [membershipSaving, setMembershipSaving] = useState(false);
+  const [membershipError, setMembershipError] = useState("");
+  const [membershipForm, setMembershipForm] = useState({
+    membershipId: "",
+    startsAt: new Date().toISOString().slice(0, 10),
+    expiresAt: "",
+    note: "",
+  });
   const [walletCustomer, setWalletCustomer] = useState(null);
   const [ledgerCustomer, setLedgerCustomer] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -142,6 +159,88 @@ const Customers = () => {
     }
   };
 
+  const loadCustomerMembership = async (customer) => {
+    setMembershipCustomer(customer);
+    setMembershipLoading(true);
+    setMembershipError("");
+    try {
+      const [detail, history] = await Promise.all([
+        salonApi.customers.get(customer.id),
+        salonApi.customers.memberships(customer.id),
+      ]);
+      setMembershipCustomer(detail.data);
+      setMembershipHistory(history.data || []);
+    } catch (error) {
+      setMembershipError(error.message);
+    } finally {
+      setMembershipLoading(false);
+    }
+  };
+
+  const refreshCustomerMembership = async () => {
+    if (!membershipCustomer?.id) return;
+    const [detail, history] = await Promise.all([
+      salonApi.customers.get(membershipCustomer.id),
+      salonApi.customers.memberships(membershipCustomer.id),
+    ]);
+    setMembershipCustomer(detail.data);
+    setMembershipHistory(history.data || []);
+    setRefreshKey((value) => value + 1);
+  };
+
+  const submitMembership = async (event) => {
+    event.preventDefault();
+    if (!membershipCustomer?.id || !membershipForm.membershipId) return;
+    setMembershipSaving(true);
+    setMembershipError("");
+    try {
+      await salonApi.customers.assignMembership(membershipCustomer.id, {
+        membershipId: membershipForm.membershipId,
+        ...(membershipForm.startsAt
+          ? {
+              startsAt: new Date(
+                `${membershipForm.startsAt}T00:00:00`
+              ).toISOString(),
+            }
+          : {}),
+        ...(membershipForm.expiresAt
+          ? {
+              expiresAt: new Date(
+                `${membershipForm.expiresAt}T23:59:59`
+              ).toISOString(),
+            }
+          : {}),
+        ...(membershipForm.note ? { note: membershipForm.note } : {}),
+      });
+      setMembershipForm({
+        membershipId: "",
+        startsAt: new Date().toISOString().slice(0, 10),
+        expiresAt: "",
+        note: "",
+      });
+      await refreshCustomerMembership();
+    } catch (error) {
+      setMembershipError(error.message);
+    } finally {
+      setMembershipSaving(false);
+    }
+  };
+
+  const endMembership = async (action) => {
+    const id = membershipCustomer?.currentCustomerMembershipId;
+    if (!id) return;
+    setMembershipSaving(true);
+    setMembershipError("");
+    try {
+      await salonApi.customerMemberships[action](id);
+      await refreshCustomerMembership();
+    } catch (error) {
+      setMembershipError(error.message);
+    } finally {
+      setMembershipSaving(false);
+    }
+  };
+
   return (
     <PageShell
       title="Customers"
@@ -195,22 +294,226 @@ const Customers = () => {
                 <Icon name="wallet-in" /> Wallet
               </Button>
             )}
-            {user?.role !== "STAFF" && <Button size="sm" color="primary" outline className="ms-1" onClick={() => setMembershipCustomer(row)}>Retention</Button>}
+            {user?.role !== "STAFF" && <Button size="sm" color="primary" outline className="ms-1" onClick={() => loadCustomerMembership(row)}>Retention</Button>}
             {user?.role !== "STAFF" && <Button size="sm" color="secondary" outline className="ms-1" onClick={() => { window.location.href = `/customer-retention/loyalty-transactions?customerId=${row.id}`; }}>Point history</Button>}
           </>
         )}
       />
 
-      <SchemaModal
+      <Modal
         isOpen={Boolean(membershipCustomer)}
         toggle={() => setMembershipCustomer(null)}
-        title={`Customer retention · ${membershipCustomer?.name || ""} · ${membershipCustomer?.loyaltyPoints || 0} points`}
-        initialValues={{ membershipId: membershipCustomer?.membershipId || "" }}
-        fields={[{ name: "membershipId", label: "Membership", type: "select", nullable: true, fullWidth: true,
-          options: refs.memberships.filter((m) => m.status).map((m) => ({ value: m.id, label: `${m.name} · ${Number(m.discountPercentage)}%` })) }]}
-        onSubmit={async (values) => { await salonApi.customers.setMembership(membershipCustomer.id, values.membershipId || null); setRefreshKey((v) => v + 1); }}
-        submitLabel="Save membership"
-      />
+        size="xl"
+        centered
+      >
+        <ModalHeader toggle={() => setMembershipCustomer(null)}>
+          Customer membership · {membershipCustomer?.name || ""}
+        </ModalHeader>
+        <ModalBody>
+          {membershipError && <Alert color="danger">{membershipError}</Alert>}
+          {membershipLoading ? (
+            <div className="text-center py-5">
+              <Spinner color="primary" />
+            </div>
+          ) : (
+            <>
+              <div className="card card-bordered mb-4">
+                <div className="card-inner d-flex justify-content-between align-items-start flex-wrap gap-3">
+                  <div>
+                    <div className="overline-title text-soft">Current membership</div>
+                    <h5 className="mt-1">
+                      {membershipCustomer?.currentMembership?.membershipName ||
+                        "No active membership"}
+                    </h5>
+                    {membershipCustomer?.currentMembership && (
+                      <div className="small text-soft">
+                        {Number(
+                          membershipCustomer.currentMembership
+                            .discountPercentage
+                        )}
+                        % discount · Starts{" "}
+                        {formatDate(
+                          membershipCustomer.currentMembership.startsAt
+                        )}{" "}
+                        · Expires{" "}
+                        {membershipCustomer.currentMembership.expiresAt
+                          ? formatDate(
+                              membershipCustomer.currentMembership.expiresAt
+                            )
+                          : "Never"}{" "}
+                        ·{" "}
+                        <StatusBadge
+                          value={membershipCustomer.currentMembership.status}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  {membershipCustomer?.currentCustomerMembershipId && (
+                    <div className="d-flex gap-2">
+                      <Button
+                        size="sm"
+                        color="warning"
+                        outline
+                        disabled={membershipSaving}
+                        onClick={() => endMembership("cancel")}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        size="sm"
+                        color="danger"
+                        outline
+                        disabled={membershipSaving}
+                        onClick={() => endMembership("remove")}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <Form
+                onSubmit={submitMembership}
+                className="card card-bordered mb-4"
+              >
+                <div className="card-inner">
+                  <h6>Assign or renew membership</h6>
+                  <Row className="g-3">
+                    <Col md="4">
+                      <FormGroup>
+                        <Label>Membership plan</Label>
+                        <Input
+                          type="select"
+                          required
+                          value={membershipForm.membershipId}
+                          onChange={(event) =>
+                            setMembershipForm((value) => ({
+                              ...value,
+                              membershipId: event.target.value,
+                            }))
+                          }
+                        >
+                          <option value="">Select membership</option>
+                          {refs.memberships
+                            .filter((item) => item.status)
+                            .map((item) => (
+                              <option key={item.id} value={item.id}>
+                                {item.name} ·{" "}
+                                {Number(item.discountPercentage)}%
+                              </option>
+                            ))}
+                        </Input>
+                      </FormGroup>
+                    </Col>
+                    <Col md="4">
+                      <FormGroup>
+                        <Label>Starts at</Label>
+                        <Input
+                          type="date"
+                          value={membershipForm.startsAt}
+                          onChange={(event) =>
+                            setMembershipForm((value) => ({
+                              ...value,
+                              startsAt: event.target.value,
+                            }))
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="4">
+                      <FormGroup>
+                        <Label>Expires at</Label>
+                        <Input
+                          type="date"
+                          value={membershipForm.expiresAt}
+                          onChange={(event) =>
+                            setMembershipForm((value) => ({
+                              ...value,
+                              expiresAt: event.target.value,
+                            }))
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="9">
+                      <FormGroup>
+                        <Label>Note</Label>
+                        <Input
+                          value={membershipForm.note}
+                          onChange={(event) =>
+                            setMembershipForm((value) => ({
+                              ...value,
+                              note: event.target.value,
+                            }))
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="3" className="d-flex align-items-end pb-3">
+                      <Button
+                        color="primary"
+                        type="submit"
+                        block
+                        disabled={membershipSaving}
+                      >
+                        {membershipSaving && (
+                          <Spinner size="sm" className="me-1" />
+                        )}
+                        Assign / Renew
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+              </Form>
+
+              <h6>Membership history</h6>
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th>Membership</th>
+                    <th>Discount</th>
+                    <th>Starts</th>
+                    <th>Expires</th>
+                    <th>Status</th>
+                    <th>Assigned by</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {membershipHistory.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.membershipNameSnapshot}</td>
+                      <td>{Number(item.discountPercentageSnapshot)}%</td>
+                      <td>{formatDate(item.startsAt)}</td>
+                      <td>
+                        {item.expiresAt
+                          ? formatDate(item.expiresAt)
+                          : "Never"}
+                      </td>
+                      <td>
+                        <StatusBadge value={item.status} />
+                      </td>
+                      <td>{item.assignedBy?.name || "—"}</td>
+                      <td>{item.note || "—"}</td>
+                    </tr>
+                  ))}
+                  {membershipHistory.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan="7"
+                        className="text-center text-soft py-4"
+                      >
+                        No membership history.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </Table>
+            </>
+          )}
+        </ModalBody>
+      </Modal>
 
       <SchemaModal
         isOpen={Boolean(walletCustomer)}

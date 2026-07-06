@@ -388,6 +388,7 @@ export const ModelName = {
   User: 'User',
   Customer: 'Customer',
   Membership: 'Membership',
+  CustomerMembership: 'CustomerMembership',
   CustomerTransaction: 'CustomerTransaction',
   LoyaltyRule: 'LoyaltyRule',
   LoyaltyTransaction: 'LoyaltyTransaction',
@@ -451,7 +452,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "salon" | "user" | "customer" | "membership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "customerPackageServiceBalance" | "customerPackageUsage" | "customerPackageUsageItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
+    modelProps: "salon" | "user" | "customer" | "membership" | "customerMembership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "customerPackageServiceBalance" | "customerPackageUsage" | "customerPackageUsageItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -748,6 +749,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MembershipCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MembershipCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerMembership: {
+      payload: Prisma.$CustomerMembershipPayload<ExtArgs>
+      fields: Prisma.CustomerMembershipFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerMembershipFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerMembershipFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerMembershipFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerMembershipFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerMembershipFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerMembershipCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerMembershipCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerMembershipCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerMembershipDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        update: {
+          args: Prisma.CustomerMembershipUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerMembershipDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerMembershipUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerMembershipUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerMembershipUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerMembershipPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerMembershipAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerMembership>
+        }
+        groupBy: {
+          args: Prisma.CustomerMembershipGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerMembershipGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerMembershipCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerMembershipCountAggregateOutputType> | number
         }
       }
     }
@@ -4418,6 +4493,30 @@ export const MembershipScalarFieldEnum = {
 export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
+export const CustomerMembershipScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  customerId: 'customerId',
+  membershipId: 'membershipId',
+  membershipNameSnapshot: 'membershipNameSnapshot',
+  discountPercentageSnapshot: 'discountPercentageSnapshot',
+  startsAt: 'startsAt',
+  expiresAt: 'expiresAt',
+  status: 'status',
+  assignedById: 'assignedById',
+  removedById: 'removedById',
+  removedAt: 'removedAt',
+  invoiceId: 'invoiceId',
+  jobCartAppointmentId: 'jobCartAppointmentId',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerMembershipScalarFieldEnum = (typeof CustomerMembershipScalarFieldEnum)[keyof typeof CustomerMembershipScalarFieldEnum]
+
+
 export const CustomerTransactionScalarFieldEnum = {
   id: 'id',
   customerId: 'customerId',
@@ -5525,6 +5624,20 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'CustomerMembershipStatus'
+ */
+export type EnumCustomerMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerMembershipStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerMembershipStatus[]'
+ */
+export type ListEnumCustomerMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerMembershipStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'CustomerTransactionType'
  */
 export type EnumCustomerTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerTransactionType'>
@@ -6127,6 +6240,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   customer?: Prisma.CustomerOmit
   membership?: Prisma.MembershipOmit
+  customerMembership?: Prisma.CustomerMembershipOmit
   customerTransaction?: Prisma.CustomerTransactionOmit
   loyaltyRule?: Prisma.LoyaltyRuleOmit
   loyaltyTransaction?: Prisma.LoyaltyTransactionOmit

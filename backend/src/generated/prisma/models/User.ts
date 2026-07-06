@@ -259,6 +259,8 @@ export type UserWhereInput = {
   createdServicePackages?: Prisma.ServicePackageListRelationFilter
   createdCustomerPackages?: Prisma.CustomerPackageListRelationFilter
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  assignedCustomerMemberships?: Prisma.CustomerMembershipListRelationFilter
+  removedCustomerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -302,6 +304,8 @@ export type UserOrderByWithRelationInput = {
   createdServicePackages?: Prisma.ServicePackageOrderByRelationAggregateInput
   createdCustomerPackages?: Prisma.CustomerPackageOrderByRelationAggregateInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageOrderByRelationAggregateInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipOrderByRelationAggregateInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -348,6 +352,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdServicePackages?: Prisma.ServicePackageListRelationFilter
   createdCustomerPackages?: Prisma.CustomerPackageListRelationFilter
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  assignedCustomerMemberships?: Prisma.CustomerMembershipListRelationFilter
+  removedCustomerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }, "id" | "email" | "phone_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -423,6 +429,8 @@ export type UserCreateInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -464,6 +472,8 @@ export type UserUncheckedCreateInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUpdateInput = {
@@ -505,6 +515,8 @@ export type UserUpdateInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -546,6 +558,8 @@ export type UserUncheckedUpdateInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -698,6 +712,38 @@ export type EnumRoleFieldUpdateOperationsInput = {
 
 export type EnumUserStatusFieldUpdateOperationsInput = {
   set?: $Enums.UserStatus
+}
+
+export type UserCreateNestedOneWithoutAssignedCustomerMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutAssignedCustomerMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCustomerMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRemovedCustomerMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutRemovedCustomerMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRemovedCustomerMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAssignedCustomerMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutAssignedCustomerMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssignedCustomerMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutAssignedCustomerMembershipsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssignedCustomerMembershipsInput, Prisma.UserUpdateWithoutAssignedCustomerMembershipsInput>, Prisma.UserUncheckedUpdateWithoutAssignedCustomerMembershipsInput>
+}
+
+export type UserUpdateOneWithoutRemovedCustomerMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutRemovedCustomerMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRemovedCustomerMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutRemovedCustomerMembershipsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRemovedCustomerMembershipsInput, Prisma.UserUpdateWithoutRemovedCustomerMembershipsInput>, Prisma.UserUncheckedUpdateWithoutRemovedCustomerMembershipsInput>
 }
 
 export type UserCreateNestedOneWithoutCreatedLoyaltyTransactionsInput = {
@@ -1210,6 +1256,8 @@ export type UserCreateWithoutSalonInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSalonInput = {
@@ -1250,6 +1298,8 @@ export type UserUncheckedCreateWithoutSalonInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSalonInput = {
@@ -1295,6 +1345,374 @@ export type UserScalarWhereInput = {
   branchId?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
+export type UserCreateWithoutAssignedCustomerMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
+  createdPackageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutCreatedByInput
+  createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
+}
+
+export type UserUncheckedCreateWithoutAssignedCustomerMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPackageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
+}
+
+export type UserCreateOrConnectWithoutAssignedCustomerMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutAssignedCustomerMembershipsInput>
+}
+
+export type UserCreateWithoutRemovedCustomerMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  salon?: Prisma.SalonCreateNestedOneWithoutUsersInput
+  reportedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponCreateNestedManyWithoutCreatedByInput
+  createdPackageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutCreatedByInput
+  createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserUncheckedCreateWithoutRemovedCustomerMembershipsInput = {
+  id?: string
+  name: string
+  email: string
+  phone_number?: string | null
+  passwordHash: string
+  role?: $Enums.Role
+  status?: $Enums.UserStatus
+  salonId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  salesCreated?: Prisma.SaleUncheckedCreateNestedManyWithoutCreatedByInput
+  salesEdited?: Prisma.SaleUncheckedCreateNestedManyWithoutEditedByInput
+  salesDeleted?: Prisma.SaleUncheckedCreateNestedManyWithoutDeletedByInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedCreateNestedManyWithoutReceivedByInput
+  staffProfile?: Prisma.StaffUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutReporterInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutAssignedToInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedCreateNestedManyWithoutSenderInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedCreateNestedManyWithoutChangedByInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutCreatedByInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCreatedByInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutCreatedByInput
+  createdExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutCreatedByInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutMarkedByInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutApprovedByInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutPaidByInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCoupons?: Prisma.CouponUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPackageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+}
+
+export type UserCreateOrConnectWithoutRemovedCustomerMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutRemovedCustomerMembershipsInput>
+}
+
+export type UserUpsertWithoutAssignedCustomerMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedUpdateWithoutAssignedCustomerMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutAssignedCustomerMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssignedCustomerMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssignedCustomerMembershipsInput, Prisma.UserUncheckedUpdateWithoutAssignedCustomerMembershipsInput>
+}
+
+export type UserUpdateWithoutAssignedCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
+  createdPackageCategories?: Prisma.PackageCategoryUpdateManyWithoutCreatedByNestedInput
+  createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssignedCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPackageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
+}
+
+export type UserUpsertWithoutRemovedCustomerMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedUpdateWithoutRemovedCustomerMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedCreateWithoutRemovedCustomerMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRemovedCustomerMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRemovedCustomerMembershipsInput, Prisma.UserUncheckedUpdateWithoutRemovedCustomerMembershipsInput>
+}
+
+export type UserUpdateWithoutRemovedCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  salon?: Prisma.SalonUpdateOneWithoutUsersNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUpdateManyWithoutCreatedByNestedInput
+  createdPackageCategories?: Prisma.PackageCategoryUpdateManyWithoutCreatedByNestedInput
+  createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRemovedCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  salonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appointmentStatusChanges?: Prisma.AppointmentStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesCreated?: Prisma.SaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  salesEdited?: Prisma.SaleUncheckedUpdateManyWithoutEditedByNestedInput
+  salesDeleted?: Prisma.SaleUncheckedUpdateManyWithoutDeletedByNestedInput
+  salePaymentsReceived?: Prisma.SalePaymentUncheckedUpdateManyWithoutReceivedByNestedInput
+  staffProfile?: Prisma.StaffUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  reportedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutReporterNestedInput
+  assignedSupportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutAssignedToNestedInput
+  supportTicketMessages?: Prisma.SupportTicketMessageUncheckedUpdateManyWithoutSenderNestedInput
+  supportTicketStatusChanges?: Prisma.SupportTicketStatusHistoryUncheckedUpdateManyWithoutChangedByNestedInput
+  createdProductStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdProductPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdRetailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdVendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutCreatedByNestedInput
+  markedAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutMarkedByNestedInput
+  approvedLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutApprovedByNestedInput
+  paidSalarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutPaidByNestedInput
+  createdLoyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCoupons?: Prisma.CouponUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPackageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+}
+
 export type UserCreateWithoutCreatedLoyaltyTransactionsInput = {
   id?: string
   name: string
@@ -1333,6 +1751,8 @@ export type UserCreateWithoutCreatedLoyaltyTransactionsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLoyaltyTransactionsInput = {
@@ -1373,6 +1793,8 @@ export type UserUncheckedCreateWithoutCreatedLoyaltyTransactionsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLoyaltyTransactionsInput = {
@@ -1429,6 +1851,8 @@ export type UserUpdateWithoutCreatedLoyaltyTransactionsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput = {
@@ -1469,6 +1893,8 @@ export type UserUncheckedUpdateWithoutCreatedLoyaltyTransactionsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedCouponsInput = {
@@ -1509,6 +1935,8 @@ export type UserCreateWithoutCreatedCouponsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCouponsInput = {
@@ -1549,6 +1977,8 @@ export type UserUncheckedCreateWithoutCreatedCouponsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCouponsInput = {
@@ -1605,6 +2035,8 @@ export type UserUpdateWithoutCreatedCouponsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCouponsInput = {
@@ -1645,6 +2077,8 @@ export type UserUncheckedUpdateWithoutCreatedCouponsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutBranchInput = {
@@ -1685,6 +2119,8 @@ export type UserCreateWithoutBranchInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutBranchInput = {
@@ -1725,6 +2161,8 @@ export type UserUncheckedCreateWithoutBranchInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutBranchInput = {
@@ -1791,6 +2229,8 @@ export type UserCreateWithoutStaffProfileInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutStaffProfileInput = {
@@ -1831,6 +2271,8 @@ export type UserUncheckedCreateWithoutStaffProfileInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutStaffProfileInput = {
@@ -1887,6 +2329,8 @@ export type UserUpdateWithoutStaffProfileInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStaffProfileInput = {
@@ -1927,6 +2371,8 @@ export type UserUncheckedUpdateWithoutStaffProfileInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1967,6 +2413,8 @@ export type UserCreateWithoutSessionsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -2007,6 +2455,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -2063,6 +2513,8 @@ export type UserUpdateWithoutSessionsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -2103,6 +2555,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutMarkedAttendancesInput = {
@@ -2143,6 +2597,8 @@ export type UserCreateWithoutMarkedAttendancesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutMarkedAttendancesInput = {
@@ -2183,6 +2639,8 @@ export type UserUncheckedCreateWithoutMarkedAttendancesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutMarkedAttendancesInput = {
@@ -2239,6 +2697,8 @@ export type UserUpdateWithoutMarkedAttendancesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMarkedAttendancesInput = {
@@ -2279,6 +2739,8 @@ export type UserUncheckedUpdateWithoutMarkedAttendancesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutApprovedLeavesInput = {
@@ -2319,6 +2781,8 @@ export type UserCreateWithoutApprovedLeavesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutApprovedLeavesInput = {
@@ -2359,6 +2823,8 @@ export type UserUncheckedCreateWithoutApprovedLeavesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutApprovedLeavesInput = {
@@ -2415,6 +2881,8 @@ export type UserUpdateWithoutApprovedLeavesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApprovedLeavesInput = {
@@ -2455,6 +2923,8 @@ export type UserUncheckedUpdateWithoutApprovedLeavesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutPaidSalarySlipsInput = {
@@ -2495,6 +2965,8 @@ export type UserCreateWithoutPaidSalarySlipsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutPaidSalarySlipsInput = {
@@ -2535,6 +3007,8 @@ export type UserUncheckedCreateWithoutPaidSalarySlipsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutPaidSalarySlipsInput = {
@@ -2591,6 +3065,8 @@ export type UserUpdateWithoutPaidSalarySlipsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaidSalarySlipsInput = {
@@ -2631,6 +3107,8 @@ export type UserUncheckedUpdateWithoutPaidSalarySlipsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedPackageCategoriesInput = {
@@ -2671,6 +3149,8 @@ export type UserCreateWithoutCreatedPackageCategoriesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPackageCategoriesInput = {
@@ -2711,6 +3191,8 @@ export type UserUncheckedCreateWithoutCreatedPackageCategoriesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPackageCategoriesInput = {
@@ -2767,6 +3249,8 @@ export type UserUpdateWithoutCreatedPackageCategoriesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPackageCategoriesInput = {
@@ -2807,6 +3291,8 @@ export type UserUncheckedUpdateWithoutCreatedPackageCategoriesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedServicePackagesInput = {
@@ -2847,6 +3333,8 @@ export type UserCreateWithoutCreatedServicePackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedServicePackagesInput = {
@@ -2887,6 +3375,8 @@ export type UserUncheckedCreateWithoutCreatedServicePackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedServicePackagesInput = {
@@ -2943,6 +3433,8 @@ export type UserUpdateWithoutCreatedServicePackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedServicePackagesInput = {
@@ -2983,6 +3475,8 @@ export type UserUncheckedUpdateWithoutCreatedServicePackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedAppointmentsInput = {
@@ -3023,6 +3517,8 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
@@ -3063,6 +3559,8 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAppointmentsInput = {
@@ -3119,6 +3617,8 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
@@ -3159,6 +3659,8 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutAppointmentStatusChangesInput = {
@@ -3199,6 +3701,8 @@ export type UserCreateWithoutAppointmentStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
@@ -3239,6 +3743,8 @@ export type UserUncheckedCreateWithoutAppointmentStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutAppointmentStatusChangesInput = {
@@ -3295,6 +3801,8 @@ export type UserUpdateWithoutAppointmentStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
@@ -3335,6 +3843,8 @@ export type UserUncheckedUpdateWithoutAppointmentStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutSalesCreatedInput = {
@@ -3375,6 +3885,8 @@ export type UserCreateWithoutSalesCreatedInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesCreatedInput = {
@@ -3415,6 +3927,8 @@ export type UserUncheckedCreateWithoutSalesCreatedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesCreatedInput = {
@@ -3460,6 +3974,8 @@ export type UserCreateWithoutSalesEditedInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesEditedInput = {
@@ -3500,6 +4016,8 @@ export type UserUncheckedCreateWithoutSalesEditedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesEditedInput = {
@@ -3545,6 +4063,8 @@ export type UserCreateWithoutSalesDeletedInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSalesDeletedInput = {
@@ -3585,6 +4105,8 @@ export type UserUncheckedCreateWithoutSalesDeletedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSalesDeletedInput = {
@@ -3641,6 +4163,8 @@ export type UserUpdateWithoutSalesCreatedInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesCreatedInput = {
@@ -3681,6 +4205,8 @@ export type UserUncheckedUpdateWithoutSalesCreatedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUpsertWithoutSalesEditedInput = {
@@ -3732,6 +4258,8 @@ export type UserUpdateWithoutSalesEditedInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesEditedInput = {
@@ -3772,6 +4300,8 @@ export type UserUncheckedUpdateWithoutSalesEditedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUpsertWithoutSalesDeletedInput = {
@@ -3823,6 +4353,8 @@ export type UserUpdateWithoutSalesDeletedInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalesDeletedInput = {
@@ -3863,6 +4395,8 @@ export type UserUncheckedUpdateWithoutSalesDeletedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutSalePaymentsReceivedInput = {
@@ -3903,6 +4437,8 @@ export type UserCreateWithoutSalePaymentsReceivedInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
@@ -3943,6 +4479,8 @@ export type UserUncheckedCreateWithoutSalePaymentsReceivedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSalePaymentsReceivedInput = {
@@ -3999,6 +4537,8 @@ export type UserUpdateWithoutSalePaymentsReceivedInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
@@ -4039,6 +4579,8 @@ export type UserUncheckedUpdateWithoutSalePaymentsReceivedInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedCustomerPackagesInput = {
@@ -4079,6 +4621,8 @@ export type UserCreateWithoutCreatedCustomerPackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutCreatedByInput
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCustomerPackagesInput = {
@@ -4119,6 +4663,8 @@ export type UserUncheckedCreateWithoutCreatedCustomerPackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutCreatedByInput
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCustomerPackagesInput = {
@@ -4175,6 +4721,8 @@ export type UserUpdateWithoutCreatedCustomerPackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUpdateManyWithoutCreatedByNestedInput
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCustomerPackagesInput = {
@@ -4215,6 +4763,8 @@ export type UserUncheckedUpdateWithoutCreatedCustomerPackagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedCustomerPackageUsagesInput = {
@@ -4255,6 +4805,8 @@ export type UserCreateWithoutCreatedCustomerPackageUsagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutCreatedByInput
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedCustomerPackageUsagesInput = {
@@ -4295,6 +4847,8 @@ export type UserUncheckedCreateWithoutCreatedCustomerPackageUsagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutCreatedByInput
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedCustomerPackageUsagesInput = {
@@ -4351,6 +4905,8 @@ export type UserUpdateWithoutCreatedCustomerPackageUsagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUpdateManyWithoutCreatedByNestedInput
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedCustomerPackageUsagesInput = {
@@ -4391,6 +4947,8 @@ export type UserUncheckedUpdateWithoutCreatedCustomerPackageUsagesInput = {
   createdPackageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedProductStockMovementsInput = {
@@ -4431,6 +4989,8 @@ export type UserCreateWithoutCreatedProductStockMovementsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProductStockMovementsInput = {
@@ -4471,6 +5031,8 @@ export type UserUncheckedCreateWithoutCreatedProductStockMovementsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProductStockMovementsInput = {
@@ -4527,6 +5089,8 @@ export type UserUpdateWithoutCreatedProductStockMovementsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProductStockMovementsInput = {
@@ -4567,6 +5131,8 @@ export type UserUncheckedUpdateWithoutCreatedProductStockMovementsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedProductPurchasesInput = {
@@ -4607,6 +5173,8 @@ export type UserCreateWithoutCreatedProductPurchasesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedProductPurchasesInput = {
@@ -4647,6 +5215,8 @@ export type UserUncheckedCreateWithoutCreatedProductPurchasesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedProductPurchasesInput = {
@@ -4703,6 +5273,8 @@ export type UserUpdateWithoutCreatedProductPurchasesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedProductPurchasesInput = {
@@ -4743,6 +5315,8 @@ export type UserUncheckedUpdateWithoutCreatedProductPurchasesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedVendorPaymentsInput = {
@@ -4783,6 +5357,8 @@ export type UserCreateWithoutCreatedVendorPaymentsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedVendorPaymentsInput = {
@@ -4823,6 +5399,8 @@ export type UserUncheckedCreateWithoutCreatedVendorPaymentsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedVendorPaymentsInput = {
@@ -4879,6 +5457,8 @@ export type UserUpdateWithoutCreatedVendorPaymentsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedVendorPaymentsInput = {
@@ -4919,6 +5499,8 @@ export type UserUncheckedUpdateWithoutCreatedVendorPaymentsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -4959,6 +5541,8 @@ export type UserCreateWithoutAuditLogsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -4999,6 +5583,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -5055,6 +5641,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -5095,6 +5683,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedRetailSalesInput = {
@@ -5135,6 +5725,8 @@ export type UserCreateWithoutCreatedRetailSalesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRetailSalesInput = {
@@ -5175,6 +5767,8 @@ export type UserUncheckedCreateWithoutCreatedRetailSalesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRetailSalesInput = {
@@ -5231,6 +5825,8 @@ export type UserUpdateWithoutCreatedRetailSalesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRetailSalesInput = {
@@ -5271,6 +5867,8 @@ export type UserUncheckedUpdateWithoutCreatedRetailSalesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutCreatedExpensesInput = {
@@ -5311,6 +5909,8 @@ export type UserCreateWithoutCreatedExpensesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedExpensesInput = {
@@ -5351,6 +5951,8 @@ export type UserUncheckedCreateWithoutCreatedExpensesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedExpensesInput = {
@@ -5407,6 +6009,8 @@ export type UserUpdateWithoutCreatedExpensesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedExpensesInput = {
@@ -5447,6 +6051,8 @@ export type UserUncheckedUpdateWithoutCreatedExpensesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutReportedSupportTicketsInput = {
@@ -5487,6 +6093,8 @@ export type UserCreateWithoutReportedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
@@ -5527,6 +6135,8 @@ export type UserUncheckedCreateWithoutReportedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutReportedSupportTicketsInput = {
@@ -5572,6 +6182,8 @@ export type UserCreateWithoutAssignedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
@@ -5612,6 +6224,8 @@ export type UserUncheckedCreateWithoutAssignedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedSupportTicketsInput = {
@@ -5668,6 +6282,8 @@ export type UserUpdateWithoutReportedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
@@ -5708,6 +6324,8 @@ export type UserUncheckedUpdateWithoutReportedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUpsertWithoutAssignedSupportTicketsInput = {
@@ -5759,6 +6377,8 @@ export type UserUpdateWithoutAssignedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
@@ -5799,6 +6419,8 @@ export type UserUncheckedUpdateWithoutAssignedSupportTicketsInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketMessagesInput = {
@@ -5839,6 +6461,8 @@ export type UserCreateWithoutSupportTicketMessagesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
@@ -5879,6 +6503,8 @@ export type UserUncheckedCreateWithoutSupportTicketMessagesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketMessagesInput = {
@@ -5935,6 +6561,8 @@ export type UserUpdateWithoutSupportTicketMessagesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
@@ -5975,6 +6603,8 @@ export type UserUncheckedUpdateWithoutSupportTicketMessagesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateWithoutSupportTicketStatusChangesInput = {
@@ -6015,6 +6645,8 @@ export type UserCreateWithoutSupportTicketStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
@@ -6055,6 +6687,8 @@ export type UserUncheckedCreateWithoutSupportTicketStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCreatedByInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutAssignedByInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutRemovedByInput
 }
 
 export type UserCreateOrConnectWithoutSupportTicketStatusChangesInput = {
@@ -6111,6 +6745,8 @@ export type UserUpdateWithoutSupportTicketStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
@@ -6151,6 +6787,8 @@ export type UserUncheckedUpdateWithoutSupportTicketStatusChangesInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserCreateManySalonInput = {
@@ -6204,6 +6842,8 @@ export type UserUpdateWithoutSalonInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSalonInput = {
@@ -6244,6 +6884,8 @@ export type UserUncheckedUpdateWithoutSalonInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSalonInput = {
@@ -6310,6 +6952,8 @@ export type UserUpdateWithoutBranchInput = {
   createdServicePackages?: Prisma.ServicePackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBranchInput = {
@@ -6350,6 +6994,8 @@ export type UserUncheckedUpdateWithoutBranchInput = {
   createdServicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCreatedByNestedInput
   createdCustomerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutAssignedByNestedInput
+  removedCustomerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutRemovedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutBranchInput = {
@@ -6397,6 +7043,8 @@ export type UserCountOutputType = {
   createdServicePackages: number
   createdCustomerPackages: number
   createdCustomerPackageUsages: number
+  assignedCustomerMemberships: number
+  removedCustomerMemberships: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6426,6 +7074,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdServicePackages?: boolean | UserCountOutputTypeCountCreatedServicePackagesArgs
   createdCustomerPackages?: boolean | UserCountOutputTypeCountCreatedCustomerPackagesArgs
   createdCustomerPackageUsages?: boolean | UserCountOutputTypeCountCreatedCustomerPackageUsagesArgs
+  assignedCustomerMemberships?: boolean | UserCountOutputTypeCountAssignedCustomerMembershipsArgs
+  removedCustomerMemberships?: boolean | UserCountOutputTypeCountRemovedCustomerMembershipsArgs
 }
 
 /**
@@ -6620,6 +7270,20 @@ export type UserCountOutputTypeCountCreatedCustomerPackageUsagesArgs<ExtArgs ext
   where?: Prisma.CustomerPackageUsageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssignedCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerMembershipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRemovedCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerMembershipWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -6662,6 +7326,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdServicePackages?: boolean | Prisma.User$createdServicePackagesArgs<ExtArgs>
   createdCustomerPackages?: boolean | Prisma.User$createdCustomerPackagesArgs<ExtArgs>
   createdCustomerPackageUsages?: boolean | Prisma.User$createdCustomerPackageUsagesArgs<ExtArgs>
+  assignedCustomerMemberships?: boolean | Prisma.User$assignedCustomerMembershipsArgs<ExtArgs>
+  removedCustomerMemberships?: boolean | Prisma.User$removedCustomerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -6742,6 +7408,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdServicePackages?: boolean | Prisma.User$createdServicePackagesArgs<ExtArgs>
   createdCustomerPackages?: boolean | Prisma.User$createdCustomerPackagesArgs<ExtArgs>
   createdCustomerPackageUsages?: boolean | Prisma.User$createdCustomerPackageUsagesArgs<ExtArgs>
+  assignedCustomerMemberships?: boolean | Prisma.User$assignedCustomerMembershipsArgs<ExtArgs>
+  removedCustomerMemberships?: boolean | Prisma.User$removedCustomerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6785,6 +7453,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     createdServicePackages: Prisma.$ServicePackagePayload<ExtArgs>[]
     createdCustomerPackages: Prisma.$CustomerPackagePayload<ExtArgs>[]
     createdCustomerPackageUsages: Prisma.$CustomerPackageUsagePayload<ExtArgs>[]
+    assignedCustomerMemberships: Prisma.$CustomerMembershipPayload<ExtArgs>[]
+    removedCustomerMemberships: Prisma.$CustomerMembershipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7221,6 +7891,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   createdServicePackages<T extends Prisma.User$createdServicePackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdServicePackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ServicePackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdCustomerPackages<T extends Prisma.User$createdCustomerPackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCustomerPackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdCustomerPackageUsages<T extends Prisma.User$createdCustomerPackageUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdCustomerPackageUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackageUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assignedCustomerMemberships<T extends Prisma.User$assignedCustomerMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assignedCustomerMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  removedCustomerMemberships<T extends Prisma.User$removedCustomerMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$removedCustomerMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8340,6 +9012,54 @@ export type User$createdCustomerPackageUsagesArgs<ExtArgs extends runtime.Types.
   take?: number
   skip?: number
   distinct?: Prisma.CustomerPackageUsageScalarFieldEnum | Prisma.CustomerPackageUsageScalarFieldEnum[]
+}
+
+/**
+ * User.assignedCustomerMemberships
+ */
+export type User$assignedCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerMembership
+   */
+  select?: Prisma.CustomerMembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerMembership
+   */
+  omit?: Prisma.CustomerMembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerMembershipInclude<ExtArgs> | null
+  where?: Prisma.CustomerMembershipWhereInput
+  orderBy?: Prisma.CustomerMembershipOrderByWithRelationInput | Prisma.CustomerMembershipOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerMembershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerMembershipScalarFieldEnum | Prisma.CustomerMembershipScalarFieldEnum[]
+}
+
+/**
+ * User.removedCustomerMemberships
+ */
+export type User$removedCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerMembership
+   */
+  select?: Prisma.CustomerMembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerMembership
+   */
+  omit?: Prisma.CustomerMembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerMembershipInclude<ExtArgs> | null
+  where?: Prisma.CustomerMembershipWhereInput
+  orderBy?: Prisma.CustomerMembershipOrderByWithRelationInput | Prisma.CustomerMembershipOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerMembershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerMembershipScalarFieldEnum | Prisma.CustomerMembershipScalarFieldEnum[]
 }
 
 /**

@@ -12,6 +12,11 @@ import { InvoiceModel } from "../Invoices/invoice.model.js";
 import { reverseUsedPackageUsagesForInvoice } from "../packages/package.service.js";
 import { normalizePhone } from "../public-booking/public-booking.service.js";
 import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
+import {
+  getCurrentMembershipForCustomer,
+  getCustomerMembershipHistory,
+  resolveCurrentCustomerMembership,
+} from "../customer-memberships/customer-membership.service.js";
 
 type TransactionClient = Prisma.TransactionClient;
 
@@ -419,7 +424,9 @@ const requireMutable = (cart: JobCartRecord) => {
 
 const recalculateCart = async (
   tx: TransactionClient,
-  appointmentId: string
+  appointmentId: string,
+  actor: JobCartActor,
+  audit: AuditContext
 ) => {
   const cart = await tx.appointment.findUnique({
     where: { id: appointmentId },
@@ -474,10 +481,13 @@ const recalculateCart = async (
     (sum, item) => sum.add(item.lineTotal),
     serviceSubtotal
   );
+  const currentMembership = await resolveCurrentCustomerMembership(tx, {
+    customerId: cart.customerId,
+    actor,
+    audit,
+  });
   const membershipPercentage =
-    cart.customer.membership?.status === true
-      ? cart.customer.membership.discountPercentage
-      : new Prisma.Decimal(0);
+    currentMembership?.discountPercentageSnapshot ?? new Prisma.Decimal(0);
   const membershipDiscount = Prisma.Decimal.min(
     subtotal.mul(membershipPercentage).div(100).toDecimalPlaces(2),
     subtotal
@@ -826,6 +836,15 @@ export const getJobCartCustomerSummary = async (
     },
   });
   if (!customer) throw new JobCartError(404, "Customer not found");
+  const currentMembership = await getCurrentMembershipForCustomer(
+    actor,
+    customer.id,
+    {}
+  );
+  const membershipHistory = currentMembership
+    ? []
+    : await getCustomerMembershipHistory(actor, customer.id, {});
+  const latestMembership = membershipHistory[0];
 
   await prisma.customerPackage.updateMany({
     where: {
@@ -921,8 +940,16 @@ export const getJobCartCustomerSummary = async (
     customerName: customer.name,
     phone: customer.phone,
     membershipName:
-      customer.membership?.status === true ? customer.membership.name : null,
-    membershipExpiresAt: null,
+      currentMembership?.membershipNameSnapshot ??
+      latestMembership?.membershipNameSnapshot ??
+      null,
+    membershipStartsAt:
+      currentMembership?.startsAt ?? latestMembership?.startsAt ?? null,
+    membershipExpiresAt:
+      currentMembership?.expiresAt ?? latestMembership?.expiresAt ?? null,
+    membershipStatus:
+      currentMembership?.status ?? latestMembership?.status ?? null,
+    currentCustomerMembershipId: currentMembership?.id ?? null,
     loyaltyPoints: customer.loyaltyPoints,
     walletBalance: customer.walletBalance,
     outstandingBalance: customer.outstandingAmount,
@@ -1071,12 +1098,10 @@ export const createJobCart = async (
       },
       tx
     );
-    const membership = await tx.membership.findFirst({
-      where: {
-        id: customer.membershipId ?? "__none__",
-        salonId,
-        status: true,
-      },
+    const membership = await resolveCurrentCustomerMembership(tx, {
+      customerId: customer.id,
+      actor,
+      audit,
     });
     const subtotal = services.reduce(
       (sum, service) => sum.add(service.price),
@@ -1085,7 +1110,7 @@ export const createJobCart = async (
     const discount = membership
       ? Prisma.Decimal.min(
           subtotal
-            .mul(membership.discountPercentage)
+            .mul(membership.discountPercentageSnapshot)
             .div(100)
             .toDecimalPlaces(2),
           subtotal
@@ -1246,7 +1271,7 @@ export const updateJobCart = async (
       },
     });
     if (customer.id !== existing.customer.id) {
-      await recalculateCart(tx, id);
+      await recalculateCart(tx, id, actor, audit);
     }
     await createAuditLog({
       tx,
@@ -1331,7 +1356,7 @@ export const addJobCartItem = async (
           lineTotal: servicePackage.specialPrice,
         },
       });
-      await recalculateCart(tx, id);
+      await recalculateCart(tx, id, actor, audit);
       await createAuditLog({
         tx,
         salonId: existing.salonId,
@@ -1374,7 +1399,7 @@ export const addJobCartItem = async (
           durationUnit: service.durationUnit,
         },
       });
-      await recalculateCart(tx, id);
+      await recalculateCart(tx, id, actor, audit);
       await createAuditLog({
         tx,
         salonId: existing.salonId,
@@ -1423,7 +1448,7 @@ export const removeJobCartItem = async (
     } else {
       await tx.invoiceItem.delete({ where: { id: packageItem!.id } });
     }
-    await recalculateCart(tx, id);
+    await recalculateCart(tx, id, actor, audit);
     await createAuditLog({
       tx,
       salonId: existing.salonId,
@@ -1666,7 +1691,7 @@ export const addJobCartPackageRedemption = async (
         },
       });
     }
-    await recalculateCart(tx, id);
+    await recalculateCart(tx, id, actor, audit);
     await createAuditLog({
       tx,
       salonId: existing.salonId,
@@ -1724,7 +1749,7 @@ export const removeJobCartPackageRedemption = async (
       audit,
       `Package redemption removed from job cart ${existing.appointmentCode}`
     );
-    await recalculateCart(tx, id);
+    await recalculateCart(tx, id, actor, audit);
     return present(await requireCart(tx, id, actor));
   });
 
@@ -2055,7 +2080,7 @@ export const cancelJobCart = async (
           ...audit,
         });
       }
-      await recalculateCart(tx, id);
+      await recalculateCart(tx, id, actor, audit);
     }
     const reservedUsages = await tx.customerPackageUsage.findMany({
       where: {
@@ -2081,7 +2106,7 @@ export const cancelJobCart = async (
       );
     }
     if (reservedUsages.length) {
-      await recalculateCart(tx, id);
+      await recalculateCart(tx, id, actor, audit);
     }
     await AppointmentModel.updateStatusWithHistory(
       id,

@@ -1,19 +1,36 @@
 import { prisma } from "../../config/prisma.js";
 import type { Prisma } from "../../generated/prisma/client.js";
 
-const include = {
-  salon: {
-    select: {
-      id: true,
-      name: true,
+const include = () => {
+  const now = new Date();
+
+  return {
+    salon: {
+      select: {
+        id: true,
+        name: true,
+      },
     },
-  },
-  _count: {
-    select: {
-      customers: true,
+    _count: {
+      select: {
+        customers: {
+          where: {
+            membershipHistory: {
+              none: {},
+            },
+          },
+        },
+        customerMemberships: {
+          where: {
+            status: "ACTIVE",
+            startsAt: { lte: now },
+            OR: [{ expiresAt: null }, { expiresAt: { gte: now } }],
+          },
+        },
+      },
     },
-  },
-} as const;
+  } satisfies Prisma.MembershipInclude;
+};
 
 export const MembershipModel = {
   create: (data: {
@@ -21,12 +38,12 @@ export const MembershipModel = {
     name: string;
     description?: string;
     discountPercentage?: number;
-  }, tx?: Prisma.TransactionClient) => (tx ?? prisma).membership.create({ data, include }),
+  }, tx?: Prisma.TransactionClient) => (tx ?? prisma).membership.create({ data, include: include() }),
 
   list: (salonId?: string) =>
     prisma.membership.findMany({
       ...(salonId ? { where: { salonId } } : {}),
-      include,
+      include: include(),
       orderBy: {
         name: "asc",
       },
@@ -38,7 +55,7 @@ export const MembershipModel = {
         id,
         ...(salonId ? { salonId } : {}),
       },
-      include,
+      include: include(),
     }),
 
   duplicate: (salonId: string, name: string, excludeId?: string) =>
@@ -66,6 +83,16 @@ export const MembershipModel = {
       },
     }),
 
+  hasCustomerHistory: (membershipId: string) =>
+    prisma.customerMembership.findFirst({
+      where: {
+        membershipId,
+      },
+      select: {
+        id: true,
+      },
+    }),
+
   update: (
     id: string,
     data: {
@@ -81,7 +108,7 @@ export const MembershipModel = {
         id,
       },
       data,
-      include,
+      include: include(),
     }),
 
   remove: (id: string, tx?: Prisma.TransactionClient) =>

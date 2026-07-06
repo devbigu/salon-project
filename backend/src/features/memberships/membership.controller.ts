@@ -285,7 +285,14 @@ export const deleteMembership = async (req: Request, res: Response) => {
       });
     }
 
-    if (existing._count.customers > 0) {
+    const hasCustomerHistory = await MembershipModel.hasCustomerHistory(
+      existing.id
+    );
+    if (
+      existing._count.customers > 0 ||
+      existing._count.customerMemberships > 0 ||
+      hasCustomerHistory
+    ) {
       const data = await prisma.$transaction(async (tx) => {
         const updated = await MembershipModel.update(existing.id, { status: false }, tx);
         await createAuditLog({ tx, salonId: existing.salonId, userId: req.user?.userId, module: "MEMBERSHIP", action: "DELETE",

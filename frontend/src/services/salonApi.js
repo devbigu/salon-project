@@ -48,6 +48,9 @@ export const salonApi = {
       request(`/api/customers/${id}/wallet/add`, { method: "POST", body }),
     setMembership: (id, membershipId) =>
       request(`/api/customers/${id}/membership`, { method: "PATCH", body: { membershipId } }),
+    memberships: (id) => request(`/api/customers/${id}/memberships`),
+    assignMembership: (id, body) =>
+      request(`/api/customers/${id}/memberships`, { method: "POST", body }),
   },
   memberships: {
     list: (query) => request("/api/memberships", { query }),
@@ -56,6 +59,16 @@ export const salonApi = {
     update: (id, body) => request(`/api/memberships/${id}`, { method: "PUT", body }),
     setStatus: (id, status) => request(`/api/memberships/${id}/status`, { method: "PATCH", body: { status } }),
     remove: (id) => request(`/api/memberships/${id}`, { method: "DELETE" }),
+  },
+  customerMemberships: {
+    list: (query) => request("/api/customer-memberships", { query }),
+    get: (id) => request(`/api/customer-memberships/${id}`),
+    cancel: (id) =>
+      request(`/api/customer-memberships/${id}/cancel`, { method: "PATCH" }),
+    remove: (id) =>
+      request(`/api/customer-memberships/${id}/remove`, { method: "PATCH" }),
+    expire: (id) =>
+      request(`/api/customer-memberships/${id}/expire`, { method: "PATCH" }),
   },
   packageCategories: {
     list: (query) => request("/api/package-categories", { query }),

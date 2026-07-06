@@ -19,6 +19,7 @@ const Memberships = () => {
         { key: "name", label: "Membership" },
         { key: "description", label: "Description" },
         { key: "discountPercentage", label: "Discount", render: (v) => `${Number(v)}%` },
+        { key: "_count", label: "Active customers", render: (v) => (v?.customerMemberships || 0) + (v?.customers || 0) },
         { key: "status", label: "Status", render: (v) => <StatusBadge value={v ? "ACTIVE" : "INACTIVE"} /> },
         { key: "createdAt", label: "Created", render: formatDate },
       ]}

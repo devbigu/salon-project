@@ -451,7 +451,19 @@ const JobCartCreate = () => {
                       {formatMoney(customerSummary.outstandingBalance)}
                       <br />
                       Membership:{" "}
-                      {customerSummary.membershipName || "None"}
+                      {customerSummary.membershipName
+                        ? `${customerSummary.membershipName}${
+                            customerSummary.membershipExpiresAt
+                              ? `, Expire on ${formatDate(
+                                  customerSummary.membershipExpiresAt
+                                )}`
+                              : ""
+                          }${
+                            customerSummary.membershipStatus !== "ACTIVE"
+                              ? ` (${customerSummary.membershipStatus})`
+                              : ""
+                          }`
+                        : "None"}
                       <br />
                       Preferred staff:{" "}
                       {customerSummary.preferredStaff?.staffName || "Not known"}

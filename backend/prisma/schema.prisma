@@ -74,6 +74,7 @@ model Salon {
   customerPackageServiceBalances CustomerPackageServiceBalance[]
   customerPackageUsages          CustomerPackageUsage[]
   customerPackageUsageItems      CustomerPackageUsageItem[]
+  customerMemberships            CustomerMembership[]
 }
 
 model User {
@@ -123,6 +124,8 @@ model User {
   createdServicePackages       ServicePackage[]             @relation("ServicePackageCreatedBy")
   createdCustomerPackages      CustomerPackage[]            @relation("CustomerPackageCreatedBy")
   createdCustomerPackageUsages CustomerPackageUsage[]       @relation("CustomerPackageUsageCreatedBy")
+  assignedCustomerMemberships  CustomerMembership[]         @relation("CustomerMembershipAssignedBy")
+  removedCustomerMemberships   CustomerMembership[]         @relation("CustomerMembershipRemovedBy")
 }
 
 model Customer {
@@ -166,6 +169,7 @@ model Customer {
   customerPackages       CustomerPackage[]
   packageServiceBalances CustomerPackageServiceBalance[]
   packageUsages          CustomerPackageUsage[]
+  membershipHistory      CustomerMembership[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -176,20 +180,78 @@ model Customer {
 }
 
 model Membership {
-  id                 String     @id @default(uuid())
-  salonId            String
-  salon              Salon      @relation(fields: [salonId], references: [id])
-  name               String
-  description        String?
-  discountPercentage Decimal    @default(0) @db.Decimal(5, 2)
-  status             Boolean    @default(true)
-  customers          Customer[]
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
+  id                  String               @id @default(uuid())
+  salonId             String
+  salon               Salon                @relation(fields: [salonId], references: [id])
+  name                String
+  description         String?
+  discountPercentage  Decimal              @default(0) @db.Decimal(5, 2)
+  status              Boolean              @default(true)
+  customers           Customer[]
+  customerMemberships CustomerMembership[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 
   @@unique([salonId, name])
   @@index([salonId])
   @@index([status])
+}
+
+model CustomerMembership {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String?
+  branch   Branch? @relation(fields: [branchId], references: [id], onDelete: SetNull)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  membershipId String
+  membership   Membership @relation(fields: [membershipId], references: [id])
+
+  membershipNameSnapshot     String
+  discountPercentageSnapshot Decimal                  @db.Decimal(5, 2)
+  startsAt                   DateTime                 @default(now())
+  expiresAt                  DateTime?
+  status                     CustomerMembershipStatus @default(ACTIVE)
+
+  assignedById String?
+  assignedBy   User?   @relation("CustomerMembershipAssignedBy", fields: [assignedById], references: [id], onDelete: SetNull)
+
+  removedById String?
+  removedBy   User?     @relation("CustomerMembershipRemovedBy", fields: [removedById], references: [id], onDelete: SetNull)
+  removedAt   DateTime?
+
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+
+  jobCartAppointmentId String?
+  jobCartAppointment   Appointment? @relation(fields: [jobCartAppointmentId], references: [id], onDelete: SetNull)
+
+  note String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([salonId])
+  @@index([branchId])
+  @@index([customerId])
+  @@index([membershipId])
+  @@index([status])
+  @@index([startsAt])
+  @@index([expiresAt])
+  @@index([invoiceId])
+  @@index([jobCartAppointmentId])
+}
+
+enum CustomerMembershipStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  REMOVED
 }
 
 enum CustomerStatus {
@@ -379,6 +441,7 @@ model Branch {
   customerPackages       CustomerPackage[]
   packageServiceBalances CustomerPackageServiceBalance[]
   packageUsages          CustomerPackageUsage[]
+  customerMemberships    CustomerMembership[]
 
   @@unique([salonId, name])
 }
@@ -872,6 +935,7 @@ model Appointment {
   customerPackages         CustomerPackage[]
   packageUsageAppointments CustomerPackageUsage[]     @relation("PackageUsageAppointment")
   packageUsageJobCarts     CustomerPackageUsage[]     @relation("PackageUsageJobCart")
+  customerMemberships      CustomerMembership[]
 
   @@unique([salonId, appointmentCode])
   @@index([salonId])
@@ -1204,6 +1268,7 @@ model Invoice {
   customerTransactions CustomerTransaction[]
   customerPackages     CustomerPackage[]
   packageUsages        CustomerPackageUsage[]
+  customerMemberships  CustomerMembership[]
 
   @@unique([salonId, invoiceCode])
   @@index([salonId])

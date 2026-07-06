@@ -242,6 +242,7 @@ export type MembershipWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   customers?: Prisma.CustomerListRelationFilter
+  customerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }
 
 export type MembershipOrderByWithRelationInput = {
@@ -255,6 +256,7 @@ export type MembershipOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   salon?: Prisma.SalonOrderByWithRelationInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
+  customerMemberships?: Prisma.CustomerMembershipOrderByRelationAggregateInput
 }
 
 export type MembershipWhereUniqueInput = Prisma.AtLeast<{
@@ -272,6 +274,7 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
   salon?: Prisma.XOR<Prisma.SalonScalarRelationFilter, Prisma.SalonWhereInput>
   customers?: Prisma.CustomerListRelationFilter
+  customerMemberships?: Prisma.CustomerMembershipListRelationFilter
 }, "id" | "salonId_name">
 
 export type MembershipOrderByWithAggregationInput = {
@@ -314,6 +317,7 @@ export type MembershipCreateInput = {
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutMembershipsInput
   customers?: Prisma.CustomerCreateNestedManyWithoutMembershipInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateInput = {
@@ -326,6 +330,7 @@ export type MembershipUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutMembershipInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUpdateInput = {
@@ -338,6 +343,7 @@ export type MembershipUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutMembershipsNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutMembershipNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateInput = {
@@ -350,6 +356,7 @@ export type MembershipUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutMembershipNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipCreateManyInput = {
@@ -445,6 +452,11 @@ export type MembershipSumOrderByAggregateInput = {
   discountPercentage?: Prisma.SortOrder
 }
 
+export type MembershipScalarRelationFilter = {
+  is?: Prisma.MembershipWhereInput
+  isNot?: Prisma.MembershipWhereInput
+}
+
 export type MembershipCreateNestedManyWithoutSalonInput = {
   create?: Prisma.XOR<Prisma.MembershipCreateWithoutSalonInput, Prisma.MembershipUncheckedCreateWithoutSalonInput> | Prisma.MembershipCreateWithoutSalonInput[] | Prisma.MembershipUncheckedCreateWithoutSalonInput[]
   connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutSalonInput | Prisma.MembershipCreateOrConnectWithoutSalonInput[]
@@ -503,6 +515,20 @@ export type MembershipUpdateOneWithoutCustomersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutCustomersInput, Prisma.MembershipUpdateWithoutCustomersInput>, Prisma.MembershipUncheckedUpdateWithoutCustomersInput>
 }
 
+export type MembershipCreateNestedOneWithoutCustomerMembershipsInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedCreateWithoutCustomerMembershipsInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutCustomerMembershipsInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneRequiredWithoutCustomerMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedCreateWithoutCustomerMembershipsInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutCustomerMembershipsInput
+  upsert?: Prisma.MembershipUpsertWithoutCustomerMembershipsInput
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutCustomerMembershipsInput, Prisma.MembershipUpdateWithoutCustomerMembershipsInput>, Prisma.MembershipUncheckedUpdateWithoutCustomerMembershipsInput>
+}
+
 export type MembershipCreateWithoutSalonInput = {
   id?: string
   name: string
@@ -512,6 +538,7 @@ export type MembershipCreateWithoutSalonInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customers?: Prisma.CustomerCreateNestedManyWithoutMembershipInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutSalonInput = {
@@ -523,6 +550,7 @@ export type MembershipUncheckedCreateWithoutSalonInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutMembershipInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutSalonInput = {
@@ -574,6 +602,7 @@ export type MembershipCreateWithoutCustomersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   salon: Prisma.SalonCreateNestedOneWithoutMembershipsInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutCustomersInput = {
@@ -585,6 +614,7 @@ export type MembershipUncheckedCreateWithoutCustomersInput = {
   status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutCustomersInput = {
@@ -612,6 +642,7 @@ export type MembershipUpdateWithoutCustomersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salon?: Prisma.SalonUpdateOneRequiredWithoutMembershipsNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutCustomersInput = {
@@ -623,6 +654,71 @@ export type MembershipUncheckedUpdateWithoutCustomersInput = {
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutMembershipNestedInput
+}
+
+export type MembershipCreateWithoutCustomerMembershipsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  discountPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutMembershipsInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutMembershipInput
+}
+
+export type MembershipUncheckedCreateWithoutCustomerMembershipsInput = {
+  id?: string
+  salonId: string
+  name: string
+  description?: string | null
+  discountPercentage?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutMembershipInput
+}
+
+export type MembershipCreateOrConnectWithoutCustomerMembershipsInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedCreateWithoutCustomerMembershipsInput>
+}
+
+export type MembershipUpsertWithoutCustomerMembershipsInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedUpdateWithoutCustomerMembershipsInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedCreateWithoutCustomerMembershipsInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutCustomerMembershipsInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutCustomerMembershipsInput, Prisma.MembershipUncheckedUpdateWithoutCustomerMembershipsInput>
+}
+
+export type MembershipUpdateWithoutCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discountPercentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutMembershipsNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutMembershipNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutCustomerMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  discountPercentage?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipCreateManySalonInput = {
@@ -644,6 +740,7 @@ export type MembershipUpdateWithoutSalonInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customers?: Prisma.CustomerUpdateManyWithoutMembershipNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutSalonInput = {
@@ -655,6 +752,7 @@ export type MembershipUncheckedUpdateWithoutSalonInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutMembershipNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutSalonInput = {
@@ -674,10 +772,12 @@ export type MembershipUncheckedUpdateManyWithoutSalonInput = {
 
 export type MembershipCountOutputType = {
   customers: number
+  customerMemberships: number
 }
 
 export type MembershipCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customers?: boolean | MembershipCountOutputTypeCountCustomersArgs
+  customerMemberships?: boolean | MembershipCountOutputTypeCountCustomerMembershipsArgs
 }
 
 /**
@@ -697,6 +797,13 @@ export type MembershipCountOutputTypeCountCustomersArgs<ExtArgs extends runtime.
   where?: Prisma.CustomerWhereInput
 }
 
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountCustomerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerMembershipWhereInput
+}
+
 
 export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -709,6 +816,7 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   customers?: boolean | Prisma.Membership$customersArgs<ExtArgs>
+  customerMemberships?: boolean | Prisma.Membership$customerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["membership"]>
 
@@ -751,6 +859,7 @@ export type MembershipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salon?: boolean | Prisma.SalonDefaultArgs<ExtArgs>
   customers?: boolean | Prisma.Membership$customersArgs<ExtArgs>
+  customerMemberships?: boolean | Prisma.Membership$customerMembershipsArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MembershipIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -765,6 +874,7 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     salon: Prisma.$SalonPayload<ExtArgs>
     customers: Prisma.$CustomerPayload<ExtArgs>[]
+    customerMemberships: Prisma.$CustomerMembershipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1171,6 +1281,7 @@ export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   salon<T extends Prisma.SalonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalonDefaultArgs<ExtArgs>>): Prisma.Prisma__SalonClient<runtime.Types.Result.GetResult<Prisma.$SalonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customers<T extends Prisma.Membership$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerMemberships<T extends Prisma.Membership$customerMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$customerMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1630,6 +1741,30 @@ export type Membership$customersArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.CustomerScalarFieldEnum | Prisma.CustomerScalarFieldEnum[]
+}
+
+/**
+ * Membership.customerMemberships
+ */
+export type Membership$customerMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerMembership
+   */
+  select?: Prisma.CustomerMembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerMembership
+   */
+  omit?: Prisma.CustomerMembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerMembershipInclude<ExtArgs> | null
+  where?: Prisma.CustomerMembershipWhereInput
+  orderBy?: Prisma.CustomerMembershipOrderByWithRelationInput | Prisma.CustomerMembershipOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerMembershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerMembershipScalarFieldEnum | Prisma.CustomerMembershipScalarFieldEnum[]
 }
 
 /**

@@ -7,6 +7,12 @@
 *
 * 🟢 You can import this file directly.
 */
+export const CustomerMembershipStatus = {
+    ACTIVE: 'ACTIVE',
+    EXPIRED: 'EXPIRED',
+    CANCELLED: 'CANCELLED',
+    REMOVED: 'REMOVED'
+};
 export const CustomerStatus = {
     REGULAR: 'REGULAR',
     PREMIUM: 'PREMIUM',

@@ -571,7 +571,18 @@ const JobCartDetails = () => {
                     </Col>
                     <Col xs="6">
                       <span className="text-soft">Membership</span>
-                      <div>{customerSummary.membershipName || "None"}</div>
+                      <div>
+                        {customerSummary.membershipName || "None"}
+                        {customerSummary.membershipExpiresAt
+                          ? `, Expire on ${formatDate(
+                              customerSummary.membershipExpiresAt
+                            )}`
+                          : ""}
+                        {customerSummary.membershipStatus &&
+                        customerSummary.membershipStatus !== "ACTIVE"
+                          ? ` (${customerSummary.membershipStatus})`
+                          : ""}
+                      </div>
                     </Col>
                   </Row>
                   <hr />

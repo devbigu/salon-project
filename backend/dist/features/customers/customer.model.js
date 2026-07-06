@@ -5,6 +5,16 @@ const membershipSelect = {
     discountPercentage: true,
     status: true,
 };
+const membershipHistoryInclude = {
+    where: { status: "ACTIVE" },
+    include: {
+        membership: {
+            select: membershipSelect,
+        },
+    },
+    orderBy: [{ startsAt: "desc" }, { createdAt: "desc" }],
+    take: 1,
+};
 export const CustomerModel = {
     create: async (data) => {
         return prisma.customer.create({
@@ -25,6 +35,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
             },
         });
     },
@@ -46,6 +57,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
             },
             orderBy: {
                 createdAt: "desc",
@@ -68,6 +80,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
             },
             orderBy: {
                 createdAt: "desc",
@@ -95,6 +108,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
                 transactions: {
                     orderBy: {
                         createdAt: "desc",
@@ -120,6 +134,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
                 transactions: {
                     orderBy: {
                         createdAt: "desc",
@@ -160,6 +175,7 @@ export const CustomerModel = {
                 membership: {
                     select: membershipSelect,
                 },
+                membershipHistory: membershipHistoryInclude,
             },
         });
     },
@@ -180,6 +196,7 @@ export const CustomerModel = {
                         status: true,
                     },
                 },
+                membershipHistory: membershipHistoryInclude,
             },
         });
     },

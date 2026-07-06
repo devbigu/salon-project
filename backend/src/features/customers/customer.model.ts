@@ -11,6 +11,17 @@ const membershipSelect = {
   status: true,
 } as const;
 
+const membershipHistoryInclude = {
+  where: { status: "ACTIVE" },
+  include: {
+    membership: {
+      select: membershipSelect,
+    },
+  },
+  orderBy: [{ startsAt: "desc" }, { createdAt: "desc" }],
+  take: 1,
+} satisfies Prisma.Customer$membershipHistoryArgs;
+
 export const CustomerModel = {
   create: async (data: {
     customerCode: string;
@@ -43,6 +54,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
       },
     });
   },
@@ -65,6 +77,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
       },
       orderBy: {
         createdAt: "desc",
@@ -88,6 +101,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
       },
       orderBy: {
         createdAt: "desc",
@@ -116,6 +130,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
         transactions: {
           orderBy: {
             createdAt: "desc",
@@ -146,6 +161,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
         transactions: {
           orderBy: {
             createdAt: "desc",
@@ -205,6 +221,7 @@ export const CustomerModel = {
         membership: {
           select: membershipSelect,
         },
+        membershipHistory: membershipHistoryInclude,
       },
     });
   },
@@ -230,6 +247,7 @@ export const CustomerModel = {
             status: true,
           },
         },
+        membershipHistory: membershipHistoryInclude,
       },
     });
   },

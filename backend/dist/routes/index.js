@@ -38,6 +38,7 @@ import publicBookingRoutes from "../features/public-booking/public-booking.route
 import publicBookingSettingRoutes from "../features/public-booking-settings/public-booking-setting.routes.js";
 import jobCartRoutes from "../features/job-carts/job-cart.routes.js";
 import { customerPackageCustomerRoutes, customerPackageRoutes, packageCategoryRoutes, servicePackageRoutes, } from "../features/packages/package.routes.js";
+import customerMembershipRoutes from "../features/customer-memberships/customer-membership.routes.js";
 const router = Router();
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
@@ -79,6 +80,7 @@ router.use("/job-carts", jobCartRoutes);
 router.use("/package-categories", packageCategoryRoutes);
 router.use("/packages", servicePackageRoutes);
 router.use("/customer-packages", customerPackageRoutes);
+router.use("/customer-memberships", customerMembershipRoutes);
 router.use("/customers", customerPackageCustomerRoutes);
 router.use("/", salaryConfigRoutes);
 router.use("/salary-slips", salarySlipRoutes);

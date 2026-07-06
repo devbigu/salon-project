@@ -1,10 +1,17 @@
 import { type Request, type Response } from "express";
 import { CustomerModel } from "./customer.model.js";
 import { BranchModel } from "../branches/branch.model.js";
-import { MembershipModel } from "../memberships/membership.model.js";
 import { isUuid } from "../../middlewares/uuid.middleware.js";
 import { prisma } from "../../config/prisma.js";
 import { createAuditLog, requestAuditContext } from "../audit-logs/audit-log.service.js";
+import {
+  assignCustomerMembershipHistory,
+  CustomerMembershipError,
+  endCustomerMembership,
+  getCustomerMembershipHistory,
+  synchronizeCustomerMembershipExpiry,
+  type CustomerMembershipActor,
+} from "../customer-memberships/customer-membership.service.js";
 
 const CUSTOMER_STATUSES = ["REGULAR", "PREMIUM", "IRREGULAR"] as const;
 
@@ -67,6 +74,74 @@ const getExistingCustomerByAccess = async (req: Request, customerId: string) => 
     salonId,
     req.user?.role === "RECEPTIONIST" ? req.user.branchId : undefined
   );
+};
+
+const membershipActorFrom = (req: Request): CustomerMembershipActor | null =>
+  req.user?.userId
+    ? {
+        userId: req.user.userId,
+        role: req.user.role,
+        ...(req.user.salonId ? { salonId: req.user.salonId } : {}),
+        ...(req.user.branchId ? { branchId: req.user.branchId } : {}),
+      }
+    : null;
+
+const presentCustomerMembership = <
+  T extends {
+    membership:
+      | {
+          id: string;
+          name: string;
+          discountPercentage: unknown;
+          status: boolean;
+        }
+      | null;
+    membershipHistory: Array<{
+      id: string;
+      membershipId: string;
+      membershipNameSnapshot: string;
+      discountPercentageSnapshot: unknown;
+      startsAt: Date;
+      expiresAt: Date | null;
+      status: string;
+    }>;
+  },
+>(
+  customer: T
+) => {
+  const current = customer.membershipHistory[0];
+  const currentMembership = current
+    ? {
+        id: current.id,
+        membershipId: current.membershipId,
+        membershipName: current.membershipNameSnapshot,
+        discountPercentage: current.discountPercentageSnapshot,
+        startsAt: current.startsAt,
+        expiresAt: current.expiresAt,
+        status: current.status,
+        legacy: false,
+      }
+    : customer.membership?.status
+      ? {
+          id: null,
+          membershipId: customer.membership.id,
+          membershipName: customer.membership.name,
+          discountPercentage: customer.membership.discountPercentage,
+          startsAt: null,
+          expiresAt: null,
+          status: "ACTIVE",
+          legacy: true,
+        }
+      : null;
+  return {
+    ...customer,
+    currentMembership,
+    currentCustomerMembershipId: currentMembership?.id ?? null,
+    membershipName: currentMembership?.membershipName ?? null,
+    membershipStartsAt: currentMembership?.startsAt ?? null,
+    membershipExpiresAt: currentMembership?.expiresAt ?? null,
+    membershipStatus: currentMembership?.status ?? null,
+  };
 };
 
 export const createCustomer = async (req: Request, res: Response) => {
@@ -188,13 +263,20 @@ export const createCustomer = async (req: Request, res: Response) => {
 
 export const getCustomers = async (req: Request, res: Response) => {
   try {
+    const membershipActor = membershipActorFrom(req);
+    if (membershipActor) {
+      await synchronizeCustomerMembershipExpiry(
+        membershipActor,
+        requestAuditContext(req)
+      );
+    }
     if (req.user?.role === "SUPER_ADMIN") {
       const customers = await CustomerModel.findAll();
 
       return res.status(200).json({
         success: true,
         message: "Customers fetched successfully",
-        data: customers,
+        data: customers.map(presentCustomerMembership),
       });
     }
 
@@ -213,7 +295,7 @@ export const getCustomers = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       message: "Customers fetched successfully",
-      data: customers,
+      data: customers.map(presentCustomerMembership),
     });
   } catch (error) {
     return res.status(500).json({
@@ -241,6 +323,14 @@ export const getCustomerById = async (req: Request, res: Response) => {
       });
     }
 
+    const membershipActor = membershipActorFrom(req);
+    if (membershipActor) {
+      await synchronizeCustomerMembershipExpiry(
+        membershipActor,
+        requestAuditContext(req),
+        id
+      );
+    }
     const customer = await getExistingCustomerByAccess(req, id);
 
     if (!customer) {
@@ -253,7 +343,17 @@ export const getCustomerById = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       message: "Customer fetched successfully",
-      data: customer,
+      data: {
+        ...presentCustomerMembership(customer),
+        membershipHistory:
+          req.user?.role !== "STAFF" && membershipActor
+            ? await getCustomerMembershipHistory(
+                membershipActor,
+                id,
+                requestAuditContext(req)
+              )
+            : [],
+      },
     });
   } catch (error) {
     return res.status(500).json({
@@ -398,43 +498,76 @@ export const assignCustomerMembership = async (
       });
     }
 
+    if (!req.user?.userId) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+    const actor = membershipActorFrom(req)!;
     const membershipId = req.body.membershipId as string | null;
-
-    let membership: Awaited<ReturnType<typeof MembershipModel.find>> = null;
     if (membershipId) {
-      membership = await MembershipModel.find(
-        membershipId,
-        existingCustomer.salonId
+      await assignCustomerMembershipHistory(
+        actor,
+        id,
+        {
+          membershipId,
+          auditEntityId: existingCustomer.id,
+          auditAction: "UPDATE",
+        },
+        requestAuditContext(req)
       );
-
-      if (!membership) {
-        return res.status(400).json({
-          success: false,
-          message: "Membership must belong to the same salon as the customer",
-        });
-      }
-
-      if (!membership.status) {
-        return res.status(400).json({
-          success: false,
-          message: "Only active memberships can be assigned",
+    } else {
+      const history = await getCustomerMembershipHistory(
+        actor,
+        id,
+        requestAuditContext(req)
+      );
+      const active = history.find((row) => row.status === "ACTIVE");
+      if (active) {
+        await endCustomerMembership(
+          actor,
+          active.id,
+          "REMOVED",
+          requestAuditContext(req)
+        );
+      } else {
+        await prisma.$transaction(async (tx) => {
+          await CustomerModel.assignMembership(id, null, tx);
+          await createAuditLog({
+            tx,
+            salonId: existingCustomer.salonId,
+            branchId: existingCustomer.branchId,
+            userId: req.user?.userId,
+            module: "MEMBERSHIP",
+            action: "DELETE",
+            entityId: existingCustomer.id,
+            entityCode: existingCustomer.customerCode,
+            entityName: existingCustomer.name,
+            description: `Membership removed from customer ${existingCustomer.name}`,
+            oldData: {
+              customerId: existingCustomer.id,
+              membershipId: existingCustomer.membershipId,
+            },
+            newData: {
+              customerId: existingCustomer.id,
+              membershipId: null,
+            },
+            ...requestAuditContext(req),
+          });
         });
       }
     }
-
-    const data = await prisma.$transaction(async (tx) => {
-      const updated = await CustomerModel.assignMembership(id, membershipId, tx);
-      await createAuditLog({ tx, salonId: existingCustomer.salonId, branchId: existingCustomer.branchId,
-        userId: req.user?.userId, module: "MEMBERSHIP", action: membershipId ? "UPDATE" : "DELETE",
-        entityId: existingCustomer.id, entityCode: existingCustomer.customerCode, entityName: existingCustomer.name,
-        description: membershipId
-          ? `${req.user?.role === "RECEPTIONIST" ? "Receptionist" : "Admin"} assigned ${membership?.name} membership to customer ${existingCustomer.name}`
-          : `${req.user?.role === "RECEPTIONIST" ? "Receptionist" : "Admin"} removed membership from customer ${existingCustomer.name}`,
-        oldData: { customerId: existingCustomer.id, membershipId: existingCustomer.membershipId },
-        newData: { customerId: existingCustomer.id, membershipId, membershipName: membership?.name ?? null },
-        ...requestAuditContext(req) });
-      return updated;
-    });
+    const data =
+      req.user.role === "SUPER_ADMIN"
+        ? await CustomerModel.findById(id)
+        : await CustomerModel.findByIdAndSalon(
+            id,
+            existingCustomer.salonId,
+            req.user.role === "RECEPTIONIST"
+              ? req.user.branchId
+              : undefined
+          );
 
     return res.status(200).json({
       success: true,
@@ -444,6 +577,12 @@ export const assignCustomerMembership = async (
       data,
     });
   } catch (error) {
+    if (error instanceof CustomerMembershipError) {
+      return res.status(error.status).json({
+        success: false,
+        message: error.message,
+      });
+    }
     return res.status(500).json({
       success: false,
       message: "Internal server error",

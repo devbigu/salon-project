@@ -341,6 +341,7 @@ export type CustomerWhereInput = {
   customerPackages?: Prisma.CustomerPackageListRelationFilter
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceListRelationFilter
   packageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  membershipHistory?: Prisma.CustomerMembershipListRelationFilter
 }
 
 export type CustomerOrderByWithRelationInput = {
@@ -375,6 +376,7 @@ export type CustomerOrderByWithRelationInput = {
   customerPackages?: Prisma.CustomerPackageOrderByRelationAggregateInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceOrderByRelationAggregateInput
   packageUsages?: Prisma.CustomerPackageUsageOrderByRelationAggregateInput
+  membershipHistory?: Prisma.CustomerMembershipOrderByRelationAggregateInput
 }
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -415,6 +417,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   customerPackages?: Prisma.CustomerPackageListRelationFilter
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceListRelationFilter
   packageUsages?: Prisma.CustomerPackageUsageListRelationFilter
+  membershipHistory?: Prisma.CustomerMembershipListRelationFilter
 }, "id" | "salonId_customerCode" | "salonId_phone" | "salonId_email">
 
 export type CustomerOrderByWithAggregationInput = {
@@ -496,6 +499,7 @@ export type CustomerCreateInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateInput = {
@@ -527,6 +531,7 @@ export type CustomerUncheckedCreateInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUpdateInput = {
@@ -558,6 +563,7 @@ export type CustomerUpdateInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateInput = {
@@ -589,6 +595,7 @@ export type CustomerUncheckedUpdateInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyInput = {
@@ -869,6 +876,20 @@ export type CustomerUncheckedUpdateManyWithoutMembershipNestedInput = {
   deleteMany?: Prisma.CustomerScalarWhereInput | Prisma.CustomerScalarWhereInput[]
 }
 
+export type CustomerCreateNestedOneWithoutMembershipHistoryInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedCreateWithoutMembershipHistoryInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipHistoryInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutMembershipHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedCreateWithoutMembershipHistoryInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutMembershipHistoryInput
+  upsert?: Prisma.CustomerUpsertWithoutMembershipHistoryInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutMembershipHistoryInput, Prisma.CustomerUpdateWithoutMembershipHistoryInput>, Prisma.CustomerUncheckedUpdateWithoutMembershipHistoryInput>
+}
+
 export type CustomerCreateNestedOneWithoutTransactionsInput = {
   create?: Prisma.XOR<Prisma.CustomerCreateWithoutTransactionsInput, Prisma.CustomerUncheckedCreateWithoutTransactionsInput>
   connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutTransactionsInput
@@ -1083,6 +1104,7 @@ export type CustomerCreateWithoutSalonInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutSalonInput = {
@@ -1113,6 +1135,7 @@ export type CustomerUncheckedCreateWithoutSalonInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutSalonInput = {
@@ -1193,6 +1216,7 @@ export type CustomerCreateWithoutMembershipInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutMembershipInput = {
@@ -1223,6 +1247,7 @@ export type CustomerUncheckedCreateWithoutMembershipInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutMembershipInput = {
@@ -1249,6 +1274,146 @@ export type CustomerUpdateWithWhereUniqueWithoutMembershipInput = {
 export type CustomerUpdateManyWithWhereWithoutMembershipInput = {
   where: Prisma.CustomerScalarWhereInput
   data: Prisma.XOR<Prisma.CustomerUpdateManyMutationInput, Prisma.CustomerUncheckedUpdateManyWithoutMembershipInput>
+}
+
+export type CustomerCreateWithoutMembershipHistoryInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salon: Prisma.SalonCreateNestedOneWithoutCustomersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutCustomersInput
+  branch?: Prisma.BranchCreateNestedOneWithoutCustomersInput
+  transactions?: Prisma.CustomerTransactionCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
+  packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
+  packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutMembershipHistoryInput = {
+  id?: string
+  customerCode: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  gst?: string | null
+  customNotes?: string | null
+  dob?: Date | string | null
+  anniversaryDate?: Date | string | null
+  status?: $Enums.CustomerStatus
+  outstandingAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: number
+  salonId: string
+  membershipId?: string | null
+  branchId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutCustomerInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutCustomerInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCustomerInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
+  packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
+  packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutMembershipHistoryInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedCreateWithoutMembershipHistoryInput>
+}
+
+export type CustomerUpsertWithoutMembershipHistoryInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedUpdateWithoutMembershipHistoryInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedCreateWithoutMembershipHistoryInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutMembershipHistoryInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutMembershipHistoryInput, Prisma.CustomerUncheckedUpdateWithoutMembershipHistoryInput>
+}
+
+export type CustomerUpdateWithoutMembershipHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salon?: Prisma.SalonUpdateOneRequiredWithoutCustomersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutCustomersNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutCustomersNestedInput
+  transactions?: Prisma.CustomerTransactionUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
+  packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
+  packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutMembershipHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gst?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  anniversaryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+  outstandingAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  loyaltyPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutCustomerNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutCustomerNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
+  packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
+  packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutTransactionsInput = {
@@ -1279,6 +1444,7 @@ export type CustomerCreateWithoutTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutTransactionsInput = {
@@ -1309,6 +1475,7 @@ export type CustomerUncheckedCreateWithoutTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutTransactionsInput = {
@@ -1355,6 +1522,7 @@ export type CustomerUpdateWithoutTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutTransactionsInput = {
@@ -1385,6 +1553,7 @@ export type CustomerUncheckedUpdateWithoutTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutLoyaltyTransactionsInput = {
@@ -1415,6 +1584,7 @@ export type CustomerCreateWithoutLoyaltyTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutLoyaltyTransactionsInput = {
@@ -1445,6 +1615,7 @@ export type CustomerUncheckedCreateWithoutLoyaltyTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutLoyaltyTransactionsInput = {
@@ -1491,6 +1662,7 @@ export type CustomerUpdateWithoutLoyaltyTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput = {
@@ -1521,6 +1693,7 @@ export type CustomerUncheckedUpdateWithoutLoyaltyTransactionsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutBranchInput = {
@@ -1551,6 +1724,7 @@ export type CustomerCreateWithoutBranchInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutBranchInput = {
@@ -1581,6 +1755,7 @@ export type CustomerUncheckedCreateWithoutBranchInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutBranchInput = {
@@ -1637,6 +1812,7 @@ export type CustomerCreateWithoutAppointmentsInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutAppointmentsInput = {
@@ -1667,6 +1843,7 @@ export type CustomerUncheckedCreateWithoutAppointmentsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutAppointmentsInput = {
@@ -1713,6 +1890,7 @@ export type CustomerUpdateWithoutAppointmentsInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutAppointmentsInput = {
@@ -1743,6 +1921,7 @@ export type CustomerUncheckedUpdateWithoutAppointmentsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutSalesInput = {
@@ -1773,6 +1952,7 @@ export type CustomerCreateWithoutSalesInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutSalesInput = {
@@ -1803,6 +1983,7 @@ export type CustomerUncheckedCreateWithoutSalesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutSalesInput = {
@@ -1849,6 +2030,7 @@ export type CustomerUpdateWithoutSalesInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutSalesInput = {
@@ -1879,6 +2061,7 @@ export type CustomerUncheckedUpdateWithoutSalesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutInvoicesInput = {
@@ -1909,6 +2092,7 @@ export type CustomerCreateWithoutInvoicesInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutInvoicesInput = {
@@ -1939,6 +2123,7 @@ export type CustomerUncheckedCreateWithoutInvoicesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutInvoicesInput = {
@@ -1985,6 +2170,7 @@ export type CustomerUpdateWithoutInvoicesInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutInvoicesInput = {
@@ -2015,6 +2201,7 @@ export type CustomerUncheckedUpdateWithoutInvoicesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutCustomerPackagesInput = {
@@ -2045,6 +2232,7 @@ export type CustomerCreateWithoutCustomerPackagesInput = {
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutCustomerPackagesInput = {
@@ -2075,6 +2263,7 @@ export type CustomerUncheckedCreateWithoutCustomerPackagesInput = {
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutCustomerPackagesInput = {
@@ -2121,6 +2310,7 @@ export type CustomerUpdateWithoutCustomerPackagesInput = {
   retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutCustomerPackagesInput = {
@@ -2151,6 +2341,7 @@ export type CustomerUncheckedUpdateWithoutCustomerPackagesInput = {
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutPackageServiceBalancesInput = {
@@ -2181,6 +2372,7 @@ export type CustomerCreateWithoutPackageServiceBalancesInput = {
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutPackageServiceBalancesInput = {
@@ -2211,6 +2403,7 @@ export type CustomerUncheckedCreateWithoutPackageServiceBalancesInput = {
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutPackageServiceBalancesInput = {
@@ -2257,6 +2450,7 @@ export type CustomerUpdateWithoutPackageServiceBalancesInput = {
   retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutPackageServiceBalancesInput = {
@@ -2287,6 +2481,7 @@ export type CustomerUncheckedUpdateWithoutPackageServiceBalancesInput = {
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutPackageUsagesInput = {
@@ -2317,6 +2512,7 @@ export type CustomerCreateWithoutPackageUsagesInput = {
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutCustomerInput
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutPackageUsagesInput = {
@@ -2347,6 +2543,7 @@ export type CustomerUncheckedCreateWithoutPackageUsagesInput = {
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutCustomerInput
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutPackageUsagesInput = {
@@ -2393,6 +2590,7 @@ export type CustomerUpdateWithoutPackageUsagesInput = {
   retailSales?: Prisma.RetailSaleUpdateManyWithoutCustomerNestedInput
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutPackageUsagesInput = {
@@ -2423,6 +2621,7 @@ export type CustomerUncheckedUpdateWithoutPackageUsagesInput = {
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutCustomerNestedInput
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutPaymentsInput = {
@@ -2453,6 +2652,7 @@ export type CustomerCreateWithoutPaymentsInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutPaymentsInput = {
@@ -2483,6 +2683,7 @@ export type CustomerUncheckedCreateWithoutPaymentsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutPaymentsInput = {
@@ -2529,6 +2730,7 @@ export type CustomerUpdateWithoutPaymentsInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutPaymentsInput = {
@@ -2559,6 +2761,7 @@ export type CustomerUncheckedUpdateWithoutPaymentsInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutRetailSalesInput = {
@@ -2589,6 +2792,7 @@ export type CustomerCreateWithoutRetailSalesInput = {
   customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutRetailSalesInput = {
@@ -2619,6 +2823,7 @@ export type CustomerUncheckedCreateWithoutRetailSalesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutCustomerInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutCustomerInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutCustomerInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutRetailSalesInput = {
@@ -2665,6 +2870,7 @@ export type CustomerUpdateWithoutRetailSalesInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutRetailSalesInput = {
@@ -2695,6 +2901,7 @@ export type CustomerUncheckedUpdateWithoutRetailSalesInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManySalonInput = {
@@ -2745,6 +2952,7 @@ export type CustomerUpdateWithoutSalonInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutSalonInput = {
@@ -2775,6 +2983,7 @@ export type CustomerUncheckedUpdateWithoutSalonInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutSalonInput = {
@@ -2845,6 +3054,7 @@ export type CustomerUpdateWithoutMembershipInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutMembershipInput = {
@@ -2875,6 +3085,7 @@ export type CustomerUncheckedUpdateWithoutMembershipInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutMembershipInput = {
@@ -2945,6 +3156,7 @@ export type CustomerUpdateWithoutBranchInput = {
   customerPackages?: Prisma.CustomerPackageUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutBranchInput = {
@@ -2975,6 +3187,7 @@ export type CustomerUncheckedUpdateWithoutBranchInput = {
   customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutCustomerNestedInput
   packageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutCustomerNestedInput
   packageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutCustomerNestedInput
+  membershipHistory?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutBranchInput = {
@@ -3013,6 +3226,7 @@ export type CustomerCountOutputType = {
   customerPackages: number
   packageServiceBalances: number
   packageUsages: number
+  membershipHistory: number
 }
 
 export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3026,6 +3240,7 @@ export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   customerPackages?: boolean | CustomerCountOutputTypeCountCustomerPackagesArgs
   packageServiceBalances?: boolean | CustomerCountOutputTypeCountPackageServiceBalancesArgs
   packageUsages?: boolean | CustomerCountOutputTypeCountPackageUsagesArgs
+  membershipHistory?: boolean | CustomerCountOutputTypeCountMembershipHistoryArgs
 }
 
 /**
@@ -3108,6 +3323,13 @@ export type CustomerCountOutputTypeCountPackageUsagesArgs<ExtArgs extends runtim
   where?: Prisma.CustomerPackageUsageWhereInput
 }
 
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountMembershipHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerMembershipWhereInput
+}
+
 
 export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3141,6 +3363,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   customerPackages?: boolean | Prisma.Customer$customerPackagesArgs<ExtArgs>
   packageServiceBalances?: boolean | Prisma.Customer$packageServiceBalancesArgs<ExtArgs>
   packageUsages?: boolean | Prisma.Customer$packageUsagesArgs<ExtArgs>
+  membershipHistory?: boolean | Prisma.Customer$membershipHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -3228,6 +3451,7 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   customerPackages?: boolean | Prisma.Customer$customerPackagesArgs<ExtArgs>
   packageServiceBalances?: boolean | Prisma.Customer$packageServiceBalancesArgs<ExtArgs>
   packageUsages?: boolean | Prisma.Customer$packageUsagesArgs<ExtArgs>
+  membershipHistory?: boolean | Prisma.Customer$membershipHistoryArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3257,6 +3481,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     customerPackages: Prisma.$CustomerPackagePayload<ExtArgs>[]
     packageServiceBalances: Prisma.$CustomerPackageServiceBalancePayload<ExtArgs>[]
     packageUsages: Prisma.$CustomerPackageUsagePayload<ExtArgs>[]
+    membershipHistory: Prisma.$CustomerMembershipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3684,6 +3909,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   customerPackages<T extends Prisma.Customer$customerPackagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$customerPackagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   packageServiceBalances<T extends Prisma.Customer$packageServiceBalancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$packageServiceBalancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackageServiceBalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   packageUsages<T extends Prisma.Customer$packageUsagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$packageUsagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPackageUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  membershipHistory<T extends Prisma.Customer$membershipHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$membershipHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4407,6 +4633,30 @@ export type Customer$packageUsagesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.CustomerPackageUsageScalarFieldEnum | Prisma.CustomerPackageUsageScalarFieldEnum[]
+}
+
+/**
+ * Customer.membershipHistory
+ */
+export type Customer$membershipHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerMembership
+   */
+  select?: Prisma.CustomerMembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerMembership
+   */
+  omit?: Prisma.CustomerMembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerMembershipInclude<ExtArgs> | null
+  where?: Prisma.CustomerMembershipWhereInput
+  orderBy?: Prisma.CustomerMembershipOrderByWithRelationInput | Prisma.CustomerMembershipOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerMembershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerMembershipScalarFieldEnum | Prisma.CustomerMembershipScalarFieldEnum[]
 }
 
 /**

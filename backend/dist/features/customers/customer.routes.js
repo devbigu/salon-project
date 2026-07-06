@@ -3,14 +3,18 @@ import { createCustomer, getCustomers, getCustomerById, updateCustomer, deleteCu
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { requireRole } from "../../middlewares/rbac.middleware.js";
 import { validateUuidParam } from "../../middlewares/uuid.middleware.js";
+import { getCustomerMemberships, postCustomerMembership, } from "../customer-memberships/customer-membership.controller.js";
 const router = Router();
 router.param("id", validateUuidParam("id"));
+router.param("customerId", validateUuidParam("customerId"));
 router.use(authenticate);
 router.post("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), createCustomer);
 router.get("/", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getCustomers);
 router.get("/:id/transactions", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getCustomerTransactions);
 router.post("/:id/wallet/add", requireRole("SUPER_ADMIN", "SALON_ADMIN"), addCustomerWalletAmount);
 router.patch("/:id/membership", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST"), assignCustomerMembership);
+router.get("/:customerId/memberships", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"), getCustomerMemberships);
+router.post("/:customerId/memberships", requireRole("SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST"), postCustomerMembership);
 router.get("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), getCustomerById);
 router.put("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN", "RECEPTIONIST", "STAFF"), updateCustomer);
 router.delete("/:id", requireRole("SUPER_ADMIN", "SALON_ADMIN"), deleteCustomer);
