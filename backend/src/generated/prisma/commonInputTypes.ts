@@ -426,6 +426,40 @@ export type EnumLeaveStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumLeaveStatusFilter<$PrismaModel>
 }
 
+export type EnumStaffAvailabilityStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffAvailabilityStatus | Prisma.EnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel> | $Enums.StaffAvailabilityStatus
+}
+
+export type EnumStaffAvailabilityStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffAvailabilityStatus | Prisma.EnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffAvailabilityStatusWithAggregatesFilter<$PrismaModel> | $Enums.StaffAvailabilityStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel>
+}
+
+export type EnumStaffTimeBlockTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTimeBlockType | Prisma.EnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel> | $Enums.StaffTimeBlockType
+}
+
+export type EnumStaffTimeBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTimeBlockType | Prisma.EnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTimeBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.StaffTimeBlockType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel>
+}
+
 export type EnumSalaryTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.SalaryType | Prisma.EnumSalaryTypeFieldRefInput<$PrismaModel>
   in?: $Enums.SalaryType[] | Prisma.ListEnumSalaryTypeFieldRefInput<$PrismaModel>
@@ -1444,6 +1478,40 @@ export type NestedEnumLeaveStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLeaveStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLeaveStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumStaffAvailabilityStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffAvailabilityStatus | Prisma.EnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel> | $Enums.StaffAvailabilityStatus
+}
+
+export type NestedEnumStaffAvailabilityStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffAvailabilityStatus | Prisma.EnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffAvailabilityStatus[] | Prisma.ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffAvailabilityStatusWithAggregatesFilter<$PrismaModel> | $Enums.StaffAvailabilityStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffAvailabilityStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumStaffTimeBlockTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTimeBlockType | Prisma.EnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel> | $Enums.StaffTimeBlockType
+}
+
+export type NestedEnumStaffTimeBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTimeBlockType | Prisma.EnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTimeBlockType[] | Prisma.ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTimeBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.StaffTimeBlockType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffTimeBlockTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumSalaryTypeFilter<$PrismaModel = never> = {

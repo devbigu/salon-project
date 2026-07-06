@@ -398,6 +398,8 @@ export const ModelName = {
   UserSession: 'UserSession',
   StaffAttendance: 'StaffAttendance',
   StaffLeave: 'StaffLeave',
+  StaffAvailabilityRule: 'StaffAvailabilityRule',
+  StaffTimeBlock: 'StaffTimeBlock',
   StaffSalaryConfig: 'StaffSalaryConfig',
   SalarySlip: 'SalarySlip',
   MainService: 'MainService',
@@ -452,7 +454,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "salon" | "user" | "customer" | "membership" | "customerMembership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "customerPackageServiceBalance" | "customerPackageUsage" | "customerPackageUsageItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
+    modelProps: "salon" | "user" | "customer" | "membership" | "customerMembership" | "customerTransaction" | "loyaltyRule" | "loyaltyTransaction" | "coupon" | "branch" | "staff" | "userSession" | "staffAttendance" | "staffLeave" | "staffAvailabilityRule" | "staffTimeBlock" | "staffSalaryConfig" | "salarySlip" | "mainService" | "service" | "serviceConsumable" | "packageCategory" | "servicePackage" | "servicePackageItem" | "appointment" | "publicBookingSetting" | "appointmentStatusHistory" | "appointmentService" | "sale" | "saleItem" | "salePayment" | "invoice" | "invoiceItem" | "customerPackage" | "customerPackageServiceBalance" | "customerPackageUsage" | "customerPackageUsageItem" | "payment" | "productBrand" | "product" | "productStockMovement" | "productPurchase" | "vendor" | "vendorPayment" | "productPurchaseItem" | "stockAlert" | "reorderSuggestion" | "auditLog" | "retailSale" | "retailSaleItem" | "expense" | "expenseCategoryDefinition" | "supportTicket" | "supportTicketMessage" | "supportTicketStatusHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1489,6 +1491,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.StaffLeaveCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.StaffLeaveCountAggregateOutputType> | number
+        }
+      }
+    }
+    StaffAvailabilityRule: {
+      payload: Prisma.$StaffAvailabilityRulePayload<ExtArgs>
+      fields: Prisma.StaffAvailabilityRuleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffAvailabilityRuleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffAvailabilityRuleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        findFirst: {
+          args: Prisma.StaffAvailabilityRuleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffAvailabilityRuleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        findMany: {
+          args: Prisma.StaffAvailabilityRuleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>[]
+        }
+        create: {
+          args: Prisma.StaffAvailabilityRuleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        createMany: {
+          args: Prisma.StaffAvailabilityRuleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffAvailabilityRuleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>[]
+        }
+        delete: {
+          args: Prisma.StaffAvailabilityRuleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        update: {
+          args: Prisma.StaffAvailabilityRuleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffAvailabilityRuleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffAvailabilityRuleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffAvailabilityRuleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffAvailabilityRuleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffAvailabilityRulePayload>
+        }
+        aggregate: {
+          args: Prisma.StaffAvailabilityRuleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaffAvailabilityRule>
+        }
+        groupBy: {
+          args: Prisma.StaffAvailabilityRuleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffAvailabilityRuleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffAvailabilityRuleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffAvailabilityRuleCountAggregateOutputType> | number
+        }
+      }
+    }
+    StaffTimeBlock: {
+      payload: Prisma.$StaffTimeBlockPayload<ExtArgs>
+      fields: Prisma.StaffTimeBlockFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffTimeBlockFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffTimeBlockFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        findFirst: {
+          args: Prisma.StaffTimeBlockFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffTimeBlockFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        findMany: {
+          args: Prisma.StaffTimeBlockFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>[]
+        }
+        create: {
+          args: Prisma.StaffTimeBlockCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        createMany: {
+          args: Prisma.StaffTimeBlockCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffTimeBlockCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>[]
+        }
+        delete: {
+          args: Prisma.StaffTimeBlockDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        update: {
+          args: Prisma.StaffTimeBlockUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffTimeBlockDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffTimeBlockUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffTimeBlockUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffTimeBlockUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffTimeBlockPayload>
+        }
+        aggregate: {
+          args: Prisma.StaffTimeBlockAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaffTimeBlock>
+        }
+        groupBy: {
+          args: Prisma.StaffTimeBlockGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffTimeBlockGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffTimeBlockCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffTimeBlockCountAggregateOutputType> | number
         }
       }
     }
@@ -4686,6 +4836,43 @@ export const StaffLeaveScalarFieldEnum = {
 export type StaffLeaveScalarFieldEnum = (typeof StaffLeaveScalarFieldEnum)[keyof typeof StaffLeaveScalarFieldEnum]
 
 
+export const StaffAvailabilityRuleScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  dayOfWeek: 'dayOfWeek',
+  startTimeMinutes: 'startTimeMinutes',
+  endTimeMinutes: 'endTimeMinutes',
+  effectiveFrom: 'effectiveFrom',
+  effectiveUntil: 'effectiveUntil',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffAvailabilityRuleScalarFieldEnum = (typeof StaffAvailabilityRuleScalarFieldEnum)[keyof typeof StaffAvailabilityRuleScalarFieldEnum]
+
+
+export const StaffTimeBlockScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  type: 'type',
+  note: 'note',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffTimeBlockScalarFieldEnum = (typeof StaffTimeBlockScalarFieldEnum)[keyof typeof StaffTimeBlockScalarFieldEnum]
+
+
 export const StaffSalaryConfigScalarFieldEnum = {
   id: 'id',
   salonId: 'salonId',
@@ -5722,6 +5909,34 @@ export type ListEnumLeaveStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'StaffAvailabilityStatus'
+ */
+export type EnumStaffAvailabilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffAvailabilityStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'StaffAvailabilityStatus[]'
+ */
+export type ListEnumStaffAvailabilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffAvailabilityStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StaffTimeBlockType'
+ */
+export type EnumStaffTimeBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffTimeBlockType'>
+    
+
+
+/**
+ * Reference to a field of type 'StaffTimeBlockType[]'
+ */
+export type ListEnumStaffTimeBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffTimeBlockType[]'>
+    
+
+
+/**
  * Reference to a field of type 'SalaryType'
  */
 export type EnumSalaryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalaryType'>
@@ -6250,6 +6465,8 @@ export type GlobalOmitConfig = {
   userSession?: Prisma.UserSessionOmit
   staffAttendance?: Prisma.StaffAttendanceOmit
   staffLeave?: Prisma.StaffLeaveOmit
+  staffAvailabilityRule?: Prisma.StaffAvailabilityRuleOmit
+  staffTimeBlock?: Prisma.StaffTimeBlockOmit
   staffSalaryConfig?: Prisma.StaffSalaryConfigOmit
   salarySlip?: Prisma.SalarySlipOmit
   mainService?: Prisma.MainServiceOmit

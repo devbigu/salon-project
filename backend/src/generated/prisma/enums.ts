@@ -101,6 +101,26 @@ export const LeaveStatus = {
 export type LeaveStatus = (typeof LeaveStatus)[keyof typeof LeaveStatus]
 
 
+export const StaffAvailabilityStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const
+
+export type StaffAvailabilityStatus = (typeof StaffAvailabilityStatus)[keyof typeof StaffAvailabilityStatus]
+
+
+export const StaffTimeBlockType = {
+  BREAK: 'BREAK',
+  PERSONAL: 'PERSONAL',
+  TRAINING: 'TRAINING',
+  MEETING: 'MEETING',
+  OFF: 'OFF',
+  OTHER: 'OTHER'
+} as const
+
+export type StaffTimeBlockType = (typeof StaffTimeBlockType)[keyof typeof StaffTimeBlockType]
+
+
 export const SalaryType = {
   MONTHLY: 'MONTHLY',
   DAILY: 'DAILY'

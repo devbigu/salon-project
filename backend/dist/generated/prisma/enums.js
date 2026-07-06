@@ -63,6 +63,18 @@ export const LeaveStatus = {
     REJECTED: 'REJECTED',
     CANCELLED: 'CANCELLED'
 };
+export const StaffAvailabilityStatus = {
+    ACTIVE: 'ACTIVE',
+    INACTIVE: 'INACTIVE'
+};
+export const StaffTimeBlockType = {
+    BREAK: 'BREAK',
+    PERSONAL: 'PERSONAL',
+    TRAINING: 'TRAINING',
+    MEETING: 'MEETING',
+    OFF: 'OFF',
+    OTHER: 'OTHER'
+};
 export const SalaryType = {
     MONTHLY: 'MONTHLY',
     DAILY: 'DAILY'

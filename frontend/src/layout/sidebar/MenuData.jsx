@@ -23,6 +23,7 @@ const getMenu = (role) => {
           icon: "users-fill",
           text: "Staff Operations",
           subMenu: [
+            { text: "Shift Roster", link: "/staff/shift-roster" },
             { text: "Attendance", link: "/staff-operations/attendance" },
             ...(role !== "RECEPTIONIST" ? [{ text: "Leaves", link: "/staff-operations/leaves" }] : []),
             ...(hasRole(role, ["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER"])

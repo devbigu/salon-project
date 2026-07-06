@@ -65,6 +65,8 @@ model Salon {
   expenseCategories              ExpenseCategoryDefinition[]
   staffAttendances               StaffAttendance[]
   staffLeaves                    StaffLeave[]
+  staffAvailabilityRules         StaffAvailabilityRule[]
+  staffTimeBlocks                StaffTimeBlock[]
   staffSalaryConfigs             StaffSalaryConfig[]
   salarySlips                    SalarySlip[]
   packageCategories              PackageCategory[]
@@ -106,26 +108,28 @@ model User {
   auditLogs            AuditLog[]
   salon                Salon?        @relation(fields: [salonId], references: [id])
 
-  reportedSupportTickets       SupportTicket[]              @relation("SupportTicketReporter")
-  assignedSupportTickets       SupportTicket[]              @relation("SupportTicketAssignedTo")
-  supportTicketMessages        SupportTicketMessage[]       @relation("SupportTicketMessageSender")
-  supportTicketStatusChanges   SupportTicketStatusHistory[] @relation("SupportTicketStatusChangedBy")
-  createdProductStockMovements ProductStockMovement[]       @relation("ProductStockMovementCreatedBy")
-  createdProductPurchases      ProductPurchase[]            @relation("ProductPurchaseCreatedBy")
-  createdRetailSales           RetailSale[]                 @relation("RetailSaleCreatedBy")
-  createdVendorPayments        VendorPayment[]              @relation("VendorPaymentCreatedBy")
-  createdExpenses              Expense[]                    @relation("ExpenseCreatedBy")
-  markedAttendances            StaffAttendance[]            @relation("AttendanceMarkedBy")
-  approvedLeaves               StaffLeave[]                 @relation("LeaveApprovedBy")
-  paidSalarySlips              SalarySlip[]                 @relation("SalarySlipPaidBy")
-  createdLoyaltyTransactions   LoyaltyTransaction[]         @relation("LoyaltyTransactionCreatedBy")
-  createdCoupons               Coupon[]
-  createdPackageCategories     PackageCategory[]            @relation("PackageCategoryCreatedBy")
-  createdServicePackages       ServicePackage[]             @relation("ServicePackageCreatedBy")
-  createdCustomerPackages      CustomerPackage[]            @relation("CustomerPackageCreatedBy")
-  createdCustomerPackageUsages CustomerPackageUsage[]       @relation("CustomerPackageUsageCreatedBy")
-  assignedCustomerMemberships  CustomerMembership[]         @relation("CustomerMembershipAssignedBy")
-  removedCustomerMemberships   CustomerMembership[]         @relation("CustomerMembershipRemovedBy")
+  reportedSupportTickets        SupportTicket[]              @relation("SupportTicketReporter")
+  assignedSupportTickets        SupportTicket[]              @relation("SupportTicketAssignedTo")
+  supportTicketMessages         SupportTicketMessage[]       @relation("SupportTicketMessageSender")
+  supportTicketStatusChanges    SupportTicketStatusHistory[] @relation("SupportTicketStatusChangedBy")
+  createdProductStockMovements  ProductStockMovement[]       @relation("ProductStockMovementCreatedBy")
+  createdProductPurchases       ProductPurchase[]            @relation("ProductPurchaseCreatedBy")
+  createdRetailSales            RetailSale[]                 @relation("RetailSaleCreatedBy")
+  createdVendorPayments         VendorPayment[]              @relation("VendorPaymentCreatedBy")
+  createdExpenses               Expense[]                    @relation("ExpenseCreatedBy")
+  markedAttendances             StaffAttendance[]            @relation("AttendanceMarkedBy")
+  approvedLeaves                StaffLeave[]                 @relation("LeaveApprovedBy")
+  paidSalarySlips               SalarySlip[]                 @relation("SalarySlipPaidBy")
+  createdLoyaltyTransactions    LoyaltyTransaction[]         @relation("LoyaltyTransactionCreatedBy")
+  createdCoupons                Coupon[]
+  createdPackageCategories      PackageCategory[]            @relation("PackageCategoryCreatedBy")
+  createdServicePackages        ServicePackage[]             @relation("ServicePackageCreatedBy")
+  createdCustomerPackages       CustomerPackage[]            @relation("CustomerPackageCreatedBy")
+  createdCustomerPackageUsages  CustomerPackageUsage[]       @relation("CustomerPackageUsageCreatedBy")
+  assignedCustomerMemberships   CustomerMembership[]         @relation("CustomerMembershipAssignedBy")
+  removedCustomerMemberships    CustomerMembership[]         @relation("CustomerMembershipRemovedBy")
+  createdStaffAvailabilityRules StaffAvailabilityRule[]      @relation("StaffAvailabilityRuleCreatedBy")
+  createdStaffTimeBlocks        StaffTimeBlock[]             @relation("StaffTimeBlockCreatedBy")
 }
 
 model Customer {
@@ -432,6 +436,8 @@ model Branch {
   expenses               Expense[]
   staffAttendances       StaffAttendance[]
   staffLeaves            StaffLeave[]
+  staffAvailabilityRules StaffAvailabilityRule[]
+  staffTimeBlocks        StaffTimeBlock[]
   staffSalaryConfigs     StaffSalaryConfig[]
   salarySlips            SalarySlip[]
   coupons                Coupon[]
@@ -481,6 +487,8 @@ model Staff {
   appointments         Appointment[]
   attendances          StaffAttendance[]
   leaves               StaffLeave[]
+  availabilityRules    StaffAvailabilityRule[]
+  timeBlocks           StaffTimeBlock[]
   salaryConfigs        StaffSalaryConfig[]
   salarySlips          SalarySlip[]
   retailSales          RetailSale[]
@@ -612,6 +620,86 @@ enum LeaveStatus {
   APPROVED
   REJECTED
   CANCELLED
+}
+
+enum StaffAvailabilityStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum StaffTimeBlockType {
+  BREAK
+  PERSONAL
+  TRAINING
+  MEETING
+  OFF
+  OTHER
+}
+
+model StaffAvailabilityRule {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  dayOfWeek        Int
+  startTimeMinutes Int
+  endTimeMinutes   Int
+  effectiveFrom    DateTime?               @db.Date
+  effectiveUntil   DateTime?               @db.Date
+  status           StaffAvailabilityStatus @default(ACTIVE)
+
+  createdById String?
+  createdBy   User?   @relation("StaffAvailabilityRuleCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([salonId])
+  @@index([branchId])
+  @@index([staffId])
+  @@index([dayOfWeek])
+  @@index([status])
+  @@index([effectiveFrom])
+  @@index([effectiveUntil])
+}
+
+model StaffTimeBlock {
+  id String @id @default(uuid())
+
+  salonId String
+  salon   Salon  @relation(fields: [salonId], references: [id])
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  staffId String
+  staff   Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  date      DateTime           @db.Date
+  startTime DateTime
+  endTime   DateTime
+  type      StaffTimeBlockType
+  note      String?
+
+  createdById String?
+  createdBy   User?   @relation("StaffTimeBlockCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([salonId])
+  @@index([branchId])
+  @@index([staffId])
+  @@index([date])
+  @@index([startTime])
+  @@index([endTime])
 }
 
 model StaffSalaryConfig {

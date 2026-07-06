@@ -17,6 +17,7 @@ import {
   getCustomerMembershipHistory,
   resolveCurrentCustomerMembership,
 } from "../customer-memberships/customer-membership.service.js";
+import { checkStaffAvailabilityForSlot } from "../staff-availability/staffAvailability.service.js";
 
 type TransactionClient = Prisma.TransactionClient;
 
@@ -357,6 +358,8 @@ const validateServices = async (
 const assertNoConflict = async (
   tx: TransactionClient,
   input: {
+    salonId: string;
+    branchId: string;
     staffId?: string | null;
     startTime: Date;
     endTime: Date;
@@ -364,20 +367,23 @@ const assertNoConflict = async (
   }
 ) => {
   if (!input.staffId) return;
-  const conflict = await tx.appointment.findFirst({
-    where: {
-      staffId: input.staffId,
-      status: { notIn: ["CANCELLED", "NO_SHOW"] },
-      startTime: { lt: input.endTime },
-      endTime: { gt: input.startTime },
-      ...(input.excludeAppointmentId
-        ? { id: { not: input.excludeAppointmentId } }
-        : {}),
-    },
-    select: { id: true },
+  await tx.$queryRaw`SELECT "id" FROM "Staff" WHERE "id" = ${input.staffId} FOR UPDATE`;
+  const availability = await checkStaffAvailabilityForSlot({
+    client: tx,
+    salonId: input.salonId,
+    branchId: input.branchId,
+    staffId: input.staffId,
+    startTime: input.startTime,
+    endTime: input.endTime,
+    ...(input.excludeAppointmentId
+      ? { excludeAppointmentId: input.excludeAppointmentId }
+      : {}),
   });
-  if (conflict) {
-    throw new JobCartError(409, "Staff already has an overlapping appointment");
+  if (!availability.available) {
+    throw new JobCartError(
+      availability.reason === "APPOINTMENT_CONFLICT" ? 409 : 400,
+      availability.message
+    );
   }
 };
 
@@ -507,6 +513,8 @@ const recalculateCart = async (
       Math.max(totalDurationMinutes, 30) * 60_000
   );
   await assertNoConflict(tx, {
+    salonId: cart.salonId,
+    branchId: cart.branchId!,
     staffId: cart.staffId,
     startTime: cart.startTime,
     endTime,
@@ -1039,6 +1047,8 @@ export const createJobCart = async (
       input.startTime.getTime() + Math.max(duration, 30) * 60_000
     );
     await assertNoConflict(tx, {
+      salonId,
+      branchId,
       ...(input.staffId ? { staffId: input.staffId } : {}),
       startTime: input.startTime,
       endTime,
@@ -1240,6 +1250,8 @@ export const updateJobCart = async (
         Math.max(existing.totalDurationMinutes, 30) * 60_000
     );
     await assertNoConflict(tx, {
+      salonId: existing.salonId,
+      branchId: existing.branchId!,
       staffId,
       startTime,
       endTime,
@@ -1843,6 +1855,8 @@ export const confirmJobCart = async (
       );
     }
     await assertNoConflict(tx, {
+      salonId: existing.salonId,
+      branchId: existing.branchId!,
       staffId: existing.staffId,
       startTime: existing.startTime,
       endTime: existing.endTime,

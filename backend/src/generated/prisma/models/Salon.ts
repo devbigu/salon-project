@@ -294,6 +294,8 @@ export type SalonWhereInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionListRelationFilter
   staffAttendances?: Prisma.StaffAttendanceListRelationFilter
   staffLeaves?: Prisma.StaffLeaveListRelationFilter
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleListRelationFilter
+  staffTimeBlocks?: Prisma.StaffTimeBlockListRelationFilter
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   packageCategories?: Prisma.PackageCategoryListRelationFilter
@@ -354,6 +356,8 @@ export type SalonOrderByWithRelationInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionOrderByRelationAggregateInput
   staffAttendances?: Prisma.StaffAttendanceOrderByRelationAggregateInput
   staffLeaves?: Prisma.StaffLeaveOrderByRelationAggregateInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleOrderByRelationAggregateInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockOrderByRelationAggregateInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigOrderByRelationAggregateInput
   salarySlips?: Prisma.SalarySlipOrderByRelationAggregateInput
   packageCategories?: Prisma.PackageCategoryOrderByRelationAggregateInput
@@ -417,6 +421,8 @@ export type SalonWhereUniqueInput = Prisma.AtLeast<{
   expenseCategories?: Prisma.ExpenseCategoryDefinitionListRelationFilter
   staffAttendances?: Prisma.StaffAttendanceListRelationFilter
   staffLeaves?: Prisma.StaffLeaveListRelationFilter
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleListRelationFilter
+  staffTimeBlocks?: Prisma.StaffTimeBlockListRelationFilter
   staffSalaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   packageCategories?: Prisma.PackageCategoryListRelationFilter
@@ -519,6 +525,8 @@ export type SalonCreateInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -579,6 +587,8 @@ export type SalonUncheckedCreateInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -639,6 +649,8 @@ export type SalonUpdateInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -699,6 +711,8 @@ export type SalonUncheckedUpdateInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -1013,6 +1027,34 @@ export type SalonUpdateOneRequiredWithoutStaffLeavesNestedInput = {
   upsert?: Prisma.SalonUpsertWithoutStaffLeavesInput
   connect?: Prisma.SalonWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutStaffLeavesInput, Prisma.SalonUpdateWithoutStaffLeavesInput>, Prisma.SalonUncheckedUpdateWithoutStaffLeavesInput>
+}
+
+export type SalonCreateNestedOneWithoutStaffAvailabilityRulesInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedCreateWithoutStaffAvailabilityRulesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutStaffAvailabilityRulesInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutStaffAvailabilityRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedCreateWithoutStaffAvailabilityRulesInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutStaffAvailabilityRulesInput
+  upsert?: Prisma.SalonUpsertWithoutStaffAvailabilityRulesInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutStaffAvailabilityRulesInput, Prisma.SalonUpdateWithoutStaffAvailabilityRulesInput>, Prisma.SalonUncheckedUpdateWithoutStaffAvailabilityRulesInput>
+}
+
+export type SalonCreateNestedOneWithoutStaffTimeBlocksInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedCreateWithoutStaffTimeBlocksInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutStaffTimeBlocksInput
+  connect?: Prisma.SalonWhereUniqueInput
+}
+
+export type SalonUpdateOneRequiredWithoutStaffTimeBlocksNestedInput = {
+  create?: Prisma.XOR<Prisma.SalonCreateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedCreateWithoutStaffTimeBlocksInput>
+  connectOrCreate?: Prisma.SalonCreateOrConnectWithoutStaffTimeBlocksInput
+  upsert?: Prisma.SalonUpsertWithoutStaffTimeBlocksInput
+  connect?: Prisma.SalonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SalonUpdateToOneWithWhereWithoutStaffTimeBlocksInput, Prisma.SalonUpdateWithoutStaffTimeBlocksInput>, Prisma.SalonUncheckedUpdateWithoutStaffTimeBlocksInput>
 }
 
 export type SalonCreateNestedOneWithoutStaffSalaryConfigsInput = {
@@ -1486,6 +1528,8 @@ export type SalonCreateWithoutUsersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -1545,6 +1589,8 @@ export type SalonUncheckedCreateWithoutUsersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -1620,6 +1666,8 @@ export type SalonUpdateWithoutUsersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -1679,6 +1727,8 @@ export type SalonUncheckedUpdateWithoutUsersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -1738,6 +1788,8 @@ export type SalonCreateWithoutCustomersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -1797,6 +1849,8 @@ export type SalonUncheckedCreateWithoutCustomersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -1872,6 +1926,8 @@ export type SalonUpdateWithoutCustomersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -1931,6 +1987,8 @@ export type SalonUncheckedUpdateWithoutCustomersInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -1990,6 +2048,8 @@ export type SalonCreateWithoutMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -2049,6 +2109,8 @@ export type SalonUncheckedCreateWithoutMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -2124,6 +2186,8 @@ export type SalonUpdateWithoutMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -2183,6 +2247,8 @@ export type SalonUncheckedUpdateWithoutMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -2243,6 +2309,8 @@ export type SalonCreateWithoutCustomerMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -2302,6 +2370,8 @@ export type SalonUncheckedCreateWithoutCustomerMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -2377,6 +2447,8 @@ export type SalonUpdateWithoutCustomerMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -2436,6 +2508,8 @@ export type SalonUncheckedUpdateWithoutCustomerMembershipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -2494,6 +2568,8 @@ export type SalonCreateWithoutCustomerTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -2553,6 +2629,8 @@ export type SalonUncheckedCreateWithoutCustomerTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -2628,6 +2706,8 @@ export type SalonUpdateWithoutCustomerTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -2687,6 +2767,8 @@ export type SalonUncheckedUpdateWithoutCustomerTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -2746,6 +2828,8 @@ export type SalonCreateWithoutLoyaltyRulesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -2805,6 +2889,8 @@ export type SalonUncheckedCreateWithoutLoyaltyRulesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -2880,6 +2966,8 @@ export type SalonUpdateWithoutLoyaltyRulesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -2939,6 +3027,8 @@ export type SalonUncheckedUpdateWithoutLoyaltyRulesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -2998,6 +3088,8 @@ export type SalonCreateWithoutLoyaltyTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -3057,6 +3149,8 @@ export type SalonUncheckedCreateWithoutLoyaltyTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -3132,6 +3226,8 @@ export type SalonUpdateWithoutLoyaltyTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -3191,6 +3287,8 @@ export type SalonUncheckedUpdateWithoutLoyaltyTransactionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -3250,6 +3348,8 @@ export type SalonCreateWithoutCouponsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -3309,6 +3409,8 @@ export type SalonUncheckedCreateWithoutCouponsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -3384,6 +3486,8 @@ export type SalonUpdateWithoutCouponsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -3443,6 +3547,8 @@ export type SalonUncheckedUpdateWithoutCouponsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -3502,6 +3608,8 @@ export type SalonCreateWithoutBranchesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -3561,6 +3669,8 @@ export type SalonUncheckedCreateWithoutBranchesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -3636,6 +3746,8 @@ export type SalonUpdateWithoutBranchesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -3695,6 +3807,8 @@ export type SalonUncheckedUpdateWithoutBranchesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -3754,6 +3868,8 @@ export type SalonCreateWithoutStaffInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -3813,6 +3929,8 @@ export type SalonUncheckedCreateWithoutStaffInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -3888,6 +4006,8 @@ export type SalonUpdateWithoutStaffInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -3947,6 +4067,8 @@ export type SalonUncheckedUpdateWithoutStaffInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -4006,6 +4128,8 @@ export type SalonCreateWithoutStaffAttendancesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -4065,6 +4189,8 @@ export type SalonUncheckedCreateWithoutStaffAttendancesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -4140,6 +4266,8 @@ export type SalonUpdateWithoutStaffAttendancesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -4199,6 +4327,8 @@ export type SalonUncheckedUpdateWithoutStaffAttendancesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -4258,6 +4388,8 @@ export type SalonCreateWithoutStaffLeavesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -4317,6 +4449,8 @@ export type SalonUncheckedCreateWithoutStaffLeavesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -4392,6 +4526,8 @@ export type SalonUpdateWithoutStaffLeavesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -4451,6 +4587,528 @@ export type SalonUncheckedUpdateWithoutStaffLeavesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutStaffAvailabilityRulesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutSalonInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutSalonInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemCreateNestedManyWithoutSalonInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutStaffAvailabilityRulesInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutStaffAvailabilityRulesInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedCreateWithoutStaffAvailabilityRulesInput>
+}
+
+export type SalonUpsertWithoutStaffAvailabilityRulesInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedUpdateWithoutStaffAvailabilityRulesInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedCreateWithoutStaffAvailabilityRulesInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutStaffAvailabilityRulesInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutStaffAvailabilityRulesInput, Prisma.SalonUncheckedUpdateWithoutStaffAvailabilityRulesInput>
+}
+
+export type SalonUpdateWithoutStaffAvailabilityRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutSalonNestedInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutSalonNestedInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUpdateManyWithoutSalonNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutStaffAvailabilityRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUncheckedUpdateManyWithoutSalonNestedInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedUpdateManyWithoutSalonNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonCreateWithoutStaffTimeBlocksInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSalonInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceCreateNestedManyWithoutSalonInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageCreateNestedManyWithoutSalonInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemCreateNestedManyWithoutSalonInput
+  customerMemberships?: Prisma.CustomerMembershipCreateNestedManyWithoutSalonInput
+}
+
+export type SalonUncheckedCreateWithoutStaffTimeBlocksInput = {
+  id?: string
+  name: string
+  salonCode?: string | null
+  timezone?: string
+  status?: boolean
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  state?: string | null
+  country?: string | null
+  postalCode?: string | null
+  phone?: string | null
+  email?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branches?: Prisma.BranchUncheckedCreateNestedManyWithoutSalonInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedCreateNestedManyWithoutSalonInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutSalonInput
+  mainServices?: Prisma.MainServiceUncheckedCreateNestedManyWithoutSalonInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutSalonInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedCreateNestedManyWithoutSalonInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutSalonInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutSalonInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSalonInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutSalonInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutSalonInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutSalonInput
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedCreateNestedManyWithoutSalonInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedCreateNestedManyWithoutSalonInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutSalonInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedCreateNestedManyWithoutSalonInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutSalonInput
+  productBrands?: Prisma.ProductBrandUncheckedCreateNestedManyWithoutSalonInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutSalonInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedCreateNestedManyWithoutSalonInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedCreateNestedManyWithoutSalonInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutSalonInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedCreateNestedManyWithoutSalonInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutSalonInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutSalonInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutSalonInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedCreateNestedManyWithoutSalonInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
+  packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
+  servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
+  servicePackageItems?: Prisma.ServicePackageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUncheckedCreateNestedManyWithoutSalonInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedCreateNestedManyWithoutSalonInput
+  customerMemberships?: Prisma.CustomerMembershipUncheckedCreateNestedManyWithoutSalonInput
+}
+
+export type SalonCreateOrConnectWithoutStaffTimeBlocksInput = {
+  where: Prisma.SalonWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalonCreateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedCreateWithoutStaffTimeBlocksInput>
+}
+
+export type SalonUpsertWithoutStaffTimeBlocksInput = {
+  update: Prisma.XOR<Prisma.SalonUpdateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedUpdateWithoutStaffTimeBlocksInput>
+  create: Prisma.XOR<Prisma.SalonCreateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedCreateWithoutStaffTimeBlocksInput>
+  where?: Prisma.SalonWhereInput
+}
+
+export type SalonUpdateToOneWithWhereWithoutStaffTimeBlocksInput = {
+  where?: Prisma.SalonWhereInput
+  data: Prisma.XOR<Prisma.SalonUpdateWithoutStaffTimeBlocksInput, Prisma.SalonUncheckedUpdateWithoutStaffTimeBlocksInput>
+}
+
+export type SalonUpdateWithoutStaffTimeBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
+  packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
+  servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
+  servicePackageItems?: Prisma.ServicePackageItemUpdateManyWithoutSalonNestedInput
+  customerPackages?: Prisma.CustomerPackageUpdateManyWithoutSalonNestedInput
+  customerPackageServiceBalances?: Prisma.CustomerPackageServiceBalanceUpdateManyWithoutSalonNestedInput
+  customerPackageUsages?: Prisma.CustomerPackageUsageUpdateManyWithoutSalonNestedInput
+  customerPackageUsageItems?: Prisma.CustomerPackageUsageItemUpdateManyWithoutSalonNestedInput
+  customerMemberships?: Prisma.CustomerMembershipUpdateManyWithoutSalonNestedInput
+}
+
+export type SalonUncheckedUpdateWithoutStaffTimeBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  salonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branches?: Prisma.BranchUncheckedUpdateManyWithoutSalonNestedInput
+  publicBookingSettings?: Prisma.PublicBookingSettingUncheckedUpdateManyWithoutSalonNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutSalonNestedInput
+  mainServices?: Prisma.MainServiceUncheckedUpdateManyWithoutSalonNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutSalonNestedInput
+  serviceConsumables?: Prisma.ServiceConsumableUncheckedUpdateManyWithoutSalonNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutSalonNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutSalonNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSalonNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutSalonNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutSalonNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutSalonNestedInput
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyRules?: Prisma.LoyaltyRuleUncheckedUpdateManyWithoutSalonNestedInput
+  loyaltyTransactions?: Prisma.LoyaltyTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutSalonNestedInput
+  customerTransactions?: Prisma.CustomerTransactionUncheckedUpdateManyWithoutSalonNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutSalonNestedInput
+  productBrands?: Prisma.ProductBrandUncheckedUpdateManyWithoutSalonNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutSalonNestedInput
+  productStockMovements?: Prisma.ProductStockMovementUncheckedUpdateManyWithoutSalonNestedInput
+  productPurchases?: Prisma.ProductPurchaseUncheckedUpdateManyWithoutSalonNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutSalonNestedInput
+  reorderSuggestions?: Prisma.ReorderSuggestionUncheckedUpdateManyWithoutSalonNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutSalonNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutSalonNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutSalonNestedInput
+  vendorPayments?: Prisma.VendorPaymentUncheckedUpdateManyWithoutSalonNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
+  expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
+  staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
+  staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -4511,6 +5169,8 @@ export type SalonCreateWithoutStaffSalaryConfigsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
@@ -4570,6 +5230,8 @@ export type SalonUncheckedCreateWithoutStaffSalaryConfigsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
@@ -4645,6 +5307,8 @@ export type SalonUpdateWithoutStaffSalaryConfigsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
@@ -4704,6 +5368,8 @@ export type SalonUncheckedUpdateWithoutStaffSalaryConfigsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
@@ -4763,6 +5429,8 @@ export type SalonCreateWithoutSalarySlipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
@@ -4822,6 +5490,8 @@ export type SalonUncheckedCreateWithoutSalarySlipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
@@ -4897,6 +5567,8 @@ export type SalonUpdateWithoutSalarySlipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
@@ -4956,6 +5628,8 @@ export type SalonUncheckedUpdateWithoutSalarySlipsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
@@ -5014,6 +5688,8 @@ export type SalonCreateWithoutMainServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -5073,6 +5749,8 @@ export type SalonUncheckedCreateWithoutMainServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -5148,6 +5826,8 @@ export type SalonUpdateWithoutMainServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -5207,6 +5887,8 @@ export type SalonUncheckedUpdateWithoutMainServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -5266,6 +5948,8 @@ export type SalonCreateWithoutServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -5325,6 +6009,8 @@ export type SalonUncheckedCreateWithoutServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -5400,6 +6086,8 @@ export type SalonUpdateWithoutServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -5459,6 +6147,8 @@ export type SalonUncheckedUpdateWithoutServicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -5518,6 +6208,8 @@ export type SalonCreateWithoutServiceConsumablesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -5577,6 +6269,8 @@ export type SalonUncheckedCreateWithoutServiceConsumablesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -5652,6 +6346,8 @@ export type SalonUpdateWithoutServiceConsumablesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -5711,6 +6407,8 @@ export type SalonUncheckedUpdateWithoutServiceConsumablesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -5771,6 +6469,8 @@ export type SalonCreateWithoutPackageCategoriesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageCreateNestedManyWithoutSalonInput
@@ -5830,6 +6530,8 @@ export type SalonUncheckedCreateWithoutPackageCategoriesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   servicePackages?: Prisma.ServicePackageUncheckedCreateNestedManyWithoutSalonInput
@@ -5905,6 +6607,8 @@ export type SalonUpdateWithoutPackageCategoriesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUpdateManyWithoutSalonNestedInput
@@ -5964,6 +6668,8 @@ export type SalonUncheckedUpdateWithoutPackageCategoriesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   servicePackages?: Prisma.ServicePackageUncheckedUpdateManyWithoutSalonNestedInput
@@ -6023,6 +6729,8 @@ export type SalonCreateWithoutServicePackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -6082,6 +6790,8 @@ export type SalonUncheckedCreateWithoutServicePackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -6157,6 +6867,8 @@ export type SalonUpdateWithoutServicePackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -6216,6 +6928,8 @@ export type SalonUncheckedUpdateWithoutServicePackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -6275,6 +6989,8 @@ export type SalonCreateWithoutServicePackageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -6334,6 +7050,8 @@ export type SalonUncheckedCreateWithoutServicePackageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -6409,6 +7127,8 @@ export type SalonUpdateWithoutServicePackageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -6468,6 +7188,8 @@ export type SalonUncheckedUpdateWithoutServicePackageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -6526,6 +7248,8 @@ export type SalonCreateWithoutAppointmentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -6585,6 +7309,8 @@ export type SalonUncheckedCreateWithoutAppointmentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -6660,6 +7386,8 @@ export type SalonUpdateWithoutAppointmentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -6719,6 +7447,8 @@ export type SalonUncheckedUpdateWithoutAppointmentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -6778,6 +7508,8 @@ export type SalonCreateWithoutPublicBookingSettingsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -6837,6 +7569,8 @@ export type SalonUncheckedCreateWithoutPublicBookingSettingsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -6912,6 +7646,8 @@ export type SalonUpdateWithoutPublicBookingSettingsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -6971,6 +7707,8 @@ export type SalonUncheckedUpdateWithoutPublicBookingSettingsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -7030,6 +7768,8 @@ export type SalonCreateWithoutSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -7089,6 +7829,8 @@ export type SalonUncheckedCreateWithoutSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -7164,6 +7906,8 @@ export type SalonUpdateWithoutSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -7223,6 +7967,8 @@ export type SalonUncheckedUpdateWithoutSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -7282,6 +8028,8 @@ export type SalonCreateWithoutInvoicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -7341,6 +8089,8 @@ export type SalonUncheckedCreateWithoutInvoicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -7416,6 +8166,8 @@ export type SalonUpdateWithoutInvoicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -7475,6 +8227,8 @@ export type SalonUncheckedUpdateWithoutInvoicesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -7535,6 +8289,8 @@ export type SalonCreateWithoutCustomerPackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -7594,6 +8350,8 @@ export type SalonUncheckedCreateWithoutCustomerPackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -7669,6 +8427,8 @@ export type SalonUpdateWithoutCustomerPackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -7728,6 +8488,8 @@ export type SalonUncheckedUpdateWithoutCustomerPackagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -7787,6 +8549,8 @@ export type SalonCreateWithoutCustomerPackageServiceBalancesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -7846,6 +8610,8 @@ export type SalonUncheckedCreateWithoutCustomerPackageServiceBalancesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -7921,6 +8687,8 @@ export type SalonUpdateWithoutCustomerPackageServiceBalancesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -7980,6 +8748,8 @@ export type SalonUncheckedUpdateWithoutCustomerPackageServiceBalancesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -8039,6 +8809,8 @@ export type SalonCreateWithoutCustomerPackageUsagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -8098,6 +8870,8 @@ export type SalonUncheckedCreateWithoutCustomerPackageUsagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -8173,6 +8947,8 @@ export type SalonUpdateWithoutCustomerPackageUsagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -8232,6 +9008,8 @@ export type SalonUncheckedUpdateWithoutCustomerPackageUsagesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -8291,6 +9069,8 @@ export type SalonCreateWithoutCustomerPackageUsageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -8350,6 +9130,8 @@ export type SalonUncheckedCreateWithoutCustomerPackageUsageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -8425,6 +9207,8 @@ export type SalonUpdateWithoutCustomerPackageUsageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -8484,6 +9268,8 @@ export type SalonUncheckedUpdateWithoutCustomerPackageUsageItemsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -8542,6 +9328,8 @@ export type SalonCreateWithoutPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -8601,6 +9389,8 @@ export type SalonUncheckedCreateWithoutPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -8676,6 +9466,8 @@ export type SalonUpdateWithoutPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -8735,6 +9527,8 @@ export type SalonUncheckedUpdateWithoutPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -8794,6 +9588,8 @@ export type SalonCreateWithoutProductBrandsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -8853,6 +9649,8 @@ export type SalonUncheckedCreateWithoutProductBrandsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -8928,6 +9726,8 @@ export type SalonUpdateWithoutProductBrandsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -8987,6 +9787,8 @@ export type SalonUncheckedUpdateWithoutProductBrandsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -9046,6 +9848,8 @@ export type SalonCreateWithoutProductsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -9105,6 +9909,8 @@ export type SalonUncheckedCreateWithoutProductsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -9180,6 +9986,8 @@ export type SalonUpdateWithoutProductsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -9239,6 +10047,8 @@ export type SalonUncheckedUpdateWithoutProductsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -9298,6 +10108,8 @@ export type SalonCreateWithoutProductStockMovementsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -9357,6 +10169,8 @@ export type SalonUncheckedCreateWithoutProductStockMovementsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -9432,6 +10246,8 @@ export type SalonUpdateWithoutProductStockMovementsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -9491,6 +10307,8 @@ export type SalonUncheckedUpdateWithoutProductStockMovementsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -9550,6 +10368,8 @@ export type SalonCreateWithoutProductPurchasesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -9609,6 +10429,8 @@ export type SalonUncheckedCreateWithoutProductPurchasesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -9684,6 +10506,8 @@ export type SalonUpdateWithoutProductPurchasesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -9743,6 +10567,8 @@ export type SalonUncheckedUpdateWithoutProductPurchasesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -9802,6 +10628,8 @@ export type SalonCreateWithoutVendorsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -9861,6 +10689,8 @@ export type SalonUncheckedCreateWithoutVendorsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -9936,6 +10766,8 @@ export type SalonUpdateWithoutVendorsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -9995,6 +10827,8 @@ export type SalonUncheckedUpdateWithoutVendorsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -10054,6 +10888,8 @@ export type SalonCreateWithoutVendorPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -10113,6 +10949,8 @@ export type SalonUncheckedCreateWithoutVendorPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -10188,6 +11026,8 @@ export type SalonUpdateWithoutVendorPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -10247,6 +11087,8 @@ export type SalonUncheckedUpdateWithoutVendorPaymentsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -10306,6 +11148,8 @@ export type SalonCreateWithoutStockAlertsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -10365,6 +11209,8 @@ export type SalonUncheckedCreateWithoutStockAlertsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -10440,6 +11286,8 @@ export type SalonUpdateWithoutStockAlertsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -10499,6 +11347,8 @@ export type SalonUncheckedUpdateWithoutStockAlertsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -10558,6 +11408,8 @@ export type SalonCreateWithoutReorderSuggestionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -10617,6 +11469,8 @@ export type SalonUncheckedCreateWithoutReorderSuggestionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -10692,6 +11546,8 @@ export type SalonUpdateWithoutReorderSuggestionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -10751,6 +11607,8 @@ export type SalonUncheckedUpdateWithoutReorderSuggestionsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -10810,6 +11668,8 @@ export type SalonCreateWithoutAuditLogsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -10869,6 +11729,8 @@ export type SalonUncheckedCreateWithoutAuditLogsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -10944,6 +11806,8 @@ export type SalonUpdateWithoutAuditLogsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -11003,6 +11867,8 @@ export type SalonUncheckedUpdateWithoutAuditLogsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -11062,6 +11928,8 @@ export type SalonCreateWithoutRetailSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -11121,6 +11989,8 @@ export type SalonUncheckedCreateWithoutRetailSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -11196,6 +12066,8 @@ export type SalonUpdateWithoutRetailSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -11255,6 +12127,8 @@ export type SalonUncheckedUpdateWithoutRetailSalesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -11314,6 +12188,8 @@ export type SalonCreateWithoutExpensesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -11373,6 +12249,8 @@ export type SalonUncheckedCreateWithoutExpensesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -11448,6 +12326,8 @@ export type SalonUpdateWithoutExpensesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -11507,6 +12387,8 @@ export type SalonUncheckedUpdateWithoutExpensesInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -11566,6 +12448,8 @@ export type SalonCreateWithoutExpenseCategoriesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -11625,6 +12509,8 @@ export type SalonUncheckedCreateWithoutExpenseCategoriesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -11700,6 +12586,8 @@ export type SalonUpdateWithoutExpenseCategoriesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -11759,6 +12647,8 @@ export type SalonUncheckedUpdateWithoutExpenseCategoriesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -11818,6 +12708,8 @@ export type SalonCreateWithoutSupportTicketsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryCreateNestedManyWithoutSalonInput
@@ -11877,6 +12769,8 @@ export type SalonUncheckedCreateWithoutSupportTicketsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedCreateNestedManyWithoutSalonInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutSalonInput
   staffLeaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutSalonInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutSalonInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutSalonInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutSalonInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutSalonInput
   packageCategories?: Prisma.PackageCategoryUncheckedCreateNestedManyWithoutSalonInput
@@ -11952,6 +12846,8 @@ export type SalonUpdateWithoutSupportTicketsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUpdateManyWithoutSalonNestedInput
@@ -12011,6 +12907,8 @@ export type SalonUncheckedUpdateWithoutSupportTicketsInput = {
   expenseCategories?: Prisma.ExpenseCategoryDefinitionUncheckedUpdateManyWithoutSalonNestedInput
   staffAttendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutSalonNestedInput
   staffLeaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutSalonNestedInput
+  staffAvailabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutSalonNestedInput
+  staffTimeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutSalonNestedInput
   staffSalaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutSalonNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutSalonNestedInput
   packageCategories?: Prisma.PackageCategoryUncheckedUpdateManyWithoutSalonNestedInput
@@ -12061,6 +12959,8 @@ export type SalonCountOutputType = {
   expenseCategories: number
   staffAttendances: number
   staffLeaves: number
+  staffAvailabilityRules: number
+  staffTimeBlocks: number
   staffSalaryConfigs: number
   salarySlips: number
   packageCategories: number
@@ -12106,6 +13006,8 @@ export type SalonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   expenseCategories?: boolean | SalonCountOutputTypeCountExpenseCategoriesArgs
   staffAttendances?: boolean | SalonCountOutputTypeCountStaffAttendancesArgs
   staffLeaves?: boolean | SalonCountOutputTypeCountStaffLeavesArgs
+  staffAvailabilityRules?: boolean | SalonCountOutputTypeCountStaffAvailabilityRulesArgs
+  staffTimeBlocks?: boolean | SalonCountOutputTypeCountStaffTimeBlocksArgs
   staffSalaryConfigs?: boolean | SalonCountOutputTypeCountStaffSalaryConfigsArgs
   salarySlips?: boolean | SalonCountOutputTypeCountSalarySlipsArgs
   packageCategories?: boolean | SalonCountOutputTypeCountPackageCategoriesArgs
@@ -12355,6 +13257,20 @@ export type SalonCountOutputTypeCountStaffLeavesArgs<ExtArgs extends runtime.Typ
 /**
  * SalonCountOutputType without action
  */
+export type SalonCountOutputTypeCountStaffAvailabilityRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffAvailabilityRuleWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
+export type SalonCountOutputTypeCountStaffTimeBlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffTimeBlockWhereInput
+}
+
+/**
+ * SalonCountOutputType without action
+ */
 export type SalonCountOutputTypeCountStaffSalaryConfigsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StaffSalaryConfigWhereInput
 }
@@ -12471,6 +13387,8 @@ export type SalonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   expenseCategories?: boolean | Prisma.Salon$expenseCategoriesArgs<ExtArgs>
   staffAttendances?: boolean | Prisma.Salon$staffAttendancesArgs<ExtArgs>
   staffLeaves?: boolean | Prisma.Salon$staffLeavesArgs<ExtArgs>
+  staffAvailabilityRules?: boolean | Prisma.Salon$staffAvailabilityRulesArgs<ExtArgs>
+  staffTimeBlocks?: boolean | Prisma.Salon$staffTimeBlocksArgs<ExtArgs>
   staffSalaryConfigs?: boolean | Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Salon$salarySlipsArgs<ExtArgs>
   packageCategories?: boolean | Prisma.Salon$packageCategoriesArgs<ExtArgs>
@@ -12572,6 +13490,8 @@ export type SalonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   expenseCategories?: boolean | Prisma.Salon$expenseCategoriesArgs<ExtArgs>
   staffAttendances?: boolean | Prisma.Salon$staffAttendancesArgs<ExtArgs>
   staffLeaves?: boolean | Prisma.Salon$staffLeavesArgs<ExtArgs>
+  staffAvailabilityRules?: boolean | Prisma.Salon$staffAvailabilityRulesArgs<ExtArgs>
+  staffTimeBlocks?: boolean | Prisma.Salon$staffTimeBlocksArgs<ExtArgs>
   staffSalaryConfigs?: boolean | Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Salon$salarySlipsArgs<ExtArgs>
   packageCategories?: boolean | Prisma.Salon$packageCategoriesArgs<ExtArgs>
@@ -12622,6 +13542,8 @@ export type $SalonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     expenseCategories: Prisma.$ExpenseCategoryDefinitionPayload<ExtArgs>[]
     staffAttendances: Prisma.$StaffAttendancePayload<ExtArgs>[]
     staffLeaves: Prisma.$StaffLeavePayload<ExtArgs>[]
+    staffAvailabilityRules: Prisma.$StaffAvailabilityRulePayload<ExtArgs>[]
+    staffTimeBlocks: Prisma.$StaffTimeBlockPayload<ExtArgs>[]
     staffSalaryConfigs: Prisma.$StaffSalaryConfigPayload<ExtArgs>[]
     salarySlips: Prisma.$SalarySlipPayload<ExtArgs>[]
     packageCategories: Prisma.$PackageCategoryPayload<ExtArgs>[]
@@ -13075,6 +13997,8 @@ export interface Prisma__SalonClient<T, Null = never, ExtArgs extends runtime.Ty
   expenseCategories<T extends Prisma.Salon$expenseCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$expenseCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpenseCategoryDefinitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffAttendances<T extends Prisma.Salon$staffAttendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffLeaves<T extends Prisma.Salon$staffLeavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffLeavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffLeavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  staffAvailabilityRules<T extends Prisma.Salon$staffAvailabilityRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffAvailabilityRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffAvailabilityRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  staffTimeBlocks<T extends Prisma.Salon$staffTimeBlocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffTimeBlocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffTimeBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   staffSalaryConfigs<T extends Prisma.Salon$staffSalaryConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$staffSalaryConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffSalaryConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salarySlips<T extends Prisma.Salon$salarySlipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$salarySlipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalarySlipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   packageCategories<T extends Prisma.Salon$packageCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Salon$packageCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PackageCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14287,6 +15211,54 @@ export type Salon$staffLeavesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.StaffLeaveScalarFieldEnum | Prisma.StaffLeaveScalarFieldEnum[]
+}
+
+/**
+ * Salon.staffAvailabilityRules
+ */
+export type Salon$staffAvailabilityRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffAvailabilityRule
+   */
+  select?: Prisma.StaffAvailabilityRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffAvailabilityRule
+   */
+  omit?: Prisma.StaffAvailabilityRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffAvailabilityRuleInclude<ExtArgs> | null
+  where?: Prisma.StaffAvailabilityRuleWhereInput
+  orderBy?: Prisma.StaffAvailabilityRuleOrderByWithRelationInput | Prisma.StaffAvailabilityRuleOrderByWithRelationInput[]
+  cursor?: Prisma.StaffAvailabilityRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffAvailabilityRuleScalarFieldEnum | Prisma.StaffAvailabilityRuleScalarFieldEnum[]
+}
+
+/**
+ * Salon.staffTimeBlocks
+ */
+export type Salon$staffTimeBlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffTimeBlock
+   */
+  select?: Prisma.StaffTimeBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffTimeBlock
+   */
+  omit?: Prisma.StaffTimeBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffTimeBlockInclude<ExtArgs> | null
+  where?: Prisma.StaffTimeBlockWhereInput
+  orderBy?: Prisma.StaffTimeBlockOrderByWithRelationInput | Prisma.StaffTimeBlockOrderByWithRelationInput[]
+  cursor?: Prisma.StaffTimeBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffTimeBlockScalarFieldEnum | Prisma.StaffTimeBlockScalarFieldEnum[]
 }
 
 /**

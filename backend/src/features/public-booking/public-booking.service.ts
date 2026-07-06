@@ -4,10 +4,13 @@ import { Prisma } from "../../generated/prisma/client.js";
 import {
   getSalonLocalParts,
   parseSalonDateRange,
-  salonLocalDateTimeToUtc,
 } from "../../utils/timezone.js";
 import { buildBusinessCode } from "../../utils/business-id.js";
 import { createAuditLog } from "../audit-logs/audit-log.service.js";
+import {
+  calculateAvailableSlots,
+  checkStaffAvailabilityForSlot,
+} from "../staff-availability/staffAvailability.service.js";
 
 type DbClient = typeof prisma | Prisma.TransactionClient;
 
@@ -48,19 +51,6 @@ export const normalizePhone = (phone: string) => {
   const digits = trimmed.replace(/\D/g, "");
   return `${trimmed.startsWith("+") ? "+" : ""}${digits}`;
 };
-
-const timeToMinutes = (value: string) => {
-  const match = /^(\d{1,2}):(\d{2})$/.exec(value.trim());
-  if (!match) return null;
-  const hours = Number(match[1]);
-  const minutes = Number(match[2]);
-  return hours <= 23 && minutes <= 59 ? hours * 60 + minutes : null;
-};
-
-const minutesToTime = (minutes: number) =>
-  `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(
-    minutes % 60
-  ).padStart(2, "0")}`;
 
 const settingInclude = {
   salon: {
@@ -244,24 +234,6 @@ const loadBookingResources = async (
   return { services, staff, totalDurationMinutes };
 };
 
-const staffUnavailableOnDate = async (
-  client: DbClient,
-  staffIds: string[],
-  date: string
-) => {
-  const day = new Date(`${date}T00:00:00.000Z`);
-  const leaves = await client.staffLeave.findMany({
-    where: {
-      staffId: { in: staffIds },
-      status: "APPROVED",
-      startDate: { lte: day },
-      endDate: { gte: day },
-    },
-    select: { staffId: true },
-  });
-  return new Set(leaves.map((leave) => leave.staffId));
-};
-
 const assertBookingWindow = (
   setting: Awaited<ReturnType<typeof getEnabledSetting>>,
   startTime: Date,
@@ -281,38 +253,6 @@ const assertBookingWindow = (
       `Bookings can only be made ${setting.bookingWindowDays} days ahead`
     );
   }
-};
-
-const staffCanWorkInterval = (
-  staff: {
-    workingFrom: string;
-    workingTo: string;
-    weekOff: string;
-  },
-  startTime: Date,
-  endTime: Date,
-  timezone: string
-) => {
-  const start = getSalonLocalParts(startTime, timezone);
-  const end = getSalonLocalParts(endTime, timezone);
-  const from = timeToMinutes(staff.workingFrom);
-  const to = timeToMinutes(staff.workingTo);
-  const startMinutes = start.hour * 60 + start.minute;
-  const endMinutes = end.hour * 60 + end.minute;
-  const weekOffs = staff.weekOff
-    .split(/[,/]/)
-    .map((value) => value.trim().toUpperCase());
-
-  return (
-    from !== null &&
-    to !== null &&
-    !weekOffs.includes(start.weekday) &&
-    start.year === end.year &&
-    start.month === end.month &&
-    start.day === end.day &&
-    startMinutes >= from &&
-    endMinutes <= to
-  );
 };
 
 export const findAvailableSlots = async (input: {
@@ -355,72 +295,19 @@ export const findAvailableSlots = async (input: {
     };
   }
 
-  const staffIds = resources.staff.map((member) => member.id);
-  const [leaveStaff, appointments] = await Promise.all([
-    staffUnavailableOnDate(prisma, staffIds, input.date),
-    prisma.appointment.findMany({
-      where: {
-        staffId: { in: staffIds },
-        status: { notIn: ["CANCELLED", "NO_SHOW"] },
-        startTime: { lt: range.end },
-        endTime: { gt: range.start },
-      },
-      select: { staffId: true, startTime: true, endTime: true },
-    }),
-  ]);
-
-  const slots: Slot[] = [];
-  for (const member of resources.staff) {
-    if (leaveStaff.has(member.id)) continue;
-    const workingFrom = timeToMinutes(member.workingFrom);
-    const workingTo = timeToMinutes(member.workingTo);
-    if (workingFrom === null || workingTo === null) continue;
-    const first =
-      Math.ceil(workingFrom / setting.slotIntervalMinutes) *
-      setting.slotIntervalMinutes;
-
-    for (
-      let minute = first;
-      minute + resources.totalDurationMinutes <= workingTo;
-      minute += setting.slotIntervalMinutes
-    ) {
-      const startTime = salonLocalDateTimeToUtc(
-        input.date,
-        minutesToTime(minute),
-        setting.salon.timezone
-      );
-      const endTime = new Date(
-        startTime.getTime() + resources.totalDurationMinutes * 60_000
-      );
-      if (
-        startTime < new Date(now.getTime() + setting.minNoticeMinutes * 60_000) ||
-        startTime > latestAllowed ||
-        !staffCanWorkInterval(member, startTime, endTime, setting.salon.timezone)
-      ) {
-        continue;
-      }
-      const conflict = appointments.some(
-        (appointment) =>
-          appointment.staffId === member.id &&
-          appointment.startTime < endTime &&
-          appointment.endTime > startTime
-      );
-      if (!conflict) {
-        slots.push({
-          startTime: startTime.toISOString(),
-          endTime: endTime.toISOString(),
-          staffId: member.id,
-          staffName: member.name,
-        });
-      }
-    }
-  }
-
-  slots.sort(
-    (left, right) =>
-      left.startTime.localeCompare(right.startTime) ||
-      left.staffName.localeCompare(right.staffName)
-  );
+  const slots: Slot[] = await calculateAvailableSlots({
+    salonId: setting.salonId,
+    branchId: input.branchId,
+    staff: resources.staff,
+    date: input.date,
+    timezone: setting.salon.timezone,
+    totalDurationMinutes: resources.totalDurationMinutes,
+    slotIntervalMinutes: setting.slotIntervalMinutes,
+    notBefore: new Date(
+      now.getTime() + setting.minNoticeMinutes * 60_000
+    ),
+    notAfter: latestAllowed,
+  });
   return {
     date: input.date,
     totalDurationMinutes: resources.totalDurationMinutes,
@@ -533,38 +420,21 @@ export const createPublicAppointment = async (
       const localDate = `${local.year}-${String(local.month).padStart(2, "0")}-${String(
         local.day
       ).padStart(2, "0")}`;
-      const unavailableStaff = await staffUnavailableOnDate(
-        tx,
-        resources.staff.map((member) => member.id),
-        localDate
-      );
-
       let chosen:
         | (typeof resources.staff)[number]
         | undefined;
       for (const member of resources.staff) {
-        if (
-          unavailableStaff.has(member.id) ||
-          !staffCanWorkInterval(
-            member,
-            input.startTime,
-            endTime,
-            setting.salon.timezone
-          )
-        ) {
-          continue;
-        }
         await lock(tx, `public-staff-day:${member.id}:${localDate}`);
-        const conflict = await tx.appointment.findFirst({
-          where: {
-            staffId: member.id,
-            status: { notIn: ["CANCELLED", "NO_SHOW"] },
-            startTime: { lt: endTime },
-            endTime: { gt: input.startTime },
-          },
-          select: { id: true },
+        await tx.$queryRaw`SELECT "id" FROM "Staff" WHERE "id" = ${member.id} FOR UPDATE`;
+        const availability = await checkStaffAvailabilityForSlot({
+          client: tx,
+          staffId: member.id,
+          startTime: input.startTime,
+          endTime,
+          salonId: setting.salonId,
+          branchId: input.branchId,
         });
-        if (!conflict) {
+        if (availability.available) {
           chosen = member;
           break;
         }

@@ -35,6 +35,7 @@ import Leaves from "@/pages/salon/Leaves";
 import SalaryConfig from "@/pages/salon/SalaryConfig";
 import SalarySlips from "@/pages/salon/SalarySlips";
 import StaffPerformance from "@/pages/salon/StaffPerformance";
+import ShiftRoster from "@/pages/salon/ShiftRoster";
 import OnlineBookingSettings from "@/pages/salon/OnlineBookingSettings";
 import JobCarts from "@/pages/salon/JobCarts";
 import JobCartCreate from "@/pages/salon/JobCartCreate";
@@ -106,6 +107,7 @@ const Router = () => (
               <Route element={<RoleRoute roles={["SUPER_ADMIN", "SALON_ADMIN", "BRANCH_MANAGER", "RECEPTIONIST", "STAFF"]} />}>
                 <Route path="staff-operations/attendance" element={<Attendance />} />
                 <Route path="staff-operations/leaves" element={<Leaves />} />
+                <Route path="staff/shift-roster" element={<ShiftRoster />} />
               </Route>
 
               <Route

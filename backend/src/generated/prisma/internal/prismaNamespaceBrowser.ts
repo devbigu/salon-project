@@ -65,6 +65,8 @@ export const ModelName = {
   UserSession: 'UserSession',
   StaffAttendance: 'StaffAttendance',
   StaffLeave: 'StaffLeave',
+  StaffAvailabilityRule: 'StaffAvailabilityRule',
+  StaffTimeBlock: 'StaffTimeBlock',
   StaffSalaryConfig: 'StaffSalaryConfig',
   SalarySlip: 'SalarySlip',
   MainService: 'MainService',
@@ -389,6 +391,43 @@ export const StaffLeaveScalarFieldEnum = {
 } as const
 
 export type StaffLeaveScalarFieldEnum = (typeof StaffLeaveScalarFieldEnum)[keyof typeof StaffLeaveScalarFieldEnum]
+
+
+export const StaffAvailabilityRuleScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  dayOfWeek: 'dayOfWeek',
+  startTimeMinutes: 'startTimeMinutes',
+  endTimeMinutes: 'endTimeMinutes',
+  effectiveFrom: 'effectiveFrom',
+  effectiveUntil: 'effectiveUntil',
+  status: 'status',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffAvailabilityRuleScalarFieldEnum = (typeof StaffAvailabilityRuleScalarFieldEnum)[keyof typeof StaffAvailabilityRuleScalarFieldEnum]
+
+
+export const StaffTimeBlockScalarFieldEnum = {
+  id: 'id',
+  salonId: 'salonId',
+  branchId: 'branchId',
+  staffId: 'staffId',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  type: 'type',
+  note: 'note',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StaffTimeBlockScalarFieldEnum = (typeof StaffTimeBlockScalarFieldEnum)[keyof typeof StaffTimeBlockScalarFieldEnum]
 
 
 export const StaffSalaryConfigScalarFieldEnum = {

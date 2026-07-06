@@ -88,6 +88,16 @@ export type StaffAttendance = Prisma.StaffAttendanceModel
  */
 export type StaffLeave = Prisma.StaffLeaveModel
 /**
+ * Model StaffAvailabilityRule
+ * 
+ */
+export type StaffAvailabilityRule = Prisma.StaffAvailabilityRuleModel
+/**
+ * Model StaffTimeBlock
+ * 
+ */
+export type StaffTimeBlock = Prisma.StaffTimeBlockModel
+/**
  * Model StaffSalaryConfig
  * 
  */

@@ -287,6 +287,8 @@ export type StaffWhereInput = {
   appointments?: Prisma.AppointmentListRelationFilter
   attendances?: Prisma.StaffAttendanceListRelationFilter
   leaves?: Prisma.StaffLeaveListRelationFilter
+  availabilityRules?: Prisma.StaffAvailabilityRuleListRelationFilter
+  timeBlocks?: Prisma.StaffTimeBlockListRelationFilter
   salaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   retailSales?: Prisma.RetailSaleListRelationFilter
@@ -322,6 +324,8 @@ export type StaffOrderByWithRelationInput = {
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   attendances?: Prisma.StaffAttendanceOrderByRelationAggregateInput
   leaves?: Prisma.StaffLeaveOrderByRelationAggregateInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleOrderByRelationAggregateInput
+  timeBlocks?: Prisma.StaffTimeBlockOrderByRelationAggregateInput
   salaryConfigs?: Prisma.StaffSalaryConfigOrderByRelationAggregateInput
   salarySlips?: Prisma.SalarySlipOrderByRelationAggregateInput
   retailSales?: Prisma.RetailSaleOrderByRelationAggregateInput
@@ -362,6 +366,8 @@ export type StaffWhereUniqueInput = Prisma.AtLeast<{
   appointments?: Prisma.AppointmentListRelationFilter
   attendances?: Prisma.StaffAttendanceListRelationFilter
   leaves?: Prisma.StaffLeaveListRelationFilter
+  availabilityRules?: Prisma.StaffAvailabilityRuleListRelationFilter
+  timeBlocks?: Prisma.StaffTimeBlockListRelationFilter
   salaryConfigs?: Prisma.StaffSalaryConfigListRelationFilter
   salarySlips?: Prisma.SalarySlipListRelationFilter
   retailSales?: Prisma.RetailSaleListRelationFilter
@@ -439,6 +445,8 @@ export type StaffCreateInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -470,6 +478,8 @@ export type StaffUncheckedCreateInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -501,6 +511,8 @@ export type StaffUpdateInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -532,6 +544,8 @@ export type StaffUncheckedUpdateInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -888,6 +902,34 @@ export type StaffUpdateOneRequiredWithoutLeavesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StaffUpdateToOneWithWhereWithoutLeavesInput, Prisma.StaffUpdateWithoutLeavesInput>, Prisma.StaffUncheckedUpdateWithoutLeavesInput>
 }
 
+export type StaffCreateNestedOneWithoutAvailabilityRulesInput = {
+  create?: Prisma.XOR<Prisma.StaffCreateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedCreateWithoutAvailabilityRulesInput>
+  connectOrCreate?: Prisma.StaffCreateOrConnectWithoutAvailabilityRulesInput
+  connect?: Prisma.StaffWhereUniqueInput
+}
+
+export type StaffUpdateOneRequiredWithoutAvailabilityRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.StaffCreateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedCreateWithoutAvailabilityRulesInput>
+  connectOrCreate?: Prisma.StaffCreateOrConnectWithoutAvailabilityRulesInput
+  upsert?: Prisma.StaffUpsertWithoutAvailabilityRulesInput
+  connect?: Prisma.StaffWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StaffUpdateToOneWithWhereWithoutAvailabilityRulesInput, Prisma.StaffUpdateWithoutAvailabilityRulesInput>, Prisma.StaffUncheckedUpdateWithoutAvailabilityRulesInput>
+}
+
+export type StaffCreateNestedOneWithoutTimeBlocksInput = {
+  create?: Prisma.XOR<Prisma.StaffCreateWithoutTimeBlocksInput, Prisma.StaffUncheckedCreateWithoutTimeBlocksInput>
+  connectOrCreate?: Prisma.StaffCreateOrConnectWithoutTimeBlocksInput
+  connect?: Prisma.StaffWhereUniqueInput
+}
+
+export type StaffUpdateOneRequiredWithoutTimeBlocksNestedInput = {
+  create?: Prisma.XOR<Prisma.StaffCreateWithoutTimeBlocksInput, Prisma.StaffUncheckedCreateWithoutTimeBlocksInput>
+  connectOrCreate?: Prisma.StaffCreateOrConnectWithoutTimeBlocksInput
+  upsert?: Prisma.StaffUpsertWithoutTimeBlocksInput
+  connect?: Prisma.StaffWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StaffUpdateToOneWithWhereWithoutTimeBlocksInput, Prisma.StaffUpdateWithoutTimeBlocksInput>, Prisma.StaffUncheckedUpdateWithoutTimeBlocksInput>
+}
+
 export type StaffCreateNestedOneWithoutSalaryConfigsInput = {
   create?: Prisma.XOR<Prisma.StaffCreateWithoutSalaryConfigsInput, Prisma.StaffUncheckedCreateWithoutSalaryConfigsInput>
   connectOrCreate?: Prisma.StaffCreateOrConnectWithoutSalaryConfigsInput
@@ -1034,6 +1076,8 @@ export type StaffCreateWithoutSalonInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1064,6 +1108,8 @@ export type StaffUncheckedCreateWithoutSalonInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1143,6 +1189,8 @@ export type StaffCreateWithoutUserInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1173,6 +1221,8 @@ export type StaffUncheckedCreateWithoutUserInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1219,6 +1269,8 @@ export type StaffUpdateWithoutUserInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -1249,6 +1301,8 @@ export type StaffUncheckedUpdateWithoutUserInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -1279,6 +1333,8 @@ export type StaffCreateWithoutBranchInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1309,6 +1365,8 @@ export type StaffUncheckedCreateWithoutBranchInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1365,6 +1423,8 @@ export type StaffCreateWithoutReporteesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1395,6 +1455,8 @@ export type StaffUncheckedCreateWithoutReporteesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1430,6 +1492,8 @@ export type StaffCreateWithoutReportingManagerInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1460,6 +1524,8 @@ export type StaffUncheckedCreateWithoutReportingManagerInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1511,6 +1577,8 @@ export type StaffUpdateWithoutReporteesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -1541,6 +1609,8 @@ export type StaffUncheckedUpdateWithoutReporteesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -1587,6 +1657,8 @@ export type StaffCreateWithoutAttendancesInput = {
   user?: Prisma.UserCreateNestedOneWithoutStaffProfileInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1617,6 +1689,8 @@ export type StaffUncheckedCreateWithoutAttendancesInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutStaffInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1663,6 +1737,8 @@ export type StaffUpdateWithoutAttendancesInput = {
   user?: Prisma.UserUpdateOneWithoutStaffProfileNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -1693,6 +1769,8 @@ export type StaffUncheckedUpdateWithoutAttendancesInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutStaffNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -1723,6 +1801,8 @@ export type StaffCreateWithoutLeavesInput = {
   user?: Prisma.UserCreateNestedOneWithoutStaffProfileInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -1753,6 +1833,8 @@ export type StaffUncheckedCreateWithoutLeavesInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutStaffInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -1799,6 +1881,8 @@ export type StaffUpdateWithoutLeavesInput = {
   user?: Prisma.UserUpdateOneWithoutStaffProfileNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -1829,6 +1913,296 @@ export type StaffUncheckedUpdateWithoutLeavesInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutStaffNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
+  soldCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSoldByStaffNestedInput
+  packageInvoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutSoldByStaffNestedInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedUpdateManyWithoutStaffNestedInput
+}
+
+export type StaffCreateWithoutAvailabilityRulesInput = {
+  id?: string
+  staffCode?: string | null
+  name: string
+  email: string
+  phone?: string | null
+  jobRole: string
+  workingFrom: string
+  workingTo: string
+  weekOff: string
+  joiningDate?: Date | string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reportingManager?: Prisma.StaffCreateNestedOneWithoutReporteesInput
+  reportees?: Prisma.StaffCreateNestedManyWithoutReportingManagerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutStaffInput
+  branch?: Prisma.BranchCreateNestedOneWithoutStaffInput
+  salon: Prisma.SalonCreateNestedOneWithoutStaffInput
+  user?: Prisma.UserCreateNestedOneWithoutStaffProfileInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
+  attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
+  leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
+  salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
+  soldCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSoldByStaffInput
+  packageInvoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutSoldByStaffInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemCreateNestedManyWithoutStaffInput
+}
+
+export type StaffUncheckedCreateWithoutAvailabilityRulesInput = {
+  id?: string
+  staffCode?: string | null
+  name: string
+  email: string
+  phone?: string | null
+  jobRole: string
+  workingFrom: string
+  workingTo: string
+  weekOff: string
+  joiningDate?: Date | string
+  status?: boolean
+  salonId: string
+  userId?: string | null
+  reportingManagerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  reportees?: Prisma.StaffUncheckedCreateNestedManyWithoutReportingManagerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutStaffInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
+  attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+  leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
+  soldCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSoldByStaffInput
+  packageInvoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutSoldByStaffInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedCreateNestedManyWithoutStaffInput
+}
+
+export type StaffCreateOrConnectWithoutAvailabilityRulesInput = {
+  where: Prisma.StaffWhereUniqueInput
+  create: Prisma.XOR<Prisma.StaffCreateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedCreateWithoutAvailabilityRulesInput>
+}
+
+export type StaffUpsertWithoutAvailabilityRulesInput = {
+  update: Prisma.XOR<Prisma.StaffUpdateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedUpdateWithoutAvailabilityRulesInput>
+  create: Prisma.XOR<Prisma.StaffCreateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedCreateWithoutAvailabilityRulesInput>
+  where?: Prisma.StaffWhereInput
+}
+
+export type StaffUpdateToOneWithWhereWithoutAvailabilityRulesInput = {
+  where?: Prisma.StaffWhereInput
+  data: Prisma.XOR<Prisma.StaffUpdateWithoutAvailabilityRulesInput, Prisma.StaffUncheckedUpdateWithoutAvailabilityRulesInput>
+}
+
+export type StaffUpdateWithoutAvailabilityRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobRole?: Prisma.StringFieldUpdateOperationsInput | string
+  workingFrom?: Prisma.StringFieldUpdateOperationsInput | string
+  workingTo?: Prisma.StringFieldUpdateOperationsInput | string
+  weekOff?: Prisma.StringFieldUpdateOperationsInput | string
+  joiningDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reportingManager?: Prisma.StaffUpdateOneWithoutReporteesNestedInput
+  reportees?: Prisma.StaffUpdateManyWithoutReportingManagerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutStaffNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutStaffNestedInput
+  salon?: Prisma.SalonUpdateOneRequiredWithoutStaffNestedInput
+  user?: Prisma.UserUpdateOneWithoutStaffProfileNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
+  attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
+  leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
+  soldCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutSoldByStaffNestedInput
+  packageInvoiceItems?: Prisma.InvoiceItemUpdateManyWithoutSoldByStaffNestedInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUpdateManyWithoutStaffNestedInput
+}
+
+export type StaffUncheckedUpdateWithoutAvailabilityRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobRole?: Prisma.StringFieldUpdateOperationsInput | string
+  workingFrom?: Prisma.StringFieldUpdateOperationsInput | string
+  workingTo?: Prisma.StringFieldUpdateOperationsInput | string
+  weekOff?: Prisma.StringFieldUpdateOperationsInput | string
+  joiningDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportingManagerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportees?: Prisma.StaffUncheckedUpdateManyWithoutReportingManagerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutStaffNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
+  attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+  leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
+  salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
+  retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
+  soldCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSoldByStaffNestedInput
+  packageInvoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutSoldByStaffNestedInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedUpdateManyWithoutStaffNestedInput
+}
+
+export type StaffCreateWithoutTimeBlocksInput = {
+  id?: string
+  staffCode?: string | null
+  name: string
+  email: string
+  phone?: string | null
+  jobRole: string
+  workingFrom: string
+  workingTo: string
+  weekOff: string
+  joiningDate?: Date | string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reportingManager?: Prisma.StaffCreateNestedOneWithoutReporteesInput
+  reportees?: Prisma.StaffCreateNestedManyWithoutReportingManagerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutStaffInput
+  branch?: Prisma.BranchCreateNestedOneWithoutStaffInput
+  salon: Prisma.SalonCreateNestedOneWithoutStaffInput
+  user?: Prisma.UserCreateNestedOneWithoutStaffProfileInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
+  attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
+  leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
+  salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
+  retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
+  soldCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSoldByStaffInput
+  packageInvoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutSoldByStaffInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemCreateNestedManyWithoutStaffInput
+}
+
+export type StaffUncheckedCreateWithoutTimeBlocksInput = {
+  id?: string
+  staffCode?: string | null
+  name: string
+  email: string
+  phone?: string | null
+  jobRole: string
+  workingFrom: string
+  workingTo: string
+  weekOff: string
+  joiningDate?: Date | string
+  status?: boolean
+  salonId: string
+  userId?: string | null
+  reportingManagerId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  branchId?: string | null
+  reportees?: Prisma.StaffUncheckedCreateNestedManyWithoutReportingManagerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutStaffInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
+  attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
+  leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
+  salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
+  retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
+  soldCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSoldByStaffInput
+  packageInvoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutSoldByStaffInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUncheckedCreateNestedManyWithoutStaffInput
+}
+
+export type StaffCreateOrConnectWithoutTimeBlocksInput = {
+  where: Prisma.StaffWhereUniqueInput
+  create: Prisma.XOR<Prisma.StaffCreateWithoutTimeBlocksInput, Prisma.StaffUncheckedCreateWithoutTimeBlocksInput>
+}
+
+export type StaffUpsertWithoutTimeBlocksInput = {
+  update: Prisma.XOR<Prisma.StaffUpdateWithoutTimeBlocksInput, Prisma.StaffUncheckedUpdateWithoutTimeBlocksInput>
+  create: Prisma.XOR<Prisma.StaffCreateWithoutTimeBlocksInput, Prisma.StaffUncheckedCreateWithoutTimeBlocksInput>
+  where?: Prisma.StaffWhereInput
+}
+
+export type StaffUpdateToOneWithWhereWithoutTimeBlocksInput = {
+  where?: Prisma.StaffWhereInput
+  data: Prisma.XOR<Prisma.StaffUpdateWithoutTimeBlocksInput, Prisma.StaffUncheckedUpdateWithoutTimeBlocksInput>
+}
+
+export type StaffUpdateWithoutTimeBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobRole?: Prisma.StringFieldUpdateOperationsInput | string
+  workingFrom?: Prisma.StringFieldUpdateOperationsInput | string
+  workingTo?: Prisma.StringFieldUpdateOperationsInput | string
+  weekOff?: Prisma.StringFieldUpdateOperationsInput | string
+  joiningDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reportingManager?: Prisma.StaffUpdateOneWithoutReporteesNestedInput
+  reportees?: Prisma.StaffUpdateManyWithoutReportingManagerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutStaffNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutStaffNestedInput
+  salon?: Prisma.SalonUpdateOneRequiredWithoutStaffNestedInput
+  user?: Prisma.UserUpdateOneWithoutStaffProfileNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
+  attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
+  leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
+  salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
+  retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
+  soldCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutSoldByStaffNestedInput
+  packageInvoiceItems?: Prisma.InvoiceItemUpdateManyWithoutSoldByStaffNestedInput
+  packageUsageItems?: Prisma.CustomerPackageUsageItemUpdateManyWithoutStaffNestedInput
+}
+
+export type StaffUncheckedUpdateWithoutTimeBlocksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobRole?: Prisma.StringFieldUpdateOperationsInput | string
+  workingFrom?: Prisma.StringFieldUpdateOperationsInput | string
+  workingTo?: Prisma.StringFieldUpdateOperationsInput | string
+  weekOff?: Prisma.StringFieldUpdateOperationsInput | string
+  joiningDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  salonId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportingManagerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reportees?: Prisma.StaffUncheckedUpdateManyWithoutReportingManagerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutStaffNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
+  attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
+  leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -1860,6 +2234,8 @@ export type StaffCreateWithoutSalaryConfigsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSoldByStaffInput
@@ -1890,6 +2266,8 @@ export type StaffUncheckedCreateWithoutSalaryConfigsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSoldByStaffInput
@@ -1936,6 +2314,8 @@ export type StaffUpdateWithoutSalaryConfigsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutSoldByStaffNestedInput
@@ -1966,6 +2346,8 @@ export type StaffUncheckedUpdateWithoutSalaryConfigsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSoldByStaffNestedInput
@@ -1996,6 +2378,8 @@ export type StaffCreateWithoutSalarySlipsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSoldByStaffInput
@@ -2026,6 +2410,8 @@ export type StaffUncheckedCreateWithoutSalarySlipsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSoldByStaffInput
@@ -2072,6 +2458,8 @@ export type StaffUpdateWithoutSalarySlipsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutSoldByStaffNestedInput
@@ -2102,6 +2490,8 @@ export type StaffUncheckedUpdateWithoutSalarySlipsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSoldByStaffNestedInput
@@ -2131,6 +2521,8 @@ export type StaffCreateWithoutAppointmentsInput = {
   user?: Prisma.UserCreateNestedOneWithoutStaffProfileInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -2161,6 +2553,8 @@ export type StaffUncheckedCreateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -2207,6 +2601,8 @@ export type StaffUpdateWithoutAppointmentsInput = {
   user?: Prisma.UserUpdateOneWithoutStaffProfileNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2237,6 +2633,8 @@ export type StaffUncheckedUpdateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -2267,6 +2665,8 @@ export type StaffCreateWithoutSalesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -2297,6 +2697,8 @@ export type StaffUncheckedCreateWithoutSalesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -2343,6 +2745,8 @@ export type StaffUpdateWithoutSalesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2373,6 +2777,8 @@ export type StaffUncheckedUpdateWithoutSalesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -2404,6 +2810,8 @@ export type StaffCreateWithoutPackageInvoiceItemsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -2434,6 +2842,8 @@ export type StaffUncheckedCreateWithoutPackageInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -2480,6 +2890,8 @@ export type StaffUpdateWithoutPackageInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2510,6 +2922,8 @@ export type StaffUncheckedUpdateWithoutPackageInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -2540,6 +2954,8 @@ export type StaffCreateWithoutSoldCustomerPackagesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -2570,6 +2986,8 @@ export type StaffUncheckedCreateWithoutSoldCustomerPackagesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -2616,6 +3034,8 @@ export type StaffUpdateWithoutSoldCustomerPackagesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2646,6 +3066,8 @@ export type StaffUncheckedUpdateWithoutSoldCustomerPackagesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -2676,6 +3098,8 @@ export type StaffCreateWithoutPackageUsageItemsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleCreateNestedManyWithoutStaffInput
@@ -2706,6 +3130,8 @@ export type StaffUncheckedCreateWithoutPackageUsageItemsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   retailSales?: Prisma.RetailSaleUncheckedCreateNestedManyWithoutStaffInput
@@ -2752,6 +3178,8 @@ export type StaffUpdateWithoutPackageUsageItemsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2782,6 +3210,8 @@ export type StaffUncheckedUpdateWithoutPackageUsageItemsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -2812,6 +3242,8 @@ export type StaffCreateWithoutRetailSalesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageCreateNestedManyWithoutSoldByStaffInput
@@ -2842,6 +3274,8 @@ export type StaffUncheckedCreateWithoutRetailSalesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutStaffInput
   attendances?: Prisma.StaffAttendanceUncheckedCreateNestedManyWithoutStaffInput
   leaves?: Prisma.StaffLeaveUncheckedCreateNestedManyWithoutStaffInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedCreateNestedManyWithoutStaffInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedCreateNestedManyWithoutStaffInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedCreateNestedManyWithoutStaffInput
   salarySlips?: Prisma.SalarySlipUncheckedCreateNestedManyWithoutStaffInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedCreateNestedManyWithoutSoldByStaffInput
@@ -2888,6 +3322,8 @@ export type StaffUpdateWithoutRetailSalesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUpdateManyWithoutSoldByStaffNestedInput
@@ -2918,6 +3354,8 @@ export type StaffUncheckedUpdateWithoutRetailSalesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   soldCustomerPackages?: Prisma.CustomerPackageUncheckedUpdateManyWithoutSoldByStaffNestedInput
@@ -2966,6 +3404,8 @@ export type StaffUpdateWithoutSalonInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -2996,6 +3436,8 @@ export type StaffUncheckedUpdateWithoutSalonInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -3064,6 +3506,8 @@ export type StaffUpdateWithoutBranchInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -3094,6 +3538,8 @@ export type StaffUncheckedUpdateWithoutBranchInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -3162,6 +3608,8 @@ export type StaffUpdateWithoutReportingManagerInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUpdateManyWithoutStaffNestedInput
@@ -3192,6 +3640,8 @@ export type StaffUncheckedUpdateWithoutReportingManagerInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutStaffNestedInput
   attendances?: Prisma.StaffAttendanceUncheckedUpdateManyWithoutStaffNestedInput
   leaves?: Prisma.StaffLeaveUncheckedUpdateManyWithoutStaffNestedInput
+  availabilityRules?: Prisma.StaffAvailabilityRuleUncheckedUpdateManyWithoutStaffNestedInput
+  timeBlocks?: Prisma.StaffTimeBlockUncheckedUpdateManyWithoutStaffNestedInput
   salaryConfigs?: Prisma.StaffSalaryConfigUncheckedUpdateManyWithoutStaffNestedInput
   salarySlips?: Prisma.SalarySlipUncheckedUpdateManyWithoutStaffNestedInput
   retailSales?: Prisma.RetailSaleUncheckedUpdateManyWithoutStaffNestedInput
@@ -3230,6 +3680,8 @@ export type StaffCountOutputType = {
   appointments: number
   attendances: number
   leaves: number
+  availabilityRules: number
+  timeBlocks: number
   salaryConfigs: number
   salarySlips: number
   retailSales: number
@@ -3244,6 +3696,8 @@ export type StaffCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   appointments?: boolean | StaffCountOutputTypeCountAppointmentsArgs
   attendances?: boolean | StaffCountOutputTypeCountAttendancesArgs
   leaves?: boolean | StaffCountOutputTypeCountLeavesArgs
+  availabilityRules?: boolean | StaffCountOutputTypeCountAvailabilityRulesArgs
+  timeBlocks?: boolean | StaffCountOutputTypeCountTimeBlocksArgs
   salaryConfigs?: boolean | StaffCountOutputTypeCountSalaryConfigsArgs
   salarySlips?: boolean | StaffCountOutputTypeCountSalarySlipsArgs
   retailSales?: boolean | StaffCountOutputTypeCountRetailSalesArgs
@@ -3295,6 +3749,20 @@ export type StaffCountOutputTypeCountAttendancesArgs<ExtArgs extends runtime.Typ
  */
 export type StaffCountOutputTypeCountLeavesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StaffLeaveWhereInput
+}
+
+/**
+ * StaffCountOutputType without action
+ */
+export type StaffCountOutputTypeCountAvailabilityRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffAvailabilityRuleWhereInput
+}
+
+/**
+ * StaffCountOutputType without action
+ */
+export type StaffCountOutputTypeCountTimeBlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffTimeBlockWhereInput
 }
 
 /**
@@ -3367,6 +3835,8 @@ export type StaffSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   appointments?: boolean | Prisma.Staff$appointmentsArgs<ExtArgs>
   attendances?: boolean | Prisma.Staff$attendancesArgs<ExtArgs>
   leaves?: boolean | Prisma.Staff$leavesArgs<ExtArgs>
+  availabilityRules?: boolean | Prisma.Staff$availabilityRulesArgs<ExtArgs>
+  timeBlocks?: boolean | Prisma.Staff$timeBlocksArgs<ExtArgs>
   salaryConfigs?: boolean | Prisma.Staff$salaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Staff$salarySlipsArgs<ExtArgs>
   retailSales?: boolean | Prisma.Staff$retailSalesArgs<ExtArgs>
@@ -3455,6 +3925,8 @@ export type StaffInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   appointments?: boolean | Prisma.Staff$appointmentsArgs<ExtArgs>
   attendances?: boolean | Prisma.Staff$attendancesArgs<ExtArgs>
   leaves?: boolean | Prisma.Staff$leavesArgs<ExtArgs>
+  availabilityRules?: boolean | Prisma.Staff$availabilityRulesArgs<ExtArgs>
+  timeBlocks?: boolean | Prisma.Staff$timeBlocksArgs<ExtArgs>
   salaryConfigs?: boolean | Prisma.Staff$salaryConfigsArgs<ExtArgs>
   salarySlips?: boolean | Prisma.Staff$salarySlipsArgs<ExtArgs>
   retailSales?: boolean | Prisma.Staff$retailSalesArgs<ExtArgs>
@@ -3488,6 +3960,8 @@ export type $StaffPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     attendances: Prisma.$StaffAttendancePayload<ExtArgs>[]
     leaves: Prisma.$StaffLeavePayload<ExtArgs>[]
+    availabilityRules: Prisma.$StaffAvailabilityRulePayload<ExtArgs>[]
+    timeBlocks: Prisma.$StaffTimeBlockPayload<ExtArgs>[]
     salaryConfigs: Prisma.$StaffSalaryConfigPayload<ExtArgs>[]
     salarySlips: Prisma.$SalarySlipPayload<ExtArgs>[]
     retailSales: Prisma.$RetailSalePayload<ExtArgs>[]
@@ -3916,6 +4390,8 @@ export interface Prisma__StaffClient<T, Null = never, ExtArgs extends runtime.Ty
   appointments<T extends Prisma.Staff$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendances<T extends Prisma.Staff$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   leaves<T extends Prisma.Staff$leavesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$leavesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffLeavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  availabilityRules<T extends Prisma.Staff$availabilityRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$availabilityRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffAvailabilityRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  timeBlocks<T extends Prisma.Staff$timeBlocksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$timeBlocksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffTimeBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salaryConfigs<T extends Prisma.Staff$salaryConfigsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$salaryConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffSalaryConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salarySlips<T extends Prisma.Staff$salarySlipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$salarySlipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalarySlipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   retailSales<T extends Prisma.Staff$retailSalesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Staff$retailSalesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RetailSalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4543,6 +5019,54 @@ export type Staff$leavesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.StaffLeaveScalarFieldEnum | Prisma.StaffLeaveScalarFieldEnum[]
+}
+
+/**
+ * Staff.availabilityRules
+ */
+export type Staff$availabilityRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffAvailabilityRule
+   */
+  select?: Prisma.StaffAvailabilityRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffAvailabilityRule
+   */
+  omit?: Prisma.StaffAvailabilityRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffAvailabilityRuleInclude<ExtArgs> | null
+  where?: Prisma.StaffAvailabilityRuleWhereInput
+  orderBy?: Prisma.StaffAvailabilityRuleOrderByWithRelationInput | Prisma.StaffAvailabilityRuleOrderByWithRelationInput[]
+  cursor?: Prisma.StaffAvailabilityRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffAvailabilityRuleScalarFieldEnum | Prisma.StaffAvailabilityRuleScalarFieldEnum[]
+}
+
+/**
+ * Staff.timeBlocks
+ */
+export type Staff$timeBlocksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffTimeBlock
+   */
+  select?: Prisma.StaffTimeBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffTimeBlock
+   */
+  omit?: Prisma.StaffTimeBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffTimeBlockInclude<ExtArgs> | null
+  where?: Prisma.StaffTimeBlockWhereInput
+  orderBy?: Prisma.StaffTimeBlockOrderByWithRelationInput | Prisma.StaffTimeBlockOrderByWithRelationInput[]
+  cursor?: Prisma.StaffTimeBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffTimeBlockScalarFieldEnum | Prisma.StaffTimeBlockScalarFieldEnum[]
 }
 
 /**

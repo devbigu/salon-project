@@ -36,6 +36,35 @@ export const salonApi = {
       }),
     remove: (id) => request(`/api/staff/${id}`, { method: "DELETE" }),
   },
+  staffAvailability: {
+    list: (query) => request("/api/staff-availability", { query }),
+    get: (id) => request(`/api/staff-availability/${id}`),
+    create: (body) =>
+      request("/api/staff-availability", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/staff-availability/${id}`, { method: "PUT", body }),
+    setStatus: (id, status) =>
+      request(`/api/staff-availability/${id}/status`, {
+        method: "PATCH",
+        body: { status },
+      }),
+    remove: (id) =>
+      request(`/api/staff-availability/${id}`, { method: "DELETE" }),
+    slots: (query) => request("/api/staff-availability/slots", { query }),
+  },
+  staffTimeBlocks: {
+    list: (query) => request("/api/staff-time-blocks", { query }),
+    get: (id) => request(`/api/staff-time-blocks/${id}`),
+    create: (body) =>
+      request("/api/staff-time-blocks", { method: "POST", body }),
+    update: (id, body) =>
+      request(`/api/staff-time-blocks/${id}`, { method: "PUT", body }),
+    remove: (id) =>
+      request(`/api/staff-time-blocks/${id}`, { method: "DELETE" }),
+  },
+  staffRoster: {
+    get: (query) => request("/api/staff-roster", { query }),
+  },
   customers: {
     list: () => request("/api/customers"),
     get: (id) => request(`/api/customers/${id}`),

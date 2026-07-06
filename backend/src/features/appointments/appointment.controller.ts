@@ -6,7 +6,7 @@ import { StaffModel } from "../staff/staff.model.js";
 import { BranchModel } from "../branches/branch.model.js";
 import { ServiceModel } from "../services/service.model.js";
 import { SalonModel } from "../salons/salon.model.js";
-import { getSalonLocalParts, parseSalonDateRange } from "../../utils/timezone.js";
+import { parseSalonDateRange } from "../../utils/timezone.js";
 import { sendInventoryError } from "../products/inventory-access.js";
 import {
   createAuditLog,
@@ -16,6 +16,10 @@ import { prisma } from "../../config/prisma.js";
 import { buildBusinessCode } from "../../utils/business-id.js";
 import { reverseAppointmentConsumables } from "../stock/appointmentConsumableReversal.service.js";
 import { reverseUsedPackageUsagesForAppointment } from "../packages/package.service.js";
+import {
+  checkStaffAvailabilityForSlot,
+  StaffAvailabilityError,
+} from "../staff-availability/staffAvailability.service.js";
 
 const APPOINTMENT_STATUSES = [
     "SCHEDULED",
@@ -35,15 +39,6 @@ const STATUS_TRANSITIONS: Record<AppointmentStatus, AppointmentStatus[]> = {
     COMPLETED: ["CANCELLED"],
     CANCELLED: [],
     NO_SHOW: [],
-};
-
-const timeToMinutes = (value: string) => {
-    const match = /^(\d{1,2}):(\d{2})$/.exec(value);
-    if (!match) return null;
-    const hours = Number(match[1]);
-    const minutes = Number(match[2]);
-    if (hours > 23 || minutes > 59) return null;
-    return hours * 60 + minutes;
 };
 
 const isValidAppointmentStatus = (
@@ -269,49 +264,22 @@ export const createAppointment = async (req: Request, res: Response) => {
         if (!salon) {
             return res.status(400).json({ success: false, message: "Salon not found" });
         }
-        const localStart = getSalonLocalParts(finalStartTime, salon.timezone);
-        const localEnd = getSalonLocalParts(finalEndTime, salon.timezone);
-
-        if (localStart.weekday === staff.weekOff.toUpperCase()) {
-            return res.status(400).json({
-                success: false,
-                message: "Staff cannot be booked on their week off",
-            });
-        }
-
-        const workingFrom = timeToMinutes(staff.workingFrom);
-        const workingTo = timeToMinutes(staff.workingTo);
-        const appointmentStart = localStart.hour * 60 + localStart.minute;
-        const appointmentEnd = localEnd.hour * 60 + localEnd.minute;
-        if (
-            workingFrom === null ||
-            workingTo === null ||
-            appointmentStart < workingFrom ||
-            appointmentEnd > workingTo ||
-            localStart.year !== localEnd.year ||
-            localStart.month !== localEnd.month ||
-            localStart.day !== localEnd.day
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: "Appointment is outside staff working hours",
-            });
-        }
-
-        const conflict = await AppointmentModel.findConflict({
-            staffId,
-            startTime: finalStartTime,
-            endTime: finalEndTime,
-        });
-
-        if (conflict) {
-            return res.status(409).json({
-                success: false,
-                message: "Staff is already booked for this time slot",
-            });
-        }
-
         const appointment = await prisma.$transaction(async (tx) => {
+          await tx.$queryRaw`SELECT "id" FROM "Staff" WHERE "id" = ${staff.id} FOR UPDATE`;
+          const availability = await checkStaffAvailabilityForSlot({
+              client: tx,
+              staffId: staff.id,
+              startTime: finalStartTime,
+              endTime: finalEndTime,
+              salonId: finalSalonId,
+              ...(finalBranchId ? { branchId: finalBranchId } : {}),
+          });
+          if (!availability.available) {
+              throw new StaffAvailabilityError(
+                  availability.reason === "APPOINTMENT_CONFLICT" ? 409 : 400,
+                  availability.message
+              );
+          }
           const created = await AppointmentModel.create({
             appointmentCode: generateAppointmentCode(salon.name, salon.timezone),
             salonId: finalSalonId,
@@ -370,6 +338,12 @@ export const createAppointment = async (req: Request, res: Response) => {
             data: appointment,
         });
     } catch (error) {
+        if (error instanceof StaffAvailabilityError) {
+            return res.status(error.status).json({
+                success: false,
+                message: error.message,
+            });
+        }
         return res.status(500).json({
             success: false,
             message: "Internal server error",
@@ -738,23 +712,27 @@ export const rescheduleAppointment = async (
             existingAppointment.totalDurationMinutes * 60 * 1000
         );
 
-        const conflict = existingAppointment.staffId
-          ? await AppointmentModel.findConflict({
-              staffId: existingAppointment.staffId,
-              startTime: finalStartTime,
-              endTime: finalEndTime,
-              excludeAppointmentId: id,
-            })
-          : null;
-
-        if (conflict) {
-            return res.status(409).json({
-                success: false,
-                message: "Staff is already booked for this time slot",
-            });
-        }
-
         const updatedAppointment = await prisma.$transaction(async (tx) => {
+          if (existingAppointment.staffId) {
+            await tx.$queryRaw`SELECT "id" FROM "Staff" WHERE "id" = ${existingAppointment.staffId} FOR UPDATE`;
+            const availability = await checkStaffAvailabilityForSlot({
+                client: tx,
+                staffId: existingAppointment.staffId,
+                startTime: finalStartTime,
+                endTime: finalEndTime,
+                excludeAppointmentId: id,
+                salonId: existingAppointment.salonId,
+                ...(existingAppointment.branchId
+                  ? { branchId: existingAppointment.branchId }
+                  : {}),
+            });
+            if (!availability.available) {
+                throw new StaffAvailabilityError(
+                    availability.reason === "APPOINTMENT_CONFLICT" ? 409 : 400,
+                    availability.message
+                );
+            }
+          }
           const updated = await AppointmentModel.updateSchedule(id, {
             startTime: finalStartTime,
             endTime: finalEndTime,
@@ -790,6 +768,12 @@ export const rescheduleAppointment = async (
             data: updatedAppointment,
         });
     } catch (error) {
+        if (error instanceof StaffAvailabilityError) {
+            return res.status(error.status).json({
+                success: false,
+                message: error.message,
+            });
+        }
         return res.status(500).json({
             success: false,
             message: "Internal server error",
