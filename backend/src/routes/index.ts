@@ -52,6 +52,7 @@ import {
   staffRosterRouter,
   staffTimeBlockRouter,
 } from "../features/staff-availability/staffAvailability.routes.js";
+import aiAssistantRoutes from "../features/ai-assistant/ai-assistant.routes.js";
 
 
 
@@ -101,6 +102,7 @@ router.use("/customer-memberships", customerMembershipRoutes);
 router.use("/staff-availability", staffAvailabilityRouter);
 router.use("/staff-time-blocks", staffTimeBlockRouter);
 router.use("/staff-roster", staffRosterRouter);
+router.use("/ai-assistant", aiAssistantRoutes);
 router.use("/customers", customerPackageCustomerRoutes);
 router.use("/", salaryConfigRoutes);
 router.use("/salary-slips", salarySlipRoutes);
