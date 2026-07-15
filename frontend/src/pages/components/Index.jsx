@@ -29,7 +29,7 @@ const ComponentsPage = ({ ...props }) => {
             </BlockTitle>
             <BlockDes>
               <p className="lead">
-                <strong>DashLite</strong> includes all the necessary components and elements with utility classes that
+                <strong>MiriSoft</strong> includes all the necessary components and elements with utility classes that
                 helps you to create your web apps or application faster.
               </p>
             </BlockDes>

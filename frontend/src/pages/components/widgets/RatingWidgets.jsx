@@ -1087,7 +1087,7 @@ const RatingWidgets = () => {
                           <textarea
                             className="form-control no-resize"
                             id="review"
-                            defaultValue="I've been using Dashlite for months now and with every update, it's just becoming better.
+                            defaultValue="I've been using MiriSoft for months now and with every update, it's just becoming better.
                             Thank you for such a great design touch. Really love it"
                           ></textarea>
                         </div>
@@ -1414,7 +1414,7 @@ const RatingWidgets = () => {
                   </div>
                   <div className="card-inner">
                     <p className="text-soft">
-                      I've been using Dashlite for months now and with every update, update it's just becoming more and
+                      I've been using MiriSoft for months now and with every update, update it's just becoming more and
                       more better it's just becoming better. Thank you for such a great design touch. Further I
                       definitely cooperate with your product . Highly appriciate it. Really love it
                     </p>
@@ -1497,7 +1497,7 @@ const RatingWidgets = () => {
               <BlockTitle tag="h5">Customization</BlockTitle>
               <BlockDes>
                 <p>
-                  You can use customize <code>Rating</code> component used in react dashlite.
+                  You can use customize <code>Rating</code> component used in react mirisoft.
                 </p>
               </BlockDes>
             </BlockHeadContent>

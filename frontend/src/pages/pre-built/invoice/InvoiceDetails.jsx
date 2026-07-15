@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Content from "@/layout/content/Content";
 import Head from "@/layout/head/Head";
-import LogoDark from "@/images/logo-dark.png";
 import {
   BlockHead,
   BlockTitle,
@@ -14,6 +13,8 @@ import {
 } from "@/components/Component";
 import { invoiceData } from "./Invoice";
 import { useParams, Link } from "react-router-dom";
+
+const MirisoftLogo = "/mirisoftlogo.png";
 
 const InvoiceDetails = () => {
   const [data] = useState(invoiceData);
@@ -77,7 +78,7 @@ const InvoiceDetails = () => {
               </div>
               <div className="invoice-wrap">
                 <div className="invoice-brand text-center">
-                  <img src={LogoDark} alt="" />
+                  <img src={MirisoftLogo} alt="MiriSoft" />
                 </div>
 
                 <div className="invoice-head">
@@ -129,7 +130,7 @@ const InvoiceDetails = () => {
                       <tbody>
                         <tr>
                           <td>24108054</td>
-                          <td>Dashlite - Conceptual App Dashboard - Regular License</td>
+                          <td>MiriSoft - Salon Management Dashboard - Regular License</td>
                           <td>${user.invoiceItem1}</td>
                           <td>1</td>
                           <td>${user.invoiceItem1}</td>

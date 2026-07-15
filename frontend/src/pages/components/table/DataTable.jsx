@@ -36,7 +36,7 @@ const DataTablePage = () => {
                 <a href="https://react-data-table-component.netlify.app/" target="_blank" rel="noreferrer">
                   documentation
                 </a>{" "}
-                for further understanding. The plugin has been customized for the purpose of React Dashlite.
+                for further understanding. The plugin has been customized for the purpose of React MiriSoft.
               </p>
             </BlockDes>
           </BlockHeadContent>
@@ -47,7 +47,7 @@ const DataTablePage = () => {
             <BlockHeadContent>
               <BlockTitle tag="h4">DataTable Default</BlockTitle>
               <p>
-                Just import <code>ReactDataTable</code> from <code>components</code>, it is built in for react dashlite.
+                Just import <code>ReactDataTable</code> from <code>components</code>, it is built in for react mirisoft.
               </p>
             </BlockHeadContent>
           </BlockHead>

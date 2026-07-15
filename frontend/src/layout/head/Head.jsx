@@ -2,7 +2,7 @@ import React from "react";
 
 const Head = ({ ...props }) => {
   return (
-      <Title>{`${props.title ? props.title + " | " : null}DashLite React Admin Template`}</Title>
+      <Title>{`${props.title ? props.title + " | " : ""}MiriSoft`}</Title>
   );
 };
 export default Head;

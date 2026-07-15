@@ -352,7 +352,7 @@ const FormLayoutsPage = ({ ...props }) => {
                         type="text"
                         id="site-name"
                         className="form-control"
-                        defaultValue="DashLite Admin Template"
+                        defaultValue="MiriSoft Admin"
                       />
                     </div>
                   </div>
@@ -387,7 +387,7 @@ const FormLayoutsPage = ({ ...props }) => {
                         type="text"
                         id="site-copyright"
                         className="form-control"
-                        defaultValue="&copy; 2019, DashLite. All Rights Reserved."
+                        defaultValue="&copy; 2025, MiriSoft. All Rights Reserved."
                       />
                     </div>
                   </div>

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Alert, Form, Input, Label, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
-import Logo from "@/images/logo.png";
-import LogoDark from "@/images/logo-dark.png";
 import Head from "@/layout/head/Head";
 import {
   Block,
@@ -15,6 +13,8 @@ import {
 } from "@/components/Component";
 import { salonApi } from "@/services/salonApi";
 import { formatDate, labelize } from "@/utils/salonFormat";
+
+const MirisoftLogo = "/mirisoftlogo.png";
 
 const PublicSupport = () => {
   const [mode, setMode] = useState("create");
@@ -63,8 +63,8 @@ const PublicSupport = () => {
       <Block className="nk-block-middle nk-auth-body wide-md">
         <div className="brand-logo pb-4 text-center">
           <Link to="/" className="logo-link">
-            <img className="logo-light logo-img logo-img-lg" src={Logo} alt="logo" />
-            <img className="logo-dark logo-img logo-img-lg" src={LogoDark} alt="logo-dark" />
+            <img className="logo-light logo-img logo-img-lg" src={MirisoftLogo} alt="MiriSoft" />
+            <img className="logo-dark logo-img logo-img-lg" src={MirisoftLogo} alt="MiriSoft" />
           </Link>
         </div>
         <PreviewCard className="card-bordered" bodyClass="card-inner-lg">
@@ -150,4 +150,3 @@ const PublicSupport = () => {
 };
 
 export default PublicSupport;
-

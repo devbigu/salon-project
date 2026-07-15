@@ -154,7 +154,7 @@ const ReactToastify = () => {
             </BlockTitle>
             <BlockDes>
               <p className="lead">
-                Every project required to display notification nice way. So in DashLite, we integrated{" "}
+                Every project required to display notification nice way. So in MiriSoft, we integrated{" "}
                 <a href="https://fkhadra.github.io/react-toastify/" target="_blank" rel="noreferrer">
                   React Toastify
                 </a>{" "}

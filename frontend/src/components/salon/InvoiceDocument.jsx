@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import LogoDark from "@/images/logo-dark.png";
 import { Icon } from "@/components/Component";
 import StatusBadge from "@/components/salon/StatusBadge";
 import { formatDate, formatMoney, labelize } from "@/utils/salonFormat";
+
+const MirisoftLogo = "/mirisoftlogo.png";
 
 const InvoiceDocument = ({ invoice, printable = false }) => (
   <div className={`invoice ${printable ? "invoice-print" : ""}`}>
     <div className="invoice-wrap">
       <div className="invoice-brand text-center">
-        <img src={LogoDark} alt={invoice.salonName || "Salon"} />
+        <img src={MirisoftLogo} alt={invoice.salonName || "MiriSoft"} />
         <h4 className="title mt-2 mb-1">{invoice.salonName}</h4>
         <div className="text-soft">
           {[invoice.salonAddress, invoice.salonPhone, invoice.salonEmail]

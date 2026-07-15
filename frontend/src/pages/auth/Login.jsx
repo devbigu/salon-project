@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Logo from "@/images/logo.png";
-import LogoDark from "@/images/logo-dark.png";
 import Head from "@/layout/head/Head";
 import AuthFooter from "./AuthFooter";
 import {
@@ -18,6 +16,8 @@ import { Form, Spinner, Alert } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/auth/AuthContext";
+
+const MirisoftLogo = "/mirisoftlogo.png";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -51,8 +51,8 @@ const Login = () => {
       <Block className="nk-block-middle nk-auth-body  wide-xs">
         <div className="brand-logo pb-4 text-center">
           <Link to={"/"} className="logo-link">
-            <img className="logo-light logo-img logo-img-lg" src={Logo} alt="logo" />
-            <img className="logo-dark logo-img logo-img-lg" src={LogoDark} alt="logo-dark" />
+            <img className="logo-light logo-img logo-img-lg" src={MirisoftLogo} alt="MiriSoft" />
+            <img className="logo-dark logo-img logo-img-lg" src={MirisoftLogo} alt="MiriSoft" />
           </Link>
         </div>
 

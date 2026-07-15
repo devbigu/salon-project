@@ -671,7 +671,7 @@ const FormElementsPage = () => {
             <BlockHeadContent>
               <BlockTitle tag="h5">React Select</BlockTitle>
               <p>
-                To use the Dashlite customized version of react-select component import it such as,{" "}
+                To use the MiriSoft customized version of react-select component import it such as,{" "}
                 <code>import {`{RSelect}`} from "/components/Component.js"</code>. Visit the official documentaion{" "}
                 <a href="https://react-select.com/home" target="_blank" rel="noreferrer">
                   here.

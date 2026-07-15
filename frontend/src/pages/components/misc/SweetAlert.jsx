@@ -193,7 +193,7 @@ const SweetAlertPage = () => {
             </BlockTitle>
             <BlockDes>
               <p className="lead">
-                Inside React DashLite, we integrated the{" "}
+                Inside React MiriSoft, we integrated the{" "}
                 <a href="https://sweetalert2.github.io/" target="_blank" rel="noreferrer">
                   SweetAlert2
                 </a>{" "}
